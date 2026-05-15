@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import type { FC, MutableRefObject } from 'react';
 import { mat4, quat, vec2, vec3 } from 'gl-matrix';
+import { motion } from 'framer-motion';
 
 const discVertShaderSource = `#version 300 es
 
@@ -663,7 +664,7 @@ class InfiniteGridMenu {
   private discGeo!: DiscGeometry;
   private worldMatrix = mat4.create();
   private tex: WebGLTexture | null = null;
-  private control!: ArcballControl;
+  public control!: ArcballControl;
 
   private discLocations!: {
     aModelPosition: number;
@@ -1006,7 +1007,7 @@ class InfiniteGridMenu {
 
   private onControlUpdate(deltaTime: number): void {
     const timeScale = deltaTime / this.TARGET_FRAME_DURATION + 0.0001;
-    let damping = 5 / timeScale;
+    let damping = 12 / timeScale;
     let cameraTargetZ = 3 * this.scaleFactor;
 
     const isMoving = this.control.isPointerDown || Math.abs(this.smoothRotationVelocity) > 0.01;
@@ -1103,8 +1104,28 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
     window.addEventListener('resize', handleResize);
     handleResize();
 
+    // Intersection Observer to trigger "preview" zoom-out every time it enters view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && sketch) {
+          // Restart animation: Snap to close-up then zoom out
+          sketch.camera.position[2] = 0.5 * scale;
+          gsap.to(sketch.camera.position, {
+            [2]: 3 * scale,
+            duration: 2.5,
+            ease: "power2.out"
+          });
+        }
+      });
+    }, { threshold: 0.1 });
+
+    if (canvasRef.current) {
+      observer.observe(canvasRef.current);
+    }
+
     return () => {
       window.removeEventListener('resize', handleResize);
+      observer.disconnect();
     };
   }, [items, scale]);
 
@@ -1201,6 +1222,18 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
           </div>
         </>
       )}
+
+      {/* Drag helper text */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-8 left-0 right-0 text-center pointer-events-none"
+      >
+        <p className="text-[var(--color-brand-marron-claro)] text-xs tracking-[0.3em] uppercase font-light">
+          Drag to view projects
+        </p>
+      </motion.div>
     </div>
   );
 };

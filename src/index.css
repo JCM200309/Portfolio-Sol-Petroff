@@ -16,6 +16,15 @@
   background-color: var(--color-brand-crema);
   color: var(--color-brand-marron-oscuro);
   font-family: var(--font-sans);
+  scroll-behavior: smooth;
+}
+
+* {
+  scroll-snap-stop: always;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 body {

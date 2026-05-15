@@ -12,7 +12,7 @@ export default function Hero() {
           <defs>
             <clipPath id="photoMask">
               {/* Photo Shape: Straight on right, arched top, curve falls smoothly to x=700 */}
-              <path d="M 1440,1000 L 1440,250 C 1440,100 1050,100 900,250 C 750,400 700,650 700,1000 Z" />
+              <path d="M 1440,1000 L 0,1000 C 300,750 500,650 700,450 C 900,250 1200,150 1440,150 Z" />
             </clipPath>
           </defs>
           
@@ -20,7 +20,7 @@ export default function Hero() {
           <path d="M 0,0 L 500,0 C 350,150 150,250 0,350 Z" fill="#f2ebe1" />
 
           {/* Masked Video */}
-          <foreignObject x="700" y="0" width="740" height="1000" clipPath="url(#photoMask)">
+          <foreignObject x="0" y="0" width="1440" height="1000" clipPath="url(#photoMask)">
             <video 
               src="/neoTratoria.mp4" 
               autoPlay muted loop playsInline 
@@ -30,15 +30,15 @@ export default function Hero() {
 
           {/* Thin bordo line outlining the video */}
           <path 
-            d="M 1440,250 C 1440,100 1050,100 900,250 C 750,400 700,650 700,1000" 
+            d="M 0,1000 C 300,750 500,650 700,450 C 900,250 1200,150 1440,150" 
             fill="none" 
-            stroke="var(--color-brand-bordo)" 
-            strokeWidth="1.5" 
+            stroke="black" 
+            strokeWidth="3" 
           />
           
           {/* Star on the line */}
-          <g transform="translate(800, 360)">
-            <path d="M 0,-12 L 2,-2 L 12,0 L 2,2 L 0,12 L -2,2 L -12,0 L -2,-2 Z" fill="var(--color-brand-bordo)" />
+          <g transform="translate(700, 450)">
+            <path d="M 0,-12 L 2,-2 L 12,0 L 2,2 L 0,12 L -2,2 L -12,0 L -2,-2 Z" fill="black" />
           </g>
         </svg>
       </div>
