@@ -4,7 +4,7 @@ import StaggeredMenu from './ui/StaggeredMenu'
 
 export default function Hero() {
   return (
-    <section className="relative w-full min-h-screen flex flex-col overflow-hidden bg-[var(--color-brand-crema)]">
+    <section className="relative w-full h-full flex flex-col overflow-hidden bg-[var(--color-brand-crema)]">
       
       {/* Background SVG for accurate curves and masked video */}
       <div className="absolute inset-0 z-0 pointer-events-none">

@@ -768,7 +768,8 @@ class InfiniteGridMenu {
   private init(onInit?: InitCallback): void {
     const gl = this.canvas.getContext('webgl2', {
       antialias: true,
-      alpha: false
+      alpha: true,
+      premultipliedAlpha: false
     });
     if (!gl) {
       throw new Error('No WebGL 2 context!');
@@ -1117,11 +1118,12 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
   };
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full bg-transparent">
       <canvas
         id="infinite-grid-menu-canvas"
         ref={canvasRef}
-        className="cursor-grab w-full h-full overflow-hidden relative outline-none active:cursor-grabbing"
+        style={{ background: 'transparent' }}
+        className="cursor-grab w-full h-full overflow-hidden relative outline-none active:cursor-grabbing bg-transparent"
       />
 
       {activeItem && (
@@ -1130,7 +1132,9 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
             className={`
           select-none
           absolute
+          font-brand
           font-black
+          text-[var(--color-brand-bordo)]
           [font-size:4rem]
           left-[1.6em]
           top-1/2
@@ -1155,6 +1159,8 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
           absolute
           max-w-[10ch]
           text-[1.5rem]
+          text-[var(--color-brand-marron-oscuro)]
+          font-light tracking-wider uppercase
           top-1/2
           right-[1%]
           transition-all
@@ -1179,9 +1185,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
           h-[60px]
           grid
           place-items-center
-          bg-[#00ffff]
-          border-[5px]
-          border-black
+          bg-[var(--color-brand-bordo)]
           rounded-full
           cursor-pointer
           transition-all
@@ -1189,11 +1193,11 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
           ${
             isMoving
               ? 'bottom-[-80px] opacity-0 pointer-events-none duration-[100ms] scale-0 -translate-x-1/2'
-              : 'bottom-[3.8em] opacity-100 pointer-events-auto duration-[500ms] scale-100 -translate-x-1/2'
+              : 'bottom-[3.8em] opacity-100 pointer-events-auto duration-[500ms] scale-100 -translate-x-1/2 hover:scale-110 hover:bg-[var(--color-brand-marron-oscuro)]'
           }
         `}
           >
-            <p className="select-none relative text-[#120F17] top-[2px] text-[26px]">&#x2197;</p>
+            <p className="select-none relative text-[var(--color-brand-crema)] top-[2px] text-[26px]">&#x2197;</p>
           </div>
         </>
       )}
