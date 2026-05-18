@@ -4,6 +4,7 @@ import Projects from './components/Projects'
 import About from './components/About'
 import Contact from './components/Contact'
 import SplashCursor from './components/ui/SplashCursor'
+import Whiteboard from './components/Whiteboard'
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
         </div>
         <div className="snap-start h-screen">
           <Productions />
+        </div>
+        <div className="snap-start h-screen">
+          <Whiteboard />
         </div>
         
         <div className="snap-start h-screen">
