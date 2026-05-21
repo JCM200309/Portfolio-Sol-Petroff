@@ -226,9 +226,6 @@ export default function Whiteboard() {
           >
             {/* Post-it Header Pin/Indicator */}
             <div className="w-full flex items-center justify-between mb-4">
-              <span className={`text-[9px] px-2 py-0.5 rounded-full font-sans tracking-widest font-medium uppercase ${project.badgeColor}`}>
-                {project.category}
-              </span>
               <span className="text-[10px] font-sans tracking-widest text-[var(--color-brand-marron-claro)]/40 font-bold">
                 0{project.id}
               </span>
