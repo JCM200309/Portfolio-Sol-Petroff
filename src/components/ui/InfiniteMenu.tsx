@@ -629,6 +629,7 @@ interface MenuItem {
   link: string;
   title: string;
   description: string;
+  num?: string;
 }
 
 type ActiveItemCallback = (index: number) => void;
@@ -859,7 +860,19 @@ class InfiniteGridMenu {
       images.forEach((img, i) => {
         const x = (i % this.atlasSize) * cellSize;
         const y = Math.floor(i / this.atlasSize) * cellSize;
-        ctx.drawImage(img, x, y, cellSize, cellSize);
+        // Cover-fit: scale the image so it fills the cell, then center-crop
+        const imgAspect = img.naturalWidth / img.naturalHeight;
+        let srcX = 0, srcY = 0, srcW = img.naturalWidth, srcH = img.naturalHeight;
+        if (imgAspect > 1) {
+          // Wider than tall: crop sides
+          srcW = img.naturalHeight;
+          srcX = (img.naturalWidth - srcW) / 2;
+        } else {
+          // Taller than wide: crop top/bottom, bias toward top to show faces
+          srcH = img.naturalWidth;
+          srcY = (img.naturalHeight - srcH) * 0.25; // 25% from top for better portrait framing
+        }
+        ctx.drawImage(img, srcX, srcY, srcW, srcH, x, y, cellSize, cellSize);
       });
 
       gl.bindTexture(gl.TEXTURE_2D, this.tex);
@@ -1067,9 +1080,10 @@ const defaultItems: MenuItem[] = [
 interface InfiniteMenuProps {
   items?: MenuItem[];
   scale?: number;
+  onItemClick?: (item: MenuItem) => void;
 }
 
-const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
+const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0, onItemClick }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null) as MutableRefObject<HTMLCanvasElement | null>;
   const [activeItem, setActiveItem] = useState<MenuItem | null>(null);
   const [isMoving, setIsMoving] = useState<boolean>(false);
@@ -1130,11 +1144,15 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
   }, [items, scale]);
 
   const handleButtonClick = () => {
-    if (!activeItem?.link) return;
-    if (activeItem.link.startsWith('http')) {
-      window.open(activeItem.link, '_blank');
-    } else {
-      console.log('Internal route:', activeItem.link);
+    if (!activeItem) return;
+    if (onItemClick) {
+      onItemClick(activeItem);
+    } else if (activeItem.link) {
+      if (activeItem.link.startsWith('http')) {
+        window.open(activeItem.link, '_blank');
+      } else {
+        console.log('Internal route:', activeItem.link);
+      }
     }
   };
 
@@ -1174,27 +1192,29 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [], scale = 1.0 }) => {
             {activeItem.title}
           </h2>
 
-          <p
-            className={`
-          select-none
-          absolute
-          max-w-[10ch]
-          text-[1.5rem]
-          text-[var(--color-brand-marron-oscuro)]
-          font-light tracking-wider uppercase
-          top-1/2
-          right-[1%]
-          transition-all
-          ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
-          ${
-            isMoving
-              ? 'opacity-0 pointer-events-none duration-[100ms] translate-x-[-60%] -translate-y-1/2'
-              : 'opacity-100 pointer-events-auto duration-[500ms] translate-x-[-90%] -translate-y-1/2'
-          }
-        `}
-          >
-            {activeItem.description}
-          </p>
+          {activeItem.num && (
+            <p
+              className={`
+            select-none
+            absolute
+            font-brand
+            font-light
+            text-[var(--color-brand-marron-oscuro)]
+            [font-size:4rem]
+            top-1/2
+            right-[1.6em]
+            transition-all
+            ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
+            ${
+              isMoving
+                ? 'opacity-0 pointer-events-none duration-[100ms] translate-x-[-20%] -translate-y-1/2'
+                : 'opacity-100 pointer-events-auto duration-[500ms] translate-x-[-20%] -translate-y-1/2'
+            }
+          `}
+            >
+              {activeItem.num}
+            </p>
+          )}
 
           <div
             onClick={handleButtonClick}

@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Sparkles, ChevronDown } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import StaggeredMenu from './ui/StaggeredMenu'
+
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -43,6 +43,7 @@ export default function Hero() {
 
   return (
     <section 
+      id="universo"
       ref={containerRef}
       className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden bg-black text-[var(--color-brand-crema)]"
     >
@@ -50,7 +51,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <video 
           ref={videoRef}
-          src="/neoTratoria.mp4" 
+          src="/videoHero.mp4" 
           autoPlay muted loop playsInline 
           className="w-full h-full object-cover opacity-60 scale-105"
         />
@@ -58,29 +59,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-black/20" />
       </div>
 
-      {/* Navigation Overlay */}
-      <div className="absolute inset-0 z-40 pointer-events-none">
-        <StaggeredMenu 
-          position="right"
-          isFixed={false}
-          logoUrl=""
-          colors={['var(--color-brand-bordo)', 'var(--color-brand-marron-claro)', '#ebdccb']}
-          accentColor="var(--color-brand-crema)"
-          menuButtonColor="var(--color-brand-crema)"
-          openMenuButtonColor="var(--color-brand-crema)"
-          items={[
-            { label: 'INICIO', ariaLabel: 'Inicio', link: '#' },
-            { label: 'SOBRE MÍ', ariaLabel: 'Sobre Mí', link: '#' },
-            { label: 'SERVICIOS', ariaLabel: 'Servicios', link: '#' },
-            { label: 'PORTFOLIO', ariaLabel: 'Portfolio', link: '#' },
-            { label: 'CONTACTO', ariaLabel: 'Contacto', link: '#' }
-          ]}
-          socialItems={[
-            { label: 'Instagram', link: '#' },
-            { label: 'TikTok', link: '#' }
-          ]}
-        />
-      </div>
+
 
       {/* Main Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl">
@@ -98,22 +77,6 @@ export default function Hero() {
             }}
           />
         </div>
-        
-        <p 
-          ref={subtextRef}
-          className="text-xl md:text-3xl font-serif italic text-[var(--color-brand-crema)]/90 max-w-2xl leading-relaxed drop-shadow-lg mb-12"
-        >
-          Curaduría visual y estética para marcas que buscan elevar su esencia.
-        </p>
-        
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="group flex items-center gap-3 px-10 py-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm tracking-[0.2em] hover:bg-white/20 transition-all duration-300"
-        >
-          EXPLORAR PROYECTOS
-          <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
-        </motion.button>
       </div>
 
       {/* Scroll Indicator */}

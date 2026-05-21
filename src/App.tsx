@@ -5,6 +5,7 @@ import About from './components/About'
 import Contact from './components/Contact'
 import SplashCursor from './components/ui/SplashCursor'
 import Whiteboard from './components/Whiteboard'
+import StaggeredMenu from './components/ui/StaggeredMenu'
 
 function App() {
   return (
@@ -18,6 +19,27 @@ function App() {
         CURL={3.0}
         COLOR="#840624"
         RAINBOW_MODE={false}
+      />
+      <StaggeredMenu 
+        position="right"
+        isFixed={true}
+        logoUrl=""
+        colors={['var(--color-brand-bordo)', 'var(--color-brand-marron-claro)', '#ebdccb']}
+        accentColor="var(--color-brand-bordo)"
+        menuButtonColor="var(--color-brand-crema)"
+        openMenuButtonColor="var(--color-brand-crema)"
+        items={[
+          { label: 'Universo', ariaLabel: 'Universo', link: '#universo' },
+          { label: 'Movimiento', ariaLabel: 'Movimiento', link: '#movimiento' },
+          { label: 'Escena', ariaLabel: 'Escena', link: '#escena' },
+          { label: 'Narrativa', ariaLabel: 'Narrativa', link: '#narrativa' },
+          { label: 'Conoceme', ariaLabel: 'Conoceme', link: '#conoceme' },
+          { label: 'Conectemos', ariaLabel: 'Conectemos', link: '#conectemos' }
+        ]}
+        socialItems={[
+          { label: 'Instagram', link: '#' },
+          { label: 'TikTok', link: '#' }
+        ]}
       />
       <main className="w-full h-full">
         <div className="snap-start h-screen">

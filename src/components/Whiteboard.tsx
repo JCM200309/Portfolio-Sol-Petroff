@@ -1,5 +1,6 @@
-import { lazy, Suspense, useState, useEffect, useRef, Component, ErrorInfo, ReactNode } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { lazy, Suspense, useState, useEffect, useRef, Component } from 'react'
+import type { ErrorInfo, ReactNode } from 'react'
+import { motion } from 'framer-motion'
 
 // Lazy-load Spline for maximum initial performance
 const Spline = lazy(() => import('@splinetool/react-spline'))
@@ -38,7 +39,6 @@ class SplineErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySta
 interface ProjectPostIt {
   id: number
   title: string
-  category: string
   image: string
   left: string
   top: string
@@ -51,9 +51,8 @@ interface ProjectPostIt {
 const whiteboardProjects: ProjectPostIt[] = [
   {
     id: 1,
-    title: 'BOOMTOWN UNBOXED',
-    category: 'CONTENT PRODUCTION',
-    image: '/Fotos/Memoria Vivido/memoriaVivido1.jpg',
+    title: 'Pre adolescentes',
+    image: '/narrativa/preAdolescentes/portada.png',
     left: '8%',
     top: '12%',
     rotate: -4,
@@ -63,9 +62,8 @@ const whiteboardProjects: ProjectPostIt[] = [
   },
   {
     id: 2,
-    title: 'OFF-SEASON, ON STRATEGY',
-    category: 'CREATIVE DIRECTION',
-    image: '/Fotos/Memoria Vivido/memoriaVivido2.jpg',
+    title: 'Ferran Adria',
+    image: '/narrativa/ferranAdria/portada.jpg',
     left: '56%',
     top: '10%',
     rotate: 3,
@@ -75,39 +73,14 @@ const whiteboardProjects: ProjectPostIt[] = [
   },
   {
     id: 3,
-    title: 'THE DOVE CODE',
-    category: 'BRANDING',
-    image: '/Fotos/Memoria Vivido/43D3B602-263E-41E2-9A83-5628F33A7DB8_L0_001-4_7_2024, 5_18_22 p.m..jpg',
+    title: 'El Plumero',
+    image: '/narrativa/elPlumero/portada.png',
     left: '14%',
     top: '48%',
     rotate: -2,
     floatDuration: 4.8,
     floatY: -12,
     badgeColor: 'bg-emerald-950/10 text-emerald-800'
-  },
-  {
-    id: 4,
-    title: 'TURNING CULTURAL CONVERSATIONS',
-    category: 'VISUAL RESEARCH',
-    image: '/Fotos/Memoria Vivido/memoriaVivido3.jpg',
-    left: '68%',
-    top: '46%',
-    rotate: 4,
-    floatDuration: 5.8,
-    floatY: -9,
-    badgeColor: 'bg-blue-950/10 text-blue-800'
-  },
-  {
-    id: 5,
-    title: 'MEMORIA VIVIDO',
-    category: 'STUDIO EDITORIAL',
-    image: '/Fotos/Memoria Vivido/memoriaVivido1.jpg',
-    left: '38%',
-    top: '28%',
-    rotate: -5,
-    floatDuration: 7,
-    floatY: -14,
-    badgeColor: 'bg-amber-950/10 text-amber-800'
   }
 ]
 
@@ -156,11 +129,11 @@ export default function Whiteboard() {
     setSplineLoaded(true)
   }
 
-  const showFallback = !canLoadSpline || splineFailed
+
 
   return (
     <section 
-      id="whiteboard" 
+      id="narrativa" 
       ref={boardRef}
       className="relative w-full h-full overflow-hidden bg-[var(--color-brand-crema)] flex flex-col justify-between"
       aria-label="Pizarra interactiva de proyectos"
@@ -200,15 +173,9 @@ export default function Whiteboard() {
 
       {/* Header Overlay */}
       <div className="relative z-10 w-full px-8 md:px-24 pt-12 md:pt-16 flex flex-col pointer-events-none">
-        <span className="text-[10px] tracking-[0.4em] font-sans text-[var(--color-brand-marron-claro)] uppercase block mb-3">
-          SANDBOX INTERACTIVO
-        </span>
         <h2 className="text-3xl md:text-5xl font-brand text-[var(--color-brand-marron-oscuro)] leading-none select-none">
-          Pizarra Creativa
+          Narrativa
         </h2>
-        <p className="text-xs font-sans text-[var(--color-brand-marron-claro)] mt-2 tracking-wider select-none">
-          Arrastra y organiza los post-its de nuestros proyectos favoritos en el espacio
-        </p>
       </div>
 
       {/* Sandbox Workspace Container */}
