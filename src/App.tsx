@@ -49,7 +49,7 @@ function App() {
           >
             ← Volver
           </a>
-          <div className="w-full h-full pt-16">
+          <div className="w-full h-full">
             {currentHash === '#movimiento' && <Projects />}
             {currentHash === '#escena' && <Productions />}
             {currentHash === '#narrativa' && <Whiteboard />}

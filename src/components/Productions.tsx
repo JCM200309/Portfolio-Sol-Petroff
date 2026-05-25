@@ -1,33 +1,21 @@
-import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
-import { animate, set, stagger } from 'animejs'
-import ProductionPhotoOverlay from './ProductionPhotoOverlay'
+import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowLeft, ZoomIn, X } from 'lucide-react'
+import MemoriaVividoExperience from './MemoriaVividoExperience'
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-interface Production {
-  id: number
-  num: string
-  title: string
-  subtitle: string
-  image: string
-  photos: string[]
-  longDescription: string
-  color: string
-  featured?: boolean
+// Dynamic Project Gallery Database
+interface ProjectData {
+  title: string;
+  subtitle: string;
+  photos: string[];
 }
 
-// ─── Data — ordered by hierarchy ─────────────────────────────────────────────
-
-const productions: Production[] = [
-  {
-    id: 1,
-    num: '01',
+const projectGalleries: Record<string, ProjectData> = {
+  'memoria-vivido': {
     title: 'Memoria Vívido',
-    subtitle: 'Editorial de tendencias',
-    featured: true,
-    image: '/producciones/memoriaVivido/foto principal.jpg',
+    subtitle: 'Editorial de Moda / Producción Escénica',
     photos: [
+      '/producciones/memoriaVivido/portada.JPG',
       '/producciones/memoriaVivido/foto principal.jpg',
       '/producciones/memoriaVivido/471988EA-FB4A-409D-9469-30F36DD5F0A8_L0_001-4_7_2024, 4_46_10 p.m..jpg',
       '/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg',
@@ -35,34 +23,22 @@ const productions: Production[] = [
       '/producciones/memoriaVivido/BAEE5B7E-3A79-4FB2-9CE5-9709AE4A0256_L0_001-4_7_2024, 4_46_10 p.m..jpg',
       '/producciones/memoriaVivido/D9742183-A5A7-46D6-AB10-7A5753506F1D_L0_001-4_7_2024, 4_46_12 p.m..jpg',
       '/producciones/memoriaVivido/DEFAEDF5-C8A4-4749-A019-35E3FC68706A_L0_001-4_7_2024, 4_46_10 p.m..jpg',
-    ],
-    longDescription:
-      'Editorial basada en un reporte de tendencias que desarrolla el concepto de "memoria vivido", representando un universo estético desde la nostalgia y el recuerdo como un peso. Se plasma la naturaleza expansiva y a veces caótica de la memoria, y como se convive con ese peso.',
-    color: '#f6e0e3',
+    ]
   },
-  {
-    id: 4,
-    num: '02',
+  'neo-trattoria': {
     title: 'Neo Trattoria',
-    subtitle: 'Nostalgia contemporánea',
-    image: '/producciones/neoTrattoria/fotoPortada.JPG',
+    subtitle: 'Editorial de Tendencias / Nostalgia Contemporánea',
     photos: [
       '/producciones/neoTrattoria/fotoPortada.JPG',
       '/producciones/neoTrattoria/image-1ece3b78-ba85-4ade-834d-db38a1d2334a.webp',
       '/producciones/neoTrattoria/image-2dbdc33d-cb5e-4f4f-b608-58cab0a92803.webp',
       '/producciones/neoTrattoria/image-6c536fd8-f84b-4020-b323-5951d0483c10.webp',
-      '/producciones/neoTrattoria/image-f56d6f9a-82f6-42b8-808e-5a0f755f5a10.webp',
-    ],
-    longDescription:
-      'Neo Trattoria explora la convivencia entre lo orgánico y lo estructural, articulando formas curvas, repeticiones y superposiciones que generan un equilibrio entre exceso y armonía.',
-    color: '#f1f1de',
+      '/producciones/neoTrattoria/image-f56d6f9a-82f6-42b8-808e-5a0f755f5a10.webp'
+    ]
   },
-  {
-    id: 2,
-    num: '03',
+  'no-futuro': {
     title: 'No Futuro',
-    subtitle: 'Subcultura Punk',
-    image: '/producciones/noFuturo/fotoPortada.JPG',
+    subtitle: 'Editorial Punk / Poses y Expresión de Protesta',
     photos: [
       '/producciones/noFuturo/fotoPortada.JPG',
       '/producciones/noFuturo/IMG_8052.JPG',
@@ -71,270 +47,455 @@ const productions: Production[] = [
       '/producciones/noFuturo/IMG_8065.JPG',
       '/producciones/noFuturo/IMG_8066.JPG',
       '/producciones/noFuturo/IMG_8070.JPG',
-      '/producciones/noFuturo/IMG_8081.JPG',
-    ],
-    longDescription:
-      'En esta editorial busqué trabajar dentro de la subcultura Punk, el concepto de No – Futuro. Mediante las luces, poses y expresiones faciales reflejamos la personalidad de protesta, rebeldía.',
-    color: '#e8def1',
+      '/producciones/noFuturo/IMG_8081.JPG'
+    ]
   },
-  {
-    id: 3,
-    num: '04',
+  'anos-20': {
     title: 'Años 20',
-    subtitle: 'Elegancia de época',
-    image: '/producciones/años20/fotoPortada.webp',
+    subtitle: 'Editorial Retro / Elegancia y Liberación de Época',
     photos: [
       '/producciones/años20/fotoPortada.webp',
       '/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp',
       '/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp',
       '/producciones/años20/image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp',
-      '/producciones/años20/image-ab55dd13-2ec1-435c-b54b-c6ed1f6ab46e.webp',
-    ],
-    longDescription:
-      'Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la elegancia, la liberación y la modernidad emergente.',
-    color: '#dee8f1',
-  },
-]
-
-// ─── Width percentages: default (resting) state ───────────────────────────────
-// Featured starts expanded; others share the rest proportionally
-const DEFAULT_WIDTHS  = [46, 22, 22, 10]   // Memoria, NeoTratt, NoFuturo, Años20
-// When card i is hovered → it expands to HOVER_W; others shrink proportionally
-const HOVER_W   = 52  // expanded card %
-const HOVER_MIN = 6   // minimum non-featured card %
-
-function widthsForHover(hoveredIdx: number): number[] {
-  const result = productions.map((_, i) => {
-    if (i === hoveredIdx) return HOVER_W
-    // Featured card (0) retains more space when not hovered
-    if (i === 0 && hoveredIdx !== 0) return 22
-    return HOVER_MIN
-  })
-  // normalise to sum 100 (rounding may drift)
-  const sum = result.reduce((a, b) => a + b, 0)
-  return result.map(w => (w / sum) * 100)
-}
-
-// ─── Component ────────────────────────────────────────────────────────────────
+      '/producciones/años20/image-ab55dd13-2ec1-435c-b54b-c6ed1f6ab46e.webp'
+    ]
+  }
+};
 
 export default function Productions() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const cardRefs   = useRef<(HTMLDivElement | null)[]>([])
-  const bgRef      = useRef<HTMLDivElement>(null)
+  const [activeProject, setActiveProject] = useState<string | null>(null)
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
+  const [isHovering, setIsHovering] = useState(false)
+  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null)
+  
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const [activeIdx, setActiveIdx]           = useState<number | null>(null)
-  const [selectedProduction, setSelectedProduction] = useState<Production | null>(null)
+  // Track mouse coordinates for parallax and custom cursor
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect()
+      // Calculate coordinates relative to the scroll container box
+      const x = clientX - rect.left
+      const y = clientY - rect.top
+      setCursorPos({ x, y })
 
-  // ── Entrance animation on mount ──────────────────────────────────────────
-  useEffect(() => {
-    const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[]
-
-    // Start invisible
-    set(cards, { opacity: 0, translateY: 30 })
-
-    // Staggered entrance — spring physics
-    animate(cards, {
-      opacity:    [0, 1],
-      translateY: [30, 0],
-      delay:   stagger(90, { start: 200 }),
-      duration: 900,
-      ease:   'spring(1, 80, 12, 0)',
-    })
-  }, [])
-
-  // ── Accordion: animate widths on hover ───────────────────────────────────
-  const animateWidths = (widths: number[]) => {
-    widths.forEach((w, i) => {
-      const el = cardRefs.current[i]
-      if (!el) return
-      animate(el, {
-        width:    `${w}%`,
-        duration: 600,
-        ease:     'cubicBezier(0.25, 0.46, 0.45, 0.94)',
-      })
-    })
-  }
-
-  const handleMouseEnter = (idx: number) => {
-    setActiveIdx(idx)
-    animateWidths(widthsForHover(idx))
-
-    // Animate background colour via the bg overlay div
-    if (bgRef.current) {
-      bgRef.current.style.backgroundColor = productions[idx].color
-      animate(bgRef.current, {
-        opacity:  [0, 1],
-        duration: 500,
-        ease:     'outQuad',
-      })
+      // Translate coordinates to range [-1, 1] relative to container center
+      const normX = (x / rect.width) * 2 - 1
+      const normY = (y / rect.height) * 2 - 1
+      setMousePos({ x: normX, y: normY })
     }
+  };
 
-    // Scale up hovered image slightly, dim others
-    cardRefs.current.forEach((el, i) => {
-      if (!el) return
-      const img = el.querySelector('.card-img') as HTMLElement
-      if (!img) return
-      animate(img, {
-        scale:    i === idx ? 1.05 : 0.98,
-        opacity:  i === idx ? 1    : (i === 0 && idx !== 0 ? 0.72 : 0.55),
-        duration: 450,
-        ease:     'outQuad',
-      })
-    })
-  }
-
-  const handleMouseLeave = () => {
-    setActiveIdx(null)
-    animateWidths(DEFAULT_WIDTHS)
-
-    if (bgRef.current) {
-      animate(bgRef.current, {
-        opacity:  [1, 0],
-        duration: 600,
-        ease:     'outQuad',
-      })
-    }
-
-    // Reset all images
-    cardRefs.current.forEach(el => {
-      if (!el) return
-      const img = el.querySelector('.card-img') as HTMLElement
-      if (!img) return
-      animate(img, { scale: 1, opacity: 1, duration: 400, ease: 'outQuad' })
-    })
-  }
+  const currentGallery = activeProject ? projectGalleries[activeProject] : null;
 
   return (
-    <>
-      <section
-        id="escena"
-        ref={sectionRef}
-        className="relative w-full h-full overflow-hidden flex flex-col"
-        style={{ backgroundColor: 'var(--color-brand-crema)' }}
-        onMouseLeave={handleMouseLeave}
-      >
-        {/* Colour background overlay */}
-        <div
-          ref={bgRef}
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{ opacity: 0, backgroundColor: productions[0].color }}
-        />
-
-        {/* Noise texture */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.04] mix-blend-overlay z-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-
-        {/* Section label */}
-        <span className="absolute top-5 left-8 z-10 text-[9px] tracking-[0.32em] uppercase text-[var(--color-brand-marron-claro)] font-sans pointer-events-none select-none">
-          Producciones
-        </span>
-
-        {/* ── Accordion strip ─────────────────────────────────────────────── */}
-        <div className="relative z-10 flex flex-row w-full h-full pt-16 pb-10 px-6 gap-3">
-          {productions.map((prod, i) => {
-            const isFeatured = prod.featured === true
-            const isActive   = activeIdx === i
-            const isAnyActive = activeIdx !== null
-
-            return (
-              <div
-                key={prod.id}
-                ref={el => { cardRefs.current[i] = el }}
-                className="relative flex flex-col cursor-pointer group"
-                style={{
-                  width:          `${DEFAULT_WIDTHS[i]}%`,
-                  flexShrink:     0,
-                  willChange:     'width',
+    <section
+      id="escena"
+      ref={containerRef}
+      className="relative w-full h-full min-h-screen bg-black"
+    >
+      <AnimatePresence mode="wait">
+        {activeProject === null ? (
+          /* STATE 1: Landing Category Scroll View (Landing + Grid) */
+          <motion.div
+            key="landing-scroll"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7 }}
+            className="w-full h-full min-h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth bg-black pointer-events-auto"
+            onMouseMove={handleMouseMove}
+          >
+            {/* Slide 1: Hero Landing (Memoria Vívido) */}
+            <div
+              onClick={() => setActiveProject('memoria-vivido')}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+              className="snap-start w-full h-screen relative flex items-center justify-start cursor-none select-none overflow-hidden bg-black"
+            >
+              {/* Parallax & Ken Burns Background Image */}
+              <motion.div
+                animate={{
+                  x: mousePos.x * 6,
+                  y: mousePos.y * 6,
+                  scale: isHovering ? 1.015 : 1.0
                 }}
-                onMouseEnter={() => handleMouseEnter(i)}
-                onClick={() => setSelectedProduction(prod)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={e => e.key === 'Enter' && setSelectedProduction(prod)}
-                aria-label={`Explorar producción ${prod.title}`}
+                transition={{ type: 'tween', ease: 'easeOut', duration: 0.5 }}
+                className="absolute inset-0 z-0 w-full h-full overflow-hidden bg-black"
               >
-                {/* ── Polaroid card ───────────────────────────────────── */}
-                <div
-                  className="relative flex-1 overflow-hidden rounded-[2px] shadow-[0_8px_40px_rgba(0,0,0,0.10)]"
-                  style={{
-                    // Polaroid white frame via outline + background
-                    outline:         '10px solid #fafafa',
-                    outlineOffset:   '-10px',
-                    backgroundColor: '#fafafa',
-                  }}
+                <img
+                  src="/producciones/memoriaVivido/portada.JPG"
+                  alt="Memoria Vívido Portada"
+                  className="w-full h-full object-cover object-[center_28%] opacity-85 pointer-events-none select-none"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/15 to-transparent" />
+              </motion.div>
+
+              {/* Left aligned Editorial Typography Block */}
+              <div className="relative z-10 max-w-3xl pl-8 md:pl-20 pr-6 flex flex-col pointer-events-none">
+                <motion.h1
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                  className="text-6xl sm:text-8xl md:text-9xl font-brand tracking-[0.02em] leading-[0.9] text-[var(--color-brand-crema)] font-light uppercase"
                 >
-                  <img
-                    src={prod.image}
-                    alt={prod.title}
-                    className="card-img w-full h-full object-cover"
-                    style={{
-                      willChange: 'transform, opacity',
-                      transformOrigin: 'center center',
-                    }}
-                  />
+                  Memoria<br />Vivido
+                </motion.h1>
 
-                  {/* Subtle inner shadow for depth */}
-                  <div className="absolute inset-0 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)] pointer-events-none rounded-[2px]" />
+                {/* Separator Divider Line */}
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 1.0, ease: 'easeInOut', delay: 0.4 }}
+                  className="w-20 h-[1.5px] bg-[var(--color-brand-crema)]/45 my-8 origin-left"
+                />
 
-                  {/* Hover overlay — very subtle */}
-                  <div
-                    className="absolute inset-0 bg-black/0 transition-colors duration-300 pointer-events-none"
-                    style={{ backgroundColor: isActive ? 'transparent' : isAnyActive ? 'rgba(0,0,0,0.08)' : 'transparent' }}
-                  />
-                </div>
-
-                {/* ── Title block below polaroid ────────────────────── */}
-                {/* Polaroid bottom strip (white) */}
-                <div
-                  className="relative bg-[#fafafa] px-3 pt-3 pb-4 shadow-[0_8px_40px_rgba(0,0,0,0.10)]"
-                  style={{ marginTop: '-1px' }} // join with card above
+                {/* Subtext description (narrow width to match mock 4-line wrap) */}
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1.0, ease: 'easeOut', delay: 0.6 }}
+                  className="text-xs sm:text-sm font-sans font-light tracking-widest leading-relaxed text-[var(--color-brand-crema)]/80 max-w-[290px]"
                 >
-                  {/* Number — top right of strip */}
-                  <span
-                    className="absolute top-2 right-3 text-[9px] font-sans tracking-[0.2em] uppercase transition-colors duration-300"
-                    style={{ color: isActive ? 'var(--color-brand-bordo)' : 'var(--color-brand-marron-claro)' }}
-                  >
-                    {prod.num}
-                  </span>
-
-                  <h3
-                    className="font-brand leading-tight transition-colors duration-300 truncate"
-                    style={{
-                      fontSize:   isFeatured ? 'clamp(1rem, 2vw, 1.6rem)' : 'clamp(0.7rem, 1.3vw, 1.1rem)',
-                      color:      isActive ? 'var(--color-brand-bordo)' : 'var(--color-brand-marron-oscuro)',
-                      marginRight: '1.5rem',
-                    }}
-                  >
-                    {prod.title}
-                  </h3>
-
-                  <p
-                    className="font-sans truncate"
-                    style={{
-                      fontSize:   'clamp(0.55rem, 0.9vw, 0.72rem)',
-                      color:      'var(--color-brand-marron-claro)',
-                      marginTop:  '2px',
-                      opacity:    isAnyActive && !isActive ? 0.5 : 0.8,
-                      transition: 'opacity 0.3s',
-                    }}
-                  >
-                    {prod.subtitle}
-                  </p>
-                </div>
+                  la memoria vivido es inherentemente subjetiva y está coloreada por la perspectiva y las interpretaciones personales de quien la recuerda.
+                </motion.p>
               </div>
-            )
-          })}
-        </div>
-      </section>
+            </div>
 
-      {/* Photo overlay — existing component, unchanged */}
-      <AnimatePresence>
-        {selectedProduction && (
-          <ProductionPhotoOverlay
-            production={selectedProduction}
-            onClose={() => setSelectedProduction(null)}
-          />
+            {/* Slide 2: Grid of other productions */}
+            <div className="snap-start w-full min-h-screen relative bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] flex flex-col justify-center py-16 px-4 md:px-12 overflow-hidden">
+              {/* Noise texture overlay */}
+              <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
+
+              <div className="max-w-7xl mx-auto w-full z-10">
+                
+                {/* Minimalist Section Header */}
+                <div className="mb-12 flex items-center justify-between select-none">
+                  <h3 className="font-brand text-2xl md:text-3xl uppercase tracking-wider text-[var(--color-brand-crema)]">
+                    Otras Producciones
+                  </h3>
+                  <a 
+                    href="#proyectos" 
+                    className="inline-flex items-center gap-2 bg-[var(--color-brand-crema)] text-[var(--color-brand-bordo)] font-sans text-[10px] tracking-[0.2em] font-semibold uppercase px-4 py-2 hover:bg-[var(--color-brand-crema)]/90 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 pointer-events-auto rounded-xs"
+                  >
+                    Portafolio <span className="text-xs">→</span>
+                  </a>
+                </div>
+
+                {/* DESKTOP EDITORIAL GRID (Pyramid Layout) */}
+                <div className="hidden md:grid grid-cols-4">
+                  
+                  {/* ROW 1: NEO TRATTORIA (Center of the top row) */}
+                  {/* Col 1: Empty Left Wing */}
+                  <div className="h-[380px]" />
+                  
+                 
+
+                  {/* Col 2: Neo Trattoria Description */}
+                  <div className="border-t border-l border-r border-b border-[var(--color-brand-crema)]/15 p-8 flex flex-col justify-end h-[380px] bg-black/5 select-none">
+                    <div>
+                      <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-crema)]/40 uppercase mb-2 block">
+                        01 / Neo Trattoria
+                      </span>
+                      <h4 className="font-brand text-2xl uppercase tracking-wider mb-3 text-[var(--color-brand-crema)]">
+                        Nostalgia
+                      </h4>
+                      <p className="text-[11px] lg:text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70 max-w-xs">
+                        Neo Trattoria explora la convivencia entre lo orgánico y lo estructural, articulando formas curvas, repeticiones y superposiciones que generan un equilibrio entre exceso y armonía.
+                      </p>
+                    </div>
+                  </div>
+
+                   {/* Col 3: Neo Trattoria Image */}
+                  <div 
+                    onClick={() => setActiveProject('neo-trattoria')}
+                    onMouseEnter={() => setIsHovering(true)}
+                    onMouseLeave={() => setIsHovering(false)}
+                    className="border-t border-l border-b border-[var(--color-brand-crema)]/15 relative overflow-hidden cursor-none group h-[380px] bg-black pointer-events-auto"
+                  >
+                    <img 
+                      src="/producciones/neoTrattoria/fotoPortada.JPG" 
+                      alt="Neo Trattoria Cover" 
+                      className="w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                  </div>
+
+                  {/* Col 4: Empty Right Wing */}
+                  <div className="h-[380px]" />
+
+                  {/* ROW 2: NO FUTURO & AÑOS 20 (Full row at the bottom) */}
+                  {/* Col 1: No Futuro Description */}
+                  <div className="border-t border-l border-b border-[var(--color-brand-crema)]/15 p-8 flex flex-col justify-end h-[380px] bg-black/5 select-none">
+                    <div>
+                      <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-crema)]/40 uppercase mb-2 block">
+                        02 / No Futuro
+                      </span>
+                      <h4 className="font-brand text-2xl uppercase tracking-wider mb-3 text-[var(--color-brand-crema)]">
+                        Subcultura Punk
+                      </h4>
+                      <p className="text-[11px] lg:text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70 max-w-xs">
+                        En esta editorial busqué trabajar dentro de la subcultura Punk, el concepto de No – Futuro. Mediante las luces, poses y expresiones faciales reflejamos la personalidad de protesta y rebeldía.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Col 2: No Futuro Image */}
+                  <div 
+                    onClick={() => setActiveProject('no-futuro')}
+                    onMouseEnter={() => setIsHovering(true)}
+                    onMouseLeave={() => setIsHovering(false)}
+                    className="border-t border-l border-b border-[var(--color-brand-crema)]/15 relative overflow-hidden cursor-none group h-[380px] bg-black pointer-events-auto"
+                  >
+                    <img 
+                      src="/producciones/noFuturo/fotoPortada.JPG" 
+                      alt="No Futuro Cover" 
+                      className="w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                  </div>
+
+                  {/* Col 3: Años 20 Description */}
+                  <div className="border-t border-l border-b border-[var(--color-brand-crema)]/15 p-8 flex flex-col justify-end h-[380px] bg-black/5 select-none">
+                    <div>
+                      <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-crema)]/40 uppercase mb-2 block">
+                        03 / Años 20
+                      </span>
+                      <h4 className="font-brand text-2xl uppercase tracking-wider mb-3 text-[var(--color-brand-crema)]">
+                        Elegancia
+                      </h4>
+                      <p className="text-[11px] lg:text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70 max-w-xs">
+                        Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la elegancia, la liberación y la modernidad emergente.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Col 4: Años 20 Image */}
+                  <div 
+                    onClick={() => setActiveProject('anos-20')}
+                    onMouseEnter={() => setIsHovering(true)}
+                    onMouseLeave={() => setIsHovering(false)}
+                    className="border-t border-l border-r border-b border-[var(--color-brand-crema)]/15 relative overflow-hidden cursor-none group h-[380px] bg-black pointer-events-auto"
+                  >
+                    <img 
+                      src="/producciones/años20/fotoPortada.webp" 
+                      alt="Años 20 Cover" 
+                      className="w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                  </div>
+
+                </div>
+
+                {/* MOBILE EDITORIAL VIEW (Sleek stacked list for optimal readability and touch targets) */}
+                <div className="md:hidden space-y-10">
+                  {/* Project Cards List */}
+                  <div className="space-y-10">
+                    {/* Neo Trattoria */}
+                    <div 
+                      onClick={() => setActiveProject('neo-trattoria')}
+                      className="group space-y-4 cursor-pointer pointer-events-auto"
+                    >
+                      <div className="aspect-[4/3] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
+                        <img 
+                          src="/producciones/neoTrattoria/fotoPortada.JPG" 
+                          alt="Neo Trattoria Cover" 
+                          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-102"
+                        />
+                        <div className="absolute top-3 left-4 text-[9px] tracking-[0.2em] font-sans text-white bg-black/40 px-2.5 py-1 uppercase rounded-xs">
+                          01 / Neo Trattoria
+                        </div>
+                      </div>
+                      <div className="px-1">
+                        <h4 className="font-brand text-lg uppercase tracking-wider text-[var(--color-brand-crema)] mb-2">
+                          Neo Trattoria
+                        </h4>
+                        <p className="text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
+                          Neo Trattoria explora la convivencia entre lo orgánico y lo estructural, articulando formas curvas, repeticiones y superposiciones.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* No Futuro */}
+                    <div 
+                      onClick={() => setActiveProject('no-futuro')}
+                      className="group space-y-4 cursor-pointer pointer-events-auto"
+                    >
+                      <div className="aspect-[4/3] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
+                        <img 
+                          src="/producciones/noFuturo/fotoPortada.JPG" 
+                          alt="No Futuro Cover" 
+                          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-102"
+                        />
+                        <div className="absolute top-3 left-4 text-[9px] tracking-[0.2em] font-sans text-white bg-black/40 px-2.5 py-1 uppercase rounded-xs">
+                          02 / No Futuro
+                        </div>
+                      </div>
+                      <div className="px-1">
+                        <h4 className="font-brand text-lg uppercase tracking-wider text-[var(--color-brand-crema)] mb-2">
+                          No Futuro
+                        </h4>
+                        <p className="text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
+                          En esta editorial busqué trabajar dentro de la subcultura Punk, el concepto de No – Futuro mediante luces, poses y expresiones faciales de protesta y rebeldía.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Años 20 */}
+                    <div 
+                      onClick={() => setActiveProject('anos-20')}
+                      className="group space-y-4 cursor-pointer pointer-events-auto"
+                    >
+                      <div className="aspect-[4/3] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
+                        <img 
+                          src="/producciones/años20/fotoPortada.webp" 
+                          alt="Años 20 Cover" 
+                          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-102"
+                        />
+                        <div className="absolute top-3 left-4 text-[9px] tracking-[0.2em] font-sans text-white bg-black/40 px-2.5 py-1 uppercase rounded-xs">
+                          03 / Años 20
+                        </div>
+                      </div>
+                      <div className="px-1">
+                        <h4 className="font-brand text-lg uppercase tracking-wider text-[var(--color-brand-crema)] mb-2">
+                          Años 20
+                        </h4>
+                        <p className="text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
+                          Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la elegancia, la liberación y la modernidad.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Floating Custom Follow Cursor ("VER CASO" - aligned instantly to relative mouse position) */}
+            {isHovering && (
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  top: 0,
+                  x: cursorPos.x - 48,
+                  y: cursorPos.y - 48
+                }}
+                className="hidden md:flex absolute w-24 h-24 rounded-full bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] items-center justify-center text-[10px] font-sans tracking-[0.25em] uppercase font-semibold pointer-events-none z-50 shadow-[0_10px_35px_rgba(132,6,36,0.3)] border border-white/10"
+              >
+                Ver Caso
+              </motion.div>
+            )}
+          </motion.div>
+        ) : activeProject === 'memoria-vivido' ? (
+          <MemoriaVividoExperience key="memoria-experience" onBack={() => setActiveProject(null)} />
+        ) : (
+          /* STATE 2: Detailed Project Gallery View */
+          <motion.div
+            key="details"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full h-full min-h-screen relative bg-[var(--color-brand-crema)] overflow-y-auto px-6 md:px-16 py-28 pointer-events-auto"
+          >
+            {/* Return Category Navigation Button */}
+            <button
+              onClick={() => setActiveProject(null)}
+              className="absolute top-24 left-6 md:left-16 flex items-center gap-2 text-[10px] font-sans tracking-[0.25em] uppercase text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-97 px-5 py-2.5 rounded-full transition-all duration-300 shadow-md cursor-pointer"
+            >
+              <ArrowLeft size={12} /> Volver a Portada
+            </button>
+
+            {/* Editorial Title Header */}
+            <div className="max-w-4xl mx-auto mt-12 mb-16 text-center select-none">
+              <h2 className="text-4xl md:text-6xl font-brand text-[var(--color-brand-marron-oscuro)] tracking-tight uppercase leading-none">
+                {currentGallery?.title}
+              </h2>
+              <p className="text-[10px] font-sans tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase mt-4">
+                {currentGallery?.subtitle}
+              </p>
+              <div className="w-12 h-[1px] bg-[var(--color-brand-marron-claro)]/30 mx-auto mt-8" />
+            </div>
+
+            {/* Asymmetrical Masonry Grid Gallery */}
+            <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 auto-rows-[250px] md:auto-rows-[300px]">
+              {currentGallery?.photos.map((photo, index) => {
+                // Layout assignment based on index to create an interesting asymmetrical grid
+                let gridSpanClass = '';
+                if (index === 0) gridSpanClass = 'sm:col-span-2 sm:row-span-2'; // Cover shot
+                else if (index === 3) gridSpanClass = 'sm:row-span-2'; // Tall portrait
+                else if (index === 6) gridSpanClass = 'sm:col-span-2'; // Wide landscape
+
+                return (
+                  <motion.div
+                    key={photo + index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.08 }}
+                    onClick={() => setSelectedPhoto(photo)}
+                    className={`relative rounded-sm overflow-hidden group cursor-zoom-in border border-[#be9e89]/15 shadow-sm ${gridSpanClass}`}
+                  >
+                    <img
+                      src={photo}
+                      alt={`${currentGallery?.title} Editorial ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                      loading="lazy"
+                    />
+                    {/* Hover Zoom Overlay */}
+                    <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-xs flex items-center justify-center text-white">
+                        <ZoomIn size={18} />
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
-    </>
+
+      {/* Lightbox / Zoom Dialog overlay */}
+      <AnimatePresence>
+        {selectedPhoto && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 cursor-zoom-out"
+            onClick={() => setSelectedPhoto(null)}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedPhoto(null)}
+              className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <X size={20} />
+            </button>
+
+            {/* Photo frame */}
+            <motion.div
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              className="max-w-full max-h-full flex items-center justify-center"
+            >
+              <img
+                src={selectedPhoto}
+                alt="Zoomed Editorial"
+                className="max-w-[95vw] max-h-[90vh] object-contain rounded-sm select-none"
+                draggable={false}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
   )
 }
