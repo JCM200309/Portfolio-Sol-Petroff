@@ -70,9 +70,9 @@ export default function Navbar() {
       opacity: 1,
       x: 0,
       transition: {
-        width: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+        width: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as any },
         opacity: { duration: 0.35, ease: 'easeOut' },
-        x: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+        x: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as any }
       }
     },
     collapsed: {
@@ -80,9 +80,9 @@ export default function Navbar() {
       opacity: 0,
       x: 40,
       transition: {
-        width: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+        width: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as any },
         opacity: { duration: 0.25, ease: 'easeIn' },
-        x: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+        x: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as any }
       }
     }
   };
@@ -95,7 +95,7 @@ export default function Navbar() {
       width: 0,
       marginLeft: 0,
       transition: {
-        width: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+        width: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as any },
         scale: { duration: 0.3, ease: 'easeIn' },
         opacity: { duration: 0.2, ease: 'easeIn' }
       }
@@ -106,8 +106,8 @@ export default function Navbar() {
       width: 'auto',
       marginLeft: 16,
       transition: {
-        width: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
-        scale: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+        width: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as any },
+        scale: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as any },
         opacity: { duration: 0.35, ease: 'easeOut', delay: 0.05 }
       }
     }

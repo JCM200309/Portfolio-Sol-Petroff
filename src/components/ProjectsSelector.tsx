@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 
 interface CategoryItem {
@@ -69,7 +69,7 @@ export default function ProjectsSelector() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.16, 1, 0.3, 1]
+        ease: [0.16, 1, 0.3, 1] as any
       }
     }
   };
@@ -109,7 +109,7 @@ export default function ProjectsSelector() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 w-full"
         >
-          {categories.map((cat, idx) => {
+          {categories.map((cat) => {
             const isHovered = hoveredId === cat.id;
             const isAnyHovered = hoveredId !== null;
             const isMovimiento = cat.id === 'movimiento';

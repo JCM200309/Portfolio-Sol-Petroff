@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
-import { ArrowLeft, ZoomIn, X } from 'lucide-react'
+import { ArrowLeft, X } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
 
 // --- HELPER COMPONENT: 3D Interactive Hover Tilt Image ---

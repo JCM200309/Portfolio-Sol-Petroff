@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import MemoriaVividoExperience from './MemoriaVividoExperience'
@@ -92,7 +92,7 @@ export default function Productions() {
     }
   };
 
-  const currentGallery = activeProject ? projectGalleries[activeProject] : null;
+
 
   return (
     <section

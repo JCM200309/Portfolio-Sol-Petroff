@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
-import { ArrowLeft, ZoomIn, X } from 'lucide-react'
+import { ArrowLeft, X } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
 
 // --- HELPER COMPONENT: 3D Interactive Hover Tilt Image (Original Colors) ---
@@ -104,12 +104,6 @@ export default function MemoriaVividoExperience({ onBack }: MemoriaVividoExperie
   const sec3ParallaxRight = useTransform(sec3Progress, [0, 1], [-20, 60]);
 
   const sec4Ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: sec4Progress } = useScroll({
-    container: pageRef,
-    target: sec4Ref,
-    offset: ["start end", "end start"]
-  });
-  const sec4ParallaxCenter = useTransform(sec4Progress, [0, 1], [15, -15]);
 
   // Track cursor position inside page container for follow mouse custom badge
   const handleMouseMove = (e: React.MouseEvent) => {
