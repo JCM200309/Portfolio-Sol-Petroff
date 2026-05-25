@@ -64,7 +64,7 @@ export default function Navbar() {
   const logoCreamFilter = 'brightness(0) invert(98%) sepia(5%) saturate(795%) hue-rotate(323deg) brightness(101%) contrast(93%)';
 
   // Animation variants for desktop links collapsing/expanding
-  const linksContainerVariants = {
+  const linksContainerVariants: any = {
     expanded: {
       width: 'auto',
       opacity: 1,
@@ -88,7 +88,7 @@ export default function Navbar() {
   };
 
   // Animation variants for the hamburger button scaling/sliding in
-  const hamburgerButtonVariants = {
+  const hamburgerButtonVariants: any = {
     hidden: {
       scale: 0.4,
       opacity: 0,

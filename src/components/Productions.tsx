@@ -6,65 +6,7 @@ import NoFuturoExperience from './NoFuturoExperience'
 import NeoTrattoriaExperience from './NeoTrattoriaExperience'
 import Anos20Experience from './Anos20Experience'
 
-// Dynamic Project Gallery Database
-interface ProjectData {
-  title: string;
-  subtitle: string;
-  photos: string[];
-}
 
-const projectGalleries: Record<string, ProjectData> = {
-  'memoria-vivido': {
-    title: 'Memoria Vívido',
-    subtitle: 'Editorial de Moda / Producción Escénica',
-    photos: [
-      '/producciones/memoriaVivido/portada.JPG',
-      '/producciones/memoriaVivido/foto principal.jpg',
-      '/producciones/memoriaVivido/471988EA-FB4A-409D-9469-30F36DD5F0A8_L0_001-4_7_2024, 4_46_10 p.m..jpg',
-      '/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg',
-      '/producciones/memoriaVivido/57459F9E-70BA-4ABE-B28B-48C88CE86B11_L0_001-4_7_2024, 4_46_11 p.m..jpg',
-      '/producciones/memoriaVivido/BAEE5B7E-3A79-4FB2-9CE5-9709AE4A0256_L0_001-4_7_2024, 4_46_10 p.m..jpg',
-      '/producciones/memoriaVivido/D9742183-A5A7-46D6-AB10-7A5753506F1D_L0_001-4_7_2024, 4_46_12 p.m..jpg',
-      '/producciones/memoriaVivido/DEFAEDF5-C8A4-4749-A019-35E3FC68706A_L0_001-4_7_2024, 4_46_10 p.m..jpg',
-    ]
-  },
-  'neo-trattoria': {
-    title: 'Neo Trattoria',
-    subtitle: 'Editorial de Tendencias / Nostalgia Contemporánea',
-    photos: [
-      '/producciones/neoTrattoria/fotoPortada.JPG',
-      '/producciones/neoTrattoria/image-1ece3b78-ba85-4ade-834d-db38a1d2334a.webp',
-      '/producciones/neoTrattoria/image-2dbdc33d-cb5e-4f4f-b608-58cab0a92803.webp',
-      '/producciones/neoTrattoria/image-6c536fd8-f84b-4020-b323-5951d0483c10.webp',
-      '/producciones/neoTrattoria/image-f56d6f9a-82f6-42b8-808e-5a0f755f5a10.webp'
-    ]
-  },
-  'no-futuro': {
-    title: 'No Futuro',
-    subtitle: 'Editorial Punk / Poses y Expresión de Protesta',
-    photos: [
-      '/producciones/noFuturo/fotoPortada.JPG',
-      '/producciones/noFuturo/IMG_8052.JPG',
-      '/producciones/noFuturo/IMG_8058.JPG',
-      '/producciones/noFuturo/IMG_8061.JPG',
-      '/producciones/noFuturo/IMG_8065.JPG',
-      '/producciones/noFuturo/IMG_8066.JPG',
-      '/producciones/noFuturo/IMG_8070.JPG',
-      '/producciones/noFuturo/IMG_8081.JPG'
-    ]
-  },
-  'anos-20': {
-    title: 'Años 20',
-    subtitle: 'Editorial Retro / Elegancia y Liberación de Época',
-    photos: [
-      '/producciones/años20/fotoPortada.webp',
-      '/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp',
-      '/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp',
-      '/producciones/años20/image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp',
-      '/producciones/años20/image-ab55dd13-2ec1-435c-b54b-c6ed1f6ab46e.webp'
-    ]
-  }
-};
 
 export default function Productions() {
   const [activeProject, setActiveProject] = useState<string | null>(null)
