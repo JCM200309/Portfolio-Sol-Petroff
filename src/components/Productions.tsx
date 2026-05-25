@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, ZoomIn, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import MemoriaVividoExperience from './MemoriaVividoExperience'
+import NoFuturoExperience from './NoFuturoExperience'
+import NeoTrattoriaExperience from './NeoTrattoriaExperience'
+import Anos20Experience from './Anos20Experience'
 
 // Dynamic Project Gallery Database
 interface ProjectData {
@@ -392,71 +395,12 @@ export default function Productions() {
           </motion.div>
         ) : activeProject === 'memoria-vivido' ? (
           <MemoriaVividoExperience key="memoria-experience" onBack={() => setActiveProject(null)} />
+        ) : activeProject === 'no-futuro' ? (
+          <NoFuturoExperience key="nofuturo-experience" onBack={() => setActiveProject(null)} />
+        ) : activeProject === 'neo-trattoria' ? (
+          <NeoTrattoriaExperience key="neotrattoria-experience" onBack={() => setActiveProject(null)} />
         ) : (
-          /* STATE 2: Detailed Project Gallery View */
-          <motion.div
-            key="details"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full h-full min-h-screen relative bg-[var(--color-brand-crema)] overflow-y-auto px-6 md:px-16 py-28 pointer-events-auto"
-          >
-            {/* Return Category Navigation Button */}
-            <button
-              onClick={() => setActiveProject(null)}
-              className="absolute top-24 left-6 md:left-16 flex items-center gap-2 text-[10px] font-sans tracking-[0.25em] uppercase text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-97 px-5 py-2.5 rounded-full transition-all duration-300 shadow-md cursor-pointer"
-            >
-              <ArrowLeft size={12} /> Volver a Portada
-            </button>
-
-            {/* Editorial Title Header */}
-            <div className="max-w-4xl mx-auto mt-12 mb-16 text-center select-none">
-              <h2 className="text-4xl md:text-6xl font-brand text-[var(--color-brand-marron-oscuro)] tracking-tight uppercase leading-none">
-                {currentGallery?.title}
-              </h2>
-              <p className="text-[10px] font-sans tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase mt-4">
-                {currentGallery?.subtitle}
-              </p>
-              <div className="w-12 h-[1px] bg-[var(--color-brand-marron-claro)]/30 mx-auto mt-8" />
-            </div>
-
-            {/* Asymmetrical Masonry Grid Gallery */}
-            <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 auto-rows-[250px] md:auto-rows-[300px]">
-              {currentGallery?.photos.map((photo, index) => {
-                // Layout assignment based on index to create an interesting asymmetrical grid
-                let gridSpanClass = '';
-                if (index === 0) gridSpanClass = 'sm:col-span-2 sm:row-span-2'; // Cover shot
-                else if (index === 3) gridSpanClass = 'sm:row-span-2'; // Tall portrait
-                else if (index === 6) gridSpanClass = 'sm:col-span-2'; // Wide landscape
-
-                return (
-                  <motion.div
-                    key={photo + index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.08 }}
-                    onClick={() => setSelectedPhoto(photo)}
-                    className={`relative rounded-sm overflow-hidden group cursor-zoom-in border border-[#be9e89]/15 shadow-sm ${gridSpanClass}`}
-                  >
-                    <img
-                      src={photo}
-                      alt={`${currentGallery?.title} Editorial ${index + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                      loading="lazy"
-                    />
-                    {/* Hover Zoom Overlay */}
-                    <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-xs flex items-center justify-center text-white">
-                        <ZoomIn size={18} />
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
+          <Anos20Experience key="anos20-experience" onBack={() => setActiveProject(null)} />
         )}
       </AnimatePresence>
 

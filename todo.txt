@@ -10,3 +10,4 @@ Proyecto Memoria Vívido
 Ideas: 
 1) Que el cursor sea una camara y al hacer click sea como que se saca una foto
 2) Incorporar texto componente reactbits Text Pressure, Scroll Float, Scroll reveal
+3) Para el caso de No futuro hacer una tematica mas cruda
