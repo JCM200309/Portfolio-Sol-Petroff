@@ -15,6 +15,7 @@
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.12.94",
     "@tailwindcss/vite": "^4.3.0",
+    "animejs": "^4.4.1",
     "framer-motion": "^12.38.0",
     "gl-matrix": "^3.4.4",
     "gsap": "^3.15.0",
