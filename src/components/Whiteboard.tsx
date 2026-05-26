@@ -40,6 +40,7 @@ interface ProjectPostIt {
   id: number
   title: string
   image: string
+  pdf: string
   left: string
   top: string
   rotate: number
@@ -53,6 +54,7 @@ const whiteboardProjects: ProjectPostIt[] = [
     id: 1,
     title: 'Pre adolescentes',
     image: '/narrativa/preAdolescentes/portada.jpg',
+    pdf: '/narrativa/preAdolescentes/reporte.pdf',
     left: '8%',
     top: '12%',
     rotate: -4,
@@ -64,6 +66,7 @@ const whiteboardProjects: ProjectPostIt[] = [
     id: 2,
     title: 'Ferran Adria',
     image: '/narrativa/ferranAdria/portada.jpg',
+    pdf: '/narrativa/ferranAdria/reporte.pdf',
     left: '56%',
     top: '10%',
     rotate: 3,
@@ -75,6 +78,7 @@ const whiteboardProjects: ProjectPostIt[] = [
     id: 3,
     title: 'El Plumero',
     image: '/narrativa/elPlumero/portada.jpg',
+    pdf: '/narrativa/elPlumero/reporte.pdf',
     left: '14%',
     top: '48%',
     rotate: -2,
@@ -240,7 +244,12 @@ export default function Whiteboard() {
             </div>
 
             {/* Thumbnail Project Frame */}
-            <div className="w-full aspect-[16/10] overflow-hidden rounded-sm mb-4 bg-[var(--color-brand-crema)] relative group">
+            <a 
+              href={project.pdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full aspect-[16/10] overflow-hidden rounded-sm mb-4 bg-[var(--color-brand-crema)] relative group cursor-pointer pointer-events-auto"
+            >
               <img 
                 src={project.image} 
                 className="w-full h-full object-cover grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-in-out pointer-events-none" 
@@ -248,7 +257,7 @@ export default function Whiteboard() {
                 draggable="false"
               />
               <div className="absolute inset-0 bg-[var(--color-brand-bordo)]/5 mix-blend-overlay group-hover:opacity-0 transition-opacity duration-500" />
-            </div>
+            </a>
 
             {/* Post-it Content */}
             <div className="flex flex-col">
@@ -259,9 +268,14 @@ export default function Whiteboard() {
                 <span className="text-[10px] font-sans tracking-wider text-[var(--color-brand-marron-claro)] uppercase font-semibold">
                   FEMMORA STUDIO
                 </span>
-                <span className="text-[10px] font-sans text-[var(--color-brand-bordo)] font-bold tracking-wider hover:translate-x-1 transition-transform duration-300">
+                <a 
+                  href={project.pdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] font-sans text-[var(--color-brand-bordo)] font-bold tracking-wider hover:translate-x-1 transition-transform duration-300 cursor-pointer pointer-events-auto"
+                >
                   Ver caso →
-                </span>
+                </a>
               </div>
             </div>
 
