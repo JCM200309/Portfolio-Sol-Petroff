@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 interface CategoryItem {
@@ -12,6 +12,121 @@ interface CategoryItem {
   filterClass?: string; // Optional custom video filter
 }
 
+interface CategoryCardProps {
+  cat: CategoryItem;
+  isHovered: boolean;
+  isAnyHovered: boolean;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  cardVariants: any;
+}
+
+function CategoryCard({
+  cat,
+  isHovered,
+  isAnyHovered,
+  onMouseEnter,
+  onMouseLeave,
+  cardVariants
+}: CategoryCardProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isMovimiento = cat.id === 'movimiento';
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isHovered) {
+      video.play().catch((err) => {
+        console.warn("Autoplay prevented or video load failed:", err);
+      });
+    } else {
+      video.pause();
+      if (video.readyState >= 1) {
+        video.currentTime = 0;
+      }
+    }
+  }, [isHovered]);
+
+  return (
+    <motion.a
+      href={cat.link}
+      variants={cardVariants}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className={`relative w-full aspect-[16/10] bg-transparent border border-[var(--color-brand-marron-oscuro)]/30 rounded-sm overflow-hidden cursor-pointer shadow-[0_12px_40px_rgba(0,0,0,0.01)] transition-all duration-500 ease-out flex flex-col justify-between p-6 md:p-8 pointer-events-auto ${
+        isMovimiento ? 'md:col-span-2 md:aspect-[24/10] md:max-w-2xl justify-self-center' : ''
+      }`}
+      style={{
+        borderColor: isHovered ? 'var(--color-brand-bordo)' : undefined,
+        boxShadow: isHovered ? '0 25px 60px rgba(132, 6, 36, 0.12)' : undefined,
+        transform: isHovered ? 'scale(1.03)' : undefined,
+        opacity: isAnyHovered && !isHovered ? 0.45 : 1
+      }}
+      role="button"
+      aria-label={`Explorar categoría ${cat.title}`}
+    >
+      {/* Background Video (plays/unveils on hover) */}
+      <div className="absolute inset-0 z-0 transition-opacity duration-700 overflow-hidden">
+        <video
+          ref={videoRef}
+          src={cat.videoSrc}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className={`w-full h-full object-cover transition-all duration-700 scale-105 ${
+            isHovered ? 'opacity-85 scale-100' : 'opacity-10 scale-105'
+          } ${cat.filterClass || ''}`}
+        />
+        {/* Subtle dark overlay on hover to ensure text legibility */}
+        <div
+          className={`absolute inset-0 bg-black/20 transition-opacity duration-500 ${
+            isHovered ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+      </div>
+
+      {/* Card Top Section: Category Number */}
+      <span
+        className={`text-xs font-sans tracking-[0.25em] font-medium transition-colors duration-500 z-10 ${
+          isHovered ? 'text-[var(--color-brand-crema)]' : 'text-[var(--color-brand-marron-claro)]'
+        }`}
+      >
+        {cat.num}
+      </span>
+
+      {/* Card Bottom Section: Title & Subtitle */}
+      <div className="z-10 select-none flex flex-col justify-end">
+        <h3
+          className={`font-brand leading-none tracking-tight uppercase transition-all duration-500 ${
+            isHovered 
+              ? 'text-[var(--color-brand-crema)] text-3xl md:text-5xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]' 
+              : 'text-[var(--color-brand-marron-oscuro)] text-2xl md:text-4xl'
+          }`}
+        >
+          {cat.title}
+        </h3>
+
+        {/* Subtitle / Description - morphs height on hover */}
+        <motion.div
+          initial={false}
+          animate={isHovered ? { height: 'auto', opacity: 0.85, marginTop: 12 } : { height: 0, opacity: 0, marginTop: 0 }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
+          className="overflow-hidden"
+        >
+          <p className="text-xs md:text-sm font-sans tracking-wide text-[var(--color-brand-crema)] font-light leading-relaxed max-w-md drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+            {cat.subtitle}
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Subtle border shine effect */}
+      <div className="absolute inset-0 pointer-events-none rounded-sm border border-white/5 z-20" />
+    </motion.a>
+  );
+}
+
 export default function ProjectsSelector() {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -22,7 +137,7 @@ export default function ProjectsSelector() {
       num: '01',
       title: 'Producciones',
       subtitle: 'Dirección de arte, fotografía y escenografía editorial',
-      videoSrc: '/inspiracionVideo.mp4',
+      videoSrc: 'https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807431/videoHero_otcgjv.mp4',
       link: '#escena',
       bgHex: 'rgba(132, 6, 36, 0.06)' // Soft bordo tint
     },
@@ -31,7 +146,7 @@ export default function ProjectsSelector() {
       num: '02',
       title: 'Narrativa',
       subtitle: 'Espacios interactivos de experimentación conceptual',
-      videoSrc: '/inspiracionVideo.mp4',
+      videoSrc: 'https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807431/videoHero_otcgjv.mp4',
       link: '#narrativa',
       bgHex: 'rgba(146, 94, 61, 0.12)', // Soft marron-oscuro tint
       
@@ -41,7 +156,7 @@ export default function ProjectsSelector() {
       num: '03',
       title: 'Audiovisuales',
       subtitle: 'Fashion films y dirección de arte en movimiento',
-      videoSrc: '/videoHero.mp4',
+      videoSrc: 'https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807431/videoHero_otcgjv.mp4',
       link: '#movimiento',
       bgHex: 'rgba(190, 158, 137, 0.2)', // Soft marron-claro tint
       filterClass: 'grayscale contrast-[1.1] brightness-[0.9]' // Grayscale filter to differentiate
@@ -112,84 +227,17 @@ export default function ProjectsSelector() {
           {categories.map((cat) => {
             const isHovered = hoveredId === cat.id;
             const isAnyHovered = hoveredId !== null;
-            const isMovimiento = cat.id === 'movimiento';
 
             return (
-              <motion.a
+              <CategoryCard
                 key={cat.id}
-                href={cat.link}
-                variants={cardVariants}
+                cat={cat}
+                isHovered={isHovered}
+                isAnyHovered={isAnyHovered}
                 onMouseEnter={() => setHoveredId(cat.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                className={`relative w-full aspect-[16/10] bg-transparent border border-[var(--color-brand-marron-oscuro)]/30 rounded-sm overflow-hidden cursor-pointer shadow-[0_12px_40px_rgba(0,0,0,0.01)] transition-all duration-500 ease-out flex flex-col justify-between p-6 md:p-8 pointer-events-auto ${
-                  isMovimiento ? 'md:col-span-2 md:aspect-[24/10] md:max-w-2xl justify-self-center' : ''
-                }`}
-                style={{
-                  borderColor: isHovered ? 'var(--color-brand-bordo)' : undefined,
-                  boxShadow: isHovered ? '0 25px 60px rgba(132, 6, 36, 0.12)' : undefined,
-                  transform: isHovered ? 'scale(1.03)' : undefined,
-                  opacity: isAnyHovered && !isHovered ? 0.45 : 1
-                }}
-                role="button"
-                aria-label={`Explorar categoría ${cat.title}`}
-              >
-                {/* Autoplay Background Video (plays/unveils on hover) */}
-                <div className="absolute inset-0 z-0 transition-opacity duration-700 overflow-hidden">
-                  <video
-                    src={cat.videoSrc}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className={`w-full h-full object-cover transition-all duration-700 scale-105 ${
-                      isHovered ? 'opacity-85 scale-100' : 'opacity-10 scale-105'
-                    } ${cat.filterClass || ''}`}
-                  />
-                  {/* Subtle dark overlay on hover to ensure text legibility */}
-                  <div
-                    className={`absolute inset-0 bg-black/20 transition-opacity duration-500 ${
-                      isHovered ? 'opacity-100' : 'opacity-0'
-                    }`}
-                  />
-                </div>
-
-                {/* Card Top Section: Category Number */}
-                <span
-                  className={`text-xs font-sans tracking-[0.25em] font-medium transition-colors duration-500 z-10 ${
-                    isHovered ? 'text-[var(--color-brand-crema)]' : 'text-[var(--color-brand-marron-claro)]'
-                  }`}
-                >
-                  {cat.num}
-                </span>
-
-                {/* Card Bottom Section: Title & Subtitle */}
-                <div className="z-10 select-none flex flex-col justify-end">
-                  <h3
-                    className={`font-brand leading-none tracking-tight uppercase transition-all duration-500 ${
-                      isHovered 
-                        ? 'text-[var(--color-brand-crema)] text-3xl md:text-5xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]' 
-                        : 'text-[var(--color-brand-marron-oscuro)] text-2xl md:text-4xl'
-                    }`}
-                  >
-                    {cat.title}
-                  </h3>
-
-                  {/* Subtitle / Description - morphs height on hover */}
-                  <motion.div
-                    initial={false}
-                    animate={isHovered ? { height: 'auto', opacity: 0.85, marginTop: 12 } : { height: 0, opacity: 0, marginTop: 0 }}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                    className="overflow-hidden"
-                  >
-                    <p className="text-xs md:text-sm font-sans tracking-wide text-[var(--color-brand-crema)] font-light leading-relaxed max-w-md drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
-                      {cat.subtitle}
-                    </p>
-                  </motion.div>
-                </div>
-
-                {/* Subtle border shine effect */}
-                <div className="absolute inset-0 pointer-events-none rounded-sm border border-white/5 z-20" />
-              </motion.a>
+                cardVariants={cardVariants}
+              />
             );
           })}
         </motion.div>

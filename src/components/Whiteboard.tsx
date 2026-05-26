@@ -52,7 +52,7 @@ const whiteboardProjects: ProjectPostIt[] = [
   {
     id: 1,
     title: 'Pre adolescentes',
-    image: '/narrativa/preAdolescentes/portada.png',
+    image: '/narrativa/preAdolescentes/portada.jpg',
     left: '8%',
     top: '12%',
     rotate: -4,
@@ -74,7 +74,7 @@ const whiteboardProjects: ProjectPostIt[] = [
   {
     id: 3,
     title: 'El Plumero',
-    image: '/narrativa/elPlumero/portada.png',
+    image: '/narrativa/elPlumero/portada.jpg',
     left: '14%',
     top: '48%',
     rotate: -2,

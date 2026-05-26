@@ -58,7 +58,9 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <video 
           ref={videoRef}
-          src="/neoTratoria.mp4" 
+          src="https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807798/Neotrattoria_l9ww3b.mp4" 
+          poster="/proyectosAudiovisuales/neoTrattoriaPortada.JPG"
+          preload="auto"
           autoPlay muted loop playsInline 
           className="w-full h-full object-cover opacity-85 scale-105"
         />

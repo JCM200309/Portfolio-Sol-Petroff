@@ -173,12 +173,12 @@ export default function MemoriaVividoExperience({ onBack }: MemoriaVividoExperie
           />
         </div>
 
-        {/* Hero Photo (1.png) - Asymmetric container */}
+        {/* Hero Photo (1.jpg) - Asymmetric container */}
         <div className="w-full max-w-5xl aspect-[16/10] overflow-hidden rounded-xs border border-[var(--color-brand-marron-claro)]/15 shadow-sm relative group">
           <TiltImage
-            src="/producciones/memoriaVivido/1.png"
+            src="/producciones/memoriaVivido/1.jpg"
             alt="Memoria Vívido Imagen 1"
-            onClick={() => setSelectedPhoto('/producciones/memoriaVivido/1.png')}
+            onClick={() => setSelectedPhoto('/producciones/memoriaVivido/1.jpg')}
             onHoverStart={() => setIsHoveringImage(true)}
             onHoverEnd={() => setIsHoveringImage(false)}
             className="w-full h-full"
