@@ -163,12 +163,20 @@ export default function Projects() {
       id="movimiento"
       className="h-full w-full relative overflow-hidden bg-[var(--color-brand-crema)]"
     >
+      {/* Back Button */}
+      <a 
+        href="#proyectos"
+        className="fixed top-24 left-6 md:left-12 z-50 flex items-center gap-2 text-[10px] font-sans tracking-[0.2em] uppercase text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-97 px-5 py-2.5 rounded-full transition-all duration-300 shadow-md cursor-pointer z-50"
+      >
+        ← Volver
+      </a>
+
       {/* Section label */}
-      <span className="absolute top-5 left-6 z-20 text-[9px] tracking-[0.32em] uppercase text-[var(--color-brand-marron-claro)] font-sans pointer-events-none select-none">
+      <span className="absolute top-32 left-6 md:left-12 z-20 text-[9px] tracking-[0.32em] uppercase text-[var(--color-brand-marron-claro)] font-sans pointer-events-none select-none">
         Proyectos Audiovisuales
       </span>
 
-      <div className="h-full w-full flex flex-col md:flex-row">
+      <div className="h-full w-full pt-[80px] md:pt-[114px] flex flex-col md:flex-row">
         {/* ── Featured project — left 62% ── */}
         <div
           className="relative h-[58%] md:h-full cursor-pointer overflow-hidden"

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
-import { ArrowLeft, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
 
 // --- HELPER COMPONENT: 3D Interactive Hover Tilt Image ---
@@ -72,11 +72,7 @@ function TiltImage({ src, alt, className = "", onClick, onHoverStart, onHoverEnd
   );
 }
 
-interface Anos20ExperienceProps {
-  onBack: () => void;
-}
-
-export default function Anos20Experience({ onBack }: Anos20ExperienceProps) {
+export default function Anos20Experience() {
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const [isHoveringImage, setIsHoveringImage] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
@@ -131,15 +127,7 @@ export default function Anos20Experience({ onBack }: Anos20ExperienceProps) {
       {/* Noise overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
 
-      {/* Floating Return Button */}
-      <div className="fixed top-8 left-6 md:left-12 z-40">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-[10px] font-sans tracking-[0.25em] uppercase text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-97 px-5 py-2.5 rounded-full transition-all duration-300 shadow-md cursor-pointer pointer-events-auto"
-        >
-          <ArrowLeft size={12} /> Volver a Portada
-        </button>
-      </div>
+
 
       {/* SECTION 0: HERO SPLASH & TITLE */}
       <div className="w-full min-h-screen flex flex-col justify-center items-center px-6 pt-28 pb-16 relative">

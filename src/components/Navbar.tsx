@@ -13,12 +13,13 @@ interface NavItem {
   subItems?: SubItem[];
 }
 
-export default function Navbar() {
+export default function Navbar({ isLight = false }: { isLight?: boolean }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const isLightNavbar = isLight && !scrolled;
 
   // Track window size for responsive logic
   useEffect(() => {
@@ -62,6 +63,9 @@ export default function Navbar() {
 
   // CSS Filter to convert black/dark logo image into the exact CSS cream color #f6edde
   const logoCreamFilter = 'brightness(0) invert(98%) sepia(5%) saturate(795%) hue-rotate(323deg) brightness(101%) contrast(93%)';
+
+  // CSS Filter to convert black/dark logo image into the exact CSS bordo color #840624
+  const logoBordoFilter = 'brightness(0) saturate(100%) invert(13%) sepia(94%) saturate(7460%) hue-rotate(345deg) brightness(90%) contrast(106%)';
 
   // Animation variants for desktop links collapsing/expanding
   const linksContainerVariants: any = {
@@ -134,7 +138,7 @@ export default function Navbar() {
             alt="Logo"
             className="block w-auto object-contain transition-all duration-500"
             style={{
-              filter: logoCreamFilter,
+              filter: isLightNavbar ? logoBordoFilter : logoCreamFilter,
               height: scrolled 
                 ? (isMobile ? '36px' : '44px') // Scrolled sizes
                 : (isMobile ? '44px' : '58px') // Transparent/Hero sizes (heavy/larger presence)
@@ -152,7 +156,9 @@ export default function Navbar() {
             variants={linksContainerVariants}
             initial="expanded"
             animate={!isMobile && scrolled ? 'collapsed' : 'expanded'}
-            className="hidden md:flex items-center gap-4 lg:gap-6 overflow-hidden whitespace-nowrap"
+            className={`hidden md:flex items-center gap-4 lg:gap-6 whitespace-nowrap ${
+              scrolled ? 'overflow-hidden' : 'overflow-visible'
+            }`}
           >
             {navItems.map((item, idx) => {
               const isContact = item.link === '#conectemos';
@@ -167,7 +173,11 @@ export default function Navbar() {
                     onMouseLeave={() => setDropdownOpen(false)}
                   >
                     <button
-                      className="group text-[11px] font-sans tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer flex items-center gap-1 py-1.5 px-3 rounded-full hover:bg-white/5 active:scale-95 text-[var(--color-brand-crema)]/85 hover:text-white"
+                      className={`group text-[11px] font-sans tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer flex items-center gap-1 py-1.5 px-3 rounded-full active:scale-95 ${
+                        isLightNavbar
+                          ? 'text-[var(--color-brand-bordo)]/85 hover:text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
+                          : 'text-[var(--color-brand-crema)]/85 hover:text-white hover:bg-white/5'
+                      }`}
                       aria-expanded={dropdownOpen}
                       aria-haspopup="true"
                     >
@@ -175,8 +185,8 @@ export default function Navbar() {
                       <ChevronDown
                         size={12}
                         className={`transition-transform duration-300 ${
-                          dropdownOpen ? 'rotate-180' : ''
-                        }`}
+                          isLightNavbar ? 'text-[var(--color-brand-bordo)]' : 'text-current'
+                        } ${dropdownOpen ? 'rotate-180' : ''}`}
                       />
                     </button>
 
@@ -187,10 +197,12 @@ export default function Navbar() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 8, scale: 0.96 }}
                           transition={{ duration: 0.2, ease: 'easeOut' }}
-                          className={`absolute top-full right-0 mt-2 w-48 rounded-sm shadow-xl border border-white/10 overflow-hidden ${
+                          className={`absolute top-full right-0 mt-2 w-48 rounded-sm shadow-xl border overflow-hidden ${
                             scrolled
-                              ? 'bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)]'
-                              : 'bg-black/90 backdrop-blur-md text-[var(--color-brand-crema)]'
+                              ? 'bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] border-white/10'
+                              : isLightNavbar
+                              ? 'bg-white/95 text-[var(--color-brand-marron-oscuro)] border-[var(--color-brand-marron-claro)]/25 shadow-[0_10px_30px_rgba(146,94,61,0.15)]'
+                              : 'bg-black/90 backdrop-blur-md text-[var(--color-brand-crema)] border-white/10'
                           }`}
                         >
                           <div className="py-2" role="menu" aria-orientation="vertical">
@@ -199,7 +211,11 @@ export default function Navbar() {
                                 key={sub.label + sIdx}
                                 href={sub.link}
                                 onClick={() => setDropdownOpen(false)}
-                                className="block px-5 py-2.5 text-[10px] font-sans tracking-[0.15em] uppercase transition-all duration-200 cursor-pointer hover:bg-white/10 hover:text-white"
+                                className={`block px-5 py-2.5 text-[10px] font-sans tracking-[0.15em] uppercase transition-all duration-200 cursor-pointer ${
+                                  isLightNavbar
+                                    ? 'text-[var(--color-brand-marron-oscuro)] hover:bg-[var(--color-brand-bordo)]/5 hover:text-[var(--color-brand-bordo)]'
+                                    : 'text-[var(--color-brand-crema)]/80 hover:bg-white/10 hover:text-white'
+                                }`}
                                 role="menuitem"
                               >
                                 {sub.label}
@@ -219,13 +235,23 @@ export default function Navbar() {
                   href={item.link}
                   className={
                     isContact
-                      ? 'text-[11px] font-sans tracking-[0.2em] uppercase text-[var(--color-brand-bordo)] bg-[var(--color-brand-crema)] hover:bg-white hover:scale-[1.03] active:scale-97 px-5 py-2 rounded-full transition-all duration-300 cursor-pointer shadow-md'
-                      : 'group text-[11px] font-sans tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer relative py-2 px-3 rounded-full hover:bg-white/5 active:scale-95 text-[var(--color-brand-crema)]/85 hover:text-white'
+                      ? `text-[11px] font-sans tracking-[0.2em] uppercase px-5 py-2 rounded-full transition-all duration-300 cursor-pointer shadow-md ${
+                          isLightNavbar
+                            ? 'text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-97'
+                            : 'text-[var(--color-brand-bordo)] bg-[var(--color-brand-crema)] hover:bg-white hover:scale-[1.03] active:scale-97'
+                        }`
+                      : `group text-[11px] font-sans tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer relative py-2 px-3 rounded-full active:scale-95 ${
+                          isLightNavbar
+                            ? 'text-[var(--color-brand-bordo)]/85 hover:text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
+                            : 'text-[var(--color-brand-crema)]/85 hover:text-white hover:bg-white/5'
+                        }`
                   }
                 >
                   {item.label}
                   {!isContact && (
-                    <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-[var(--color-brand-crema)] rounded-full opacity-0 scale-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100" />
+                    <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full opacity-0 scale-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 ${
+                      isLightNavbar ? 'bg-[var(--color-brand-bordo)]' : 'bg-[var(--color-brand-crema)]'
+                    }`} />
                   )}
                 </a>
               );
@@ -238,7 +264,11 @@ export default function Navbar() {
             initial={isMobile ? 'visible' : 'hidden'}
             animate={isMobile || scrolled ? 'visible' : 'hidden'}
             onClick={() => setMobileOpen(true)}
-            className="flex items-center justify-center p-2.5 rounded-full text-[var(--color-brand-crema)] hover:bg-white/5 transition-colors cursor-pointer overflow-hidden whitespace-nowrap"
+            className={`flex items-center justify-center p-2.5 rounded-full transition-colors cursor-pointer overflow-hidden whitespace-nowrap ${
+              isLightNavbar
+                ? 'text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
+                : 'text-[var(--color-brand-crema)] hover:bg-white/5'
+            }`}
             aria-label="Abrir menú de navegación"
           >
             <Menu size={24} />
@@ -277,7 +307,8 @@ export default function Navbar() {
                   <img
                     src="/logo.png"
                     alt="Logo"
-                    className="block h-8 w-auto object-contain filter invert brightness-0"
+                    className="block h-8 w-auto object-contain"
+                    style={{ filter: logoBordoFilter }}
                     draggable={false}
                     width={100}
                     height={22}

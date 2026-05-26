@@ -20,21 +20,16 @@ export default function Productions() {
   // Track mouse coordinates for parallax and custom cursor
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX, clientY } = e
+    setCursorPos({ x: clientX, y: clientY })
+
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect()
-      // Calculate coordinates relative to the scroll container box
       const x = clientX - rect.left
-      const y = clientY - rect.top
-      setCursorPos({ x, y })
-
-      // Translate coordinates to range [-1, 1] relative to container center
       const normX = (x / rect.width) * 2 - 1
-      const normY = (y / rect.height) * 2 - 1
+      const normY = ((clientY - rect.top) / rect.height) * 2 - 1
       setMousePos({ x: normX, y: normY })
     }
   };
-
-
 
   return (
     <section
@@ -42,6 +37,23 @@ export default function Productions() {
       ref={containerRef}
       className="relative w-full h-full min-h-screen bg-black"
     >
+      {/* Dynamic Back Button */}
+      {activeProject !== null ? (
+        <button
+          onClick={() => setActiveProject(null)}
+          className="fixed top-24 left-6 md:left-12 z-50 flex items-center gap-2 text-[10px] font-sans tracking-[0.2em] uppercase text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-97 px-5 py-2.5 rounded-full transition-all duration-300 shadow-md cursor-pointer pointer-events-auto z-50"
+        >
+          ← Volver
+        </button>
+      ) : (
+        <a 
+          href="#proyectos"
+          className="fixed top-24 left-6 md:left-12 z-50 flex items-center gap-2 text-[10px] font-sans tracking-[0.2em] uppercase text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-97 px-5 py-2.5 rounded-full transition-all duration-300 shadow-md cursor-pointer z-50"
+        >
+          ← Volver
+        </a>
+      )}
+
       <AnimatePresence mode="wait">
         {activeProject === null ? (
           /* STATE 1: Landing Category Scroll View (Landing + Grid) */
@@ -52,13 +64,21 @@ export default function Productions() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7 }}
             className="w-full h-full min-h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth bg-black pointer-events-auto"
-            onMouseMove={handleMouseMove}
+            onMouseMove={(e) => {
+              handleMouseMove(e);
+              setIsHovering(false);
+            }}
           >
             {/* Slide 1: Hero Landing (Memoria Vívido) */}
             <div
               onClick={() => setActiveProject('memoria-vivido')}
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
+              onMouseMove={(e) => {
+                e.stopPropagation();
+                handleMouseMove(e);
+                if (!isHovering) setIsHovering(true);
+              }}
               className="snap-start w-full h-screen relative flex items-center justify-start cursor-none select-none overflow-hidden bg-black"
             >
               {/* Parallax & Ken Burns Background Image */}
@@ -111,7 +131,7 @@ export default function Productions() {
             </div>
 
             {/* Slide 2: Grid of other productions */}
-            <div className="snap-start w-full min-h-screen relative bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] flex flex-col justify-center py-16 px-4 md:px-12 overflow-hidden">
+            <div className="snap-start w-full min-h-screen relative bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] flex flex-col justify-center pt-32 pb-16 md:pt-36 md:pb-20 px-4 md:px-12 overflow-hidden">
               {/* Noise texture overlay */}
               <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
 
@@ -159,6 +179,11 @@ export default function Productions() {
                     onClick={() => setActiveProject('neo-trattoria')}
                     onMouseEnter={() => setIsHovering(true)}
                     onMouseLeave={() => setIsHovering(false)}
+                    onMouseMove={(e) => {
+                      e.stopPropagation();
+                      handleMouseMove(e);
+                      if (!isHovering) setIsHovering(true);
+                    }}
                     className="border-t border-l border-b border-[var(--color-brand-crema)]/15 relative overflow-hidden cursor-none group h-[380px] bg-black pointer-events-auto"
                   >
                     <img 
@@ -193,6 +218,11 @@ export default function Productions() {
                     onClick={() => setActiveProject('no-futuro')}
                     onMouseEnter={() => setIsHovering(true)}
                     onMouseLeave={() => setIsHovering(false)}
+                    onMouseMove={(e) => {
+                      e.stopPropagation();
+                      handleMouseMove(e);
+                      if (!isHovering) setIsHovering(true);
+                    }}
                     className="border-t border-l border-b border-[var(--color-brand-crema)]/15 relative overflow-hidden cursor-none group h-[380px] bg-black pointer-events-auto"
                   >
                     <img 
@@ -223,6 +253,11 @@ export default function Productions() {
                     onClick={() => setActiveProject('anos-20')}
                     onMouseEnter={() => setIsHovering(true)}
                     onMouseLeave={() => setIsHovering(false)}
+                    onMouseMove={(e) => {
+                      e.stopPropagation();
+                      handleMouseMove(e);
+                      if (!isHovering) setIsHovering(true);
+                    }}
                     className="border-t border-l border-r border-b border-[var(--color-brand-crema)]/15 relative overflow-hidden cursor-none group h-[380px] bg-black pointer-events-auto"
                   >
                     <img 
@@ -323,26 +358,26 @@ export default function Productions() {
             {isHovering && (
               <motion.div
                 style={{
-                  position: 'absolute',
+                  position: 'fixed',
                   left: 0,
                   top: 0,
                   x: cursorPos.x - 48,
                   y: cursorPos.y - 48
                 }}
-                className="hidden md:flex absolute w-24 h-24 rounded-full bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] items-center justify-center text-[10px] font-sans tracking-[0.25em] uppercase font-semibold pointer-events-none z-50 shadow-[0_10px_35px_rgba(132,6,36,0.3)] border border-white/10"
+                className="hidden md:flex fixed w-24 h-24 rounded-full bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] items-center justify-center text-[10px] font-sans tracking-[0.25em] uppercase font-semibold pointer-events-none z-50 shadow-[0_10px_35px_rgba(132,6,36,0.3)] border border-white/10"
               >
                 Ver Caso
               </motion.div>
             )}
           </motion.div>
         ) : activeProject === 'memoria-vivido' ? (
-          <MemoriaVividoExperience key="memoria-experience" onBack={() => setActiveProject(null)} />
+          <MemoriaVividoExperience key="memoria-experience" />
         ) : activeProject === 'no-futuro' ? (
-          <NoFuturoExperience key="nofuturo-experience" onBack={() => setActiveProject(null)} />
+          <NoFuturoExperience key="nofuturo-experience" />
         ) : activeProject === 'neo-trattoria' ? (
-          <NeoTrattoriaExperience key="neotrattoria-experience" onBack={() => setActiveProject(null)} />
+          <NeoTrattoriaExperience key="neotrattoria-experience" />
         ) : (
-          <Anos20Experience key="anos20-experience" onBack={() => setActiveProject(null)} />
+          <Anos20Experience key="anos20-experience" />
         )}
       </AnimatePresence>
 

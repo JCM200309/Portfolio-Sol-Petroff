@@ -25,6 +25,7 @@ function App() {
   }, []);
 
   const isSubPage = ['#movimiento', '#escena', '#narrativa'].includes(currentHash);
+  const isLightNavbar = isSubPage && currentHash !== '#escena';
 
   return (
     <div className="w-full h-screen overflow-y-auto snap-y snap-mandatory text-[var(--color-brand-marron-oscuro)] font-sans bg-[var(--color-brand-crema)] selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] scroll-smooth">
@@ -38,17 +39,10 @@ function App() {
         COLOR="#840624"
         RAINBOW_MODE={false}
       />
-      <Navbar />
+      <Navbar isLight={isLightNavbar} />
 
       {isSubPage ? (
         <div className="w-full h-full relative pointer-events-auto bg-[var(--color-brand-crema)]">
-          {/* Back Button */}
-          <a 
-            href="#proyectos"
-            className="fixed top-24 left-6 md:left-12 z-50 flex items-center gap-2 text-[10px] font-sans tracking-[0.2em] uppercase text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-97 px-5 py-2.5 rounded-full transition-all duration-300 shadow-md cursor-pointer"
-          >
-            ← Volver
-          </a>
           <div className="w-full h-full">
             {currentHash === '#movimiento' && <Projects />}
             {currentHash === '#escena' && <Productions />}

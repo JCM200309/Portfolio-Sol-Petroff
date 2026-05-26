@@ -193,21 +193,21 @@ export default function ProjectsSelector() {
     <section
       id="proyectos"
       ref={containerRef}
-      className="relative w-full h-full min-h-screen py-20 px-6 md:px-16 flex flex-col justify-center items-center overflow-hidden transition-colors duration-[800ms] ease-out"
+      className="relative w-full h-full min-h-screen pt-28 pb-12 md:pt-32 md:pb-16 px-6 md:px-16 flex flex-col justify-center items-center overflow-hidden transition-colors duration-[800ms] ease-out"
       style={{ backgroundColor: currentBgColor }}
     >
       {/* Noise background overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.04] mix-blend-overlay z-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
       {/* Top Section Header */}
-      <span className="absolute top-5 left-6 text-[9px] tracking-[0.32em] uppercase text-[var(--color-brand-marron-claro)] font-sans pointer-events-none select-none">
+      <span className="absolute top-28 left-6 md:left-12 text-[9px] tracking-[0.32em] uppercase text-[var(--color-brand-marron-claro)] font-sans pointer-events-none select-none">
         Categorías
       </span>
 
       {/* Main Container */}
       <div className="w-full max-w-5xl flex-grow flex flex-col justify-center z-10">
         {/* Section Header Text */}
-        <div className="w-full text-center md:text-left mb-12 md:mb-16 select-none">
+        <div className="w-full text-center md:text-left mb-8 md:mb-12 select-none">
           <h2 className="text-4xl md:text-6xl font-brand text-[var(--color-brand-marron-oscuro)] tracking-tight uppercase leading-none">
             Proyectos
           </h2>
@@ -222,7 +222,7 @@ export default function ProjectsSelector() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 w-full"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 w-full"
         >
           {categories.map((cat) => {
             const isHovered = hoveredId === cat.id;
