@@ -29,7 +29,7 @@ function App() {
   const isLightNavbar = isSubPage && currentHash !== '#escena';
 
   return (
-    <div className="w-full h-screen overflow-y-auto snap-y snap-mandatory text-[var(--color-brand-marron-oscuro)] font-sans bg-[var(--color-brand-crema)] selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] scroll-smooth">
+    <div className="w-full h-screen overflow-y-auto md:snap-y md:snap-mandatory text-[var(--color-brand-marron-oscuro)] font-sans bg-[var(--color-brand-crema)] selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] scroll-smooth">
       <SplashCursor 
         DENSITY_DISSIPATION={3.5}
         VELOCITY_DISSIPATION={2.0}
@@ -57,16 +57,16 @@ function App() {
           </div>
         ) : (
           <main className="w-full h-full">
-            <div className="snap-start h-screen">
+            <div className="md:snap-start h-[100dvh] md:h-screen">
               <Hero />
             </div>
-            <div className="snap-start h-screen">
+            <div className="md:snap-start min-h-screen md:h-screen">
               <ProjectsSelector />
             </div>
-            <div className="snap-start h-screen">
+            <div className="md:snap-start min-h-screen md:h-screen">
               <About />
             </div>
-            <div className="snap-start h-screen">
+            <div className="md:snap-start min-h-screen md:h-screen">
               <Contact />
             </div>
           </main>

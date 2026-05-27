@@ -32,9 +32,21 @@ function CategoryCard({
   const videoRef = useRef<HTMLVideoElement>(null);
   const isMovimiento = cat.id === 'movimiento';
 
+  // State to track if the device is a mobile or touch screen
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+
+  useEffect(() => {
+    setIsMobileDevice(window.innerWidth < 768 || ('ontouchstart' in window));
+  }, []);
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    if (isMobileDevice) {
+      video.play().catch(() => {});
+      return;
+    }
 
     if (isHovered) {
       video.play().catch((err) => {
@@ -46,7 +58,9 @@ function CategoryCard({
         video.currentTime = 0;
       }
     }
-  }, [isHovered]);
+  }, [isHovered, isMobileDevice]);
+
+  const showActiveState = isHovered || isMobileDevice;
 
   return (
     <motion.a
@@ -54,19 +68,20 @@ function CategoryCard({
       variants={cardVariants}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`relative w-full aspect-[16/10] bg-transparent border border-[var(--color-brand-marron-oscuro)]/30 rounded-sm overflow-hidden cursor-pointer shadow-[0_12px_40px_rgba(0,0,0,0.01)] transition-all duration-500 ease-out flex flex-col justify-between p-6 md:p-8 pointer-events-auto ${
+      className={`relative w-full aspect-[16/10] bg-transparent border rounded-sm overflow-hidden cursor-pointer shadow-[0_12px_40px_rgba(0,0,0,0.01)] transition-all duration-500 ease-out flex flex-col justify-between p-6 md:p-8 pointer-events-auto ${
+        isHovered
+          ? 'border-[var(--color-brand-bordo)] shadow-[0_20px_50px_rgba(132,6,36,0.12)] scale-[1.03]'
+          : 'border-[var(--color-brand-marron-oscuro)]/30'
+      } ${
         isMovimiento ? 'md:col-span-2 md:aspect-[24/10] md:max-w-2xl justify-self-center' : ''
       }`}
       style={{
-        borderColor: isHovered ? 'var(--color-brand-bordo)' : undefined,
-        boxShadow: isHovered ? '0 25px 60px rgba(132, 6, 36, 0.12)' : undefined,
-        transform: isHovered ? 'scale(1.03)' : undefined,
         opacity: isAnyHovered && !isHovered ? 0.45 : 1
       }}
       role="button"
       aria-label={`Explorar categoría ${cat.title}`}
     >
-      {/* Background Video (plays/unveils on hover) */}
+      {/* Background Video (plays/unveils on hover or autoplay on mobile) */}
       <div className="absolute inset-0 z-0 transition-opacity duration-700 overflow-hidden">
         <video
           ref={videoRef}
@@ -76,7 +91,11 @@ function CategoryCard({
           playsInline
           preload="metadata"
           className={`w-full h-full object-cover transition-all duration-700 scale-105 ${
-            isHovered ? 'opacity-85 scale-100' : 'opacity-10 scale-105'
+            isHovered 
+              ? 'opacity-85 scale-100' 
+              : isMobileDevice
+              ? 'opacity-25 scale-105'
+              : 'opacity-10 scale-105'
           } ${cat.filterClass || ''}`}
         />
         {/* Subtle dark overlay on hover to ensure text legibility */}
@@ -108,14 +127,16 @@ function CategoryCard({
           {cat.title}
         </h3>
 
-        {/* Subtitle / Description - morphs height on hover */}
+        {/* Subtitle / Description - morphs height on hover or displays by default on mobile */}
         <motion.div
           initial={false}
-          animate={isHovered ? { height: 'auto', opacity: 0.85, marginTop: 12 } : { height: 0, opacity: 0, marginTop: 0 }}
+          animate={showActiveState ? { height: 'auto', opacity: 1, marginTop: 12 } : { height: 0, opacity: 0, marginTop: 0 }}
           transition={{ duration: 0.35, ease: 'easeOut' }}
           className="overflow-hidden"
         >
-          <p className="text-xs md:text-sm font-sans tracking-wide text-[var(--color-brand-crema)] font-light leading-relaxed max-w-md drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+          <p className={`text-xs md:text-sm font-sans tracking-wide font-light leading-relaxed max-w-md ${
+            isHovered ? 'text-[var(--color-brand-crema)] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]' : 'text-[var(--color-brand-marron-oscuro)]/80'
+          }`}>
             {cat.subtitle}
           </p>
         </motion.div>
@@ -193,7 +214,7 @@ export default function ProjectsSelector() {
     <section
       id="proyectos"
       ref={containerRef}
-      className="relative w-full h-full min-h-screen pt-28 pb-12 md:pt-32 md:pb-16 px-6 md:px-16 flex flex-col justify-center items-center overflow-hidden transition-colors duration-[800ms] ease-out"
+      className="relative w-full min-h-screen md:h-full pt-28 pb-12 md:pt-32 md:pb-16 px-6 md:px-16 flex flex-col justify-center items-center overflow-hidden transition-colors duration-[800ms] ease-out"
       style={{ backgroundColor: currentBgColor }}
     >
       {/* Noise background overlay */}

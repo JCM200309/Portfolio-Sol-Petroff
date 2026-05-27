@@ -54,7 +54,7 @@ export default function Contact() {
   return (
     <section 
       id="conectemos" 
-      className="h-full w-full pt-32 pb-20 px-6 md:px-16 flex flex-col justify-center items-center bg-[var(--color-brand-crema)] overflow-y-auto"
+      className="min-h-screen md:h-full w-full pt-32 pb-20 px-6 md:px-16 flex flex-col justify-center items-center bg-[var(--color-brand-crema)] md:overflow-y-auto"
     >
       <div className="w-full max-w-6xl z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
