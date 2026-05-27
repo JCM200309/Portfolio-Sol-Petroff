@@ -49,8 +49,8 @@ export default function About() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center"
         >
-          {/* LEFT COLUMN: Text Content (spans 7 cols on desktop) */}
-          <div className="lg:col-span-7 flex flex-col justify-center select-none text-left">
+          {/* LEFT COLUMN: Text Content (spans 5 cols on desktop) */}
+          <div className="lg:col-span-5 flex flex-col justify-center select-none text-left">
             <motion.h2 
               variants={itemVariants}
               className="text-4xl md:text-6xl font-brand text-[var(--color-brand-bordo)] uppercase tracking-tight leading-none mb-10"
@@ -77,43 +77,58 @@ export default function About() {
             </motion.div>
           </div>
 
-          {/* RIGHT COLUMN: Asymmetrical Editorial Collage (spans 5 cols on desktop) */}
-          <div className="lg:col-span-5 flex items-center justify-center">
-            <div className="relative w-full max-w-sm aspect-[4/5] sm:aspect-[1/1] select-none">
+          {/* RIGHT COLUMN: Editorial Pyramid Photos (spans 7 cols on desktop) */}
+          <div className="lg:col-span-7 flex items-center justify-center">
+            <div className="flex flex-col items-center gap-6 w-full max-w-3xl mx-auto">
               
-              {/* Box 1 (Top Left) - Placeholder */}
-              <motion.div 
+              {/* Top Peak of the Pyramid: The Main Profile Photo (Landscape 3:2, fully uncropped) */}
+              <motion.div
                 variants={collageItemVariants}
-                className="absolute w-[44%] aspect-[4/5] left-0 top-[4%] border border-[var(--color-brand-marron-claro)]/25 rounded-sm bg-[var(--color-brand-marron-claro)]/[0.04] flex flex-col items-center justify-center p-3 text-center shadow-[0_4px_24px_rgba(146,94,61,0.02)]"
+                className="w-full overflow-hidden rounded-sm border border-[var(--color-brand-bordo)]/30 shadow-[0_20px_60px_rgba(132,6,36,0.15)] group"
+                style={{ aspectRatio: '5184/3456' }}
               >
-                <span className="text-[10px] font-sans tracking-[0.2em] text-[var(--color-brand-marron-claro)] uppercase mb-1">01</span>
-                <span className="text-[8px] font-sans tracking-[0.15em] text-[var(--color-brand-marron-claro)]/70 uppercase">Sensibilidad</span>
-              </motion.div>
-
-              {/* Box 2 (Bottom Left) - Placeholder */}
-              <motion.div 
-                variants={collageItemVariants}
-                className="absolute w-[44%] aspect-[4/5] left-0 bottom-[4%] border border-[var(--color-brand-marron-claro)]/25 rounded-sm bg-[var(--color-brand-marron-claro)]/[0.04] flex flex-col items-center justify-center p-3 text-center shadow-[0_4px_24px_rgba(146,94,61,0.02)]"
-              >
-                <span className="text-[10px] font-sans tracking-[0.2em] text-[var(--color-brand-marron-claro)] uppercase mb-1">02</span>
-                <span className="text-[8px] font-sans tracking-[0.15em] text-[var(--color-brand-marron-claro)]/70 uppercase">El Aura</span>
-              </motion.div>
-
-              {/* Box 3 (Right Center - Profile Photo) */}
-              <motion.div 
-                variants={collageItemVariants}
-                className="absolute w-[56%] aspect-[4/3] right-0 top-1/2 -translate-y-1/2 rounded-sm overflow-hidden border border-[var(--color-brand-bordo)]/25 shadow-[0_15px_40px_rgba(132,6,36,0.1)] z-10 group"
-              >
-                <img 
-                  src="/conoceme/fotoPerfil.jpeg" 
-                  alt="Sol Petroff Perfil" 
-                  className="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-105"
+                <img
+                  src="/conoceme/fotoPerfil.jpeg"
+                  alt="Sol Petroff Perfil"
+                  className="w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-105"
                   draggable={false}
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
               </motion.div>
-              
+
+              {/* Bottom Base of the Pyramid: The two supporting detail photos side-by-side (fully uncropped) */}
+              <div className="grid grid-cols-2 gap-6 w-full">
+                {/* Left Base Image (Almost Square 1:1) */}
+                <motion.div
+                  variants={collageItemVariants}
+                  className="w-full overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/20 shadow-[0_8px_32px_rgba(146,94,61,0.08)] group/img1"
+                  style={{ aspectRatio: '1666/1743' }}
+                >
+                  <img
+                    src="/conoceme/fotoPerfil2.jpg"
+                    alt="Sol Petroff Detalle 1"
+                    className="w-full h-full object-cover object-top transition-transform duration-[1.4s] ease-out group-hover/img1:scale-105"
+                    draggable={false}
+                    loading="lazy"
+                  />
+                </motion.div>
+
+                {/* Right Base Image (Portrait ~6:7) */}
+                <motion.div
+                  variants={collageItemVariants}
+                  className="w-full overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/20 shadow-[0_8px_32px_rgba(146,94,61,0.08)] group/img3"
+                  style={{ aspectRatio: '3024/3536' }}
+                >
+                  <img
+                    src="/conoceme/fotoPerfil3.jpg"
+                    alt="Sol Petroff Detalle 2"
+                    className="w-full h-full object-cover object-top transition-transform duration-[1.4s] ease-out group-hover/img3:scale-105"
+                    draggable={false}
+                    loading="lazy"
+                  />
+                </motion.div>
+              </div>
+
             </div>
           </div>
         </motion.div>

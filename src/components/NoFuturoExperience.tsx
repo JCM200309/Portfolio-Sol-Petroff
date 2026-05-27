@@ -58,12 +58,12 @@ function TiltImage({ src, alt, className = "", onClick, onHoverStart, onHoverEnd
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="w-full h-full relative"
+        className="w-full h-auto relative"
       >
         <img
           src={src}
           alt={alt}
-          className="w-full h-full object-cover transition-transform duration-700 ease-out select-none pointer-events-none"
+          className="w-full h-auto object-contain transition-transform duration-700 ease-out select-none pointer-events-none block"
           loading="lazy"
         />
         <div className="absolute inset-0 border border-white/10 pointer-events-none group-hover:border-white/20 transition-colors" />
@@ -71,6 +71,20 @@ function TiltImage({ src, alt, className = "", onClick, onHoverStart, onHoverEnd
     </motion.div>
   );
 }
+
+const noFuturoImages = [
+  "/producciones/noFuturo/primerFoto.png",
+  "/producciones/noFuturo/fotoPortada.JPG",
+  "/producciones/noFuturo/2.JPG",
+  "/producciones/noFuturo/3.JPG",
+  "/producciones/noFuturo/4.JPG",
+  "/producciones/noFuturo/5.JPG",
+  "/producciones/noFuturo/6.JPG",
+  "/producciones/noFuturo/7.JPG",
+  "/producciones/noFuturo/8.JPG",
+  "/producciones/noFuturo/10.JPG",
+  "/producciones/noFuturo/11.JPG"
+];
 
 export default function NoFuturoExperience() {
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
@@ -127,8 +141,6 @@ export default function NoFuturoExperience() {
       {/* Noise overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
 
-
-
       {/* SECTION 0: HERO SPLASH & TITLE */}
       <div className="w-full min-h-screen flex flex-col justify-center items-center px-6 pt-28 pb-16 relative">
         <div className="max-w-6xl w-full text-center mb-16 select-none flex flex-col items-center">
@@ -155,14 +167,14 @@ export default function NoFuturoExperience() {
         </div>
 
         {/* Hero Photo */}
-        <div className="w-full max-w-5xl aspect-[16/10] overflow-hidden rounded-xs border border-[var(--color-brand-marron-claro)]/15 shadow-sm relative group">
+        <div className="w-full max-w-5xl overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm relative group bg-black/[0.02]">
           <TiltImage
-            src="/producciones/noFuturo/PRIMER FOTO.JPG"
+            src="/producciones/noFuturo/primerFoto.png"
             alt="No Futuro Imagen 1"
-            onClick={() => setSelectedPhoto('/producciones/noFuturo/PRIMER FOTO.JPG')}
+            onClick={() => setSelectedPhoto('/producciones/noFuturo/primerFoto.png')}
             onHoverStart={() => setIsHoveringImage(true)}
             onHoverEnd={() => setIsHoveringImage(false)}
-            className="w-full h-full"
+            className="w-full h-auto"
           />
         </div>
 
@@ -199,7 +211,7 @@ export default function NoFuturoExperience() {
         </div>
 
         {/* Right: Vertical Image */}
-        <div className="order-1 md:order-2 aspect-[3/4] w-full max-w-md mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-xs group">
+        <div className="order-1 md:order-2 w-full max-w-md mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02]">
           <TiltImage
             src="/producciones/noFuturo/2.JPG"
             alt="No Futuro Actitud"
@@ -207,7 +219,7 @@ export default function NoFuturoExperience() {
             onHoverStart={() => setIsHoveringImage(true)}
             onHoverEnd={() => setIsHoveringImage(false)}
             parallaxY={sec1Parallax}
-            className="w-full h-full"
+            className="w-full h-auto"
           />
         </div>
       </div>
@@ -215,14 +227,14 @@ export default function NoFuturoExperience() {
       {/* SECTION 2: SHOCK & HARD LIGHT (Centered Frame) */}
       <div className="w-full py-20 bg-[var(--color-brand-marron-claro)]/5 border-t border-b border-[var(--color-brand-marron-claro)]/10">
         <div className="max-w-5xl mx-auto px-6 flex flex-col items-center">
-          <div className="w-full aspect-[16/9] overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-xs group">
+          <div className="w-full max-w-4xl overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-sm group bg-black/[0.02]">
             <TiltImage
               src="/producciones/noFuturo/3.JPG"
               alt="No Futuro Detalle"
               onClick={() => setSelectedPhoto('/producciones/noFuturo/3.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
 
@@ -249,7 +261,7 @@ export default function NoFuturoExperience() {
         className="max-w-6xl mx-auto px-6 py-28 md:py-40 flex flex-col md:flex-row gap-16 md:gap-24 relative"
       >
         <div className="w-full md:w-1/2 flex flex-col items-center">
-          <div className="aspect-[3/4] w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-xs group">
+          <div className="w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02]">
             <TiltImage
               src="/producciones/noFuturo/4.JPG"
               alt="No Futuro Fragmento A"
@@ -257,13 +269,13 @@ export default function NoFuturoExperience() {
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               parallaxY={sec3ParallaxLeft}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
         </div>
 
         <div className="w-full md:w-1/2 flex flex-col justify-start pt-12 md:pt-24">
-          <div className="aspect-[3/4] w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-xs mb-12 group">
+          <div className="w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm mb-12 group bg-black/[0.02]">
             <TiltImage
               src="/producciones/noFuturo/5.JPG"
               alt="No Futuro Fragmento B"
@@ -271,7 +283,7 @@ export default function NoFuturoExperience() {
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               parallaxY={sec3ParallaxRight}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
 
@@ -312,14 +324,14 @@ export default function NoFuturoExperience() {
 
         {/* Row 1 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16 w-full">
-          <div className="aspect-[4/5] w-full max-w-sm mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-xs group">
+          <div className="w-full max-w-sm mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02]">
             <TiltImage
               src="/producciones/noFuturo/6.JPG"
               alt="No Futuro Caos"
               onClick={() => setSelectedPhoto('/producciones/noFuturo/6.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
 
@@ -340,45 +352,48 @@ export default function NoFuturoExperience() {
         </div>
 
         {/* Row 2 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pt-12 w-full">
-          <div className="aspect-square overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-xs rounded-xs group">
-            <TiltImage
-              src="/producciones/noFuturo/7.JPG"
-              alt="No Futuro Detalle 7"
-              onClick={() => setSelectedPhoto('/producciones/noFuturo/7.JPG')}
-              onHoverStart={() => setIsHoveringImage(true)}
-              onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-full"
-            />
+        <div className="pt-12 w-full space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02]">
+              <TiltImage
+                src="/producciones/noFuturo/7.JPG"
+                alt="No Futuro Detalle 7"
+                onClick={() => setSelectedPhoto('/producciones/noFuturo/7.JPG')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto"
+              />
+            </div>
+
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02] sm:mt-10">
+              <TiltImage
+                src="/producciones/noFuturo/8.JPG"
+                alt="No Futuro Detalle 8"
+                onClick={() => setSelectedPhoto('/producciones/noFuturo/8.JPG')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto"
+              />
+            </div>
           </div>
 
-          <div className="aspect-square overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-xs rounded-xs group sm:translate-y-8 md:translate-y-12">
-            <TiltImage
-              src="/producciones/noFuturo/8.JPG"
-              alt="No Futuro Detalle 8"
-              onClick={() => setSelectedPhoto('/producciones/noFuturo/8.JPG')}
-              onHoverStart={() => setIsHoveringImage(true)}
-              onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-full"
-            />
-          </div>
-
-          <div className="aspect-square overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-xs rounded-xs group sm:col-span-2 md:col-span-1 flex items-center justify-center bg-[var(--color-brand-marron-claro)]/10 text-[var(--color-brand-marron-oscuro)]/40 font-brand italic text-lg px-6 text-center select-none">
+          {/* Quote caption */}
+          <p className="text-right font-brand italic text-sm text-[var(--color-brand-marron-oscuro)]/40 pr-1 select-none">
             "El cuerpo es el espacio donde se plasma la resistencia punk."
-          </div>
+          </p>
         </div>
       </div>
 
       {/* SECTION 5: CONCLUDING HERO */}
       <div className="w-full pt-32 pb-16 flex flex-col items-center">
-        <div className="w-full max-w-5xl aspect-[16/10] overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-xs group">
+        <div className="w-full max-w-5xl overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-sm group bg-black/[0.02]">
           <TiltImage
             src="/producciones/noFuturo/fotoPortada.JPG"
             alt="No Futuro Conclusion"
             onClick={() => setSelectedPhoto('/producciones/noFuturo/fotoPortada.JPG')}
             onHoverStart={() => setIsHoveringImage(true)}
             onHoverEnd={() => setIsHoveringImage(false)}
-            className="w-full h-full"
+            className="w-full h-auto"
           />
         </div>
 
@@ -395,6 +410,48 @@ export default function NoFuturoExperience() {
           >
             La insurrección del vestuario y la crudeza del instante se funden en el retrato de una juventud que encuentra en la protesta su propio lenguaje vital.
           </ScrollReveal>
+        </div>
+      </div>
+
+      {/* GALLERY SECTION */}
+      <div className="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
+        <div className="mb-12 select-none">
+          <ScrollReveal
+            scrollContainer=".nofuturo-scroll-container"
+            textClassName="text-[10px] md:text-xs font-sans tracking-[0.35em] text-[var(--color-brand-marron-claro)] uppercase font-semibold mb-2"
+          >
+            Galería Completa
+          </ScrollReveal>
+          <ScrollReveal
+            scrollContainer=".nofuturo-scroll-container"
+            textClassName="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2"
+          >
+            Registro Editorial
+          </ScrollReveal>
+        </div>
+
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 [column-fill:_balance]">
+          {noFuturoImages.map((imgSrc, index) => (
+            <motion.div
+              key={imgSrc}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: (index % 5) * 0.05 }}
+              className="break-inside-avoid overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm bg-black/[0.01] hover:shadow-md transition-shadow group cursor-none relative"
+              onClick={() => setSelectedPhoto(imgSrc)}
+              onMouseEnter={() => setIsHoveringImage(true)}
+              onMouseLeave={() => setIsHoveringImage(false)}
+            >
+              <img
+                src={imgSrc}
+                alt={`No Futuro Gallery ${index}`}
+                className="w-full h-auto object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
+            </motion.div>
+          ))}
         </div>
       </div>
 

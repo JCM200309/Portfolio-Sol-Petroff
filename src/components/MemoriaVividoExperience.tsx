@@ -58,12 +58,12 @@ export function TiltImage({ src, alt, className = "", onClick, onHoverStart, onH
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="w-full h-full relative"
+        className="w-full h-auto relative"
       >
         <img
           src={src}
           alt={alt}
-          className="w-full h-full object-cover transition-transform duration-700 ease-out select-none pointer-events-none"
+          className="w-full h-auto object-contain transition-transform duration-700 ease-out select-none pointer-events-none block"
           loading="lazy"
         />
         {/* Subtle inner gold/border flare on hover */}
@@ -72,6 +72,28 @@ export function TiltImage({ src, alt, className = "", onClick, onHoverStart, onH
     </motion.div>
   );
 }
+
+const memoriaVividoImages = [
+  "/producciones/memoriaVivido/primerFoto.jpg",
+  "/producciones/memoriaVivido/portada.JPG",
+  "/producciones/memoriaVivido/foto principal.jpg",
+  "/producciones/memoriaVivido/3.jpg",
+  "/producciones/memoriaVivido/4.JPG",
+  "/producciones/memoriaVivido/5.JPG",
+  "/producciones/memoriaVivido/6.jpg",
+  "/producciones/memoriaVivido/7.JPG",
+  "/producciones/memoriaVivido/8.JPG",
+  "/producciones/memoriaVivido/9.JPG",
+  "/producciones/memoriaVivido/10.JPG",
+  "/producciones/memoriaVivido/11.JPG",
+  "/producciones/memoriaVivido/12.jpg",
+  "/producciones/memoriaVivido/13.jpg",
+  "/producciones/memoriaVivido/14.JPG",
+  "/producciones/memoriaVivido/15.JPG",
+  "/producciones/memoriaVivido/16.jpg",
+  "/producciones/memoriaVivido/17.jpg",
+  "/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg"
+];
 
 // --- MAIN PORTAL: Memoria Vívido Experience Page ---
 export default function MemoriaVividoExperience() {
@@ -134,8 +156,6 @@ export default function MemoriaVividoExperience() {
       {/* Noise texture overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
 
-
-
       {/* SECTION 0: HERO SPLASH & TITLE */}
       <div className="w-full min-h-screen flex flex-col justify-center items-center px-6 pt-28 pb-16 relative">
         <div className="max-w-6xl w-full text-center mb-16 select-none flex flex-col items-center">
@@ -161,15 +181,15 @@ export default function MemoriaVividoExperience() {
           />
         </div>
 
-        {/* Hero Photo (1.jpg) - Asymmetric container */}
-        <div className="w-full max-w-5xl aspect-[16/10] overflow-hidden rounded-xs border border-[var(--color-brand-marron-claro)]/15 shadow-sm relative group">
+        {/* Hero Photo (primerFoto.jpg) */}
+        <div className="w-full max-w-5xl overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm relative group bg-black/[0.02]">
           <TiltImage
-            src="/producciones/memoriaVivido/1.jpg"
+            src="/producciones/memoriaVivido/primerFoto.jpg"
             alt="Memoria Vívido Imagen 1"
-            onClick={() => setSelectedPhoto('/producciones/memoriaVivido/1.jpg')}
+            onClick={() => setSelectedPhoto('/producciones/memoriaVivido/primerFoto.jpg')}
             onHoverStart={() => setIsHoveringImage(true)}
             onHoverEnd={() => setIsHoveringImage(false)}
-            className="w-full h-full"
+            className="w-full h-auto"
           />
         </div>
 
@@ -179,7 +199,7 @@ export default function MemoriaVividoExperience() {
             scrollContainer=".memoria-scroll-container"
             textClassName="text-xl md:text-2xl lg:text-3xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light"
           >
-            Editorial basada en un reporte de tendencias que desarrolla el concepto de “memoria vivido”, representando un universo estético desde la nostalgia y el recuerdo como un peso. Se plasma la naturaleza expansiva y a veces caótica de la memoria, y como se convive con ese peso, desde las poses elegidas, las luces y la escenografía.
+            Editorial basada en un reporte de tendencias que desarrolla el concept de “memoria vivido”, representando un universo estético desde la nostalgia y el recuerdo como un peso. Se plasma la naturaleza expansiva y a veces caótica de la memoria, y como se convive con ese peso, desde las poses elegidas, las luces y la escenografía.
           </ScrollReveal>
         </div>
       </div>
@@ -206,7 +226,7 @@ export default function MemoriaVividoExperience() {
         </div>
 
         {/* Right Side: Large Vertical Image */}
-        <div className="order-1 md:order-2 aspect-[3/4] w-full max-w-md mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-xs group">
+        <div className="order-1 md:order-2 w-full max-w-md mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02]">
           <TiltImage
             src="/producciones/memoriaVivido/foto principal.jpg"
             alt="Memoria Vívido Poses"
@@ -214,7 +234,7 @@ export default function MemoriaVividoExperience() {
             onHoverStart={() => setIsHoveringImage(true)}
             onHoverEnd={() => setIsHoveringImage(false)}
             parallaxY={sec1Parallax}
-            className="w-full h-full"
+            className="w-full h-auto"
           />
         </div>
       </div>
@@ -223,15 +243,14 @@ export default function MemoriaVividoExperience() {
       <div className="w-full py-20 bg-[var(--color-brand-marron-claro)]/5 border-t border-b border-[var(--color-brand-marron-claro)]/10">
         <div className="max-w-5xl mx-auto px-6 flex flex-col items-center">
           {/* Centered Large Image */}
-          {/* Centered Large Image (Vertical aspect for vertical photo) */}
-          <div className="w-full max-w-md aspect-[2/3] overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-xs group">
+          <div className="w-full max-w-md overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-sm group bg-black/[0.02]">
             <TiltImage
-              src="/producciones/memoriaVivido/471988EA-FB4A-409D-9469-30F36DD5F0A8_L0_001-4_7_2024, 4_46_10 p.m..jpg"
+              src="/producciones/memoriaVivido/3.jpg"
               alt="Memoria Vívido Acumulación"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/471988EA-FB4A-409D-9469-30F36DD5F0A8_L0_001-4_7_2024, 4_46_10 p.m..jpg')}
+              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/3.jpg')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
 
@@ -260,7 +279,7 @@ export default function MemoriaVividoExperience() {
       >
         {/* Left sliding photo */}
         <div className="w-full md:w-1/2 flex flex-col items-center">
-          <div className="aspect-[3/4] w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-xs group">
+          <div className="w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02]">
             <TiltImage
               src="/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg"
               alt="Fragmento Lineal A"
@@ -268,22 +287,22 @@ export default function MemoriaVividoExperience() {
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               parallaxY={sec3ParallaxLeft}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
         </div>
 
         {/* Right sliding photo with text */}
         <div className="w-full md:w-1/2 flex flex-col justify-start pt-12 md:pt-24">
-          <div className="aspect-[3/4] w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-xs mb-12 group">
+          <div className="w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm mb-12 group bg-black/[0.02]">
             <TiltImage
-              src="/producciones/memoriaVivido/57459F9E-70BA-4ABE-B28B-48C88CE86B11_L0_001-4_7_2024, 4_46_11 p.m..jpg"
+              src="/producciones/memoriaVivido/5.JPG"
               alt="Fragmento Lineal B"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/57459F9E-70BA-4ABE-B28B-48C88CE86B11_L0_001-4_7_2024, 4_46_11 p.m..jpg')}
+              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/5.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               parallaxY={sec3ParallaxRight}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
 
@@ -327,14 +346,14 @@ export default function MemoriaVividoExperience() {
 
         {/* Staggered Row 1 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16 w-full">
-          <div className="aspect-[4/5] w-full max-w-sm mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-xs group">
+          <div className="w-full max-w-sm mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02]">
             <TiltImage
-              src="/producciones/memoriaVivido/BAEE5B7E-3A79-4FB2-9CE5-9709AE4A0256_L0_001-4_7_2024, 4_46_10 p.m..jpg"
+              src="/producciones/memoriaVivido/6.jpg"
               alt="Eco de Memoria"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/BAEE5B7E-3A79-4FB2-9CE5-9709AE4A0256_L0_001-4_7_2024, 4_46_10 p.m..jpg')}
+              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/6.jpg')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
 
@@ -354,38 +373,38 @@ export default function MemoriaVividoExperience() {
           </div>
         </div>
 
-        {/* Staggered Row 2: Staggered horizontal layout */}
+        {/* Staggered Row 2 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pt-12 w-full">
-          <div className="aspect-square overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-xs rounded-xs group">
+          <div className="w-full max-w-xs mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-xs rounded-sm group bg-black/[0.02]">
             <TiltImage
               src="/producciones/memoriaVivido/7.JPG"
               alt="Reminiscencia 7"
               onClick={() => setSelectedPhoto('/producciones/memoriaVivido/7.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
 
-          <div className="aspect-square overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-xs rounded-xs group sm:translate-y-8 md:translate-y-12">
+          <div className="w-full max-w-xs mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-xs rounded-sm group sm:translate-y-8 md:translate-y-12 bg-black/[0.02]">
             <TiltImage
               src="/producciones/memoriaVivido/8.JPG"
               alt="Reminiscencia 8"
               onClick={() => setSelectedPhoto('/producciones/memoriaVivido/8.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
 
-          <div className="aspect-square overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-xs rounded-xs group sm:col-span-2 md:col-span-1">
+          <div className="w-full max-w-xs mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-xs rounded-sm group bg-black/[0.02]">
             <TiltImage
-              src="/producciones/memoriaVivido/D9742183-A5A7-46D6-AB10-7A5753506F1D_L0_001-4_7_2024, 4_46_12 p.m..jpg"
+              src="/producciones/memoriaVivido/9.JPG"
               alt="Reminiscencia 9"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/D9742183-A5A7-46D6-AB10-7A5753506F1D_L0_001-4_7_2024, 4_46_12 p.m..jpg')}
+              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/9.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
         </div>
@@ -393,29 +412,28 @@ export default function MemoriaVividoExperience() {
 
       {/* SECTION 5: CONCLUDING HERO */}
       <div className="w-full pt-32 pb-16 flex flex-col items-center">
-        {/* Asymmetrical two-image vertical grid */}
         <div className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 px-6 mb-24">
           {/* Vertical Card - Left */}
-          <div className="w-full md:w-1/2 aspect-[2/3] max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-xs group">
+          <div className="w-full md:w-1/2 max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-sm group bg-black/[0.02]">
             <TiltImage
-              src="/producciones/memoriaVivido/DEFAEDF5-C8A4-4749-A019-35E3FC68706A_L0_001-4_7_2024, 4_46_10 p.m..jpg"
+              src="/producciones/memoriaVivido/10.JPG"
               alt="Memoria Vívido Detalle"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/DEFAEDF5-C8A4-4749-A019-35E3FC68706A_L0_001-4_7_2024, 4_46_10 p.m..jpg')}
+              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/10.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
 
-          {/* Vertical Card - Right (Staggered downwards slightly on desktop) */}
-          <div className="w-full md:w-1/2 aspect-[2/3] max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-xs group md:translate-y-12">
+          {/* Vertical Card - Right */}
+          <div className="w-full md:w-1/2 max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-sm group md:translate-y-12 bg-black/[0.02]">
             <TiltImage
               src="/producciones/memoriaVivido/portada.JPG"
               alt="Memoria Vívido Conclusión"
               onClick={() => setSelectedPhoto('/producciones/memoriaVivido/portada.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
         </div>
@@ -434,6 +452,48 @@ export default function MemoriaVividoExperience() {
           >
             El peso de la memoria resguardado en el presente, se manifiesta en el recorrido de la vida, el cual es testigo de la huella que deja el tiempo.
           </ScrollReveal>
+        </div>
+      </div>
+
+      {/* GALLERY SECTION */}
+      <div className="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
+        <div className="mb-12 select-none">
+          <ScrollReveal
+            scrollContainer=".memoria-scroll-container"
+            textClassName="text-[10px] md:text-xs font-sans tracking-[0.35em] text-[var(--color-brand-marron-claro)] uppercase font-semibold mb-2"
+          >
+            Galería Completa
+          </ScrollReveal>
+          <ScrollReveal
+            scrollContainer=".memoria-scroll-container"
+            textClassName="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2"
+          >
+            Registro Editorial
+          </ScrollReveal>
+        </div>
+
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 [column-fill:_balance]">
+          {memoriaVividoImages.map((imgSrc, index) => (
+            <motion.div
+              key={imgSrc}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: (index % 5) * 0.05 }}
+              className="break-inside-avoid overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm bg-black/[0.01] hover:shadow-md transition-shadow group cursor-none relative"
+              onClick={() => setSelectedPhoto(imgSrc)}
+              onMouseEnter={() => setIsHoveringImage(true)}
+              onMouseLeave={() => setIsHoveringImage(false)}
+            >
+              <img
+                src={imgSrc}
+                alt={`Memoria Vívido Gallery ${index}`}
+                className="w-full h-auto object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
+            </motion.div>
+          ))}
         </div>
       </div>
 

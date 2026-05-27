@@ -58,12 +58,12 @@ function TiltImage({ src, alt, className = "", onClick, onHoverStart, onHoverEnd
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="w-full h-full relative"
+        className="w-full h-auto relative"
       >
         <img
           src={src}
           alt={alt}
-          className="w-full h-full object-cover transition-transform duration-700 ease-out select-none pointer-events-none"
+          className="w-full h-auto object-contain transition-transform duration-700 ease-out select-none pointer-events-none block"
           loading="lazy"
         />
         <div className="absolute inset-0 border border-white/10 pointer-events-none group-hover:border-white/20 transition-colors" />
@@ -71,6 +71,14 @@ function TiltImage({ src, alt, className = "", onClick, onHoverStart, onHoverEnd
     </motion.div>
   );
 }
+
+const anos20Images = [
+  "/producciones/años20/fotoPortada.webp",
+  "/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp",
+  "/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp",
+  "/producciones/años20/image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp",
+  "/producciones/años20/image-ab55dd13-2ec1-435c-b54b-c6ed1f6ab46e.webp"
+];
 
 export default function Anos20Experience() {
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
@@ -127,8 +135,6 @@ export default function Anos20Experience() {
       {/* Noise overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
 
-
-
       {/* SECTION 0: HERO SPLASH & TITLE */}
       <div className="w-full min-h-screen flex flex-col justify-center items-center px-6 pt-28 pb-16 relative">
         <div className="max-w-6xl w-full text-center mb-16 select-none flex flex-col items-center">
@@ -155,14 +161,14 @@ export default function Anos20Experience() {
         </div>
 
         {/* Hero Photo */}
-        <div className="w-full max-w-5xl aspect-[16/10] overflow-hidden rounded-xs border border-[var(--color-brand-marron-claro)]/15 shadow-sm relative group">
+        <div className="w-full max-w-5xl overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm relative group bg-black/[0.02]">
           <TiltImage
             src="/producciones/años20/fotoPortada.webp"
             alt="Años 20 Hero"
             onClick={() => setSelectedPhoto('/producciones/años20/fotoPortada.webp')}
             onHoverStart={() => setIsHoveringImage(true)}
             onHoverEnd={() => setIsHoveringImage(false)}
-            className="w-full h-full"
+            className="w-full h-auto"
           />
         </div>
 
@@ -172,7 +178,7 @@ export default function Anos20Experience() {
             scrollContainer=".anos20-scroll-container"
             textClassName="text-xl md:text-2xl lg:text-3xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light"
           >
-            Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la elegancia, la liberación y la modernidad emergente. Revisitamos los códigos de vestuario y las atmósferas de la época del jazz bajo una mirada fotográfica contemporánea, buscando capturar el aura de una generación revolucionaria.
+            Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la elegancia, la transformación y la modernidad emergente. La producción toma como punto de partida algunos de los códigos visuales más representativos de la época para reinterpretarlos desde una mirada contemporánea, construyendo un universo donde lo clásico y lo actual conviven constantemente.
           </ScrollReveal>
         </div>
       </div>
@@ -194,12 +200,12 @@ export default function Anos20Experience() {
             scrollContainer=".anos20-scroll-container"
             textClassName="text-base md:text-lg lg:text-xl font-sans text-[var(--color-brand-marron-oscuro)]/80 leading-relaxed tracking-wide text-left"
           >
-            Los brillos sutiles, el uso de perlas, plumas y texturas metalizadas interactúan con la luz para evocar los clubes nocturnos y la sofisticación de la época. A través de poses que transmiten misterio y soltura, la indumentaria se convierte en un símbolo de la emancipación femenina y la ruptura de los moldes clásicos.
+            A través del estilismo, el maquillaje y la puesta en escena, se busca recuperar la sofisticación característica de la década, trabajando con siluetas refinadas, detalles ornamentales, accesorios protagonistas y una estética atravesada por el dramatismo visual. El maquillaje toma un rol central dentro de la narrativa de la producción: líneas geométricas, miradas intensas y expresiones teatrales construyen personajes que transmiten fuerza, sensualidad y presencia.
           </ScrollReveal>
         </div>
 
         {/* Right: Vertical Image */}
-        <div className="order-1 md:order-2 aspect-[3/4] w-full max-w-md mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-xs group">
+        <div className="order-1 md:order-2 w-full max-w-md mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02]">
           <TiltImage
             src="/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp"
             alt="Años 20 Brillo"
@@ -207,7 +213,7 @@ export default function Anos20Experience() {
             onHoverStart={() => setIsHoveringImage(true)}
             onHoverEnd={() => setIsHoveringImage(false)}
             parallaxY={sec1Parallax}
-            className="w-full h-full"
+            className="w-full h-auto"
           />
         </div>
       </div>
@@ -215,14 +221,14 @@ export default function Anos20Experience() {
       {/* SECTION 2: SUSPENDED DETAILS (Centered Frame) */}
       <div className="w-full py-20 bg-[var(--color-brand-marron-claro)]/5 border-t border-b border-[var(--color-brand-marron-claro)]/10">
         <div className="max-w-5xl mx-auto px-6 flex flex-col items-center">
-          <div className="w-full aspect-[16/9] overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-xs group">
+          <div className="w-full max-w-4xl overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-sm group bg-black/[0.02]">
             <TiltImage
               src="/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp"
               alt="Años 20 Retrato"
               onClick={() => setSelectedPhoto('/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
 
@@ -237,7 +243,7 @@ export default function Anos20Experience() {
               scrollContainer=".anos20-scroll-container"
               textClassName="text-lg md:text-xl lg:text-2xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light"
             >
-              La composición asimétrica y la cercanía de los retratos enfatizan el detalle del maquillaje y los peinados característicos. Cada mirada al lente proyecta una elegancia magnética y nostálgica, como un fragmento suspendido en el tiempo que narra una historia de glamour y decadencia.
+              La propuesta visual explora también el contraste entre delicadeza y estructura. Las transparencias, los brillos y las texturas suaves dialogan con formas más rígidas y composiciones cuidadosamente construidas, generando imágenes donde la elegancia aparece desde el equilibrio entre lo sutil y lo excesivo. Cada elemento dentro de la escena busca reforzar una atmósfera sofisticada, inspirada en el glamour característico de la época pero llevada hacia una sensibilidad más actual.
             </ScrollReveal>
           </div>
         </div>
@@ -249,7 +255,7 @@ export default function Anos20Experience() {
         className="max-w-6xl mx-auto px-6 py-28 md:py-40 flex flex-col md:flex-row gap-16 md:gap-24 relative"
       >
         <div className="w-full md:w-1/2 flex flex-col items-center">
-          <div className="aspect-[3/4] w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-xs group">
+          <div className="w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02]">
             <TiltImage
               src="/producciones/años20/image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp"
               alt="Años 20 Silueta"
@@ -257,13 +263,13 @@ export default function Anos20Experience() {
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               parallaxY={sec3ParallaxLeft}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
         </div>
 
         <div className="w-full md:w-1/2 flex flex-col justify-start pt-12 md:pt-24">
-          <div className="aspect-[3/4] w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-xs mb-12 group">
+          <div className="w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm mb-12 group bg-black/[0.02]">
             <TiltImage
               src="/producciones/años20/image-ab55dd13-2ec1-435c-b54b-c6ed1f6ab46e.webp"
               alt="Años 20 Movimiento"
@@ -271,7 +277,7 @@ export default function Anos20Experience() {
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               parallaxY={sec3ParallaxRight}
-              className="w-full h-full"
+              className="w-full h-auto"
             />
           </div>
 
@@ -286,7 +292,7 @@ export default function Anos20Experience() {
               scrollContainer=".anos20-scroll-container"
               textClassName="text-base md:text-lg font-sans text-[var(--color-brand-marron-oscuro)]/80 leading-relaxed tracking-wide text-left"
             >
-              El contraste de las sombras y el dinamismo de las siluetas recrean la atmósfera del charlestón y la efervescencia cultural de la época. La sobriedad formal se desvanece frente a la fluidez del movimiento y la libertad de expresión a través del vestuario.
+              La iluminación y la dirección de arte acompañan esta construcción estética trabajando desde el contraste y la teatralidad. Las sombras marcadas, las poses y la expresividad de los personajes remiten al imaginario visual de los años 20, una década atravesada por el deseo de cambio, la liberación femenina y la aparición de nuevas formas de expresión ligadas a la moda, la belleza y la identidad.
             </ScrollReveal>
           </div>
         </div>
@@ -305,8 +311,50 @@ export default function Anos20Experience() {
             scrollContainer=".anos20-scroll-container"
             textClassName="text-3xl sm:text-4xl md:text-5xl font-brand text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light tracking-wide"
           >
-            El retrato de una época inolvidable que sigue resonando en el presente: un homenaje a la rebeldía sofisticada que definió los años locos.
+            Más que recrear la época de manera literal, la editorial busca reinterpretar su esencia visual y emocional. La producción toma elementos característicos de los años 20 para transformarlos en una propuesta contemporánea donde la elegancia, el dramatismo y la modernidad conviven, construyendo imágenes que oscilan entre lo clásico y lo actual sin perder la identidad propia de la propuesta.
           </ScrollReveal>
+        </div>
+      </div>
+
+      {/* GALLERY SECTION */}
+      <div className="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
+        <div className="mb-12 select-none">
+          <ScrollReveal
+            scrollContainer=".anos20-scroll-container"
+            textClassName="text-[10px] md:text-xs font-sans tracking-[0.35em] text-[var(--color-brand-marron-claro)] uppercase font-semibold mb-2"
+          >
+            Galería Completa
+          </ScrollReveal>
+          <ScrollReveal
+            scrollContainer=".anos20-scroll-container"
+            textClassName="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2"
+          >
+            Registro Editorial
+          </ScrollReveal>
+        </div>
+
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 [column-fill:_balance]">
+          {anos20Images.map((imgSrc, index) => (
+            <motion.div
+              key={imgSrc}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: (index % 5) * 0.05 }}
+              className="break-inside-avoid overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm bg-black/[0.01] hover:shadow-md transition-shadow group cursor-none relative"
+              onClick={() => setSelectedPhoto(imgSrc)}
+              onMouseEnter={() => setIsHoveringImage(true)}
+              onMouseLeave={() => setIsHoveringImage(false)}
+            >
+              <img
+                src={imgSrc}
+                alt={`Años 20 Gallery ${index}`}
+                className="w-full h-auto object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
+            </motion.div>
+          ))}
         </div>
       </div>
 

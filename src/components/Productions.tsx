@@ -169,7 +169,7 @@ export default function Productions() {
                         Nostalgia
                       </h4>
                       <p className="text-[11px] lg:text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70 max-w-xs">
-                        Neo Trattoria explora la convivencia entre lo orgánico y lo estructural, articulando formas curvas, repeticiones y superposiciones que generan un equilibrio entre exceso y armonía.
+                        Neo Trattoria nace del encuentro entre lo orgánico y lo estructural, construyendo una estética donde el exceso y la armonía conviven constantemente.
                       </p>
                     </div>
                   </div>
@@ -243,7 +243,7 @@ export default function Productions() {
                         Elegancia
                       </h4>
                       <p className="text-[11px] lg:text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70 max-w-xs">
-                        Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la elegancia, la liberación y la modernidad emergente.
+                        Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la elegancia, la transformación y la modernidad emergente.
                       </p>
                     </div>
                   </div>
@@ -294,7 +294,7 @@ export default function Productions() {
                           Neo Trattoria
                         </h4>
                         <p className="text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
-                          Neo Trattoria explora la convivencia entre lo orgánico y lo estructural, articulando formas curvas, repeticiones y superposiciones.
+                          Neo Trattoria nace del encuentro entre lo orgánico y lo estructural, construyendo una estética donde el exceso y la armonía conviven constantemente.
                         </p>
                       </div>
                     </div>
@@ -344,7 +344,7 @@ export default function Productions() {
                           Años 20
                         </h4>
                         <p className="text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
-                          Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la elegancia, la liberación y la modernidad.
+                          Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la elegancia, la transformación y la modernidad emergente.
                         </p>
                       </div>
                     </div>
