@@ -90,7 +90,6 @@ const noFuturoImages = [
   "/producciones/noFuturo/primerFoto.png",
   "/producciones/noFuturo/fotoPortada.JPG",
   "/producciones/noFuturo/2.JPG",
-  "/producciones/noFuturo/3.JPG",
   "/producciones/noFuturo/4.JPG",
   "/producciones/noFuturo/5.JPG",
   "/producciones/noFuturo/6.JPG",
@@ -212,12 +211,7 @@ export default function NoFuturoExperience() {
       >
         {/* Left: Text */}
         <div className="order-2 md:order-1 flex flex-col justify-center">
-          <ScrollReveal
-            scrollContainer=".nofuturo-scroll-container"
-            textClassName="text-[10px] md:text-xs font-sans tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase font-semibold text-left mb-4"
-          >
-            El Presente Despojado
-          </ScrollReveal>
+
           <ScrollReveal
             scrollContainer=".nofuturo-scroll-container"
             textClassName="text-base md:text-lg lg:text-xl font-sans text-[var(--color-brand-marron-oscuro)]/80 leading-relaxed tracking-wide text-left"
@@ -237,37 +231,6 @@ export default function NoFuturoExperience() {
             parallaxY={sec1Parallax}
             className="w-full h-auto"
           />
-        </div>
-      </div>
-
-      {/* SECTION 2: SHOCK & HARD LIGHT (Centered Frame) */}
-      <div className="w-full py-20 bg-[var(--color-brand-marron-claro)]/5 border-t border-b border-[var(--color-brand-marron-claro)]/10">
-        <div className="max-w-5xl mx-auto px-6 flex flex-col items-center">
-          <div className="w-full max-w-4xl overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-sm group bg-black/[0.02]">
-            <TiltImage
-              src="/producciones/noFuturo/3.JPG"
-              alt="No Futuro Detalle"
-              onClick={() => setSelectedPhoto('/producciones/noFuturo/3.JPG')}
-              onHoverStart={() => setIsHoveringImage(true)}
-              onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-auto"
-            />
-          </div>
-
-          <div className="max-w-2xl text-center mt-12 px-4 flex flex-col items-center">
-            <ScrollReveal
-              scrollContainer=".nofuturo-scroll-container"
-              textClassName="text-[10px] md:text-xs font-sans tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase font-semibold text-center w-full justify-center mb-4"
-            >
-              Iluminación & Expresión
-            </ScrollReveal>
-            <ScrollReveal
-              scrollContainer=".nofuturo-scroll-container"
-              textClassName="text-lg md:text-xl lg:text-2xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light"
-            >
-              La iluminación dura, los contrastes marcados y las expresiones corporales exageradas funcionan como recursos para reforzar una personalidad revolucionaria, impulsiva y contestataria. El maquillaje, el vestuario y los accesorios toman elementos propios de la estética punk para reinterpretarlos desde un lenguaje contemporáneo y editorial.
-            </ScrollReveal>
-          </div>
         </div>
       </div>
 
@@ -306,15 +269,9 @@ export default function NoFuturoExperience() {
           <div className="max-w-md">
             <ScrollReveal
               scrollContainer=".nofuturo-scroll-container"
-              textClassName="text-[10px] md:text-xs font-sans tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase font-semibold text-left mb-4"
-            >
-              Identidad Estética
-            </ScrollReveal>
-            <ScrollReveal
-              scrollContainer=".nofuturo-scroll-container"
               textClassName="text-base md:text-lg font-sans text-[var(--color-brand-marron-oscuro)]/80 leading-relaxed tracking-wide text-left"
             >
-              Cada encuadre desafía la rigidez formal. Los materiales ásperos, las tachas y la superposición de texturas conviven con las miradas directas y las poses que proyectan la tensión corporal hacia el espectador.
+              La iluminación dura, los contrastes marcados y las expresiones corporales exageradas funcionan como recursos para reforzar una personalidad revolucionaria, impulsiva y contestataria. El maquillaje, el vestuario y los accesorios toman elementos propios de la estética punk para reinterpretarlos desde un lenguaje contemporáneo y editorial.
             </ScrollReveal>
           </div>
         </div>
@@ -323,12 +280,7 @@ export default function NoFuturoExperience() {
       {/* SECTION 4: NARRATIVE CLUSTER (Staggered Grid) */}
       <div className="max-w-6xl mx-auto px-6 py-20 relative flex flex-col items-center">
         <div className="mb-16 select-none flex flex-col items-center">
-          <ScrollReveal
-            scrollContainer=".nofuturo-scroll-container"
-            textClassName="text-[10px] md:text-xs font-sans tracking-[0.35em] text-[var(--color-brand-marron-claro)] uppercase block text-center w-full justify-center mb-2"
-          >
-            Estado Emocional Colectivo
-          </ScrollReveal>
+
           
           <ScrollReveal
             scrollContainer=".nofuturo-scroll-container"
@@ -354,15 +306,9 @@ export default function NoFuturoExperience() {
           <div className="flex flex-col justify-center">
             <ScrollReveal
               scrollContainer=".nofuturo-scroll-container"
-              textClassName="text-lg md:text-xl lg:text-2xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed text-left font-light mb-6"
+              textClassName="text-base md:text-lg lg:text-xl font-sans text-[var(--color-brand-marron-oscuro)]/80 leading-relaxed tracking-wide text-left"
             >
-              La producción no busca romantizar el caos, sino representar visualmente un estado emocional colectivo: apatía, enojo, ironía y supervivencia.
-            </ScrollReveal>
-            <ScrollReveal
-              scrollContainer=".nofuturo-scroll-container"
-              textClassName="text-sm md:text-base font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/75"
-            >
-              “No Futuro” se convierte así en una puesta en escena donde el cuerpo expresa las palabras que quieren ser gritadas, sirviendo de válvula de escape creativa.
+              La producción no busca romantizar el caos, sino representar visualmente un estado emocional colectivo: apatía, enojo, ironía y supervivencia. “No Futuro” se convierte así en una puesta en escena donde el cuerpo expresa las palabras que quieren ser gritadas.
             </ScrollReveal>
           </div>
         </div>
@@ -392,11 +338,6 @@ export default function NoFuturoExperience() {
               />
             </div>
           </div>
-
-          {/* Quote caption */}
-          <p className="text-right font-brand italic text-sm text-[var(--color-brand-marron-oscuro)]/40 pr-1 select-none">
-            "El cuerpo es el espacio donde se plasma la resistencia punk."
-          </p>
         </div>
       </div>
 
@@ -412,32 +353,12 @@ export default function NoFuturoExperience() {
             className="w-full h-auto"
           />
         </div>
-
-        <div className="max-w-3xl text-center mt-16 px-6 flex flex-col items-center">
-          <ScrollReveal
-            scrollContainer=".nofuturo-scroll-container"
-            textClassName="text-[10px] md:text-xs font-sans tracking-[0.4em] text-[var(--color-brand-marron-claro)] uppercase mb-6 block text-center w-full justify-center"
-          >
-            Conclusión
-          </ScrollReveal>
-          <ScrollReveal
-            scrollContainer=".nofuturo-scroll-container"
-            textClassName="text-3xl sm:text-4xl md:text-5xl font-brand text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light tracking-wide"
-          >
-            La insurrección del vestuario y la crudeza del instante se funden en el retrato de una juventud que encuentra en la protesta su propio lenguaje vital.
-          </ScrollReveal>
-        </div>
       </div>
 
       {/* GALLERY SECTION */}
       <div className="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
         <div className="mb-12 select-none">
-          <ScrollReveal
-            scrollContainer=".nofuturo-scroll-container"
-            textClassName="text-[10px] md:text-xs font-sans tracking-[0.35em] text-[var(--color-brand-marron-claro)] uppercase font-semibold mb-2"
-          >
-            Galería Completa
-          </ScrollReveal>
+
           <ScrollReveal
             scrollContainer=".nofuturo-scroll-container"
             textClassName="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2"

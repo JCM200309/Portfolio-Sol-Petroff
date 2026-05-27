@@ -218,12 +218,7 @@ export default function NeoTrattoriaExperience() {
       >
         {/* Left: Text */}
         <div className="order-2 md:order-1 flex flex-col justify-center">
-          <ScrollReveal
-            scrollContainer=".neotrattoria-scroll-container"
-            textClassName="text-[10px] md:text-xs font-sans tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase font-semibold text-left mb-4"
-          >
-            Materialidad & Contraste
-          </ScrollReveal>
+
           <ScrollReveal
             scrollContainer=".neotrattoria-scroll-container"
             textClassName="text-base md:text-lg lg:text-xl font-sans text-[var(--color-brand-marron-oscuro)]/80 leading-relaxed tracking-wide text-left"
@@ -261,12 +256,7 @@ export default function NeoTrattoriaExperience() {
           </div>
 
           <div className="max-w-2xl text-center mt-12 px-4 flex flex-col items-center">
-            <ScrollReveal
-              scrollContainer=".neotrattoria-scroll-container"
-              textClassName="text-[10px] md:text-xs font-sans tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase font-semibold text-center w-full justify-center mb-4"
-            >
-              Naturaleza Muerta Contemporánea
-            </ScrollReveal>
+
             <ScrollReveal
               scrollContainer=".neotrattoria-scroll-container"
               textClassName="text-lg md:text-xl lg:text-2xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light"
@@ -310,12 +300,7 @@ export default function NeoTrattoriaExperience() {
           </div>
 
           <div className="max-w-md">
-            <ScrollReveal
-              scrollContainer=".neotrattoria-scroll-container"
-              textClassName="text-[10px] md:text-xs font-sans tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase font-semibold text-left mb-4"
-            >
-              Diálogos de Siluetas
-            </ScrollReveal>
+
             <ScrollReveal
               scrollContainer=".neotrattoria-scroll-container"
               textClassName="text-base md:text-lg font-sans text-[var(--color-brand-marron-oscuro)]/80 leading-relaxed tracking-wide text-left"
@@ -329,12 +314,7 @@ export default function NeoTrattoriaExperience() {
       {/* SECTION 4: CONCLUDING QUOTE */}
       <div className="w-full pt-16 pb-16 flex flex-col items-center">
         <div className="max-w-3xl text-center px-6 flex flex-col items-center">
-          <ScrollReveal
-            scrollContainer=".neotrattoria-scroll-container"
-            textClassName="text-[10px] md:text-xs font-sans tracking-[0.4em] text-[var(--color-brand-marron-claro)] uppercase mb-6 block text-center w-full justify-center"
-          >
-            Reminiscencia de la Mesa
-          </ScrollReveal>
+
           <ScrollReveal
             scrollContainer=".neotrattoria-scroll-container"
             textClassName="text-3xl sm:text-4xl md:text-5xl font-brand text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light tracking-wide"
@@ -347,12 +327,7 @@ export default function NeoTrattoriaExperience() {
       {/* GALLERY SECTION */}
       <div className="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
         <div className="mb-12 select-none">
-          <ScrollReveal
-            scrollContainer=".neotrattoria-scroll-container"
-            textClassName="text-[10px] md:text-xs font-sans tracking-[0.35em] text-[var(--color-brand-marron-claro)] uppercase font-semibold mb-2"
-          >
-            Galería Completa
-          </ScrollReveal>
+
           <ScrollReveal
             scrollContainer=".neotrattoria-scroll-container"
             textClassName="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2"

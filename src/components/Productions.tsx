@@ -209,7 +209,7 @@ export default function Productions() {
                         Subcultura Punk
                       </h4>
                       <p className="text-[11px] lg:text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70 max-w-xs">
-                        En esta editorial busqué trabajar dentro de la subcultura Punk, el concepto de No – Futuro. Mediante las luces, poses y expresiones faciales reflejamos la personalidad de protesta y rebeldía.
+                        “No Futuro” toma como punto de partida la subcultura punk y su rechazo hacia las estructuras sociales establecidas, entendiendo el cuerpo como un espacio de resistencia, descarga y protesta.
                       </p>
                     </div>
                   </div>
@@ -320,7 +320,7 @@ export default function Productions() {
                           No Futuro
                         </h4>
                         <p className="text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
-                          En esta editorial busqué trabajar dentro de la subcultura Punk, el concepto de No – Futuro mediante luces, poses y expresiones faciales de protesta y rebeldía.
+                          “No Futuro” toma como punto de partida la subcultura punk y su rechazo hacia las estructuras sociales establecidas, entendiendo el cuerpo como un espacio de resistencia, descarga y protesta.
                         </p>
                       </div>
                     </div>
