@@ -93,6 +93,7 @@ export default function About() {
                   className="w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-105"
                   draggable={false}
                   loading="lazy"
+                  decoding="async"
                 />
               </motion.div>
 
@@ -110,6 +111,7 @@ export default function About() {
                     className="w-full h-full object-cover object-top transition-transform duration-[1.4s] ease-out group-hover/img1:scale-105"
                     draggable={false}
                     loading="lazy"
+                    decoding="async"
                   />
                 </motion.div>
 
@@ -125,6 +127,7 @@ export default function About() {
                     className="w-full h-full object-cover object-top transition-transform duration-[1.4s] ease-out group-hover/img3:scale-105"
                     draggable={false}
                     loading="lazy"
+                    decoding="async"
                   />
                 </motion.div>
               </div>

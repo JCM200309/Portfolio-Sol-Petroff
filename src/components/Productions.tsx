@@ -1,10 +1,11 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, lazy, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
-import MemoriaVividoExperience from './MemoriaVividoExperience'
-import NoFuturoExperience from './NoFuturoExperience'
-import NeoTrattoriaExperience from './NeoTrattoriaExperience'
-import Anos20Experience from './Anos20Experience'
+
+const MemoriaVividoExperience = lazy(() => import('./MemoriaVividoExperience'))
+const NoFuturoExperience = lazy(() => import('./NoFuturoExperience'))
+const NeoTrattoriaExperience = lazy(() => import('./NeoTrattoriaExperience'))
+const Anos20Experience = lazy(() => import('./Anos20Experience'))
 
 
 
@@ -370,14 +371,22 @@ export default function Productions() {
               </motion.div>
             )}
           </motion.div>
-        ) : activeProject === 'memoria-vivido' ? (
-          <MemoriaVividoExperience key="memoria-experience" />
-        ) : activeProject === 'no-futuro' ? (
-          <NoFuturoExperience key="nofuturo-experience" />
-        ) : activeProject === 'neo-trattoria' ? (
-          <NeoTrattoriaExperience key="neotrattoria-experience" />
         ) : (
-          <Anos20Experience key="anos20-experience" />
+          <Suspense fallback={
+            <div className="w-full h-screen flex items-center justify-center bg-black">
+              <div className="w-8 h-8 rounded-full border-2 border-[var(--color-brand-bordo)] border-t-transparent animate-spin" />
+            </div>
+          }>
+            {activeProject === 'memoria-vivido' ? (
+              <MemoriaVividoExperience key="memoria-experience" />
+            ) : activeProject === 'no-futuro' ? (
+              <NoFuturoExperience key="nofuturo-experience" />
+            ) : activeProject === 'neo-trattoria' ? (
+              <NeoTrattoriaExperience key="neotrattoria-experience" />
+            ) : (
+              <Anos20Experience key="anos20-experience" />
+            )}
+          </Suspense>
         )}
       </AnimatePresence>
 

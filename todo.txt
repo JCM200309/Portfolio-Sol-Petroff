@@ -3,9 +3,6 @@
 3) Ajustar el navbar global (lo sacamos o lo dejamos?). Tambien no me convence el navbar horizontal por ahi abria que sacarlo
 4) Producciones secundarias faltan texto en la pagina de preview y corregir titulos
 
-Proyecto Memoria Vívido
-1) Faltaria darle mas "pies" a la foto (es decir que se vea mas cuerpo y menos cielo)
-
 
 Ideas: 
 1) Que el cursor sea una camara y al hacer click sea como que se saca una foto

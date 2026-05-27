@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import Hero from './components/Hero'
-import Productions from './components/Productions'
-import Projects from './components/Projects'
 import About from './components/About'
 import Contact from './components/Contact'
 import SplashCursor from './components/ui/SplashCursor'
-import Whiteboard from './components/Whiteboard'
 import Navbar from './components/Navbar'
 import ProjectsSelector from './components/ProjectsSelector'
+
+const Productions = lazy(() => import('./components/Productions'))
+const Projects = lazy(() => import('./components/Projects'))
+const Whiteboard = lazy(() => import('./components/Whiteboard'))
 
 function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash)
@@ -41,30 +42,36 @@ function App() {
       />
       <Navbar isLight={isLightNavbar} />
 
-      {isSubPage ? (
-        <div className="w-full h-full relative pointer-events-auto bg-[var(--color-brand-crema)]">
-          <div className="w-full h-full">
-            {currentHash === '#movimiento' && <Projects />}
-            {currentHash === '#escena' && <Productions />}
-            {currentHash === '#narrativa' && <Whiteboard />}
-          </div>
+      <Suspense fallback={
+        <div className="w-full h-screen flex items-center justify-center bg-[var(--color-brand-crema)]">
+          <div className="w-8 h-8 rounded-full border-2 border-[var(--color-brand-bordo)] border-t-transparent animate-spin" />
         </div>
-      ) : (
-        <main className="w-full h-full">
-          <div className="snap-start h-screen">
-            <Hero />
+      }>
+        {isSubPage ? (
+          <div className="w-full h-full relative pointer-events-auto bg-[var(--color-brand-crema)]">
+            <div className="w-full h-full">
+              {currentHash === '#movimiento' && <Projects />}
+              {currentHash === '#escena' && <Productions />}
+              {currentHash === '#narrativa' && <Whiteboard />}
+            </div>
           </div>
-          <div className="snap-start h-screen">
-            <ProjectsSelector />
-          </div>
-          <div className="snap-start h-screen">
-            <About />
-          </div>
-          <div className="snap-start h-screen">
-            <Contact />
-          </div>
-        </main>
-      )}
+        ) : (
+          <main className="w-full h-full">
+            <div className="snap-start h-screen">
+              <Hero />
+            </div>
+            <div className="snap-start h-screen">
+              <ProjectsSelector />
+            </div>
+            <div className="snap-start h-screen">
+              <About />
+            </div>
+            <div className="snap-start h-screen">
+              <Contact />
+            </div>
+          </main>
+        )}
+      </Suspense>
     </div>
   )
 }

@@ -12,9 +12,21 @@ interface TiltImageProps {
   onHoverStart?: () => void;
   onHoverEnd?: () => void;
   parallaxY?: any; // Framer motion transform value
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low" | "auto";
 }
 
-export function TiltImage({ src, alt, className = "", onClick, onHoverStart, onHoverEnd, parallaxY }: TiltImageProps) {
+export function TiltImage({ 
+  src, 
+  alt, 
+  className = "", 
+  onClick, 
+  onHoverStart, 
+  onHoverEnd, 
+  parallaxY,
+  loading = "lazy",
+  fetchpriority = "auto"
+}: TiltImageProps) {
   const ref = useRef<HTMLDivElement>(null);
   
   const x = useMotionValue(0.5);
@@ -64,7 +76,9 @@ export function TiltImage({ src, alt, className = "", onClick, onHoverStart, onH
           src={src}
           alt={alt}
           className="w-full h-auto object-contain transition-transform duration-700 ease-out select-none pointer-events-none block"
-          loading="lazy"
+          loading={loading}
+          decoding="async"
+          {...(fetchpriority !== "auto" ? { fetchpriority } : {})}
         />
         {/* Subtle inner gold/border flare on hover */}
         <div className="absolute inset-0 border border-white/10 pointer-events-none group-hover:border-white/20 transition-colors" />
@@ -190,6 +204,8 @@ export default function MemoriaVividoExperience() {
             onHoverStart={() => setIsHoveringImage(true)}
             onHoverEnd={() => setIsHoveringImage(false)}
             className="w-full h-auto"
+            loading="eager"
+            fetchpriority="high"
           />
         </div>
 
