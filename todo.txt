@@ -8,3 +8,16 @@ Ideas:
 1) Que el cursor sea una camara y al hacer click sea como que se saca una foto
 2) Incorporar texto componente reactbits Text Pressure, Scroll Float, Scroll reveal
 3) Para el caso de No futuro hacer una tematica mas cruda
+
+
+Cosas nuevas:
+
+2) Aplicar mas jerarquia con el preview de producciones (No sacar grilla solo darle distinto peso)
+    a) Neo Trattoria
+    b) No Futuro
+    c) Años 20
+
+3) Mejorar el display de las producciones (Esperar a toti que tenga un diseño)
+4) Mejorar el display de los audiovisuales (hacer video como lo de papa)
+6) Mejorar Navbar horizontal hacerlo mas limpio
+7) Sacar boton de volver linkearlo al logo

@@ -1,4 +1,4 @@
-import { useState, useRef, lazy, Suspense } from 'react'
+import { useState, useRef, lazy, Suspense, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 
@@ -9,14 +9,19 @@ const Anos20Experience = lazy(() => import('./Anos20Experience'))
 
 
 
-export default function Productions() {
-  const [activeProject, setActiveProject] = useState<string | null>(null)
+export default function Productions({ initialProject = null }: { initialProject?: string | null }) {
+  const [activeProject, setActiveProject] = useState<string | null>(initialProject)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null)
   
   const containerRef = useRef<HTMLDivElement>(null)
+
+  // Sync active project with prop changes
+  useEffect(() => {
+    setActiveProject(initialProject);
+  }, [initialProject]);
 
   // Track mouse coordinates for parallax and custom cursor
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -41,7 +46,10 @@ export default function Productions() {
       {/* Dynamic Back Button */}
       {activeProject !== null ? (
         <button
-          onClick={() => setActiveProject(null)}
+          onClick={() => {
+            setActiveProject(null);
+            window.location.hash = '#escena';
+          }}
           className="fixed top-24 left-6 md:left-12 z-50 flex items-center gap-2 text-[10px] font-sans tracking-[0.2em] uppercase text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-97 px-5 py-2.5 rounded-full transition-all duration-300 shadow-md cursor-pointer pointer-events-auto z-50"
         >
           ← Volver
@@ -132,14 +140,14 @@ export default function Productions() {
             </div>
 
             {/* Slide 2: Grid of other productions */}
-            <div className="snap-start w-full min-h-screen relative bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] flex flex-col justify-center pt-32 pb-16 md:pt-36 md:pb-20 px-4 md:px-12 overflow-hidden">
+            <div className="snap-start w-full h-screen relative bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] flex flex-col pt-24 pb-6 md:pt-28 md:pb-10 px-4 md:px-12 overflow-hidden">
               {/* Noise texture overlay */}
               <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
 
-              <div className="max-w-7xl mx-auto w-full z-10">
+              <div className="max-w-7xl mx-auto w-full h-full flex flex-col justify-between z-10 min-h-0">
                 
                 {/* Minimalist Section Header */}
-                <div className="mb-12 flex items-center justify-between select-none">
+                <div className="mb-4 flex items-center justify-between select-none shrink-0">
                   <h3 className="font-brand text-2xl md:text-3xl uppercase tracking-wider text-[var(--color-brand-crema)]">
                     Otras Producciones
                   </h3>
@@ -151,31 +159,10 @@ export default function Productions() {
                   </a>
                 </div>
 
-                {/* DESKTOP EDITORIAL GRID (Pyramid Layout) */}
-                <div className="hidden md:grid grid-cols-4">
+                {/* DESKTOP EDITORIAL GRID (Asymmetric Luxury Layout) */}
+                <div className="hidden md:grid grid-cols-12 gap-8 items-stretch flex-1 min-h-0 w-full mb-2">
                   
-                  {/* ROW 1: NEO TRATTORIA (Center of the top row) */}
-                  {/* Col 1: Empty Left Wing */}
-                  <div className="h-[380px]" />
-                  
-                 
-
-                  {/* Col 2: Neo Trattoria Description */}
-                  <div className="border-t border-l border-r border-b border-[var(--color-brand-crema)]/15 p-8 flex flex-col justify-end h-[380px] bg-black/5 select-none">
-                    <div>
-                      <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-crema)]/40 uppercase mb-2 block">
-                        01 / Neo Trattoria
-                      </span>
-                      <h4 className="font-brand text-2xl uppercase tracking-wider mb-3 text-[var(--color-brand-crema)]">
-                        Nostalgia
-                      </h4>
-                      <p className="text-[11px] lg:text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70 max-w-xs">
-                        Neo Trattoria nace del encuentro entre lo orgánico y lo estructural, construyendo una estética donde el exceso y la armonía conviven constantemente.
-                      </p>
-                    </div>
-                  </div>
-
-                   {/* Col 3: Neo Trattoria Image */}
+                  {/* Card 1: Neo Trattoria (Left, col-span-7) */}
                   <div 
                     onClick={() => setActiveProject('neo-trattoria')}
                     onMouseEnter={() => setIsHovering(true)}
@@ -185,90 +172,105 @@ export default function Productions() {
                       handleMouseMove(e);
                       if (!isHovering) setIsHovering(true);
                     }}
-                    className="border-t border-l border-b border-[var(--color-brand-crema)]/15 relative overflow-hidden cursor-none group h-[380px] bg-black pointer-events-auto"
+                    className="col-span-7 bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-sm overflow-hidden flex flex-col h-full shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_30px_60px_rgba(0,0,0,0.45)] cursor-none pointer-events-auto group"
                   >
-                    <img 
-                      src="/producciones/neoTrattoria/fotoPortada.JPG" 
-                      alt="Neo Trattoria Cover" 
-                      className="w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
-                    />
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
-                  </div>
-
-                  {/* Col 4: Empty Right Wing */}
-                  <div className="h-[380px]" />
-
-                  {/* ROW 2: NO FUTURO & AÑOS 20 (Full row at the bottom) */}
-                  {/* Col 1: No Futuro Description */}
-                  <div className="border-t border-l border-b border-[var(--color-brand-crema)]/15 p-8 flex flex-col justify-end h-[380px] bg-black/5 select-none">
-                    <div>
-                      <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-crema)]/40 uppercase mb-2 block">
-                        02 / No Futuro
-                      </span>
-                      <h4 className="font-brand text-2xl uppercase tracking-wider mb-3 text-[var(--color-brand-crema)]">
-                        Subcultura Punk
-                      </h4>
-                      <p className="text-[11px] lg:text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70 max-w-xs">
-                        “No Futuro” toma como punto de partida la subcultura punk y su rechazo hacia las estructuras sociales establecidas, entendiendo el cuerpo como un espacio de resistencia, descarga y protesta.
-                      </p>
+                    <div className="flex-1 w-full min-h-0 overflow-hidden relative">
+                      <img 
+                        src="/producciones/neoTrattoria/fotoPortada.JPG" 
+                        alt="Neo Trattoria Cover" 
+                        className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
+                      />
+                      <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                    </div>
+                    <div className="h-[140px] p-6 flex flex-col justify-center bg-black/20 border-t border-white/5 select-none shrink-0">
+                      <div>
+                        <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-crema)]/40 uppercase mb-1.5 block">
+                          01 / Neo Trattoria
+                        </span>
+                        <h4 className="font-brand text-2xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-crema)] leading-tight">
+                          Nostalgia
+                        </h4>
+                        <p className="text-[10px] lg:text-[11px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
+                          Neo Trattoria nace del encuentro entre lo orgánico y lo estructural, construyendo una estética donde el exceso y la armonía conviven constantemente.
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Col 2: No Futuro Image */}
-                  <div 
-                    onClick={() => setActiveProject('no-futuro')}
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
-                    onMouseMove={(e) => {
-                      e.stopPropagation();
-                      handleMouseMove(e);
-                      if (!isHovering) setIsHovering(true);
-                    }}
-                    className="border-t border-l border-b border-[var(--color-brand-crema)]/15 relative overflow-hidden cursor-none group h-[380px] bg-black pointer-events-auto"
-                  >
-                    <img 
-                      src="/producciones/noFuturo/fotoPortada.JPG" 
-                      alt="No Futuro Cover" 
-                      className="w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
-                    />
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
-                  </div>
-
-                  {/* Col 3: Años 20 Description */}
-                  <div className="border-t border-l border-b border-[var(--color-brand-crema)]/15 p-8 flex flex-col justify-end h-[380px] bg-black/5 select-none">
-                    <div>
-                      <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-crema)]/40 uppercase mb-2 block">
-                        03 / Años 20
-                      </span>
-                      <h4 className="font-brand text-2xl uppercase tracking-wider mb-3 text-[var(--color-brand-crema)]">
-                        Elegancia
-                      </h4>
-                      <p className="text-[11px] lg:text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70 max-w-xs">
-                        Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la elegancia, la transformación y la modernidad emergente.
-                      </p>
+                  {/* Column 2: Stacked Secondary Projects (Right, col-span-5) */}
+                  <div className="col-span-5 flex flex-col justify-between h-full gap-6">
+                    
+                    {/* Card 2: No Futuro (Top, h-[55%]) */}
+                    <div 
+                      onClick={() => setActiveProject('no-futuro')}
+                      onMouseEnter={() => setIsHovering(true)}
+                      onMouseLeave={() => setIsHovering(false)}
+                      onMouseMove={(e) => {
+                        e.stopPropagation();
+                        handleMouseMove(e);
+                        if (!isHovering) setIsHovering(true);
+                      }}
+                      className="h-[55%] flex bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_30px_60px_rgba(0,0,0,0.45)] cursor-none pointer-events-auto group"
+                    >
+                      <div className="w-[40%] h-full overflow-hidden relative shrink-0">
+                        <img 
+                          src="/producciones/noFuturo/fotoPortada.JPG" 
+                          alt="No Futuro Cover" 
+                          className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
+                        />
+                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                      </div>
+                      <div className="flex-1 h-full p-5 flex flex-col justify-center bg-black/20 border-l border-white/5 select-none">
+                        <div>
+                          <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-crema)]/40 uppercase mb-1 block">
+                            02 / No Futuro
+                          </span>
+                          <h4 className="font-brand text-lg lg:text-xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-crema)]">
+                            Subcultura Punk
+                          </h4>
+                          <p className="text-[10px] lg:text-[11px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
+                            “No Futuro” toma como punto de partida la subcultura punk y su rechazo hacia las estructuras sociales establecidas.
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Col 4: Años 20 Image */}
-                  <div 
-                    onClick={() => setActiveProject('anos-20')}
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
-                    onMouseMove={(e) => {
-                      e.stopPropagation();
-                      handleMouseMove(e);
-                      if (!isHovering) setIsHovering(true);
-                    }}
-                    className="border-t border-l border-r border-b border-[var(--color-brand-crema)]/15 relative overflow-hidden cursor-none group h-[380px] bg-black pointer-events-auto"
-                  >
-                    <img 
-                      src="/producciones/años20/fotoPortada.webp" 
-                      alt="Años 20 Cover" 
-                      className="w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
-                    />
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
-                  </div>
+                    {/* Card 3: Años 20 (Bottom, h-[40%]) */}
+                    <div 
+                      onClick={() => setActiveProject('anos-20')}
+                      onMouseEnter={() => setIsHovering(true)}
+                      onMouseLeave={() => setIsHovering(false)}
+                      onMouseMove={(e) => {
+                        e.stopPropagation();
+                        handleMouseMove(e);
+                        if (!isHovering) setIsHovering(true);
+                      }}
+                      className="h-[40%] flex bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_30px_60px_rgba(0,0,0,0.45)] cursor-none pointer-events-auto group"
+                    >
+                      <div className="w-[40%] h-full overflow-hidden relative shrink-0">
+                        <img 
+                          src="/producciones/años20/fotoPortada.webp" 
+                          alt="Años 20 Cover" 
+                          className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
+                        />
+                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                      </div>
+                      <div className="flex-1 h-full p-4 flex flex-col justify-center bg-black/20 border-l border-white/5 select-none">
+                        <div>
+                          <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-crema)]/40 uppercase mb-1 block">
+                            03 / Años 20
+                          </span>
+                          <h4 className="font-brand text-lg lg:text-xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-crema)]">
+                            Elegancia
+                          </h4>
+                          <p className="text-[10px] lg:text-[11px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
+                            Una editorial inspirada en la estética de los años 20 que retoma el espíritu de la década.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
 
+                  </div>
                 </div>
 
                 {/* MOBILE EDITORIAL VIEW (Sleek stacked list for optimal readability and touch targets) */}
@@ -278,9 +280,9 @@ export default function Productions() {
                     {/* Neo Trattoria */}
                     <div 
                       onClick={() => setActiveProject('neo-trattoria')}
-                      className="group space-y-4 cursor-pointer pointer-events-auto"
+                      className="group space-y-4 cursor-pointer pointer-events-auto w-full"
                     >
-                      <div className="aspect-[4/3] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
+                      <div className="aspect-[16/10] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
                         <img 
                           src="/producciones/neoTrattoria/fotoPortada.JPG" 
                           alt="Neo Trattoria Cover" 
@@ -303,7 +305,7 @@ export default function Productions() {
                     {/* No Futuro */}
                     <div 
                       onClick={() => setActiveProject('no-futuro')}
-                      className="group space-y-4 cursor-pointer pointer-events-auto"
+                      className="group space-y-4 cursor-pointer pointer-events-auto w-[90%] mx-auto"
                     >
                       <div className="aspect-[4/3] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
                         <img 
@@ -328,9 +330,9 @@ export default function Productions() {
                     {/* Años 20 */}
                     <div 
                       onClick={() => setActiveProject('anos-20')}
-                      className="group space-y-4 cursor-pointer pointer-events-auto"
+                      className="group space-y-4 cursor-pointer pointer-events-auto w-[80%] mx-auto"
                     >
-                      <div className="aspect-[4/3] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
+                      <div className="aspect-[1/1] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
                         <img 
                           src="/producciones/años20/fotoPortada.webp" 
                           alt="Años 20 Cover" 
@@ -351,10 +353,9 @@ export default function Productions() {
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
-
+ 
             {/* Floating Custom Follow Cursor ("VER CASO" - aligned instantly to relative mouse position) */}
             {isHovering && (
               <motion.div

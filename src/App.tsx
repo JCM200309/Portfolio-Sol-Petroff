@@ -1,7 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
 import Hero from './components/Hero'
 import About from './components/About'
-import Contact from './components/Contact'
 import SplashCursor from './components/ui/SplashCursor'
 import Navbar from './components/Navbar'
 import ProjectsSelector from './components/ProjectsSelector'
@@ -25,8 +24,8 @@ function App() {
     };
   }, []);
 
-  const isSubPage = ['#movimiento', '#escena', '#narrativa'].includes(currentHash);
-  const isLightNavbar = isSubPage && currentHash !== '#escena';
+  const isSubPage = ['#movimiento', '#narrativa'].includes(currentHash) || currentHash.startsWith('#escena');
+  const isLightNavbar = isSubPage && !currentHash.startsWith('#escena');
 
   return (
     <div className="w-full h-screen overflow-y-auto md:snap-y md:snap-mandatory text-[var(--color-brand-marron-oscuro)] font-sans bg-[var(--color-brand-crema)] selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] scroll-smooth">
@@ -51,7 +50,11 @@ function App() {
           <div className="w-full h-full relative pointer-events-auto bg-[var(--color-brand-crema)]">
             <div className="w-full h-full">
               {currentHash === '#movimiento' && <Projects />}
-              {currentHash === '#escena' && <Productions />}
+              {currentHash.startsWith('#escena') && (
+                <Productions 
+                  initialProject={currentHash.startsWith('#escena-') ? currentHash.replace('#escena-', '') : null} 
+                />
+              )}
               {currentHash === '#narrativa' && <Whiteboard />}
             </div>
           </div>
@@ -65,9 +68,6 @@ function App() {
             </div>
             <div className="md:snap-start min-h-screen md:h-screen">
               <About />
-            </div>
-            <div className="md:snap-start min-h-screen md:h-screen">
-              <Contact />
             </div>
           </main>
         )}

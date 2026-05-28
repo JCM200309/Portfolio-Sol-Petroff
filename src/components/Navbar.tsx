@@ -57,8 +57,7 @@ export default function Navbar({ isLight = false }: { isLight?: boolean }) {
         { label: 'Narrativa', link: '#narrativa' }
       ]
     },
-    { label: 'Conoceme', link: '#conoceme' },
-    { label: 'Conectemos', link: '#conectemos' }
+    { label: 'Conocéme', link: '#conoceme' }
   ];
 
   // CSS Filter to convert black/dark logo image into the exact CSS cream color #f6edde
@@ -161,7 +160,7 @@ export default function Navbar({ isLight = false }: { isLight?: boolean }) {
             }`}
           >
             {navItems.map((item, idx) => {
-              const isContact = item.link === '#conectemos';
+              const isContact = item.link === '#conoceme';
               const hasDropdown = item.subItems !== undefined;
 
               if (hasDropdown) {
@@ -327,7 +326,7 @@ export default function Navbar({ isLight = false }: { isLight?: boolean }) {
               <nav className="flex-grow flex flex-col justify-center py-8">
                 <ul className="list-none m-0 p-0 flex flex-col gap-6" role="list">
                   {navItems.map((item, idx) => {
-                    const isContact = item.link === '#conectemos';
+                    const isContact = item.link === '#conoceme';
                     const hasDropdown = item.subItems !== undefined;
 
                     if (hasDropdown) {
