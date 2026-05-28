@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
+import { motion, AnimatePresence, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import { X } from 'lucide-react'
 
 
