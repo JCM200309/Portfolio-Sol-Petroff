@@ -109,13 +109,100 @@ const memoriaVividoImages = [
   "/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg"
 ];
 
+// --- HELPER FUNCTION: Web Audio API Shutter Sound Synthesizer ---
+const playShutterSound = () => {
+  try {
+    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    
+    const playClick = (time: number, volume: number, highpassFreq: number, decay: number) => {
+      const bufferSize = ctx.sampleRate * decay;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+      
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+      
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'highpass';
+      filter.frequency.setValueAtTime(highpassFreq, time);
+      
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(volume, time);
+      gain.gain.exponentialRampToValueAtTime(0.01, time + decay - 0.01);
+      
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      
+      noise.start(time);
+      noise.stop(time + decay);
+    };
+    
+    const now = ctx.currentTime;
+    playClick(now, 0.25, 1200, 0.06);     // Shutter curtains open
+    playClick(now + 0.06, 0.2, 800, 0.08); // Shutter curtains close
+  } catch (e) {
+    console.warn('AudioContext blocked or failed: ', e);
+  }
+};
+
 // --- MAIN PORTAL: Memoria Vívido Experience Page ---
 export default function MemoriaVividoExperience() {
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const [isHoveringImage, setIsHoveringImage] = useState(false);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [capturedPhotos, setCapturedPhotos] = useState<string[]>([]);
+  const [showFlash, setShowFlash] = useState(false);
+  const [carreteOpen, setCarreteOpen] = useState(false);
+  const [cursorMode, setCursorMode] = useState<'idle' | 'focus' | 'shutter'>('idle');
   
   const pageRef = useRef<HTMLDivElement>(null);
+
+  // Smooth custom cursor tracking using fixed viewport space
+  const rawMouseX = useMotionValue(-100);
+  const rawMouseY = useMotionValue(-100);
+  const springX = useSpring(rawMouseX, { damping: 25, stiffness: 220, mass: 0.6 });
+  const springY = useSpring(rawMouseY, { damping: 25, stiffness: 220, mass: 0.6 });
+
+  useEffect(() => {
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      rawMouseX.set(e.clientX);
+      rawMouseY.set(e.clientY);
+    };
+    window.addEventListener('mousemove', handleGlobalMouseMove);
+    return () => window.removeEventListener('mousemove', handleGlobalMouseMove);
+  }, []);
+
+  // Update cursor mode based on image hover states
+  useEffect(() => {
+    if (cursorMode !== 'shutter') {
+      setCursorMode(isHoveringImage ? 'focus' : 'idle');
+    }
+  }, [isHoveringImage]);
+
+  // Main interactive capture callback
+  const capturePhoto = (src: string) => {
+    playShutterSound();
+    
+    setCursorMode('shutter');
+    setTimeout(() => {
+      setCursorMode(isHoveringImage ? 'focus' : 'idle');
+    }, 180);
+
+    setShowFlash(true);
+    setTimeout(() => setShowFlash(false), 200);
+
+    setCapturedPhotos(prev => {
+      if (prev.includes(src)) return prev;
+      return [...prev, src];
+    });
+
+    setSelectedPhoto(src);
+  };
 
   // Scroll Progress trackers for parallax sections
   const sec1Ref = useRef<HTMLDivElement>(null);
@@ -137,17 +224,6 @@ export default function MemoriaVividoExperience() {
 
   const sec4Ref = useRef<HTMLDivElement>(null);
 
-  // Track cursor position inside page container for follow mouse custom badge
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (pageRef.current) {
-      const rect = pageRef.current.getBoundingClientRect();
-      // Account for scrolled coordinates since container is scrollable
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top + pageRef.current.scrollTop;
-      setCursorPos({ x, y });
-    }
-  };
-
   // Close lightbox with ESC key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -160,12 +236,11 @@ export default function MemoriaVividoExperience() {
   return (
     <motion.div
       ref={pageRef}
-      onMouseMove={handleMouseMove}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
-      className="w-full h-full min-h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] overflow-y-auto overflow-x-hidden select-none pointer-events-auto pb-32 memoria-scroll-container"
+      className="w-full h-full min-h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] overflow-y-auto overflow-x-hidden select-none pointer-events-auto pb-32 memoria-scroll-container md:cursor-none"
     >
       {/* Noise texture overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
@@ -200,7 +275,7 @@ export default function MemoriaVividoExperience() {
           <TiltImage
             src="/producciones/memoriaVivido/primerFoto.jpg"
             alt="Memoria Vívido Imagen 1"
-            onClick={() => setSelectedPhoto('/producciones/memoriaVivido/primerFoto.jpg')}
+            onClick={() => capturePhoto('/producciones/memoriaVivido/primerFoto.jpg')}
             onHoverStart={() => setIsHoveringImage(true)}
             onHoverEnd={() => setIsHoveringImage(false)}
             className="w-full h-auto"
@@ -241,7 +316,7 @@ export default function MemoriaVividoExperience() {
           <TiltImage
             src="/producciones/memoriaVivido/foto principal.jpg"
             alt="Memoria Vívido Poses"
-            onClick={() => setSelectedPhoto('/producciones/memoriaVivido/foto principal.jpg')}
+            onClick={() => capturePhoto('/producciones/memoriaVivido/foto principal.jpg')}
             onHoverStart={() => setIsHoveringImage(true)}
             onHoverEnd={() => setIsHoveringImage(false)}
             parallaxY={sec1Parallax}
@@ -258,7 +333,7 @@ export default function MemoriaVividoExperience() {
             <TiltImage
               src="/producciones/memoriaVivido/3.jpg"
               alt="Memoria Vívido Acumulación"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/3.jpg')}
+              onClick={() => capturePhoto('/producciones/memoriaVivido/3.jpg')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               className="w-full h-auto"
@@ -289,7 +364,7 @@ export default function MemoriaVividoExperience() {
             <TiltImage
               src="/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg"
               alt="Fragmento Lineal A"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg')}
+              onClick={() => capturePhoto('/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               parallaxY={sec3ParallaxLeft}
@@ -304,7 +379,7 @@ export default function MemoriaVividoExperience() {
             <TiltImage
               src="/producciones/memoriaVivido/5.JPG"
               alt="Fragmento Lineal B"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/5.JPG')}
+              onClick={() => capturePhoto('/producciones/memoriaVivido/5.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               parallaxY={sec3ParallaxRight}
@@ -346,7 +421,7 @@ export default function MemoriaVividoExperience() {
             <TiltImage
               src="/producciones/memoriaVivido/6.jpg"
               alt="Eco de Memoria"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/6.jpg')}
+              onClick={() => capturePhoto('/producciones/memoriaVivido/6.jpg')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               className="w-full h-auto"
@@ -375,7 +450,7 @@ export default function MemoriaVividoExperience() {
             <TiltImage
               src="/producciones/memoriaVivido/7.JPG"
               alt="Reminiscencia 7"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/7.JPG')}
+              onClick={() => capturePhoto('/producciones/memoriaVivido/7.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               className="w-full h-auto"
@@ -386,7 +461,7 @@ export default function MemoriaVividoExperience() {
             <TiltImage
               src="/producciones/memoriaVivido/8.JPG"
               alt="Reminiscencia 8"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/8.JPG')}
+              onClick={() => capturePhoto('/producciones/memoriaVivido/8.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               className="w-full h-auto"
@@ -397,7 +472,7 @@ export default function MemoriaVividoExperience() {
             <TiltImage
               src="/producciones/memoriaVivido/9.JPG"
               alt="Reminiscencia 9"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/9.JPG')}
+              onClick={() => capturePhoto('/producciones/memoriaVivido/9.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               className="w-full h-auto"
@@ -414,7 +489,7 @@ export default function MemoriaVividoExperience() {
             <TiltImage
               src="/producciones/memoriaVivido/10.JPG"
               alt="Memoria Vívido Detalle"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/10.JPG')}
+              onClick={() => capturePhoto('/producciones/memoriaVivido/10.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               className="w-full h-auto"
@@ -426,7 +501,7 @@ export default function MemoriaVividoExperience() {
             <TiltImage
               src="/producciones/memoriaVivido/portada.JPG"
               alt="Memoria Vívido Conclusión"
-              onClick={() => setSelectedPhoto('/producciones/memoriaVivido/portada.JPG')}
+              onClick={() => capturePhoto('/producciones/memoriaVivido/portada.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               className="w-full h-auto"
@@ -467,7 +542,7 @@ export default function MemoriaVividoExperience() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: (index % 5) * 0.05 }}
               className="break-inside-avoid overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm bg-black/[0.01] hover:shadow-md transition-shadow group cursor-none relative"
-              onClick={() => setSelectedPhoto(imgSrc)}
+              onClick={() => capturePhoto(imgSrc)}
               onMouseEnter={() => setIsHoveringImage(true)}
               onMouseLeave={() => setIsHoveringImage(false)}
             >
@@ -483,21 +558,151 @@ export default function MemoriaVividoExperience() {
         </div>
       </div>
 
-      {/* Floating Custom Follow Cursor Badge ("VER FOTO" / "ZOOM" - spring coordinates follow) */}
-      {isHoveringImage && (
-        <motion.div
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            x: cursorPos.x - 36,
-            y: cursorPos.y - 36
+      {/* Viewfinder Custom Cursor (Vibe: DSLR Camera Focusing Reticle) */}
+      <motion.div
+        className="hidden md:block fixed pointer-events-none z-50 mix-blend-difference"
+        style={{
+          left: 0,
+          top: 0,
+          x: springX,
+          y: springY,
+        }}
+      >
+        <motion.div 
+          className="relative flex items-center justify-center -translate-x-1/2 -translate-y-1/2"
+          animate={{
+            scale: cursorMode === 'shutter' ? 0.75 : 1,
+            color: cursorMode === 'focus' ? 'var(--color-brand-crema)' : 'rgba(246, 237, 222, 0.4)',
           }}
-          className="hidden md:flex absolute w-18 h-18 rounded-full bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] items-center justify-center text-[9px] font-sans tracking-[0.25em] uppercase font-semibold pointer-events-none z-50 shadow-[0_8px_25px_rgba(132,6,36,0.25)] border border-white/10"
+          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
         >
-          Zoom
+          {/* Viewfinder Brackets */}
+          <motion.div 
+            className="absolute border-current transition-all duration-300"
+            animate={{
+              width: cursorMode === 'focus' ? 44 : 56,
+              height: cursorMode === 'focus' ? 44 : 56,
+            }}
+          >
+            {/* Top Left Bracket */}
+            <span className="absolute top-0 left-0 border-t border-l border-current w-2.5 h-2.5" />
+            {/* Top Right Bracket */}
+            <span className="absolute top-0 right-0 border-t border-r border-current w-2.5 h-2.5" />
+            {/* Bottom Left Bracket */}
+            <span className="absolute bottom-0 left-0 border-b border-l border-current w-2.5 h-2.5" />
+            {/* Bottom Right Bracket */}
+            <span className="absolute bottom-0 right-0 border-b border-r border-current w-2.5 h-2.5" />
+          </motion.div>
+
+          {/* Center Crosshair Dot */}
+          <div className="w-1.5 h-1.5 bg-current rounded-full" />
+          {cursorMode === 'focus' && (
+            <motion.div 
+              initial={{ scale: 0 }}
+              animate={{ scale: [0, 1.3, 1] }}
+              transition={{ duration: 0.2 }}
+              className="absolute w-3 h-3 border border-current rounded-full"
+            />
+          )}
+
+          {/* Viewfinder HUD Metadata */}
+          <div className="absolute top-8 left-1/2 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap text-[6px] tracking-[0.25em] font-mono bg-black/60 text-white/90 px-1.5 py-0.5 rounded-sm select-none border border-white/5 shadow-md">
+            <span>F/2.8</span>
+            <span>1/125s</span>
+            <span className={cursorMode === 'focus' ? "text-green-400 font-semibold" : "text-white/60"}>
+              {cursorMode === 'focus' ? "AF-LOK" : "ISO 400"}
+            </span>
+          </div>
+          
+          {/* Action indicator */}
+          <span className="absolute -top-7 left-1/2 -translate-x-1/2 text-[6px] tracking-[0.3em] font-sans uppercase font-bold text-white/80 select-none bg-black/60 px-1.5 py-0.5 rounded-sm border border-white/5 shadow-md transition-opacity">
+            {cursorMode === 'focus' ? "CAPTURAR" : "VISOR"}
+          </span>
         </motion.div>
-      )}
+      </motion.div>
+
+      {/* Camera Shutter Flash Effect */}
+      <AnimatePresence>
+        {showFlash && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [1, 1, 0] }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, times: [0, 0.15, 1] }}
+            className="fixed inset-0 bg-white z-[9999] pointer-events-none"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Camera Roll (Album Roll) */}
+      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 font-sans">
+        {/* Captured Badge / Status Indicator */}
+        <motion.div 
+          onClick={() => setCarreteOpen(!carreteOpen)}
+          className="bg-black/90 text-[var(--color-brand-crema)] rounded-full px-5 py-3 shadow-[0_10px_35px_rgba(0,0,0,0.5)] cursor-pointer select-none flex items-center gap-3 backdrop-blur-md pointer-events-auto hover:bg-black/95 transition-all active:scale-95 border border-[var(--color-brand-marron-claro)]/25"
+        >
+          <div className={`w-2.5 h-2.5 rounded-full ${capturedPhotos.length > 0 ? 'bg-green-500 animate-pulse' : 'bg-red-500 animate-pulse'}`} />
+          <span className="text-[10px] tracking-[0.2em] uppercase font-semibold">
+            CARRETE: {capturedPhotos.length} / {memoriaVividoImages.length}
+          </span>
+        </motion.div>
+        
+        {/* Expanded Camera Roll Thumbnails */}
+        <AnimatePresence>
+          {carreteOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 15, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 15, scale: 0.95 }}
+              className="w-[300px] md:w-[360px] bg-black/95 backdrop-blur-lg p-4 rounded-sm shadow-[0_25px_60px_rgba(0,0,0,0.75)] flex flex-col gap-3 pointer-events-auto select-none border border-[var(--color-brand-marron-claro)]/20 text-[var(--color-brand-crema)]"
+            >
+              <div className="flex justify-between items-center border-b border-white/10 pb-2">
+                <span className="text-[9px] tracking-[0.2em] uppercase text-white/50 font-mono">
+                  Fotos Reveladas
+                </span>
+                {capturedPhotos.length > 0 && (
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCapturedPhotos([]);
+                    }}
+                    className="text-[8px] tracking-widest uppercase text-red-400 hover:text-red-300 transition-colors cursor-pointer"
+                  >
+                    Borrar Todo
+                  </button>
+                )}
+              </div>
+              
+              {capturedPhotos.length === 0 ? (
+                <div className="py-8 text-center text-[10px] tracking-widest text-white/30 uppercase leading-relaxed">
+                  No has sacado fotos aún.<br />Haz clic sobre las fotos para capturarlas.
+                </div>
+              ) : (
+                <div className="flex gap-3 overflow-x-auto py-2 scrollbar-thin max-w-full">
+                  <AnimatePresence>
+                    {capturedPhotos.map((src, idx) => (
+                      <motion.div
+                        key={src}
+                        initial={{ opacity: 0, scale: 0.7, rotate: -5 }}
+                        animate={{ opacity: 1, scale: 1, rotate: (idx % 2 === 0 ? 2 : -2) }}
+                        exit={{ opacity: 0, scale: 0.7 }}
+                        className="w-16 h-20 bg-[var(--color-brand-crema)] p-1 pb-4 rounded-xs shadow-md shrink-0 flex flex-col justify-between border border-black/10 hover:scale-105 transition-transform"
+                      >
+                        <div className="w-full h-[78%] overflow-hidden bg-black/5 rounded-xs">
+                          <img src={src} className="w-full h-full object-cover" alt="" />
+                        </div>
+                        <div className="text-[5px] text-black/60 font-mono text-center truncate tracking-wider font-bold">
+                          #{idx + 1} CAPTURED
+                        </div>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* Lightbox / Zoom Dialog overlay */}
       <AnimatePresence>

@@ -21,3 +21,4 @@ Cosas nuevas:
 4) Mejorar el display de los audiovisuales (hacer video como lo de papa)
 6) Mejorar Navbar horizontal hacerlo mas limpio
 7) Sacar boton de volver linkearlo al logo
+8) Sacar pdfs de narrativa
