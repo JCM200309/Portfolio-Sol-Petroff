@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import { X } from 'lucide-react'
-import ScrollReveal from './ScrollReveal'
+
 
 // --- HELPER COMPONENT: 3D Interactive Hover Tilt Image (Original Colors) ---
 interface TiltImageProps {
   src: string;
   alt: string;
   className?: string;
+  imgClassName?: string;
   onClick?: () => void;
   onHoverStart?: () => void;
   onHoverEnd?: () => void;
@@ -20,6 +21,7 @@ export function TiltImage({
   src, 
   alt, 
   className = "", 
+  imgClassName = "w-full h-auto",
   onClick, 
   onHoverStart, 
   onHoverEnd, 
@@ -70,12 +72,12 @@ export function TiltImage({
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="w-full h-auto relative"
+        className="w-full h-full relative"
       >
         <img
           src={src}
           alt={alt}
-          className="w-full h-auto object-contain transition-transform duration-700 ease-out select-none pointer-events-none block"
+          className={`${imgClassName} object-contain transition-transform duration-700 ease-out select-none pointer-events-none block`}
           loading={loading}
           decoding="async"
           {...(fetchpriority !== "auto" ? { fetchpriority } : {})}
@@ -244,280 +246,398 @@ export default function MemoriaVividoExperience() {
     >
       {/* Noise texture overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
+      {/* BLOCK 1: EDITORIAL HERO & CONCEPT */}
+      <div className="w-full lg:h-screen grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative overflow-hidden">
+        {/* Left Column: Maroon Story Block */}
+        <div className="col-span-12 lg:col-span-6 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] p-8 md:p-16 flex flex-col justify-between relative min-h-[600px] lg:min-h-0 lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--color-brand-marron-oscuro)]/25">
+          {/* Decorative Corner plus markers */}
+          <span className="absolute top-4 left-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
+          <span className="absolute top-4 right-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
+          <span className="absolute bottom-4 left-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
+          <span className="absolute bottom-4 right-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
 
-      {/* SECTION 0: HERO SPLASH & TITLE */}
-      <div className="w-full min-h-screen flex flex-col justify-center items-center px-6 pt-28 pb-16 relative">
-        <div className="max-w-6xl w-full text-center mb-16 select-none flex flex-col items-center">
-          <ScrollReveal
-            scrollContainer=".memoria-scroll-container"
-            textClassName="text-[10px] md:text-xs font-sans tracking-[0.35em] text-[var(--color-brand-marron-claro)] uppercase font-semibold text-center w-full justify-center"
-          >
-            01 / Producción Escénica & Moda
-          </ScrollReveal>
+          <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75">
+            <span>01 / EDITORIAL CONCEPT</span>
+            <span>[ ESTUDIO DE LA MEMORIA ]</span>
+          </div>
           
-          <ScrollReveal
-            scrollContainer=".memoria-scroll-container"
-            textClassName="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-brand uppercase tracking-wide text-[var(--color-brand-marron-oscuro)] mt-4 leading-none text-center w-full justify-center"
-          >
-            Memoria Vívido
-          </ScrollReveal>
+          <div className="my-auto pt-16 pb-12">
+            <h1 className="text-6xl sm:text-8xl lg:text-[7vw] xl:text-[7.5vw] font-brand uppercase tracking-wider text-[var(--color-brand-crema)] mt-2 leading-[0.85] select-none">
+              Memoria Vívido
+            </h1>
+            <div className="w-20 h-[1px] bg-[var(--color-brand-crema)]/35 my-8" />
+          </div>
+
+          <div className="max-w-xl pb-8">
+            <p className="text-sm md:text-base lg:text-[16px] xl:text-[17px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/90 text-left">
+              Editorial basada en un reporte de tendencias que desarrolla el concepto de “memoria vivido”, representando un universo estético desde la nostalgia y el recuerdo como un peso. Se plasma la naturaleza expansiva y a veces caótica de la memoria, y cómo se convive con ese peso, desde las poses elegidas, las luces y la escenografía.
+            </p>
+          </div>
           
-          <motion.div 
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="w-16 h-[1.5px] bg-[var(--color-brand-marron-claro)]/30 mx-auto mt-6"
-          />
-        </div>
-
-        {/* Hero Photo (primerFoto.jpg) */}
-        <div className="w-full max-w-5xl overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm relative group bg-black/[0.02]">
-          <TiltImage
-            src="/producciones/memoriaVivido/primerFoto.jpg"
-            alt="Memoria Vívido Imagen 1"
-            onClick={() => capturePhoto('/producciones/memoriaVivido/primerFoto.jpg')}
-            onHoverStart={() => setIsHoveringImage(true)}
-            onHoverEnd={() => setIsHoveringImage(false)}
-            className="w-full h-auto"
-            loading="eager"
-            fetchpriority="high"
-          />
-        </div>
-
-        {/* Narrative Paragraph 1: Intro */}
-        <div className="max-w-3xl w-full mt-16 text-center px-4">
-          <ScrollReveal
-            scrollContainer=".memoria-scroll-container"
-            textClassName="text-xl md:text-2xl lg:text-3xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light"
-          >
-            Editorial basada en un reporte de tendencias que desarrolla el concepto de “memoria vivido”, representando un universo estético desde la nostalgia y el recuerdo como un peso. Se plasma la naturaleza expansiva y a veces caótica de la memoria, y como se convive con ese peso, desde las poses elegidas, las luces y la escenografía.
-          </ScrollReveal>
-        </div>
-      </div>
-
-      {/* SECTION 1: THE PHYSICAL WEIGHT OF MEMORY (Split Layout) */}
-      <div 
-        ref={sec1Ref}
-        className="max-w-6xl mx-auto px-6 py-24 md:py-32 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center"
-      >
-        {/* Left Side: Story Text */}
-        <div className="order-2 md:order-1 flex flex-col justify-center">
-
-          <ScrollReveal
-            scrollContainer=".memoria-scroll-container"
-            textClassName="text-base md:text-lg lg:text-xl font-sans text-[var(--color-brand-marron-oscuro)]/80 leading-relaxed tracking-wide text-left"
-          >
-            La elección de representar el universo estético desde la nostalgia y el recuerdo responde a la intención de evocar emociones profundas y personales. La nostalgia se presenta como una carga emocional que cada persona lleva consigo, simbolizando el impacto duradero de los recuerdos en la vida cotidiana. Este peso emocional se refleja físicamente, manifestándose en la postura del cuerpo humano, que tiende a encorvarse bajo la carga de estos recuerdos, adoptando una tipología "deprimida".
-          </ScrollReveal>
-        </div>
-
-        {/* Right Side: Large Vertical Image */}
-        <div className="order-1 md:order-2 w-full max-w-md mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02]">
-          <TiltImage
-            src="/producciones/memoriaVivido/foto principal.jpg"
-            alt="Memoria Vívido Poses"
-            onClick={() => capturePhoto('/producciones/memoriaVivido/foto principal.jpg')}
-            onHoverStart={() => setIsHoveringImage(true)}
-            onHoverEnd={() => setIsHoveringImage(false)}
-            parallaxY={sec1Parallax}
-            className="w-full h-auto"
-          />
-        </div>
-      </div>
-
-      {/* SECTION 2: THE ACCUMULATED LOAD (Centered Wide Frame) */}
-      <div className="w-full py-20 bg-[var(--color-brand-marron-claro)]/5 border-t border-b border-[var(--color-brand-marron-claro)]/10">
-        <div className="max-w-5xl mx-auto px-6 flex flex-col items-center">
-          {/* Centered Large Image */}
-          <div className="w-full max-w-md overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-sm group bg-black/[0.02]">
-            <TiltImage
-              src="/producciones/memoriaVivido/3.jpg"
-              alt="Memoria Vívido Acumulación"
-              onClick={() => capturePhoto('/producciones/memoriaVivido/3.jpg')}
-              onHoverStart={() => setIsHoveringImage(true)}
-              onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-auto"
-            />
-          </div>
-
-          {/* Text Block underneath */}
-          <div className="max-w-2xl text-center mt-12 px-4 flex flex-col items-center">
-
-            <ScrollReveal
-              scrollContainer=".memoria-scroll-container"
-              textClassName="text-lg md:text-xl lg:text-2xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light"
-            >
-              Representamos el tema desde la nostalgia y el recuerdo como un peso. Los recuerdos desbordados representados por las tipologías acumuladas son la carga emocional que perdura en el presente.
-            </ScrollReveal>
-          </div>
-        </div>
-      </div>
-
-      {/* SECTION 3: FRAGMENTATION (Sliding Sheets Parallax Layout) */}
-      <div 
-        ref={sec3Ref}
-        className="max-w-6xl mx-auto px-6 py-28 md:py-40 flex flex-col md:flex-row gap-16 md:gap-24 relative"
-      >
-        {/* Left sliding photo */}
-        <div className="w-full md:w-1/2 flex flex-col items-center">
-          <div className="w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02]">
-            <TiltImage
-              src="/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg"
-              alt="Fragmento Lineal A"
-              onClick={() => capturePhoto('/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg')}
-              onHoverStart={() => setIsHoveringImage(true)}
-              onHoverEnd={() => setIsHoveringImage(false)}
-              parallaxY={sec3ParallaxLeft}
-              className="w-full h-auto"
-            />
+          <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75">
+            <span>[ SENSORY RECORD ]</span>
+            <span>[ DEPTH // 01 ]</span>
           </div>
         </div>
 
-        {/* Right sliding photo with text */}
-        <div className="w-full md:w-1/2 flex flex-col justify-start pt-12 md:pt-24">
-          <div className="w-full max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm mb-12 group bg-black/[0.02]">
-            <TiltImage
-              src="/producciones/memoriaVivido/5.JPG"
-              alt="Fragmento Lineal B"
-              onClick={() => capturePhoto('/producciones/memoriaVivido/5.JPG')}
-              onHoverStart={() => setIsHoveringImage(true)}
-              onHoverEnd={() => setIsHoveringImage(false)}
-              parallaxY={sec3ParallaxRight}
-              className="w-full h-auto"
-            />
+        {/* Right Column: Editorial Photo Composition */}
+        <div className="col-span-12 lg:col-span-6 grid grid-cols-12 relative bg-black/[0.01] lg:h-full">
+          {/* Vertical divider line separating the two sub-columns */}
+          <div className="absolute inset-y-0 left-1/2 w-[1px] bg-[var(--color-brand-marron-claro)]/25 pointer-events-none hidden md:block" />
+
+          {/* Left sub-column: Large portrait photo */}
+          <div className="col-span-12 md:col-span-6 p-6 md:p-8 flex flex-col justify-center border-b md:border-b-0 md:border-r border-[var(--color-brand-marron-claro)]/20 lg:h-full lg:overflow-hidden">
+            <div className="w-full flex flex-col gap-4">
+              <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+                <span>[ FRAME // 01 ]</span>
+                <span>[ ISO 400 ]</span>
+              </div>
+              <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
+                <TiltImage
+                  src="/producciones/memoriaVivido/foto principal.jpg"
+                  alt="Memoria Vívido - Retrato Principal"
+                  onClick={() => capturePhoto('/producciones/memoriaVivido/foto principal.jpg')}
+                  onHoverStart={() => setIsHoveringImage(true)}
+                  onHoverEnd={() => setIsHoveringImage(false)}
+                  className="w-full lg:h-[55vh] flex items-center justify-center"
+                  imgClassName="w-auto h-full max-h-full max-w-full"
+                />
+              </div>
+              <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
+              <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between items-center px-1">
+                <span>№112 // PHOTO 01</span>
+                <span>[ FOCUS // AF-LOK ]</span>
+              </div>
+            </div>
           </div>
 
-          <div className="max-w-md">
+          {/* Right sub-column: Two stacked portrait photos */}
+          <div className="col-span-12 md:col-span-6 p-6 md:p-8 flex flex-col justify-between gap-8 lg:h-full lg:overflow-hidden">
+            {/* Top Photo */}
+            <div className="w-full flex flex-col gap-3">
+              <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+                <span>[ FRAME // 02 ]</span>
+                <span>[ 35MM ]</span>
+              </div>
+              <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
+                <TiltImage
+                  src="/producciones/memoriaVivido/primerFoto.jpg"
+                  alt="Memoria Vívido - Primer Plano"
+                  onClick={() => capturePhoto('/producciones/memoriaVivido/primerFoto.jpg')}
+                  onHoverStart={() => setIsHoveringImage(true)}
+                  onHoverEnd={() => setIsHoveringImage(false)}
+                  className="w-full lg:h-[24vh] flex items-center justify-center"
+                  imgClassName="w-auto h-full max-h-full max-w-full"
+                />
+              </div>
+              <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
+              <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
+                <span>№112 season // index.01</span>
+                <span>[ OPEN ]</span>
+              </div>
+            </div>
 
-            <ScrollReveal
-              scrollContainer=".memoria-scroll-container"
-              textClassName="text-base md:text-lg font-sans text-[var(--color-brand-marron-oscuro)]/80 leading-relaxed tracking-wide text-left"
-            >
-              Se simboliza la fragmentación de los recuerdos al desbordar la composición en múltiples fragmentos lineales y expandir las distintas piezas en una estructura proliferada para profundizar en la complejidad y riqueza de la memoria y la experiencia humana.
-            </ScrollReveal>
+            {/* Bottom Photo */}
+            <div className="w-full flex flex-col gap-3">
+              <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+                <span>[ FRAME // 03 ]</span>
+                <span>[ SHUTTER 1/125 ]</span>
+              </div>
+              <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
+                <TiltImage
+                  src="/producciones/memoriaVivido/3.jpg"
+                  alt="Memoria Vívido - Acumulación"
+                  onClick={() => capturePhoto('/producciones/memoriaVivido/3.jpg')}
+                  onHoverStart={() => setIsHoveringImage(true)}
+                  onHoverEnd={() => setIsHoveringImage(false)}
+                  className="w-full lg:h-[24vh] flex items-center justify-center"
+                  imgClassName="w-auto h-full max-h-full max-w-full"
+                />
+              </div>
+              <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
+              <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
+                <span>[ FOCUS // LOAD.03 ]</span>
+                <span>[ CAPTURE ]</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* SECTION 4: NARRATIVE CLUSTER (Staggered Grid Experience) */}
-      <div 
-        ref={sec4Ref}
-        className="max-w-6xl mx-auto px-6 py-20 relative flex flex-col items-center"
-      >
-        <div className="mb-16 select-none flex flex-col items-center">
+      {/* BLOCK 2: PHYSICAL WEIGHT & FRAGMENTS */}
+      <div className="w-full grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative">
+        {/* Left Column: Full vertical photo (col-span-12 md:col-span-4) */}
+        <div className="col-span-12 md:col-span-4 p-6 md:p-8 border-b md:border-b-0 md:border-r border-[var(--color-brand-marron-claro)]/30 flex flex-col justify-between gap-4">
+          <div className="w-full flex flex-col gap-3">
+            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+              <span>[ SCAN // 09 ]</span>
+              <span>[ F/2.8 ]</span>
+            </div>
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
+              <TiltImage
+                src="/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg"
+                alt="Memoria Vívido - Fragmento Lineal A"
+                onClick={() => capturePhoto('/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto object-contain block"
+              />
+            </div>
+            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
+            <div className="flex justify-between items-center px-1">
+              <span className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase">
+                №112 season // fragment
+              </span>
+              <span className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/60 uppercase">
+                [ PORTRAIT ]
+              </span>
+            </div>
+          </div>
+        </div>
 
+        {/* Middle Column: Two photos, mixed landscape & portrait (col-span-12 md:col-span-4) */}
+        <div className="col-span-12 md:col-span-4 p-6 md:p-8 border-b md:border-b-0 md:border-r border-[var(--color-brand-marron-claro)]/30 flex flex-col justify-between gap-8">
+          {/* Top Landscape Photo */}
+          <div className="w-full flex flex-col gap-3">
+            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+              <span>[ HORIZONTAL SCAN ]</span>
+              <span>[ REF // 05 ]</span>
+            </div>
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
+              <TiltImage
+                src="/producciones/memoriaVivido/5.JPG"
+                alt="Memoria Vívido - Fragmento Lineal B"
+                onClick={() => capturePhoto('/producciones/memoriaVivido/5.JPG')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto object-contain block"
+              />
+            </div>
+            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
+            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
+              <span>[ NO. 05 // MULTIPLE ]</span>
+              <span>[ LANDSCAPE ]</span>
+            </div>
+          </div>
+
+          {/* Bottom Portrait Photo */}
+          <div className="w-full flex flex-col gap-3">
+            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+              <span>[ VERTICAL SCAN ]</span>
+              <span>[ REF // 06 ]</span>
+            </div>
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
+              <TiltImage
+                src="/producciones/memoriaVivido/6.jpg"
+                alt="Memoria Vívido - Eco de Memoria"
+                onClick={() => capturePhoto('/producciones/memoriaVivido/6.jpg')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto object-contain block"
+              />
+            </div>
+            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
+            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
+              <span>[ NO. 06 // SILENCE ]</span>
+              <span>[ PORTRAIT ]</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Editorial Text & Supporting Image (col-span-12 md:col-span-4) */}
+        <div className="col-span-12 md:col-span-4 p-6 md:p-8 flex flex-col justify-between min-h-[550px] bg-black/[0.01] relative">
+          <div className="text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75 flex justify-between items-center">
+            <span>[ NARRATIVE SECTION // 02 ]</span>
+            <span>[ SECTION B ]</span>
+          </div>
+
+          <div className="my-auto py-8">
+            <h2 className="text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mb-6 font-bold leading-none">
+              Individual
+            </h2>
+            
+            <div className="space-y-6 mb-8">
+              <p className="text-sm md:text-base leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-left">
+                La elección de representar el universo estético desde la nostalgia y el recuerdo responde a la intención de evocar emociones profundas y personales. La nostalgia se presenta como una carga emocional que cada persona lleva consigo.
+              </p>
+              <p className="text-sm md:text-base leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-left">
+                Este peso emocional se refleja físicamente, manifestándose en la postura del cuerpo humano, que tiende a encorvarse bajo la carga de estos recuerdos, adoptando una tipología "deprimida" y orgánica en el espacio.
+              </p>
+            </div>
+
+            {/* Supporting Image (4.JPG) */}
+            <div className="w-full flex flex-col gap-3">
+              <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
+                <TiltImage
+                  src="/producciones/memoriaVivido/4.JPG"
+                  alt="Memoria Vívido - Carga Corporal"
+                  onClick={() => capturePhoto('/producciones/memoriaVivido/4.JPG')}
+                  onHoverStart={() => setIsHoveringImage(true)}
+                  onHoverEnd={() => setIsHoveringImage(false)}
+                  className="w-full h-auto object-contain block"
+                />
+              </div>
+              <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/60 uppercase flex justify-between px-1">
+                <span>[ SUPPORTING PHOTO // 04.JPG ]</span>
+                <span>[ DEPRESSED TYPOLOGY ]</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75 border-t border-[var(--color-brand-marron-claro)]/15 pt-4">
+            <span>[ MOVEMENT ]</span>
+            <span>[ COMPOSITION ]</span>
+          </div>
+        </div>
+      </div>
+
+      {/* BLOCK 3: FEATURED PHOTO SLIDER ROW */}
+      <div className="w-full py-24 px-6 md:px-12 bg-black/[0.01] border-b border-[var(--color-brand-marron-oscuro)]/25 relative overflow-visible">
+        {/* Decorative corner marks */}
+        <span className="absolute top-6 left-6 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
+        <span className="absolute top-6 right-6 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
+
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-16 select-none">
+          <div>
+            <span className="text-[10px] md:text-[11px] font-mono tracking-[0.35em] text-[var(--color-brand-marron-oscuro)]/70 uppercase font-semibold">
+              EXPOSICIÓN DESTACADA
+            </span>
+            <h3 className="font-brand text-4xl sm:text-5xl uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-1.5 leading-none">
+              Featured Photos
+            </h3>
+          </div>
+          <div className="max-w-xs md:text-right border-l md:border-l-0 md:border-r border-[var(--color-brand-marron-claro)]/25 pl-4 md:pl-0 md:pr-4 py-1">
+            <p className="text-[12px] md:text-[13px] font-sans tracking-widest leading-relaxed text-[var(--color-brand-marron-oscuro)]/75 uppercase italic">
+              "THE NATURE OF MEMORY IS EXPANSIVE AND SOMETIMES CHAOTIC - A ROOM TO WALK INTO."
+            </p>
+          </div>
+        </div>
+
+        {/* Asymmetric Staggered Grid Row */}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 border-t border-[var(--color-brand-marron-claro)]/25 pt-12 relative">
           
-          <ScrollReveal
-            scrollContainer=".memoria-scroll-container"
-            textClassName="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] text-center mt-2 w-full justify-center"
-          >
-            La Huella del Ayer
-          </ScrollReveal>
-        </div>
+          {/* Thin Vertical Column Borders (Visual grid) */}
+          <div className="absolute inset-y-0 left-1/4 w-[1px] bg-[var(--color-brand-marron-claro)]/15 pointer-events-none hidden lg:block" />
+          <div className="absolute inset-y-0 left-2/4 w-[1px] bg-[var(--color-brand-marron-claro)]/15 pointer-events-none hidden lg:block" />
+          <div className="absolute inset-y-0 left-3/4 w-[1px] bg-[var(--color-brand-marron-claro)]/15 pointer-events-none hidden lg:block" />
 
-        {/* Staggered Row 1 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16 w-full">
-          <div className="w-full max-w-sm mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-sm rounded-sm group bg-black/[0.02]">
-            <TiltImage
-              src="/producciones/memoriaVivido/6.jpg"
-              alt="Eco de Memoria"
-              onClick={() => capturePhoto('/producciones/memoriaVivido/6.jpg')}
-              onHoverStart={() => setIsHoveringImage(true)}
-              onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-auto"
-            />
+          {/* Item 1: 7.JPG (No offset) */}
+          <div className="w-full flex flex-col gap-3 lg:pr-6 justify-start">
+            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+              <span>[ INDEX // 07 ]</span>
+              <span>[ 35MM RETRO ]</span>
+            </div>
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
+              <TiltImage
+                src="/producciones/memoriaVivido/7.JPG"
+                alt="Memoria Vívido - Reminiscencia 7"
+                onClick={() => capturePhoto('/producciones/memoriaVivido/7.JPG')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto object-contain block"
+              />
+            </div>
+            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
+            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
+              №112 season // No. 07
+            </div>
           </div>
 
-          <div className="flex flex-col justify-center">
-            <ScrollReveal
-              scrollContainer=".memoria-scroll-container"
-              textClassName="text-lg md:text-xl lg:text-2xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed text-left font-light mb-6"
-            >
-              La narrativa de la producción es evidenciar el peso de los recuerdos en la cotidianidad, la esencia de lo simple y la liberación de la rigidez.
-            </ScrollReveal>
-            <ScrollReveal
-              scrollContainer=".memoria-scroll-container"
-              textClassName="text-sm md:text-base font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/75"
-            >
-              Los ecos del pasado permanecen latentes y cada fragmento es una reminiscencia de experiencias
-            </ScrollReveal>
-          </div>
-        </div>
-
-        {/* Staggered Row 2 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pt-12 w-full">
-          <div className="w-full max-w-xs mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-xs rounded-sm group bg-black/[0.02]">
-            <TiltImage
-              src="/producciones/memoriaVivido/7.JPG"
-              alt="Reminiscencia 7"
-              onClick={() => capturePhoto('/producciones/memoriaVivido/7.JPG')}
-              onHoverStart={() => setIsHoveringImage(true)}
-              onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-auto"
-            />
+          {/* Item 2: 8.JPG (Shifted down) */}
+          <div className="w-full flex flex-col gap-3 lg:px-6 lg:translate-y-12 justify-start mt-6 lg:mt-0">
+            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+              <span>[ INDEX // 08 ]</span>
+              <span>[ TALL PHOTO ]</span>
+            </div>
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
+              <TiltImage
+                src="/producciones/memoriaVivido/8.JPG"
+                alt="Memoria Vívido - Reminiscencia 8"
+                onClick={() => capturePhoto('/producciones/memoriaVivido/8.JPG')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto object-contain block"
+              />
+            </div>
+            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
+            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
+              №112 season // No. 08
+            </div>
           </div>
 
-          <div className="w-full max-w-xs mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-xs rounded-sm group sm:translate-y-8 md:translate-y-12 bg-black/[0.02]">
-            <TiltImage
-              src="/producciones/memoriaVivido/8.JPG"
-              alt="Reminiscencia 8"
-              onClick={() => capturePhoto('/producciones/memoriaVivido/8.JPG')}
-              onHoverStart={() => setIsHoveringImage(true)}
-              onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-auto"
-            />
+          {/* Item 3: 9.JPG (Shifted up) */}
+          <div className="w-full flex flex-col gap-3 lg:px-6 lg:-translate-y-8 justify-start mt-6 lg:mt-0">
+            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+              <span>[ INDEX // 09 ]</span>
+              <span>[ FOCUS LOK ]</span>
+            </div>
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
+              <TiltImage
+                src="/producciones/memoriaVivido/9.JPG"
+                alt="Memoria Vívido - Reminiscencia 9"
+                onClick={() => capturePhoto('/producciones/memoriaVivido/9.JPG')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto object-contain block"
+              />
+            </div>
+            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
+            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
+              №112 season // No. 09
+            </div>
           </div>
 
-          <div className="w-full max-w-xs mx-auto overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-xs rounded-sm group bg-black/[0.02]">
-            <TiltImage
-              src="/producciones/memoriaVivido/9.JPG"
-              alt="Reminiscencia 9"
-              onClick={() => capturePhoto('/producciones/memoriaVivido/9.JPG')}
-              onHoverStart={() => setIsHoveringImage(true)}
-              onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-auto"
-            />
+          {/* Item 4: 10.JPG (Shifted slightly down) */}
+          <div className="w-full flex flex-col gap-3 lg:pl-6 lg:translate-y-4 justify-start mt-6 lg:mt-0">
+            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+              <span>[ INDEX // 10 ]</span>
+              <span>[ DETAIL VIEW ]</span>
+            </div>
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
+              <TiltImage
+                src="/producciones/memoriaVivido/10.JPG"
+                alt="Memoria Vívido - Detalle Exposición"
+                onClick={() => capturePhoto('/producciones/memoriaVivido/10.JPG')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto object-contain block"
+              />
+            </div>
+            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
+            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
+              №112 season // No. 10
+            </div>
           </div>
         </div>
       </div>
 
-      {/* SECTION 5: CONCLUDING HERO */}
-      <div className="w-full pt-32 pb-16 flex flex-col items-center">
-        <div className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 px-6 mb-24">
-          {/* Vertical Card - Left */}
-          <div className="w-full md:w-1/2 max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-sm group bg-black/[0.02]">
-            <TiltImage
-              src="/producciones/memoriaVivido/10.JPG"
-              alt="Memoria Vívido Detalle"
-              onClick={() => capturePhoto('/producciones/memoriaVivido/10.JPG')}
-              onHoverStart={() => setIsHoveringImage(true)}
-              onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-auto"
-            />
-          </div>
-
-          {/* Vertical Card - Right */}
-          <div className="w-full md:w-1/2 max-w-sm overflow-hidden border border-[var(--color-brand-marron-claro)]/15 shadow-md rounded-sm group md:translate-y-12 bg-black/[0.02]">
+      {/* BLOCK 4: CONCLUDING TYPOGRAPHIC QUOTE & FOCAL COVER */}
+      <div className="w-full py-28 bg-[var(--color-brand-crema)] border-b border-[var(--color-brand-marron-oscuro)]/25 relative">
+        <div className="max-w-4xl mx-auto px-6 flex flex-col items-center gap-12">
+          {/* Focal landscape photo (portada.JPG) in natural ratio */}
+          <div className="w-full max-w-3xl overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-md rounded-xs group bg-black/[0.02] p-2 relative">
+            {/* Camera Crop / Focus Corners inside frame */}
+            <span className="absolute top-4 left-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
+            <span className="absolute top-4 right-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
+            <span className="absolute bottom-4 left-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
+            <span className="absolute bottom-4 right-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
+            
             <TiltImage
               src="/producciones/memoriaVivido/portada.JPG"
               alt="Memoria Vívido Conclusión"
               onClick={() => capturePhoto('/producciones/memoriaVivido/portada.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
-              className="w-full h-auto"
+              className="w-full h-auto object-contain block"
             />
           </div>
-        </div>
 
-        {/* Concluding elegant narrative block */}
-        <div className="max-w-3xl text-center mt-12 px-6 flex flex-col items-center">
-
-          <ScrollReveal
-            scrollContainer=".memoria-scroll-container"
-            textClassName="text-3xl sm:text-4xl md:text-5xl font-brand text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light tracking-wide"
-          >
-            El peso de la memoria resguardado en el presente, se manifiesta en el recorrido de la vida, el cual es testigo de la huella que deja el tiempo.
-          </ScrollReveal>
+          <div className="max-w-3xl text-center flex flex-col items-center">
+            <div className="w-16 h-[1px] bg-[var(--color-brand-marron-claro)]/40 mb-8" />
+            <blockquote className="text-2xl sm:text-3xl lg:text-[2.2rem] font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light tracking-wide">
+              El peso de la memoria resguardado en el presente, se manifiesta en el recorrido de la vida, el cual es testigo de la huella que deja el tiempo.
+            </blockquote>
+          </div>
         </div>
       </div>
 
@@ -525,12 +645,9 @@ export default function MemoriaVividoExperience() {
       <div className="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
         <div className="mb-12 select-none">
 
-          <ScrollReveal
-            scrollContainer=".memoria-scroll-container"
-            textClassName="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2"
-          >
+          <h3 className="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2">
             Registro Editorial
-          </ScrollReveal>
+          </h3>
         </div>
 
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 [column-fill:_balance]">
