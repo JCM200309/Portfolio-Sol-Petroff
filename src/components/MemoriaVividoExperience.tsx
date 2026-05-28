@@ -206,25 +206,7 @@ export default function MemoriaVividoExperience() {
     setSelectedPhoto(src);
   };
 
-  // Scroll Progress trackers for parallax sections
-  const sec1Ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: sec1Progress } = useScroll({
-    container: pageRef,
-    target: sec1Ref,
-    offset: ["start end", "end start"]
-  });
-  const sec1Parallax = useTransform(sec1Progress, [0, 1], [40, -40]);
 
-  const sec3Ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: sec3Progress } = useScroll({
-    container: pageRef,
-    target: sec3Ref,
-    offset: ["start end", "end start"]
-  });
-  const sec3ParallaxLeft = useTransform(sec3Progress, [0, 1], [30, -50]);
-  const sec3ParallaxRight = useTransform(sec3Progress, [0, 1], [-20, 60]);
-
-  const sec4Ref = useRef<HTMLDivElement>(null);
 
   // Close lightbox with ESC key
   useEffect(() => {
