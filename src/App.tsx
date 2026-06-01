@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   const isSubPage = ['#movimiento', '#narrativa'].includes(currentHash) || currentHash.startsWith('#escena');
-  const isLightNavbar = isSubPage && !currentHash.startsWith('#escena');
+  const isLightNavbar = isSubPage && currentHash !== '#escena';
 
   return (
     <div className="w-full h-screen overflow-y-auto md:snap-y md:snap-mandatory text-[var(--color-brand-marron-oscuro)] font-sans bg-[var(--color-brand-crema)] selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] scroll-smooth">
@@ -39,7 +39,7 @@ function App() {
         COLOR="#840624"
         RAINBOW_MODE={false}
       />
-      <Navbar isLight={isLightNavbar} />
+      <Navbar isLight={isLightNavbar} currentHash={currentHash} />
 
       <Suspense fallback={
         <div className="w-full h-screen flex items-center justify-center bg-[var(--color-brand-crema)]">

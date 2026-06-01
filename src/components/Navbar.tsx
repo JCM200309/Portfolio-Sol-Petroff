@@ -13,13 +13,23 @@ interface NavItem {
   subItems?: SubItem[];
 }
 
-export default function Navbar({ isLight = false }: { isLight?: boolean }) {
+export default function Navbar({ isLight = false, currentHash = '' }: { isLight?: boolean; currentHash?: string }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const isLightNavbar = isLight && !scrolled;
+
+  // Determine dynamic target for back button logic on the logo
+  let logoHref = '#universo';
+  if (currentHash) {
+    if (currentHash.startsWith('#escena-')) {
+      logoHref = '#escena';
+    } else if (currentHash === '#escena' || currentHash === '#movimiento' || currentHash === '#narrativa') {
+      logoHref = '#proyectos';
+    }
+  }
 
   // Track window size for responsive logic
   useEffect(() => {
@@ -127,17 +137,17 @@ export default function Navbar({ isLight = false }: { isLight?: boolean }) {
       >
         {/* Brand Logo (Left Margin) */}
         <a
-          href="#universo"
+          href={logoHref}
           onClick={() => setMobileOpen(false)}
           className="flex items-center select-none cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
-          aria-label="Volver al inicio"
+          aria-label={logoHref === '#universo' ? 'Volver al inicio' : 'Volver'}
         >
           <img
             src="/logo.png"
             alt="Logo"
             className="block w-auto object-contain transition-all duration-500"
             style={{
-              filter: isLightNavbar ? logoBordoFilter : logoCreamFilter,
+              filter: (isLightNavbar && !currentHash.startsWith('#escena-')) ? logoBordoFilter : logoCreamFilter,
               height: scrolled 
                 ? (isMobile ? '36px' : '44px') // Scrolled sizes
                 : (isMobile ? '44px' : '58px') // Transparent/Hero sizes (heavy/larger presence)
@@ -299,9 +309,10 @@ export default function Navbar({ isLight = false }: { isLight?: boolean }) {
               {/* Drawer Top Header */}
               <div className="flex items-center justify-between border-b border-[var(--color-brand-marron-claro)]/10 pb-4">
                 <a
-                  href="#universo"
+                  href={logoHref}
                   onClick={() => setMobileOpen(false)}
                   className="flex items-center"
+                  aria-label={logoHref === '#universo' ? 'Volver al inicio' : 'Volver'}
                 >
                   <img
                     src="/logo.png"

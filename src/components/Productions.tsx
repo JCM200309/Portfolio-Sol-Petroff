@@ -43,25 +43,6 @@ export default function Productions({ initialProject = null }: { initialProject?
       ref={containerRef}
       className="relative w-full h-full min-h-screen bg-black"
     >
-      {/* Dynamic Back Button */}
-      {activeProject !== null ? (
-        <button
-          onClick={() => {
-            setActiveProject(null);
-            window.location.hash = '#escena';
-          }}
-          className="fixed top-24 left-6 md:left-12 z-50 flex items-center gap-2 text-[10px] font-sans tracking-[0.2em] uppercase text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-97 px-5 py-2.5 rounded-full transition-all duration-300 shadow-md cursor-pointer pointer-events-auto z-50"
-        >
-          ← Volver
-        </button>
-      ) : (
-        <a 
-          href="#proyectos"
-          className="fixed top-24 left-6 md:left-12 z-50 flex items-center gap-2 text-[10px] font-sans tracking-[0.2em] uppercase text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-97 px-5 py-2.5 rounded-full transition-all duration-300 shadow-md cursor-pointer z-50"
-        >
-          ← Volver
-        </a>
-      )}
 
       <AnimatePresence mode="wait">
         {activeProject === null ? (
@@ -80,7 +61,7 @@ export default function Productions({ initialProject = null }: { initialProject?
           >
             {/* Slide 1: Hero Landing (Memoria Vívido) */}
             <div
-              onClick={() => setActiveProject('memoria-vivido')}
+              onClick={() => window.location.hash = '#escena-memoria-vivido'}
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
               onMouseMove={(e) => {
@@ -164,7 +145,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                   
                   {/* Card 1: Neo Trattoria (Left, col-span-7) */}
                   <div 
-                    onClick={() => setActiveProject('neo-trattoria')}
+                    onClick={() => window.location.hash = '#escena-neo-trattoria'}
                     onMouseEnter={() => setIsHovering(true)}
                     onMouseLeave={() => setIsHovering(false)}
                     onMouseMove={(e) => {
@@ -202,7 +183,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                     
                     {/* Card 2: No Futuro (Top, h-[55%]) */}
                     <div 
-                      onClick={() => setActiveProject('no-futuro')}
+                      onClick={() => window.location.hash = '#escena-no-futuro'}
                       onMouseEnter={() => setIsHovering(true)}
                       onMouseLeave={() => setIsHovering(false)}
                       onMouseMove={(e) => {
@@ -237,7 +218,7 @@ export default function Productions({ initialProject = null }: { initialProject?
 
                     {/* Card 3: Años 20 (Bottom, h-[40%]) */}
                     <div 
-                      onClick={() => setActiveProject('anos-20')}
+                      onClick={() => window.location.hash = '#escena-anos-20'}
                       onMouseEnter={() => setIsHovering(true)}
                       onMouseLeave={() => setIsHovering(false)}
                       onMouseMove={(e) => {
@@ -279,7 +260,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                   <div className="space-y-10">
                     {/* Neo Trattoria */}
                     <div 
-                      onClick={() => setActiveProject('neo-trattoria')}
+                      onClick={() => window.location.hash = '#escena-neo-trattoria'}
                       className="group space-y-4 cursor-pointer pointer-events-auto w-full"
                     >
                       <div className="aspect-[16/10] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
@@ -304,7 +285,7 @@ export default function Productions({ initialProject = null }: { initialProject?
 
                     {/* No Futuro */}
                     <div 
-                      onClick={() => setActiveProject('no-futuro')}
+                      onClick={() => window.location.hash = '#escena-no-futuro'}
                       className="group space-y-4 cursor-pointer pointer-events-auto w-[90%] mx-auto"
                     >
                       <div className="aspect-[4/3] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
@@ -329,7 +310,7 @@ export default function Productions({ initialProject = null }: { initialProject?
 
                     {/* Años 20 */}
                     <div 
-                      onClick={() => setActiveProject('anos-20')}
+                      onClick={() => window.location.hash = '#escena-anos-20'}
                       className="group space-y-4 cursor-pointer pointer-events-auto w-[80%] mx-auto"
                     >
                       <div className="aspect-[1/1] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">

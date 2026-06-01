@@ -12,13 +12,7 @@ Ideas:
 
 Cosas nuevas:
 
-2) Aplicar mas jerarquia con el preview de producciones (No sacar grilla solo darle distinto peso)
-    a) Neo Trattoria
-    b) No Futuro
-    c) Años 20
 
-3) Mejorar el display de las producciones (Esperar a toti que tenga un diseño)
 4) Mejorar el display de los audiovisuales (hacer video como lo de papa)
 6) Mejorar Navbar horizontal hacerlo mas limpio
-7) Sacar boton de volver linkearlo al logo
 8) Sacar pdfs de narrativa

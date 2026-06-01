@@ -226,7 +226,7 @@ export default function NeoTrattoriaExperience() {
       {/* BLOCK 1: EDITORIAL HERO & CONCEPT */}
       <div className="w-full lg:h-screen grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative overflow-hidden">
         {/* Left Column: Maroon Story Block */}
-        <div className="col-span-12 lg:col-span-6 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] p-8 md:p-16 flex flex-col justify-between relative min-h-[600px] lg:min-h-0 lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--color-brand-marron-oscuro)]/25">
+        <div className="col-span-12 lg:col-span-6 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] pt-28 md:pt-36 pb-8 md:pb-16 px-8 md:px-16 flex flex-col justify-between relative min-h-[600px] lg:min-h-0 lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--color-brand-marron-oscuro)]/25">
           {/* Decorative Corner plus markers */}
           <span className="absolute top-4 left-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
           <span className="absolute top-4 right-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
@@ -258,83 +258,84 @@ export default function NeoTrattoriaExperience() {
         </div>
 
         {/* Right Column: Editorial Photo Composition */}
-        <div className="col-span-12 lg:col-span-6 grid grid-cols-12 relative bg-black/[0.01] lg:h-full">
-          {/* Vertical divider line separating the two sub-columns */}
-          <div className="absolute inset-y-0 left-1/2 w-[1px] bg-[var(--color-brand-marron-claro)]/25 pointer-events-none hidden md:block" />
+        <div className="col-span-12 lg:col-span-6 flex flex-col justify-between p-6 md:p-8 pt-28 md:pt-32 gap-6 lg:h-full lg:overflow-hidden relative bg-black/[0.01]">
+          {/* Horizontal divider line separating top and bottom rows */}
+          <div className="absolute top-[52%] left-6 right-6 h-[1px] bg-[var(--color-brand-marron-claro)]/20 pointer-events-none hidden lg:block" />
 
-          {/* Left sub-column: Large portrait photo */}
-          <div className="col-span-12 md:col-span-6 p-6 md:p-8 flex flex-col justify-center border-b md:border-b-0 md:border-r border-[var(--color-brand-marron-claro)]/20 lg:h-full lg:overflow-hidden">
-            <div className="w-full flex flex-col gap-4">
-              <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+          {/* Top row: Wide cinematic landscape photo (Frame 1) */}
+          <div className="w-full flex-grow flex flex-col justify-center min-h-0">
+            <div className="w-full max-w-2xl mx-auto flex flex-col gap-2">
+              <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
                 <span>[ FRAME // 01 ]</span>
                 <span>[ SHUTTER 1/125 ]</span>
               </div>
-              <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
+              <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
                 <TiltImage
                   src="/producciones/neoTrattoria/primerFoto.JPG"
                   alt="Neo Trattoria - Retrato Principal"
                   onClick={() => capturePhoto('/producciones/neoTrattoria/primerFoto.JPG')}
                   onHoverStart={() => setIsHoveringImage(true)}
                   onHoverEnd={() => setIsHoveringImage(false)}
-                  className="w-full lg:h-[55vh] flex items-center justify-center"
-                  imgClassName="w-auto h-full max-h-full max-w-full"
+                  className="aspect-[16/10] max-h-[32vh] lg:h-[32vh] w-full flex items-center justify-center"
+                  imgClassName="w-full h-full object-cover block"
                 />
               </div>
-              <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-              <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between items-center px-1">
+              <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between items-center px-1">
                 <span>№112 // PHOTO 01</span>
                 <span>[ FOCUS // AF-LOK ]</span>
               </div>
             </div>
           </div>
 
-          {/* Right sub-column: Two stacked portrait photos */}
-          <div className="col-span-12 md:col-span-6 p-6 md:p-8 flex flex-col justify-between gap-8 lg:h-full lg:overflow-hidden">
-            {/* Top Photo */}
-            <div className="w-full flex flex-col gap-3">
-              <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-                <span>[ FRAME // 02 ]</span>
-                <span>[ MOTORSPORT ]</span>
-              </div>
-              <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
-                <TiltImage
-                  src="/producciones/neoTrattoria/IMG_6798.JPG"
-                  alt="Neo Trattoria - Automóvil Clásico"
-                  onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6798.JPG')}
-                  onHoverStart={() => setIsHoveringImage(true)}
-                  onHoverEnd={() => setIsHoveringImage(false)}
-                  className="w-full lg:h-[24vh] flex items-center justify-center"
-                  imgClassName="w-auto h-full max-h-full max-w-full"
-                />
-              </div>
-              <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-              <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-                <span>№112 // index.01</span>
-                <span>[ RACING ]</span>
+          {/* Bottom row: Diptych of two vertical photos (Frame 2 & 3) side-by-side */}
+          <div className="grid grid-cols-2 gap-6 md:gap-8 flex-grow min-h-0">
+            {/* Left Column: Frame 2 (Vertical) */}
+            <div className="flex flex-col justify-center min-h-0">
+              <div className="w-full flex flex-col gap-2">
+                <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+                  <span>[ FRAME // 02 ]</span>
+                  <span>[ MOTORSPORT ]</span>
+                </div>
+                <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
+                  <TiltImage
+                    src="/producciones/neoTrattoria/IMG_6798.JPG"
+                    alt="Neo Trattoria - Automóvil Clásico"
+                    onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6798.JPG')}
+                    onHoverStart={() => setIsHoveringImage(true)}
+                    onHoverEnd={() => setIsHoveringImage(false)}
+                    className="aspect-[2/3] max-h-[34vh] lg:h-[34vh] w-full flex items-center justify-center"
+                    imgClassName="w-full h-full object-cover block"
+                  />
+                </div>
+                <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
+                  <span>№112 // index.01</span>
+                  <span>[ RACING ]</span>
+                </div>
               </div>
             </div>
 
-            {/* Bottom Photo */}
-            <div className="w-full flex flex-col gap-3">
-              <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-                <span>[ FRAME // 03 ]</span>
-                <span>[ STILL LIFE ]</span>
-              </div>
-              <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
-                <TiltImage
-                  src="/producciones/neoTrattoria/IMG_6800.JPG"
-                  alt="Neo Trattoria - Bodegón"
-                  onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6800.JPG')}
-                  onHoverStart={() => setIsHoveringImage(true)}
-                  onHoverEnd={() => setIsHoveringImage(false)}
-                  className="w-full lg:h-[24vh] flex items-center justify-center"
-                  imgClassName="w-auto h-full max-h-full max-w-full"
-                />
-              </div>
-              <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-              <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-                <span>[ FOCUS // LOAD.03 ]</span>
-                <span>[ CAPTURE ]</span>
+            {/* Right Column: Frame 3 (Vertical) */}
+            <div className="flex flex-col justify-center min-h-0">
+              <div className="w-full flex flex-col gap-2">
+                <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+                  <span>[ FRAME // 03 ]</span>
+                  <span>[ STILL LIFE ]</span>
+                </div>
+                <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
+                  <TiltImage
+                    src="/producciones/neoTrattoria/IMG_6800.JPG"
+                    alt="Neo Trattoria - Bodegón"
+                    onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6800.JPG')}
+                    onHoverStart={() => setIsHoveringImage(true)}
+                    onHoverEnd={() => setIsHoveringImage(false)}
+                    className="aspect-[2/3] max-h-[34vh] lg:h-[34vh] w-full flex items-center justify-center"
+                    imgClassName="w-full h-full object-cover block"
+                  />
+                </div>
+                <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
+                  <span>[ FOCUS // LOAD.03 ]</span>
+                  <span>[ CAPTURE ]</span>
+                </div>
               </div>
             </div>
           </div>
@@ -651,7 +652,7 @@ export default function NeoTrattoriaExperience() {
         </div>
       </div>
 
-      {/* Viewfinder Custom Cursor (Vibe: DSLR Camera Focusing Reticle) */}
+      {/* Viewfinder Custom Cursor (Vibe: DSLR Camera Focusing Reticle - Minimalist) */}
       <motion.div
         className="hidden md:block fixed pointer-events-none z-50 mix-blend-difference"
         style={{
@@ -662,55 +663,60 @@ export default function NeoTrattoriaExperience() {
         }}
       >
         <motion.div 
-          className="relative flex items-center justify-center -translate-x-1/2 -translate-y-1/2"
+          className="relative flex flex-col items-center justify-center -translate-x-1/2 -translate-y-1/2"
           animate={{
-            scale: cursorMode === 'shutter' ? 0.75 : 1,
-            color: cursorMode === 'focus' ? 'var(--color-brand-crema)' : 'rgba(246, 237, 222, 0.4)',
+            scale: cursorMode === 'shutter' ? 0.8 : 1,
           }}
-          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+          transition={{ type: 'spring', stiffness: 450, damping: 28 }}
         >
           {/* Viewfinder Brackets */}
           <motion.div 
-            className="absolute border-current transition-all duration-300"
+            className="absolute border-white"
             animate={{
-              width: cursorMode === 'focus' ? 44 : 56,
-              height: cursorMode === 'focus' ? 44 : 56,
+              width: cursorMode === 'focus' ? 52 : 36,
+              height: cursorMode === 'focus' ? 52 : 36,
+              opacity: cursorMode === 'idle' ? 0.35 : 0.9,
             }}
+            transition={{ duration: 0.25 }}
           >
             {/* Top Left Bracket */}
-            <span className="absolute top-0 left-0 border-t border-l border-current w-2.5 h-2.5" />
+            <span className="absolute top-0 left-0 border-t border-l border-white w-2 h-2" />
             {/* Top Right Bracket */}
-            <span className="absolute top-0 right-0 border-t border-r border-current w-2.5 h-2.5" />
+            <span className="absolute top-0 right-0 border-t border-r border-white w-2 h-2" />
             {/* Bottom Left Bracket */}
-            <span className="absolute bottom-0 left-0 border-b border-l border-current w-2.5 h-2.5" />
+            <span className="absolute bottom-0 left-0 border-b border-l border-white w-2 h-2" />
             {/* Bottom Right Bracket */}
-            <span className="absolute bottom-0 right-0 border-b border-r border-current w-2.5 h-2.5" />
+            <span className="absolute bottom-0 right-0 border-b border-r border-white w-2 h-2" />
           </motion.div>
 
-          {/* Center Crosshair Dot */}
-          <div className="w-1.5 h-1.5 bg-current rounded-full" />
-          {cursorMode === 'focus' && (
-            <motion.div 
-              initial={{ scale: 0 }}
-              animate={{ scale: [0, 1.3, 1] }}
-              transition={{ duration: 0.2 }}
-              className="absolute w-3 h-3 border border-current rounded-full"
-            />
-          )}
+          {/* Inner Ring (Lens guideline) */}
+          <motion.div 
+            className="absolute border border-white/30 rounded-full"
+            animate={{
+              width: cursorMode === 'focus' ? 24 : 12,
+              height: cursorMode === 'focus' ? 24 : 12,
+              opacity: cursorMode === 'idle' ? 0.2 : 0.6,
+            }}
+            transition={{ duration: 0.25 }}
+          />
 
-          {/* Viewfinder HUD Metadata */}
-          <div className="absolute top-8 left-1/2 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap text-[6px] tracking-[0.25em] font-mono bg-black/60 text-white/90 px-1.5 py-0.5 rounded-sm select-none border border-white/5 shadow-md">
-            <span>F/2.8</span>
-            <span>1/125s</span>
-            <span className={cursorMode === 'focus' ? "text-green-400 font-semibold" : "text-white/60"}>
-              {cursorMode === 'focus' ? "AF-LOK" : "ISO 400"}
-            </span>
-          </div>
-          
-          {/* Action indicator */}
-          <span className="absolute -top-7 left-1/2 -translate-x-1/2 text-[6px] tracking-[0.3em] font-sans uppercase font-bold text-white/80 select-none bg-black/60 px-1.5 py-0.5 rounded-sm border border-white/5 shadow-md transition-opacity">
-            {cursorMode === 'focus' ? "CAPTURAR" : "VISOR"}
-          </span>
+          {/* Center Crosshair Dot */}
+          <div className="w-1.5 h-1.5 bg-white rounded-full" />
+
+          {/* Action indicator - clean, no boxes, spaced out */}
+          <AnimatePresence>
+            {cursorMode === 'focus' && (
+              <motion.span 
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 5 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-8 text-[9px] tracking-[0.25em] font-sans font-semibold text-white/95 uppercase whitespace-nowrap"
+              >
+                CAPTURAR
+              </motion.span>
+            )}
+          </AnimatePresence>
         </motion.div>
       </motion.div>
 
