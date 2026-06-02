@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useTransform, useMotionValue, useSpring } from 'framer-motion'
-import { X, ArrowLeft, ArrowUpRight, Clock, Beaker, Sparkles, BookOpen } from 'lucide-react'
+import { ArrowUpRight, Clock, BookOpen } from 'lucide-react'
 
 // --- HELPER COMPONENT: 3D Interactive Hover Tilt Container ---
 interface TiltContainerProps {
@@ -54,12 +54,7 @@ export function TiltContainer({ children, className = "" }: TiltContainerProps) 
 
 export default function FerranAdriaExperience() {
   const [activeHour, setActiveHour] = useState<number>(6);
-  const [activeConcept, setActiveConcept] = useState<number>(0);
   const [activeEnunciado, setActiveEnunciado] = useState<number | null>(null);
-  
-  const handleGoBack = () => {
-    window.location.hash = '#narrativa';
-  };
 
   // Clock plate data corresponding to PDF findings
   const clockNodes = [
@@ -109,24 +104,7 @@ export default function FerranAdriaExperience() {
 
   const currentClockData = clockNodes.find(node => node.hour === activeHour) || clockNodes[3];
 
-  const conceptosClave = [
-    {
-      title: "Experiencia Sensorial",
-      desc: "Convierte la experiencia sensorial de la comida en el centro absoluto de todo el proceso creativo y perceptivo."
-    },
-    {
-      title: "Cocina de Vanguardia",
-      desc: "Desafía qué significa cocinar, qué significa comer y qué significa experimentar, llevando la gastronomía al plano del arte."
-    },
-    {
-      title: "Alquimia y Ciencia",
-      desc: "Aplicación de principios científico-técnicos (nitrógeno líquido, esferificaciones, liofilización) para comprender y mutar procesos químicos."
-    },
-    {
-      title: "Experimentación Constante",
-      desc: "Creación de un laboratorio de ideas (elBulliTaller) donde el equipo trabaja como investigadores y diseñadores, no como cocineros tradicionales."
-    }
-  ];
+
 
   const enunciados = [
     { id: 1, name: "Experimentación sensorial", desc: "El estímulo de los sentidos como eje prioritario del plato." },

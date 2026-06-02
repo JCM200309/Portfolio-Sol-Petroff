@@ -324,7 +324,6 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
               <nav className="flex-grow flex flex-col justify-start pt-16 pb-8">
                 <ul className="list-none m-0 p-0 flex flex-col gap-8" role="list">
                   {navItems.map((item, idx) => {
-                    const isContact = item.link === '#conoceme';
                     const hasDropdown = item.subItems !== undefined;
 
                     if (hasDropdown) {

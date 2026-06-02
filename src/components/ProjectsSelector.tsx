@@ -5,6 +5,7 @@ interface CategoryItem {
   id: 'escena' | 'movimiento' | 'narrativa';
   num: string;
   title: string;
+  subtitle?: string;
   videoSrc: string;
   link: string;
   bgHex: string; // The color to morph the section background to on hover
@@ -151,6 +152,7 @@ export default function ProjectsSelector() {
       id: 'escena',
       num: '01',
       title: 'Producciones',
+      subtitle: 'Fotografía de moda, estilismo y dirección de arte en set.',
       videoSrc: 'portadas/producciones.png',
       
       link: '#escena',
@@ -160,6 +162,7 @@ export default function ProjectsSelector() {
       id: 'narrativa',
       num: '02',
       title: 'Narrativa',
+      subtitle: 'Redacción editorial, marcas e investigación interactiva.',
       videoSrc: 'portadas/narrativas.png',
       link: '#narrativa',
       bgHex: 'rgba(146, 94, 61, 0.12)', // Soft marron-oscuro tint
@@ -169,6 +172,7 @@ export default function ProjectsSelector() {
       id: 'movimiento',
       num: '03',
       title: 'Audiovisuales',
+      subtitle: 'Dirección creativa de video experimental, cortometrajes y clips.',
       videoSrc: 'https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807431/videoHero_otcgjv.mp4',
       link: '#movimiento',
       bgHex: 'rgba(190, 158, 137, 0.2)', // Soft marron-claro tint
