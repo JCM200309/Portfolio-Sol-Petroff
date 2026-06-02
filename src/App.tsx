@@ -8,6 +8,8 @@ import ProjectsSelector from './components/ProjectsSelector'
 const Productions = lazy(() => import('./components/Productions'))
 const Projects = lazy(() => import('./components/Projects'))
 const Whiteboard = lazy(() => import('./components/Whiteboard'))
+const FerranAdriaExperience = lazy(() => import('./components/FerranAdriaExperience'))
+const ElPlumeroExperience = lazy(() => import('./components/ElPlumeroExperience'))
 
 function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash)
@@ -24,7 +26,7 @@ function App() {
     };
   }, []);
 
-  const isSubPage = ['#movimiento', '#narrativa'].includes(currentHash) || currentHash.startsWith('#escena');
+  const isSubPage = ['#movimiento', '#narrativa', '#narrativa-ferran-adria', '#narrativa-el-plumero'].includes(currentHash) || currentHash.startsWith('#escena');
   const isLightNavbar = isSubPage && currentHash !== '#escena';
 
   return (
@@ -56,6 +58,8 @@ function App() {
                 />
               )}
               {currentHash === '#narrativa' && <Whiteboard />}
+              {currentHash === '#narrativa-ferran-adria' && <FerranAdriaExperience />}
+              {currentHash === '#narrativa-el-plumero' && <ElPlumeroExperience />}
             </div>
           </div>
         ) : (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Menu, X } from 'lucide-react'
+import { ChevronDown, Menu, X, ArrowUpRight } from 'lucide-react'
 
 interface SubItem {
   label: string;
@@ -19,13 +19,17 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const isLightNavbar = isLight && !scrolled;
+  const isLightNavbar = isLight || scrolled;
+  const showBordoLogo = isLightNavbar && (!currentHash.startsWith('#escena-') || (isMobile && scrolled));
+  const isLightHamburger = isLightNavbar && !(currentHash.startsWith('#escena-') && !scrolled);
 
   // Determine dynamic target for back button logic on the logo
   let logoHref = '#universo';
   if (currentHash) {
     if (currentHash.startsWith('#escena-')) {
       logoHref = '#escena';
+    } else if (currentHash.startsWith('#narrativa-')) {
+      logoHref = '#narrativa';
     } else if (currentHash === '#escena' || currentHash === '#movimiento' || currentHash === '#narrativa') {
       logoHref = '#proyectos';
     }
@@ -34,7 +38,11 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
   // Track window size for responsive logic
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (!mobile) {
+        setMobileOpen(false);
+      }
     };
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -62,19 +70,13 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
       label: 'Proyectos',
       link: '#movimiento',
       subItems: [
-        { label: 'Movimiento', link: '#movimiento' },
-        { label: 'Escena', link: '#escena' },
-        { label: 'Narrativa', link: '#narrativa' }
+        { label: 'Audiovisuales', link: '#movimiento' },
+        { label: 'Narrativa', link: '#narrativa' },
+        { label: 'Producciones', link: '#escena' }
       ]
     },
     { label: 'Conocéme', link: '#conoceme' }
   ];
-
-  // CSS Filter to convert black/dark logo image into the exact CSS cream color #f6edde
-  const logoCreamFilter = 'brightness(0) invert(98%) sepia(5%) saturate(795%) hue-rotate(323deg) brightness(101%) contrast(93%)';
-
-  // CSS Filter to convert black/dark logo image into the exact CSS bordo color #840624
-  const logoBordoFilter = 'brightness(0) saturate(100%) invert(13%) sepia(94%) saturate(7460%) hue-rotate(345deg) brightness(90%) contrast(106%)';
 
   // Animation variants for desktop links collapsing/expanding
   const linksContainerVariants: any = {
@@ -129,10 +131,8 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
   return (
     <>
       <header
-        className={`w-full fixed top-0 left-0 z-40 flex items-center justify-between px-6 md:px-16 transition-all duration-500 ease-in-out select-none ${
-          scrolled
-            ? 'bg-[var(--color-brand-bordo)]/90 backdrop-blur-md border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.15)] py-4'
-            : 'bg-transparent border-b border-transparent py-7'
+        className={`w-full fixed top-0 left-0 z-40 flex items-center justify-between px-6 md:px-16 transition-all duration-500 ease-in-out select-none bg-transparent border-b border-transparent ${
+          scrolled ? 'py-4' : 'py-7'
         }`}
       >
         {/* Brand Logo (Left Margin) */}
@@ -143,11 +143,10 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
           aria-label={logoHref === '#universo' ? 'Volver al inicio' : 'Volver'}
         >
           <img
-            src="/logo.png"
+            src={showBordoLogo ? "/logoFemmoraBordo.png" : "/logoFemmoraBeige.png"}
             alt="Logo"
             className="block w-auto object-contain transition-all duration-500"
             style={{
-              filter: (isLightNavbar && !currentHash.startsWith('#escena-')) ? logoBordoFilter : logoCreamFilter,
               height: scrolled 
                 ? (isMobile ? '36px' : '44px') // Scrolled sizes
                 : (isMobile ? '44px' : '58px') // Transparent/Hero sizes (heavy/larger presence)
@@ -160,17 +159,14 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
 
         {/* Navigation Group (Right Margin) */}
         <div className="flex items-center z-50">
-          {/* Desktop Navigation links (collapses on scroll) */}
+          {/* Desktop Navigation links */}
           <motion.nav
             variants={linksContainerVariants}
             initial="expanded"
-            animate={!isMobile && scrolled ? 'collapsed' : 'expanded'}
-            className={`hidden md:flex items-center gap-4 lg:gap-6 whitespace-nowrap ${
-              scrolled ? 'overflow-hidden' : 'overflow-visible'
-            }`}
+            animate="expanded"
+            className="hidden md:flex items-center gap-4 lg:gap-6 whitespace-nowrap overflow-visible"
           >
             {navItems.map((item, idx) => {
-              const isContact = item.link === '#conoceme';
               const hasDropdown = item.subItems !== undefined;
 
               if (hasDropdown) {
@@ -242,46 +238,38 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
                 <a
                   key={item.label + idx}
                   href={item.link}
-                  className={
-                    isContact
-                      ? `text-[11px] font-sans tracking-[0.2em] uppercase px-5 py-2 rounded-full transition-all duration-300 cursor-pointer shadow-md ${
-                          isLightNavbar
-                            ? 'text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-97'
-                            : 'text-[var(--color-brand-bordo)] bg-[var(--color-brand-crema)] hover:bg-white hover:scale-[1.03] active:scale-97'
-                        }`
-                      : `group text-[11px] font-sans tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer relative py-2 px-3 rounded-full active:scale-95 ${
-                          isLightNavbar
-                            ? 'text-[var(--color-brand-bordo)]/85 hover:text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
-                            : 'text-[var(--color-brand-crema)]/85 hover:text-white hover:bg-white/5'
-                        }`
-                  }
+                  className={`group text-[11px] font-sans tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer relative py-2 px-3 rounded-full active:scale-95 ${
+                    isLightNavbar
+                      ? 'text-[var(--color-brand-bordo)]/85 hover:text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
+                      : 'text-[var(--color-brand-crema)]/85 hover:text-white hover:bg-white/5'
+                  }`}
                 >
                   {item.label}
-                  {!isContact && (
-                    <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full opacity-0 scale-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 ${
-                      isLightNavbar ? 'bg-[var(--color-brand-bordo)]' : 'bg-[var(--color-brand-crema)]'
-                    }`} />
-                  )}
+                  <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full opacity-0 scale-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 ${
+                    isLightNavbar ? 'bg-[var(--color-brand-bordo)]' : 'bg-[var(--color-brand-crema)]'
+                  }`} />
                 </a>
               );
             })}
           </motion.nav>
 
-          {/* Hamburger Trigger button (displays on Mobile always, on Desktop on Scroll) */}
-          <motion.button
-            variants={hamburgerButtonVariants}
-            initial={isMobile ? 'visible' : 'hidden'}
-            animate={isMobile || scrolled ? 'visible' : 'hidden'}
-            onClick={() => setMobileOpen(true)}
-            className={`flex items-center justify-center p-2.5 rounded-full transition-colors cursor-pointer overflow-hidden whitespace-nowrap ${
-              isLightNavbar
-                ? 'text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
-                : 'text-[var(--color-brand-crema)] hover:bg-white/5'
-            }`}
-            aria-label="Abrir menú de navegación"
-          >
-            <Menu size={24} />
-          </motion.button>
+          {/* Hamburger Trigger button (displays on Mobile only) */}
+          {isMobile && (
+            <motion.button
+              variants={hamburgerButtonVariants}
+              initial="visible"
+              animate="visible"
+              onClick={() => setMobileOpen(true)}
+              className={`flex items-center justify-center p-2.5 rounded-full transition-colors cursor-pointer overflow-hidden whitespace-nowrap ${
+                isLightHamburger
+                  ? 'text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
+                  : 'text-[var(--color-brand-crema)] hover:bg-white/5'
+              }`}
+              aria-label="Abrir menú de navegación"
+            >
+              <Menu size={24} />
+            </motion.button>
+          )}
         </div>
       </header>
 
@@ -304,10 +292,10 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="fixed top-0 right-0 h-full w-full sm:w-[380px] bg-[var(--color-brand-crema)] shadow-2xl z-50 p-6 flex flex-col justify-between pointer-events-auto"
+              className="fixed top-0 right-0 h-full w-full sm:w-[380px] bg-[var(--color-brand-crema)] shadow-2xl z-50 p-8 md:p-10 flex flex-col justify-between pointer-events-auto"
             >
               {/* Drawer Top Header */}
-              <div className="flex items-center justify-between border-b border-[var(--color-brand-marron-claro)]/10 pb-4">
+              <div className="flex items-center justify-between border-b border-[var(--color-brand-marron-claro)]/15 pb-5">
                 <a
                   href={logoHref}
                   onClick={() => setMobileOpen(false)}
@@ -315,10 +303,9 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
                   aria-label={logoHref === '#universo' ? 'Volver al inicio' : 'Volver'}
                 >
                   <img
-                    src="/logo.png"
+                    src="/logoFemmoraBordo.png"
                     alt="Logo"
                     className="block h-8 w-auto object-contain"
-                    style={{ filter: logoBordoFilter }}
                     draggable={false}
                     width={100}
                     height={22}
@@ -334,8 +321,8 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
               </div>
 
               {/* Drawer Links List */}
-              <nav className="flex-grow flex flex-col justify-center py-8">
-                <ul className="list-none m-0 p-0 flex flex-col gap-6" role="list">
+              <nav className="flex-grow flex flex-col justify-start pt-16 pb-8">
+                <ul className="list-none m-0 p-0 flex flex-col gap-8" role="list">
                   {navItems.map((item, idx) => {
                     const isContact = item.link === '#conoceme';
                     const hasDropdown = item.subItems !== undefined;
@@ -345,7 +332,7 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
                         <li key={item.label + idx} className="flex flex-col gap-2">
                           <button
                             onClick={() => setMobileProjectsOpen(!mobileProjectsOpen)}
-                            className="text-left w-full text-2xl font-brand text-[var(--color-brand-marron-oscuro)] hover:text-[var(--color-brand-bordo)] transition-colors flex items-center justify-between cursor-pointer"
+                            className="text-left w-full text-3xl font-brand text-[var(--color-brand-marron-oscuro)] hover:text-[var(--color-brand-bordo)] hover:translate-x-1 transition-all duration-300 flex items-center justify-between cursor-pointer group"
                             aria-expanded={mobileProjectsOpen}
                           >
                             <span>{item.label}</span>
@@ -361,14 +348,14 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
                           <motion.ul
                             initial={false}
                             animate={mobileProjectsOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
-                            className="list-none pl-4 flex flex-col gap-3 overflow-hidden"
+                            className="list-none pl-4 flex flex-col gap-4 overflow-hidden"
                           >
                             {item.subItems?.map((sub, sIdx) => (
                               <li key={sub.label + sIdx} className="pt-2">
                                 <a
                                   href={sub.link}
                                   onClick={() => setMobileOpen(false)}
-                                  className="text-base font-sans tracking-wider uppercase text-[var(--color-brand-marron-oscuro)]/70 hover:text-[var(--color-brand-bordo)] transition-colors cursor-pointer"
+                                  className="text-base md:text-lg font-sans tracking-widest uppercase text-[var(--color-brand-marron-oscuro)]/70 hover:text-[var(--color-brand-bordo)] hover:pl-1 transition-all duration-200 cursor-pointer"
                                 >
                                   {sub.label}
                                 </a>
@@ -384,11 +371,7 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
                         <a
                           href={item.link}
                           onClick={() => setMobileOpen(false)}
-                          className={
-                            isContact
-                              ? 'inline-block text-center w-full text-sm font-sans tracking-widest uppercase text-[var(--color-brand-crema)] bg-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/90 px-6 py-3 rounded-full transition-all duration-300 cursor-pointer shadow-md'
-                              : 'text-2xl font-brand text-[var(--color-brand-marron-oscuro)] hover:text-[var(--color-brand-bordo)] transition-colors cursor-pointer'
-                          }
+                          className="inline-block text-3xl font-brand text-[var(--color-brand-marron-oscuro)] hover:text-[var(--color-brand-bordo)] hover:translate-x-1 transition-all duration-300 cursor-pointer"
                         >
                           {item.label}
                         </a>
@@ -399,26 +382,43 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
               </nav>
 
               {/* Drawer Footer (Socials) */}
-              <div className="border-t border-[var(--color-brand-marron-claro)]/10 pt-4 flex flex-col gap-2">
-                <span className="text-[9px] font-sans tracking-widest uppercase text-[var(--color-brand-marron-claro)]">
+              <div className="border-t border-[var(--color-brand-marron-claro)]/25 pt-8 flex flex-col gap-4">
+                <span className="text-[10px] font-sans tracking-[0.25em] uppercase text-[var(--color-brand-marron-claro)] mb-1">
                   Sociales
                 </span>
-                <div className="flex gap-4">
+                <div className="flex flex-col gap-3">
                   <a
-                    href="#"
+                    href="https://instagram.com/solpetroff.ph"
                     target="_blank"
-                    rel="noreferrer"
-                    className="text-xs font-sans tracking-wider uppercase text-[var(--color-brand-marron-oscuro)] hover:text-[var(--color-brand-bordo)] transition-colors"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between p-4 rounded-sm border border-[var(--color-brand-marron-claro)]/15 bg-white/20 hover:bg-[var(--color-brand-bordo)]/5 hover:border-[var(--color-brand-bordo)]/35 transition-all duration-300 cursor-pointer pointer-events-auto active:scale-[0.99]"
                   >
-                    Instagram
+                    <div className="flex flex-col">
+                      <span className="text-[9px] font-sans tracking-widest uppercase text-[var(--color-brand-marron-claro)] group-hover:text-[var(--color-brand-bordo)]/80 transition-colors">
+                        Instagram
+                      </span>
+                      <span className="text-base font-brand text-[var(--color-brand-marron-oscuro)] group-hover:text-[var(--color-brand-bordo)] transition-colors mt-0.5">
+                        @solpetroff.ph
+                      </span>
+                    </div>
+                    <ArrowUpRight size={18} className="text-[var(--color-brand-marron-claro)] group-hover:text-[var(--color-brand-bordo)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
                   </a>
+
                   <a
                     href="#"
                     target="_blank"
-                    rel="noreferrer"
-                    className="text-xs font-sans tracking-wider uppercase text-[var(--color-brand-marron-oscuro)] hover:text-[var(--color-brand-bordo)] transition-colors"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between p-4 rounded-sm border border-[var(--color-brand-marron-claro)]/15 bg-white/20 hover:bg-[var(--color-brand-bordo)]/5 hover:border-[var(--color-brand-bordo)]/35 transition-all duration-300 cursor-pointer pointer-events-auto active:scale-[0.99]"
                   >
-                    TikTok
+                    <div className="flex flex-col">
+                      <span className="text-[9px] font-sans tracking-widest uppercase text-[var(--color-brand-marron-claro)] group-hover:text-[var(--color-brand-bordo)]/80 transition-colors">
+                        TikTok
+                      </span>
+                      <span className="text-base font-brand text-[var(--color-brand-marron-oscuro)] group-hover:text-[var(--color-brand-bordo)] transition-colors mt-0.5">
+                        @solpetroff.ph
+                      </span>
+                    </div>
+                    <ArrowUpRight size={18} className="text-[var(--color-brand-marron-claro)] group-hover:text-[var(--color-brand-bordo)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
                   </a>
                 </div>
               </div>

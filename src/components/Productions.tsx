@@ -121,7 +121,7 @@ export default function Productions({ initialProject = null }: { initialProject?
             </div>
 
             {/* Slide 2: Grid of other productions */}
-            <div className="snap-start w-full h-screen relative bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] flex flex-col pt-24 pb-6 md:pt-28 md:pb-10 px-4 md:px-12 overflow-hidden">
+            <div className="snap-start w-full h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] flex flex-col pt-24 pb-6 md:pt-28 md:pb-10 px-4 md:px-12 overflow-hidden">
               {/* Noise texture overlay */}
               <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
 
@@ -129,12 +129,12 @@ export default function Productions({ initialProject = null }: { initialProject?
                 
                 {/* Minimalist Section Header */}
                 <div className="mb-4 flex items-center justify-between select-none shrink-0">
-                  <h3 className="font-brand text-2xl md:text-3xl uppercase tracking-wider text-[var(--color-brand-crema)]">
+                  <h3 className="font-brand text-2xl md:text-3xl uppercase tracking-wider text-[var(--color-brand-bordo)]">
                     Otras Producciones
                   </h3>
                   <a 
                     href="#proyectos" 
-                    className="inline-flex items-center gap-2 bg-[var(--color-brand-crema)] text-[var(--color-brand-bordo)] font-sans text-[10px] tracking-[0.2em] font-semibold uppercase px-4 py-2 hover:bg-[var(--color-brand-crema)]/90 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 pointer-events-auto rounded-xs"
+                    className="inline-flex items-center gap-2 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] font-sans text-[10px] tracking-[0.2em] font-semibold uppercase px-4 py-2 hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 pointer-events-auto rounded-xs"
                   >
                     Portafolio <span className="text-xs">→</span>
                   </a>
@@ -153,7 +153,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                       handleMouseMove(e);
                       if (!isHovering) setIsHovering(true);
                     }}
-                    className="col-span-7 bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-sm overflow-hidden flex flex-col h-full shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_30px_60px_rgba(0,0,0,0.45)] cursor-none pointer-events-auto group"
+                    className="col-span-7 bg-white/40 backdrop-blur-sm border border-[var(--color-brand-marron-claro)]/25 rounded-sm overflow-hidden flex flex-col h-full shadow-[0_20px_50px_rgba(146,94,61,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-brand-bordo)]/40 hover:shadow-[0_30px_60px_rgba(132,6,36,0.12)] cursor-none pointer-events-auto group"
                   >
                     <div className="flex-1 w-full min-h-0 overflow-hidden relative">
                       <img 
@@ -161,17 +161,17 @@ export default function Productions({ initialProject = null }: { initialProject?
                         alt="Neo Trattoria Cover" 
                         className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
                       />
-                      <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                      <div className="absolute inset-0 bg-black/[0.05] group-hover:bg-transparent transition-colors duration-300" />
                     </div>
-                    <div className="h-[140px] p-6 flex flex-col justify-center bg-black/20 border-t border-white/5 select-none shrink-0">
+                    <div className="h-[140px] p-6 flex flex-col justify-center bg-white/60 border-t border-[var(--color-brand-marron-claro)]/20 select-none shrink-0">
                       <div>
-                        <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-crema)]/40 uppercase mb-1.5 block">
+                        <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-marron-claro)] uppercase mb-1.5 block">
                           01 / Neo Trattoria
                         </span>
-                        <h4 className="font-brand text-2xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-crema)] leading-tight">
+                        <h4 className="font-brand text-2xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-bordo)] leading-tight">
                           Nostalgia
                         </h4>
-                        <p className="text-[10px] lg:text-[11px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
+                        <p className="text-[10px] lg:text-[11px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80">
                           Neo Trattoria nace del encuentro entre lo orgánico y lo estructural, construyendo una estética donde el exceso y la armonía conviven constantemente.
                         </p>
                       </div>
@@ -191,7 +191,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                         handleMouseMove(e);
                         if (!isHovering) setIsHovering(true);
                       }}
-                      className="h-[55%] flex bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_30px_60px_rgba(0,0,0,0.45)] cursor-none pointer-events-auto group"
+                      className="h-[55%] flex bg-white/40 backdrop-blur-sm border border-[var(--color-brand-marron-claro)]/25 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(146,94,61,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-brand-bordo)]/40 hover:shadow-[0_30px_60px_rgba(132,6,36,0.12)] cursor-none pointer-events-auto group"
                     >
                       <div className="w-[40%] h-full overflow-hidden relative shrink-0">
                         <img 
@@ -199,17 +199,17 @@ export default function Productions({ initialProject = null }: { initialProject?
                           alt="No Futuro Cover" 
                           className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
                         />
-                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                        <div className="absolute inset-0 bg-black/[0.05] group-hover:bg-transparent transition-colors duration-300" />
                       </div>
-                      <div className="flex-1 h-full p-5 flex flex-col justify-center bg-black/20 border-l border-white/5 select-none">
+                      <div className="flex-1 h-full p-5 flex flex-col justify-center bg-white/60 border-l border-[var(--color-brand-marron-claro)]/20 select-none">
                         <div>
-                          <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-crema)]/40 uppercase mb-1 block">
+                          <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-marron-claro)] uppercase mb-1 block">
                             02 / No Futuro
                           </span>
-                          <h4 className="font-brand text-lg lg:text-xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-crema)]">
+                          <h4 className="font-brand text-lg lg:text-xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-bordo)]">
                             Subcultura Punk
                           </h4>
-                          <p className="text-[10px] lg:text-[11px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
+                          <p className="text-[10px] lg:text-[11px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80">
                             “No Futuro” toma como punto de partida la subcultura punk y su rechazo hacia las estructuras sociales establecidas.
                           </p>
                         </div>
@@ -226,7 +226,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                         handleMouseMove(e);
                         if (!isHovering) setIsHovering(true);
                       }}
-                      className="h-[40%] flex bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_30px_60px_rgba(0,0,0,0.45)] cursor-none pointer-events-auto group"
+                      className="h-[40%] flex bg-white/40 backdrop-blur-sm border border-[var(--color-brand-marron-claro)]/25 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(146,94,61,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-brand-bordo)]/40 hover:shadow-[0_30px_60px_rgba(132,6,36,0.12)] cursor-none pointer-events-auto group"
                     >
                       <div className="w-[40%] h-full overflow-hidden relative shrink-0">
                         <img 
@@ -234,17 +234,17 @@ export default function Productions({ initialProject = null }: { initialProject?
                           alt="Años 20 Cover" 
                           className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
                         />
-                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                        <div className="absolute inset-0 bg-black/[0.05] group-hover:bg-transparent transition-colors duration-300" />
                       </div>
-                      <div className="flex-1 h-full p-4 flex flex-col justify-center bg-black/20 border-l border-white/5 select-none">
+                      <div className="flex-1 h-full p-4 flex flex-col justify-center bg-white/60 border-l border-[var(--color-brand-marron-claro)]/20 select-none">
                         <div>
-                          <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-crema)]/40 uppercase mb-1 block">
+                          <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-marron-claro)] uppercase mb-1 block">
                             03 / Años 20
                           </span>
-                          <h4 className="font-brand text-lg lg:text-xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-crema)]">
+                          <h4 className="font-brand text-lg lg:text-xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-bordo)]">
                             Elegancia
                           </h4>
-                          <p className="text-[10px] lg:text-[11px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
+                          <p className="text-[10px] lg:text-[11px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80">
                             Una editorial inspirada en la estética de los años 20 que retoma el espíritu de la década.
                           </p>
                         </div>
@@ -263,7 +263,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                       onClick={() => window.location.hash = '#escena-neo-trattoria'}
                       className="group space-y-4 cursor-pointer pointer-events-auto w-full"
                     >
-                      <div className="aspect-[16/10] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
+                      <div className="aspect-[16/10] w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 relative">
                         <img 
                           src="/producciones/neoTrattoria/fotoPortada.JPG" 
                           alt="Neo Trattoria Cover" 
@@ -274,10 +274,10 @@ export default function Productions({ initialProject = null }: { initialProject?
                         </div>
                       </div>
                       <div className="px-1">
-                        <h4 className="font-brand text-lg uppercase tracking-wider text-[var(--color-brand-crema)] mb-2">
+                        <h4 className="font-brand text-lg uppercase tracking-wider text-[var(--color-brand-bordo)] mb-2">
                           Neo Trattoria
                         </h4>
-                        <p className="text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
+                        <p className="text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80">
                           Neo Trattoria nace del encuentro entre lo orgánico y lo estructural, construyendo una estética donde el exceso y la armonía conviven constantemente.
                         </p>
                       </div>
@@ -288,7 +288,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                       onClick={() => window.location.hash = '#escena-no-futuro'}
                       className="group space-y-4 cursor-pointer pointer-events-auto w-[90%] mx-auto"
                     >
-                      <div className="aspect-[4/3] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
+                      <div className="aspect-[4/3] w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 relative">
                         <img 
                           src="/producciones/noFuturo/fotoPortada.JPG" 
                           alt="No Futuro Cover" 
@@ -299,10 +299,10 @@ export default function Productions({ initialProject = null }: { initialProject?
                         </div>
                       </div>
                       <div className="px-1">
-                        <h4 className="font-brand text-lg uppercase tracking-wider text-[var(--color-brand-crema)] mb-2">
+                        <h4 className="font-brand text-lg uppercase tracking-wider text-[var(--color-brand-bordo)] mb-2">
                           No Futuro
                         </h4>
-                        <p className="text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
+                        <p className="text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80">
                           “No Futuro” toma como punto de partida la subcultura punk y su rechazo hacia las estructuras sociales establecidas, entendiendo el cuerpo como un espacio de resistencia, descarga y protesta.
                         </p>
                       </div>
@@ -313,7 +313,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                       onClick={() => window.location.hash = '#escena-anos-20'}
                       className="group space-y-4 cursor-pointer pointer-events-auto w-[80%] mx-auto"
                     >
-                      <div className="aspect-[1/1] w-full overflow-hidden border border-[var(--color-brand-crema)]/10 relative">
+                      <div className="aspect-[1/1] w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 relative">
                         <img 
                           src="/producciones/años20/fotoPortada.webp" 
                           alt="Años 20 Cover" 
@@ -324,10 +324,10 @@ export default function Productions({ initialProject = null }: { initialProject?
                         </div>
                       </div>
                       <div className="px-1">
-                        <h4 className="font-brand text-lg uppercase tracking-wider text-[var(--color-brand-crema)] mb-2">
+                        <h4 className="font-brand text-lg uppercase tracking-wider text-[var(--color-brand-bordo)] mb-2">
                           Años 20
                         </h4>
-                        <p className="text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/70">
+                        <p className="text-xs font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80">
                           Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la elegancia, la transformación y la modernidad emergente.
                         </p>
                       </div>

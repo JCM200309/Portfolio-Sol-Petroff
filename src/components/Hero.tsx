@@ -71,7 +71,7 @@ export default function Hero() {
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <video 
             ref={videoRef}
-            src="https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807798/Neotrattoria_l9ww3b.mp4" 
+            src="https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1780425782/videoHero_noxmom.mov"
             poster="/proyectosAudiovisuales/neoTrattoriaPortada.JPG"
             preload="auto"
             autoPlay muted loop playsInline 
@@ -93,7 +93,7 @@ export default function Hero() {
             ref={subtextRef} 
             className="text-xs md:text-sm font-sans tracking-[0.25em] uppercase text-[var(--color-brand-crema)]/85 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] font-light mb-6"
           >
-            Estudio de espacio
+            Macrotendencia
           </p>
           <div className="flex justify-end md:hidden">
             <span

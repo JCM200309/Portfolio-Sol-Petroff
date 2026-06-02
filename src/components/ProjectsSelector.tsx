@@ -5,7 +5,6 @@ interface CategoryItem {
   id: 'escena' | 'movimiento' | 'narrativa';
   num: string;
   title: string;
-  subtitle: string;
   videoSrc: string;
   link: string;
   bgHex: string; // The color to morph the section background to on hover
@@ -83,13 +82,8 @@ function CategoryCard({
     >
       {/* Background Video (plays/unveils on hover or autoplay on mobile) */}
       <div className="absolute inset-0 z-0 transition-opacity duration-700 overflow-hidden">
-        <video
-          ref={videoRef}
+        <img
           src={cat.videoSrc}
-          muted
-          loop
-          playsInline
-          preload="metadata"
           className={`w-full h-full object-cover transition-all duration-700 scale-105 ${
             isHovered 
               ? 'opacity-85 scale-100' 
@@ -157,8 +151,8 @@ export default function ProjectsSelector() {
       id: 'escena',
       num: '01',
       title: 'Producciones',
-      subtitle: 'Dirección de arte, fotografía y escenografía editorial',
-      videoSrc: 'https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807431/videoHero_otcgjv.mp4',
+      videoSrc: 'portadas/producciones.png',
+      
       link: '#escena',
       bgHex: 'rgba(132, 6, 36, 0.06)' // Soft bordo tint
     },
@@ -166,8 +160,7 @@ export default function ProjectsSelector() {
       id: 'narrativa',
       num: '02',
       title: 'Narrativa',
-      subtitle: 'Espacios interactivos de experimentación conceptual',
-      videoSrc: 'https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807431/videoHero_otcgjv.mp4',
+      videoSrc: 'portadas/narrativas.png',
       link: '#narrativa',
       bgHex: 'rgba(146, 94, 61, 0.12)', // Soft marron-oscuro tint
       
@@ -176,7 +169,6 @@ export default function ProjectsSelector() {
       id: 'movimiento',
       num: '03',
       title: 'Audiovisuales',
-      subtitle: 'Fashion films y dirección de arte en movimiento',
       videoSrc: 'https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807431/videoHero_otcgjv.mp4',
       link: '#movimiento',
       bgHex: 'rgba(190, 158, 137, 0.2)', // Soft marron-claro tint

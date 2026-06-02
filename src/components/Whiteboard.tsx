@@ -41,6 +41,7 @@ interface ProjectPostIt {
   title: string
   image: string
   pdf: string
+  link?: string
   left: string
   top: string
   rotate: number
@@ -67,6 +68,7 @@ const whiteboardProjects: ProjectPostIt[] = [
     title: 'Ferran Adria',
     image: '/narrativa/ferranAdria/portada.jpg',
     pdf: '/narrativa/ferranAdria/reporte.pdf',
+    link: '#narrativa-ferran-adria',
     left: '56%',
     top: '10%',
     rotate: 3,
@@ -79,6 +81,7 @@ const whiteboardProjects: ProjectPostIt[] = [
     title: 'El Plumero',
     image: '/narrativa/elPlumero/portada.jpg',
     pdf: '/narrativa/elPlumero/reporte.pdf',
+    link: '#narrativa-el-plumero',
     left: '14%',
     top: '48%',
     rotate: -2,
@@ -238,9 +241,9 @@ export default function Whiteboard() {
 
             {/* Thumbnail Project Frame */}
             <a 
-              href={project.pdf}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={project.link || project.pdf}
+              target={project.link ? undefined : "_blank"}
+              rel={project.link ? undefined : "noopener noreferrer"}
               className="block w-full aspect-[16/10] overflow-hidden rounded-sm mb-4 bg-[var(--color-brand-crema)] relative group cursor-pointer pointer-events-auto"
             >
               <img 
@@ -262,9 +265,9 @@ export default function Whiteboard() {
                   FEMMORA STUDIO
                 </span>
                 <a 
-                  href={project.pdf}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={project.link || project.pdf}
+                  target={project.link ? undefined : "_blank"}
+                  rel={project.link ? undefined : "noopener noreferrer"}
                   className="text-[10px] font-sans text-[var(--color-brand-bordo)] font-bold tracking-wider hover:translate-x-1 transition-transform duration-300 cursor-pointer pointer-events-auto"
                 >
                   Ver caso →
