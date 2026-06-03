@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import ProjectVideoOverlay from './ProjectVideoOverlay';
 
@@ -23,7 +23,7 @@ interface ProjectItem {
 const projectItems: ProjectItem[] = [
   {
     num: '01',
-    image: '/proyectosAudiovisuales/neoTrattoriaPortada.JPG',
+    image: '/proyectosAudiovisuales/neoTrattoria/neoTrattoriaPortada.JPG',
     video: 'https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807798/Neotrattoria_l9ww3b.mp4',
     link: '#',
     title: 'Neo Trattoria',
@@ -100,7 +100,7 @@ function SecondaryProjectItem({
       <img
         src={item.image}
         alt={item.title}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out will-change-transform"
+        className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out will-change-transform"
         style={{ transform: isHovered ? 'scale(1.07)' : 'scale(1.02)' }}
       />
 
@@ -155,6 +155,20 @@ export default function Projects() {
 
   const featured = projectItems[0];
   const secondary = projectItems.slice(1);
+
+  // Auto-play Neo Trattoria video if hash is specified
+  useEffect(() => {
+    const handleHashCheck = () => {
+      if (window.location.hash === '#movimiento-neo-trattoria') {
+        setSelectedProject(featured);
+      } else {
+        setSelectedProject(null);
+      }
+    };
+    handleHashCheck();
+    window.addEventListener('hashchange', handleHashCheck);
+    return () => window.removeEventListener('hashchange', handleHashCheck);
+  }, [featured]);
   const isFeaturedHovered = hoveredId === 'featured';
   const isAnySecondaryHovered = secondary.some((item) => hoveredId === item.num);
 
@@ -176,10 +190,10 @@ export default function Projects() {
           style={{ flex: '62' }}
           onMouseEnter={() => setHoveredId('featured')}
           onMouseLeave={() => setHoveredId(null)}
-          onClick={() => setSelectedProject(featured)}
+          onClick={() => { window.location.hash = '#movimiento-neo-trattoria'; }}
           role="button"
           tabIndex={0}
-          onKeyDown={(e) => e.key === 'Enter' && setSelectedProject(featured)}
+          onKeyDown={(e) => e.key === 'Enter' && (window.location.hash = '#movimiento-neo-trattoria')}
           aria-label={`Ver proyecto destacado ${featured.title}`}
         >
           {/* Background image */}
@@ -280,7 +294,12 @@ export default function Projects() {
         {selectedProject && (
           <ProjectVideoOverlay
             project={selectedProject}
-            onClose={() => setSelectedProject(null)}
+            onClose={() => {
+              setSelectedProject(null);
+              if (window.location.hash === '#movimiento-neo-trattoria') {
+                window.location.hash = '#movimiento';
+              }
+            }}
           />
         )}
       </AnimatePresence>

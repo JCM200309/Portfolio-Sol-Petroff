@@ -26,17 +26,17 @@ function App() {
     };
   }, []);
 
-  const isSubPage = ['#movimiento', '#narrativa', '#narrativa-ferran-adria', '#narrativa-el-plumero'].includes(currentHash) || currentHash.startsWith('#escena');
+  const isSubPage = currentHash.startsWith('#movimiento') || ['#narrativa', '#narrativa-ferran-adria', '#narrativa-el-plumero'].includes(currentHash) || currentHash.startsWith('#escena');
   const isLightNavbar = isSubPage && currentHash !== '#escena';
 
   return (
     <div className="w-full h-screen overflow-y-auto md:snap-y md:snap-mandatory text-[var(--color-brand-marron-oscuro)] font-sans bg-[var(--color-brand-crema)] selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] scroll-smooth">
       <SplashCursor 
-        DENSITY_DISSIPATION={3.5}
-        VELOCITY_DISSIPATION={2.0}
+        DENSITY_DISSIPATION={2.5}
+        VELOCITY_DISSIPATION={1.5}
         PRESSURE={0.1}
         SPLAT_RADIUS={0.07}
-        SPLAT_FORCE={6000}
+        SPLAT_FORCE={4500}
         CURL={3.0}
         COLOR="#840624"
         RAINBOW_MODE={false}
@@ -51,7 +51,7 @@ function App() {
         {isSubPage ? (
           <div className="w-full h-full relative pointer-events-auto bg-[var(--color-brand-crema)]">
             <div className="w-full h-full">
-              {currentHash === '#movimiento' && <Projects />}
+              {currentHash.startsWith('#movimiento') && <Projects />}
               {currentHash.startsWith('#escena') && (
                 <Productions 
                   initialProject={currentHash.startsWith('#escena-') ? currentHash.replace('#escena-', '') : null} 

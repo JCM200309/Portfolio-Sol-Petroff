@@ -132,12 +132,6 @@ export default function Productions({ initialProject = null }: { initialProject?
                   <h3 className="font-brand text-2xl md:text-3xl uppercase tracking-wider text-[var(--color-brand-bordo)]">
                     Otras Producciones
                   </h3>
-                  <a 
-                    href="#proyectos" 
-                    className="inline-flex items-center gap-2 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] font-sans text-[10px] tracking-[0.2em] font-semibold uppercase px-4 py-2 hover:bg-[var(--color-brand-bordo)]/90 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 pointer-events-auto rounded-xs"
-                  >
-                    Portafolio <span className="text-xs">→</span>
-                  </a>
                 </div>
 
                 {/* DESKTOP EDITORIAL GRID (Asymmetric Luxury Layout) */}
@@ -165,11 +159,8 @@ export default function Productions({ initialProject = null }: { initialProject?
                     </div>
                     <div className="h-[140px] p-6 flex flex-col justify-center bg-white/60 border-t border-[var(--color-brand-marron-claro)]/20 select-none shrink-0">
                       <div>
-                        <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-marron-claro)] uppercase mb-1.5 block">
-                          01 / Neo Trattoria
-                        </span>
                         <h4 className="font-brand text-2xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-bordo)] leading-tight">
-                          Nostalgia
+                          Neo Trattoria
                         </h4>
                         <p className="text-[10px] lg:text-[11px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80">
                           Neo Trattoria nace del encuentro entre lo orgánico y lo estructural, construyendo una estética donde el exceso y la armonía conviven constantemente.
@@ -203,11 +194,8 @@ export default function Productions({ initialProject = null }: { initialProject?
                       </div>
                       <div className="flex-1 h-full p-5 flex flex-col justify-center bg-white/60 border-l border-[var(--color-brand-marron-claro)]/20 select-none">
                         <div>
-                          <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-marron-claro)] uppercase mb-1 block">
-                            02 / No Futuro
-                          </span>
                           <h4 className="font-brand text-lg lg:text-xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-bordo)]">
-                            Subcultura Punk
+                            No Futuro
                           </h4>
                           <p className="text-[10px] lg:text-[11px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80">
                             “No Futuro” toma como punto de partida la subcultura punk y su rechazo hacia las estructuras sociales establecidas.
@@ -238,11 +226,8 @@ export default function Productions({ initialProject = null }: { initialProject?
                       </div>
                       <div className="flex-1 h-full p-4 flex flex-col justify-center bg-white/60 border-l border-[var(--color-brand-marron-claro)]/20 select-none">
                         <div>
-                          <span className="text-[9px] tracking-[0.25em] font-sans text-[var(--color-brand-marron-claro)] uppercase mb-1 block">
-                            03 / Años 20
-                          </span>
                           <h4 className="font-brand text-lg lg:text-xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-bordo)]">
-                            Elegancia
+                            Años 20
                           </h4>
                           <p className="text-[10px] lg:text-[11px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80">
                             Una editorial inspirada en la estética de los años 20 que retoma el espíritu de la década.

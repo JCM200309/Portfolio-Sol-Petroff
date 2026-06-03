@@ -19,7 +19,7 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const isLightNavbar = isLight || scrolled;
+  const isLightNavbar = (isLight && !(currentHash === '#movimiento-neo-trattoria' && !scrolled)) || scrolled;
   const showBordoLogo = isLightNavbar && (!currentHash.startsWith('#escena-') || (isMobile && scrolled));
   const isLightHamburger = isLightNavbar && !(currentHash.startsWith('#escena-') && !scrolled);
 
@@ -131,8 +131,14 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
   return (
     <>
       <header
-        className={`w-full fixed top-0 left-0 z-40 flex items-center justify-between px-6 md:px-16 transition-all duration-500 ease-in-out select-none bg-transparent border-b border-transparent ${
-          scrolled ? 'py-4' : 'py-7'
+        className={`w-full fixed top-0 left-0 z-50 flex items-center justify-between px-6 md:px-16 transition-all duration-500 ease-in-out select-none ${
+          currentHash === '#movimiento-neo-trattoria' && !scrolled
+            ? '-translate-y-full opacity-0 pointer-events-none'
+            : 'translate-y-0 opacity-100'
+        } ${
+          scrolled 
+            ? 'py-4 bg-[var(--color-brand-crema)]/80 backdrop-blur-md border-b border-[var(--color-brand-marron-claro)]/10 shadow-xs' 
+            : 'py-7 bg-transparent border-b border-transparent'
         }`}
       >
         {/* Brand Logo (Left Margin) */}
@@ -217,7 +223,7 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
                                 href={sub.link}
                                 onClick={() => setDropdownOpen(false)}
                                 className={`block px-5 py-2.5 text-[10px] font-sans tracking-[0.15em] uppercase transition-all duration-200 cursor-pointer ${
-                                  isLightNavbar
+                                  isLightNavbar && !scrolled
                                     ? 'text-[var(--color-brand-marron-oscuro)] hover:bg-[var(--color-brand-bordo)]/5 hover:text-[var(--color-brand-bordo)]'
                                     : 'text-[var(--color-brand-crema)]/80 hover:bg-white/10 hover:text-white'
                                 }`}

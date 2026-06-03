@@ -131,7 +131,7 @@ export default function FerranAdriaExperience() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12 flex justify-between items-center relative z-10 select-none">
         
         <span className="text-[10px] font-mono tracking-[0.3em] uppercase opacity-55">
-          REPORT PREVIEW // 02
+          VISTA PREVIA DEL REPORTE // 02
         </span>
       </div>
 
@@ -174,8 +174,8 @@ export default function FerranAdriaExperience() {
               <span className="absolute bottom-4 right-4 text-xs font-light text-white/50 select-none pointer-events-none">+</span>
             </div>
             <div className="mt-4 flex justify-between items-center text-[10px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/60 uppercase px-1 select-none">
-              <span>NARRATIVA ARCHIVE</span>
-              <span>№ 02 // F.ADRIA</span>
+              <span>ARCHIVO DE NARRATIVAS</span>
+              <span>№ 02 // F.ADRIÁ</span>
             </div>
           </TiltContainer>
         </div>
@@ -188,7 +188,7 @@ export default function FerranAdriaExperience() {
           {/* Left Column: Saffron Clock Visualizer */}
           <div className="col-span-12 lg:col-span-6 flex flex-col items-center justify-center relative min-h-[420px]">
             <span className="absolute -top-12 text-[10px] font-mono tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase select-none">
-              [ INTERACTIVE CLOCK DIAL ]
+              [ DIAL DE RELOJ INTERACTIVO ]
             </span>
             
             {/* The Plate Circle */}
@@ -490,7 +490,7 @@ export default function FerranAdriaExperience() {
                 />
               </svg>
               <div className="absolute bottom-2 right-2 text-[8px] font-mono tracking-widest text-[var(--color-brand-marron-claro)]">
-                ASCENDING FLOW ACTIVE
+                FLUJO ASCENDENTE ACTIVO
               </div>
             </div>
           </div>
@@ -546,7 +546,7 @@ export default function FerranAdriaExperience() {
                 />
               </svg>
               <div className="absolute bottom-2 right-2 text-[8px] font-mono tracking-widest text-[var(--color-brand-marron-claro)]">
-                MUTATION & REACTION ACTIVE
+                MUTACIÓN Y REACCIÓN ACTIVA
               </div>
             </div>
           </div>

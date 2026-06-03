@@ -59,7 +59,7 @@ export default function Hero() {
     >
       {/* Clickable Case Study Link wrapping the hero content */}
       <a 
-        href="#escena-neo-trattoria"
+        href="#movimiento-neo-trattoria"
         onMouseMove={(e) => {
           setCursorPos({ x: e.clientX, y: e.clientY });
         }}
@@ -72,7 +72,7 @@ export default function Hero() {
           <video 
             ref={videoRef}
             src="https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1780425782/videoHero_noxmom.mov"
-            poster="/proyectosAudiovisuales/neoTrattoriaPortada.JPG"
+            poster="/proyectosAudiovisuales/neoTrattoria/neoTrattoriaPortada.JPG"
             preload="auto"
             autoPlay muted loop playsInline 
             className="w-full h-full object-cover opacity-85 scale-105"

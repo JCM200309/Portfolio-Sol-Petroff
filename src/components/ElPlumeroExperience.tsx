@@ -268,7 +268,7 @@ export default function ElPlumeroExperience() {
           <span>Volver a Narrativas</span>
         </button>
         <span className="text-[10px] font-mono tracking-[0.3em] uppercase opacity-55">
-          REPORT PREVIEW // 03
+          VISTA PREVIA DEL REPORTE // 03
         </span>
       </div>
 
@@ -315,7 +315,7 @@ export default function ElPlumeroExperience() {
               <span className="absolute bottom-4 right-4 text-xs font-light text-white/45 select-none pointer-events-none">+</span>
             </div>
             <div className="mt-4 flex justify-between items-center text-[10px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/60 uppercase px-1 select-none">
-              <span>DISCOMANÍA ARCHIVE</span>
+              <span>ARCHIVO DE DISCOMANÍA</span>
               <span>№ 43 // EL PLUMERO</span>
             </div>
           </TiltContainer>
@@ -330,7 +330,7 @@ export default function ElPlumeroExperience() {
           <div className="col-span-12 lg:col-span-6 flex flex-col items-center justify-center min-h-[460px]">
             <span className="text-[10px] font-mono tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase mb-6 select-none flex items-center gap-2">
               <Volume2 size={12} className="animate-pulse" />
-              [ INTERACTIVE TURNTABLE DECK ]
+              [ BANDEJA DE TOCADISCOS INTERACTIVA ]
             </span>
             
             {/* The Turntable Player Base Box */}
@@ -357,7 +357,7 @@ export default function ElPlumeroExperience() {
                       Plumero
                     </span>
                     <span className="text-[5px] font-mono text-[var(--color-brand-marron-oscuro)]/50 mt-1">
-                      TRACK 0{activeTrack + 1}
+                      PISTA 0{activeTrack + 1}
                     </span>
                     
                     {/* Spindle hole */}
@@ -402,7 +402,7 @@ export default function ElPlumeroExperience() {
               </button>
 
               <div className="absolute bottom-6 right-6 text-[8px] font-mono tracking-widest text-[var(--color-brand-marron-claro)] uppercase select-none">
-                33 RPM // HI-FI
+                33 RPM // ALTA FIDELIDAD
               </div>
             </div>
           </div>
@@ -425,7 +425,7 @@ export default function ElPlumeroExperience() {
                       : "bg-white/40 border-[var(--color-brand-marron-claro)]/20 text-[var(--color-brand-marron-oscuro)] hover:border-[var(--color-brand-bordo)]/40"
                   }`}
                 >
-                  TRACK 0{track.id + 1}
+                  PISTA 0{track.id + 1}
                 </button>
               ))}
             </div>
@@ -490,7 +490,7 @@ export default function ElPlumeroExperience() {
                 {/* Abstract texture representation representing record crates */}
                 <div className="absolute inset-0 opacity-20 bg-gradient-to-tr from-black via-transparent to-neutral-900" />
                 <div className="absolute bottom-6 left-6 text-left">
-                  <span className="text-[8px] font-mono tracking-[0.2em] text-white/50 block">MUSICOMIO CURATORSHIP</span>
+                  <span className="text-[8px] font-mono tracking-[0.2em] text-white/50 block">CURADURÍA DE MUSICOMIO</span>
                   <span className="text-lg font-brand font-bold text-white uppercase tracking-wider">EL PLUMERO</span>
                 </div>
               </div>
@@ -565,7 +565,7 @@ export default function ElPlumeroExperience() {
                     {/* Album Jacket Sleeve */}
                     <div className={`absolute inset-0 rounded-sm border border-[var(--color-brand-marron-claro)]/25 shadow-md flex flex-col justify-between p-5 bg-gradient-to-tr ${album.color} backdrop-blur-xs z-10 transition-transform duration-300 group-hover:-translate-y-1`}>
                       <span className="text-[8px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/50 uppercase">
-                        № 0{album.id + 1} // CURATED
+                        № 0{album.id + 1} // CURADO
                       </span>
                       
                       <div>

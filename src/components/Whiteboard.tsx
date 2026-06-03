@@ -187,55 +187,47 @@ export default function Whiteboard() {
       </div>
 
       {/* Sandbox Workspace Container */}
-      <div className="relative z-10 w-full flex-grow overflow-hidden px-4 md:px-12 py-4">
+      <div className="relative z-10 w-full flex-grow flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 max-w-7xl mx-auto px-6 pb-24 pt-4 md:-translate-y-8">
         {whiteboardProjects.map((project) => (
           <motion.div
             key={project.id}
-            drag
-            dragConstraints={boardRef}
-            dragElastic={0.15}
-            dragMomentum={true}
             initial={{ 
-              left: project.left, 
-              top: project.top,
-              rotate: project.rotate,
-              scale: 0.9,
-              opacity: 0 
+              scale: 1.25,
+              opacity: 0,
+              rotate: project.rotate * 2.5
             }}
             whileInView={{
               scale: 1,
               opacity: 1,
-              transition: { duration: 0.6, ease: 'easeOut', delay: project.id * 0.1 }
-            }}
-            viewport={{ once: true }}
-            animate={{
-              y: [0, project.floatY, 0],
-              transition: {
-                y: {
-                  repeat: Infinity,
-                  duration: project.floatDuration,
-                  ease: 'easeInOut',
-                }
+              rotate: project.rotate,
+              transition: { 
+                type: 'spring',
+                damping: 18,
+                stiffness: 110,
+                delay: project.id * 0.15 
               }
             }}
+            viewport={{ once: true }}
             whileHover={{ 
-              scale: 1.03, 
-              rotate: project.rotate * 0.5,
-              z: 30,
-              boxShadow: "0 25px 50px -12px rgba(132, 6, 36, 0.12)"
+              scale: 1.04, 
+              rotate: project.rotate * 0.3,
+              zIndex: 30,
+              boxShadow: "0 30px 60px -12px rgba(146, 94, 61, 0.22)"
             }}
-            whileDrag={{ 
-              scale: 1.05, 
-              rotate: project.rotate * 1.5,
-              zIndex: 100,
-              boxShadow: "0 40px 80px rgba(132, 6, 36, 0.22)" 
-            }}
-            className="absolute w-[260px] md:w-[310px] p-5 cursor-grab active:cursor-grabbing rounded-sm border border-white/20 bg-white/10 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] select-none pointer-events-auto will-change-transform"
+            className="relative w-[280px] md:w-[320px] p-6 rounded-xs bg-[#fdfaf5] border border-[var(--color-brand-marron-claro)]/15 shadow-[0_12px_24px_-10px_rgba(146,94,61,0.25),_0_20px_35px_rgba(146,94,61,0.05)] select-none pointer-events-auto will-change-transform"
           >
+            {/* Taped effect at the top */}
+            <div 
+              className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-5 bg-white/60 backdrop-blur-[1px] border-x border-black/5 opacity-85 shadow-xs"
+              style={{
+                transform: `translate(-50%, -50%) rotate(${project.rotate * -1.2}deg)`
+              }}
+            />
+
             {/* Post-it Header Pin/Indicator */}
-            <div className="w-full flex items-center justify-between mb-4">
-              <span className="text-[10px] font-sans tracking-widest text-[var(--color-brand-marron-claro)]/40 font-bold">
-                0{project.id}
+            <div className="w-full flex items-center justify-between mb-4 mt-2">
+              <span className="text-[10px] font-sans tracking-widest text-[var(--color-brand-marron-claro)]/50 font-bold">
+                NARRATIVA // 0{project.id}
               </span>
             </div>
 
@@ -244,11 +236,11 @@ export default function Whiteboard() {
               href={project.link || project.pdf}
               target={project.link ? undefined : "_blank"}
               rel={project.link ? undefined : "noopener noreferrer"}
-              className="block w-full aspect-[16/10] overflow-hidden rounded-sm mb-4 bg-[var(--color-brand-crema)] relative group cursor-pointer pointer-events-auto"
+              className="block w-full aspect-[16/10] overflow-hidden rounded-xs mb-5 bg-[var(--color-brand-crema)] relative group cursor-pointer pointer-events-auto border border-black/5"
             >
               <img 
                 src={project.image} 
-                className="w-full h-full object-cover grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-in-out pointer-events-none" 
+                className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-in-out pointer-events-none" 
                 alt={project.title}
                 draggable="false"
               />
@@ -257,11 +249,11 @@ export default function Whiteboard() {
 
             {/* Post-it Content */}
             <div className="flex flex-col">
-              <h3 className="text-lg md:text-xl font-brand text-[var(--color-brand-marron-oscuro)] tracking-wide leading-tight mb-2">
+              <h3 className="text-xl md:text-2xl font-brand text-[var(--color-brand-marron-oscuro)] tracking-wide leading-tight mb-3">
                 {project.title}
               </h3>
-              <div className="w-full flex items-center justify-between border-t border-[var(--color-brand-marron-claro)]/20 pt-3 mt-1">
-                <span className="text-[10px] font-sans tracking-wider text-[var(--color-brand-marron-claro)] uppercase font-semibold">
+              <div className="w-full flex items-center justify-between border-t border-[var(--color-brand-marron-claro)]/20 pt-4 mt-1">
+                <span className="text-[9px] font-sans tracking-wider text-[var(--color-brand-marron-claro)] uppercase font-semibold">
                   FEMMORA STUDIO
                 </span>
                 <a 
@@ -274,9 +266,6 @@ export default function Whiteboard() {
                 </a>
               </div>
             </div>
-
-            {/* Glass corner highlight reflection */}
-            <div className="absolute inset-0 pointer-events-none rounded-sm border-t border-l border-white/20 z-10" />
           </motion.div>
         ))}
       </div>

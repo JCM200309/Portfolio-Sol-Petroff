@@ -83,16 +83,34 @@ function CategoryCard({
     >
       {/* Background Video (plays/unveils on hover or autoplay on mobile) */}
       <div className="absolute inset-0 z-0 transition-opacity duration-700 overflow-hidden">
-        <img
-          src={cat.videoSrc}
-          className={`w-full h-full object-cover transition-all duration-700 scale-105 ${
-            isHovered 
-              ? 'opacity-85 scale-100' 
-              : isMobileDevice
-              ? 'opacity-25 scale-105'
-              : 'opacity-10 scale-105'
-          } ${cat.filterClass || ''}`}
-        />
+        {cat.videoSrc.endsWith('.mp4') || cat.videoSrc.endsWith('.mov') ? (
+          <video
+            ref={videoRef}
+            src={cat.videoSrc}
+            muted
+            loop
+            playsInline
+            className={`w-full h-full object-cover transition-all duration-700 scale-105 ${
+              isHovered 
+                ? 'opacity-85 scale-100' 
+                : isMobileDevice
+                ? 'opacity-25 scale-105'
+                : 'opacity-10 scale-105'
+            } ${cat.filterClass || ''}`}
+          />
+        ) : (
+          <img
+            src={cat.videoSrc}
+            className={`w-full h-full object-cover transition-all duration-700 scale-105 ${
+              isHovered 
+                ? 'opacity-85 scale-100' 
+                : isMobileDevice
+                ? 'opacity-25 scale-105'
+                : 'opacity-10 scale-105'
+            } ${cat.filterClass || ''}`}
+            alt=""
+          />
+        )}
         {/* Subtle dark overlay on hover to ensure text legibility */}
         <div
           className={`absolute inset-0 bg-black/20 transition-opacity duration-500 ${
