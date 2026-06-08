@@ -419,7 +419,7 @@ export default function ProjectVideoOverlay({ project, onClose }: ProjectVideoOv
                   
                   <div className="mb-20 text-center md:text-left select-none">
                     <span className="text-[10px] md:text-[11px] font-mono tracking-[0.35em] text-[var(--color-brand-bordo)] uppercase font-semibold">
-                      PROCESO CREATIVO & REGISTRO DE RODAJE
+                      PROCESO CREATIVO Y REGISTRO DE RODAJE
                     </span>
                     <h3 className="font-brand text-4xl sm:text-5xl uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2 mb-4">
                       Diario de Producción
