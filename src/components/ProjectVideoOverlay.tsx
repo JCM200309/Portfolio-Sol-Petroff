@@ -426,8 +426,8 @@ export default function ProjectVideoOverlay({ project, onClose }: ProjectVideoOv
                     </h3>
                     <p className="text-sm font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80 max-w-2xl">
                       Cada toma de Neo Trattoria es el resultado de un meticuloso proceso de diseño, dirección de arte e investigación cultural. Recorre la bitácora vertical para adentrarte en el universo estético del proyecto.
-                    </p>
-                    
+                    </p> 
+
                   </div>
 
                   {/* Vertical Stack of Editorial Sections */}
