@@ -11,8 +11,8 @@ except ImportError:
     subprocess.run([sys.executable, "-m", "pip", "install", "pymupdf"], check=True)
     import fitz
 
-pdf_path = 'public/narrativa/ferranAdria/resumen.pdf'
-output_dir = 'public/narrativa/ferranAdria'
+pdf_path = 'public/narrativa/preAdolescentes/resumen.pdf'
+output_dir = 'public/narrativa/preAdolescentes'
 
 os.makedirs(output_dir, exist_ok=True)
 

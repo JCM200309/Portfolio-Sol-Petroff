@@ -1,0 +1,8 @@
+# Agent Rules
+
+1. Siempre utilizar el skill `/ui-ux-pro-max` para todas las decisiones de diseño y UI/UX.
+2. Ignora el archivo todo.txt
+3. Usa la paleta de colores del archivo src/index.css y la tipografia
+4. Siempre tiene que predominar la idea de jerarquia explicita entre los distintos proyectos (tener uno que sea el mas importante) y luego todos los componentes tienen que ser una experiencia para el usuario, tanto visual como interactiva.
+5. No corras npm run build ni run dev
+6. Siempre usa ‘cmd /c’ para todas las ejecuciones de shell para asegurarte de que el proceso termine correctamente y envíe una señal EOF. Por ejemplo: Usa ‘cmd /c pip list’ en lugar de solo ‘pip list’. Evita los shells interactivos. Si necesitas una sesión persistente, usa ‘cmd /k’ pero asegúrate de que el comando se auto-termine.

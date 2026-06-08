@@ -149,6 +149,8 @@ const playShutterSound = () => {
   }
 };
 
+
+
 // --- MAIN PORTAL: Neo Trattoria Experience Page ---
 export default function NeoTrattoriaExperience() {
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
@@ -157,6 +159,8 @@ export default function NeoTrattoriaExperience() {
   const [showFlash, setShowFlash] = useState(false);
   const [carreteOpen, setCarreteOpen] = useState(false);
   const [cursorMode, setCursorMode] = useState<'idle' | 'focus' | 'shutter'>('idle');
+  
+
   
   const pageRef = useRef<HTMLDivElement>(null);
 
@@ -183,7 +187,7 @@ export default function NeoTrattoriaExperience() {
   }, [isHoveringImage]);
 
   // Main interactive capture callback
-  const capturePhoto = (src: string) => {
+  const capturePhoto = (src: string, openLightbox = true) => {
     playShutterSound();
     
     setCursorMode('shutter');
@@ -199,7 +203,9 @@ export default function NeoTrattoriaExperience() {
       return [...prev, src];
     });
 
-    setSelectedPhoto(src);
+    if (openLightbox) {
+      setSelectedPhoto(src);
+    }
   };
 
   // Close lightbox with ESC key
@@ -620,22 +626,22 @@ export default function NeoTrattoriaExperience() {
       </div>
 
       {/* GALLERY SECTION */}
-      <div className="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
+      <div className="max-w-7xl mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
         <div className="mb-12 select-none">
           <h3 className="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2">
             Registro Editorial
           </h3>
         </div>
 
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 [column-fill:_balance]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {neoTrattoriaImages.map((imgSrc, index) => (
             <motion.div
               key={imgSrc}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: (index % 5) * 0.05 }}
-              className="break-inside-avoid overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm bg-black/[0.01] hover:shadow-md transition-shadow group cursor-none relative"
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm bg-black/[0.01] hover:shadow-md transition-shadow group cursor-none relative"
               onClick={() => capturePhoto(imgSrc)}
               onMouseEnter={() => setIsHoveringImage(true)}
               onMouseLeave={() => setIsHoveringImage(false)}
@@ -643,7 +649,7 @@ export default function NeoTrattoriaExperience() {
               <img
                 src={imgSrc}
                 alt={`Neo Trattoria Gallery ${index}`}
-                className="w-full h-auto object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                className="w-full h-auto object-cover aspect-[4/5] md:aspect-[3/4] transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
