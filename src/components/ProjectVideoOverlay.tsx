@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, BookOpen, MapPin, Layers, Sparkles, Music, Volume2, VolumeX, Folder, ArrowRight, Play, Pause } from 'lucide-react';
+import { X, BookOpen, MapPin, Layers, Sparkles, Music, Volume2, VolumeX, Play, Pause } from 'lucide-react';
 
 interface ProjectDetails {
   year: string;
@@ -26,7 +26,6 @@ interface ProjectVideoOverlayProps {
 // --- HELPER CLASS: Web Audio API Backstage Ambient Synth ---
 class BackstageAudioSynth {
   private ctx: AudioContext | null = null;
-  private isPlaying = false;
   private gainNode: GainNode | null = null;
   private audio: HTMLAudioElement | null = null;
   private audioSource: MediaElementAudioSourceNode | null = null;
@@ -53,15 +52,13 @@ class BackstageAudioSynth {
     }
   }
 
-  play(channel?: string) {
+  play() {
     this.stop();
     this.init();
     
     if (this.ctx && this.ctx.state === 'suspended') {
       this.ctx.resume();
     }
-
-    this.isPlaying = true;
 
     if (!this.audio) {
       this.audio = new Audio('/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Sonido Musica y clima sonoro/Auxiliary Tha Masterfader - Disco Dictator [Luke Million Remix].mp3');
@@ -82,7 +79,6 @@ class BackstageAudioSynth {
   }
 
   stop() {
-    this.isPlaying = false;
     if (this.audio) {
       this.audio.pause();
     }
@@ -221,9 +217,7 @@ export default function ProjectVideoOverlay({ project, onClose }: ProjectVideoOv
 
   // Backstage UI States
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
-  const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
   const [isPlayingSynth, setIsPlayingSynth] = useState(false);
-  const [synthChannel, setSynthChannel] = useState<'disco' | 'cafe' | 'motor'>('disco');
   const [synthVolume, setSynthVolume] = useState(0.5);
   const [selectedStylingTab, setSelectedStylingTab] = useState<'makeup' | 'hair'>('makeup');
   const [inlinePreviews, setInlinePreviews] = useState<Record<string, string | null>>({});
@@ -247,15 +241,8 @@ export default function ProjectVideoOverlay({ project, onClose }: ProjectVideoOv
       backstageAudio.stop();
       setIsPlayingSynth(false);
     } else {
-      backstageAudio.play(synthChannel);
+      backstageAudio.play();
       setIsPlayingSynth(true);
-    }
-  };
-
-  const handleChangeChannel = (channel: 'disco' | 'cafe' | 'motor') => {
-    setSynthChannel(channel);
-    if (isPlayingSynth) {
-      backstageAudio.play(channel);
     }
   };
 
