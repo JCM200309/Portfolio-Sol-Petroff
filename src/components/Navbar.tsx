@@ -19,7 +19,7 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const isLightNavbar = (isLight && !(currentHash === '#movimiento-neo-trattoria' && !scrolled)) || scrolled;
+  const isLightNavbar = (isLight && !(currentHash.startsWith('#movimiento-') && !scrolled)) || scrolled;
   const showBordoLogo = isLightNavbar && (!currentHash.startsWith('#escena-') || (isMobile && scrolled));
   const isLightHamburger = isLightNavbar && !(currentHash.startsWith('#escena-') && !scrolled);
 
@@ -30,6 +30,8 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
       logoHref = '#escena';
     } else if (currentHash.startsWith('#narrativa-')) {
       logoHref = '#narrativa';
+    } else if (currentHash.startsWith('#movimiento-')) {
+      logoHref = '#movimiento';
     } else if (currentHash === '#escena' || currentHash === '#movimiento' || currentHash === '#narrativa') {
       logoHref = '#proyectos';
     }
@@ -132,7 +134,7 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
     <>
       <header
         className={`w-full fixed top-0 left-0 z-50 flex items-center justify-between px-6 md:px-16 transition-all duration-500 ease-in-out select-none ${
-          currentHash === '#movimiento-neo-trattoria' && !scrolled
+          currentHash.startsWith('#movimiento-') && !scrolled
             ? '-translate-y-full opacity-0 pointer-events-none'
             : 'translate-y-0 opacity-100'
         } ${

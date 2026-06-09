@@ -268,13 +268,6 @@ export default function ElPlumeroExperience() {
 
       {/* Navigation and sub-badge */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12 flex justify-between items-center relative z-10 select-none">
-        <button
-          onClick={handleGoBack}
-          className="flex items-center gap-2 text-xs font-mono tracking-[0.2em] uppercase text-[var(--color-brand-marron-oscuro)]/70 hover:text-[var(--color-brand-bordo)] transition-colors duration-300 group cursor-pointer"
-        >
-          <ArrowLeft size={16} className="transform group-hover:-translate-x-1 transition-transform duration-300" />
-          <span>Volver a Narrativas</span>
-        </button>
         <span className="text-[10px] font-mono tracking-[0.3em] uppercase opacity-55">
           VISTA PREVIA DEL REPORTE // 03
         </span>

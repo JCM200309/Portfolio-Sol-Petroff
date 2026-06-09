@@ -246,13 +246,10 @@ export default function Anos20Experience() {
         </div>
 
         {/* Right Column: Editorial Photo Composition */}
-        <div className="col-span-12 lg:col-span-6 grid grid-cols-12 relative bg-black/[0.01] lg:h-full">
-          {/* Vertical divider line separating the two sub-columns */}
-          <div className="absolute inset-y-0 left-1/2 w-[1px] bg-[var(--color-brand-marron-claro)]/25 pointer-events-none hidden md:block" />
-
+        <div className="col-span-12 lg:col-span-6 grid grid-cols-12 relative bg-black/[0.01] lg:h-full gap-4 p-4 md:p-6">
           {/* Left sub-column: Large portrait photo (Frame 1) */}
-          <div className="col-span-12 md:col-span-6 p-6 md:p-8 pt-28 md:pt-36 flex flex-col justify-center border-b md:border-b-0 md:border-r border-[var(--color-brand-marron-claro)]/20 lg:h-full lg:overflow-hidden">
-            <div className="w-full max-w-[340px] mx-auto flex flex-col gap-4">
+          <div className="col-span-12 md:col-span-6 flex flex-col justify-center border-b md:border-b-0 lg:h-full lg:overflow-hidden">
+            <div className="w-full flex flex-col gap-4">
               <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
                 <span>[ FRAME // 01 ]</span>
                 <span>[ GLAMOUR ]</span>
@@ -277,7 +274,7 @@ export default function Anos20Experience() {
           </div>
 
           {/* Right sub-column: Two side-by-side portrait photos (Frame 2 & 3) */}
-          <div className="col-span-12 md:col-span-6 p-6 md:p-8 pt-28 md:pt-36 flex flex-col justify-center lg:h-full lg:overflow-hidden">
+          <div className="col-span-12 md:col-span-6 flex flex-col justify-center lg:h-full lg:overflow-hidden p-2">
             <div className="grid grid-cols-2 gap-4 w-full">
               {/* Left Column: Frame 2 (Vertical) */}
               <div className="flex flex-col justify-center min-h-0">
@@ -336,9 +333,9 @@ export default function Anos20Experience() {
       </div>
 
       {/* BLOCK 2: PHYSICAL WEIGHT & FRAGMENTS */}
-      <div className="w-full grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative">
+      <div className="w-full grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative gap-4 md:gap-6 p-4 md:p-6">
         {/* Left Column: Full vertical photo */}
-        <div className="col-span-12 md:col-span-4 p-6 md:p-8 border-b md:border-b-0 md:border-r border-[var(--color-brand-marron-claro)]/30 flex flex-col justify-between gap-4">
+        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-between gap-4">
           <div className="w-full flex flex-col gap-3">
             <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
               <span>[ SCAN // 04 ]</span>
@@ -367,7 +364,7 @@ export default function Anos20Experience() {
         </div>
 
         {/* Middle Column: Two photos, mixed landscape & portrait */}
-        <div className="col-span-12 md:col-span-4 p-6 md:p-8 border-b md:border-b-0 md:border-r border-[var(--color-brand-marron-claro)]/30 flex flex-col justify-between gap-8">
+        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-between gap-6">
           {/* Top Landscape Photo */}
           <div className="w-full flex flex-col gap-3">
             <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
@@ -416,7 +413,7 @@ export default function Anos20Experience() {
         </div>
 
         {/* Right Column: Editorial Text & Supporting Image */}
-        <div className="col-span-12 md:col-span-4 p-6 md:p-8 flex flex-col justify-between min-h-[550px] bg-black/[0.01] relative">
+        <div className="col-span-12 md:col-span-4 flex flex-col justify-between min-h-[550px] bg-black/[0.01] relative p-2">
           <div className="text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75 flex justify-between items-center">
             <span>[ NARRATIVE SECTION // 04 ]</span>
             <span>[ SECTION B ]</span>
@@ -485,15 +482,9 @@ export default function Anos20Experience() {
         </div>
 
         {/* Asymmetric Staggered Grid Row */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 border-t border-[var(--color-brand-marron-claro)]/25 pt-12 relative">
-          
-          {/* Thin Vertical Column Borders */}
-          <div className="absolute inset-y-0 left-1/4 w-[1px] bg-[var(--color-brand-marron-claro)]/15 pointer-events-none hidden lg:block" />
-          <div className="absolute inset-y-0 left-2/4 w-[1px] bg-[var(--color-brand-marron-claro)]/15 pointer-events-none hidden lg:block" />
-          <div className="absolute inset-y-0 left-3/4 w-[1px] bg-[var(--color-brand-marron-claro)]/15 pointer-events-none hidden lg:block" />
-
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-t border-[var(--color-brand-marron-claro)]/25 pt-12 relative">
           {/* Item 1: image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp (No offset) */}
-          <div className="w-full flex flex-col gap-3 lg:pr-6 justify-start">
+          <div className="w-full flex flex-col gap-3 justify-start">
             <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
               <span>[ INDEX // 58472 ]</span>
               <span>[ CONTRASTE ]</span>
@@ -515,7 +506,7 @@ export default function Anos20Experience() {
           </div>
 
           {/* Item 2: image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp (Shifted down) */}
-          <div className="w-full flex flex-col gap-3 lg:px-6 lg:translate-y-12 justify-start mt-6 lg:mt-0">
+          <div className="w-full flex flex-col gap-3 lg:translate-y-12 justify-start mt-6 lg:mt-0">
             <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
               <span>[ INDEX // 98d2f ]</span>
               <span>[ SILUETA ]</span>
@@ -537,7 +528,7 @@ export default function Anos20Experience() {
           </div>
 
           {/* Item 3: image-ab55dd13-2ec1-435c-b54b-c6ed1f6ab46e.webp (Shifted up) */}
-          <div className="w-full flex flex-col gap-3 lg:px-6 lg:-translate-y-8 justify-start mt-6 lg:mt-0">
+          <div className="w-full flex flex-col gap-3 lg:-translate-y-8 justify-start mt-6 lg:mt-0">
             <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
               <span>[ INDEX // ab55d ]</span>
               <span>[ TEATRALIDAD ]</span>
@@ -559,7 +550,7 @@ export default function Anos20Experience() {
           </div>
 
           {/* Item 4: fotoPortada.webp (Shifted slightly down) */}
-          <div className="w-full flex flex-col gap-3 lg:pl-6 lg:translate-y-4 justify-start mt-6 lg:mt-0">
+          <div className="w-full flex flex-col gap-3 lg:translate-y-4 justify-start mt-6 lg:mt-0">
             <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
               <span>[ INDEX // PORTADA ]</span>
               <span>[ VINTAGE GLAM ]</span>

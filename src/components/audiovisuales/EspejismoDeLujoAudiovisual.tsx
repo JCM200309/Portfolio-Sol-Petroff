@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, MapPin, Layers, Sparkles, Volume2, VolumeX, Sparkle, Play, Pause } from 'lucide-react';
+import { BookOpen, MapPin, Layers, Sparkles, Volume2, VolumeX, Sparkle, Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface EspejismoDeLujoProps {
   onSelectPhoto: (src: string) => void;
@@ -258,6 +258,96 @@ const EqualizerBar = ({ active }: { active: boolean }) => {
   );
 };
 
+interface ImageCarouselProps {
+  images: { src: string; caption: string }[];
+  onSelectPhoto: (src: string) => void;
+}
+
+function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [images]);
+
+  if (!images || images.length === 0) return null;
+
+  const nextSlide = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevSlide = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  return (
+    <div className="w-full flex flex-col gap-4">
+      <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] max-h-[50vh] overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none">
+        
+        {/* Slides */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.35, ease: 'easeInOut' }}
+            className="w-full h-full flex items-center justify-center cursor-zoom-in pointer-events-auto"
+            onClick={() => onSelectPhoto(images[currentIndex].src)}
+          >
+            <img
+              src={images[currentIndex].src}
+              alt={images[currentIndex].caption}
+              className="w-full h-full object-contain p-2 select-none pointer-events-none"
+              draggable="false"
+              loading="lazy"
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Navigation Arrows */}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={prevSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white border border-[var(--color-brand-marron-claro)]/20 text-[var(--color-brand-marron-oscuro)] hover:text-[var(--color-brand-bordo)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-md z-20 cursor-pointer pointer-events-auto"
+              aria-label="Imagen anterior"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white border border-[var(--color-brand-marron-claro)]/20 text-[var(--color-brand-marron-oscuro)] hover:text-[var(--color-brand-bordo)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-md z-20 cursor-pointer pointer-events-auto"
+              aria-label="Siguiente imagen"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </>
+        )}
+
+        {/* Counter Badge */}
+        {images.length > 1 && (
+          <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-xs text-white text-[9px] font-mono tracking-widest px-2.5 py-1 rounded-full border border-white/10 z-20">
+            {currentIndex + 1} / {images.length}
+          </div>
+        )}
+      </div>
+
+      {/* Caption & Zoom indicator */}
+      <div className="flex justify-between items-center px-1 font-mono text-[9px] text-[var(--color-brand-marron-oscuro)]/70 text-left">
+        <span className="font-sans text-[11px] font-medium italic text-[var(--color-brand-marron-oscuro)]/90 truncate max-w-[75%]">
+          {images[currentIndex].caption}
+        </span>
+        <span className="uppercase tracking-widest font-semibold shrink-0">
+          [ CLIC PARA AMPLIAR ]
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoDeLujoProps) {
   const [activeAmbient, setActiveAmbient] = useState(false);
   const [ambientVolume, setAmbientVolume] = useState(0.5);
@@ -370,56 +460,7 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
               <div className={`col-span-12 lg:col-span-8 min-h-[300px] flex flex-col justify-center w-full ${
                 isEven ? 'lg:order-2' : 'lg:order-1'
               }`}>
-                <div className="w-full flex flex-col gap-4">
-                  {inlinePreviews[cat.id] ? (
-                    <motion.div 
-                      initial={{ opacity: 0, scale: 0.98 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="w-full flex flex-col gap-4 relative"
-                    >
-                      <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] relative group">
-                        <img 
-                          src={inlinePreviews[cat.id]!} 
-                          alt="Preview" 
-                          className="w-full h-auto max-h-[60vh] object-contain mx-auto block cursor-zoom-out"
-                          onClick={() => setInlinePreviews(prev => ({ ...prev, [cat.id]: null }))}
-                        />
-                      </div>
-                      <div className="flex justify-between items-center px-1">
-                        <span className="text-[11px] font-sans text-[var(--color-brand-marron-oscuro)]/90 font-medium italic">
-                          {cat.images.find(img => img.src === inlinePreviews[cat.id])?.caption || ''}
-                        </span>
-                        <button
-                          onClick={() => setInlinePreviews(prev => ({ ...prev, [cat.id]: null }))}
-                          className="text-[10px] font-mono tracking-wider uppercase text-[var(--color-brand-bordo)] hover:underline cursor-pointer flex items-center gap-1.5"
-                        >
-                          <span>&larr;</span> Volver al registro
-                        </button>
-                      </div>
-                    </motion.div>
-                  ) : (
-                    <div className={`grid gap-4 ${cat.images.length === 2 ? 'grid-cols-2' : cat.images.length === 3 ? 'grid-cols-3' : 'grid-cols-2 md:grid-cols-4'}`}>
-                      {cat.images.map((img, idx) => (
-                        <motion.div 
-                          key={idx} 
-                          onClick={() => setInlinePreviews(prev => ({ ...prev, [cat.id]: img.src }))}
-                          whileHover={{ scale: 1.02 }}
-                          className="group cursor-pointer border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs overflow-hidden bg-black/[0.02]"
-                        >
-                          <div className="aspect-[3/4] w-full overflow-hidden">
-                            <img 
-                              src={img.src} 
-                              alt={img.caption} 
-                              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" 
-                              draggable="false"
-                              loading="lazy"
-                            />
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <ImageCarousel images={cat.images} onSelectPhoto={onSelectPhoto} />
               </div>
             </motion.div>
           );

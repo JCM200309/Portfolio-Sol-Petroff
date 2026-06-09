@@ -264,13 +264,10 @@ export default function NeoTrattoriaExperience() {
         </div>
 
         {/* Right Column: Editorial Photo Composition */}
-        <div className="col-span-12 lg:col-span-6 flex flex-col justify-between p-6 md:p-8 pt-28 md:pt-32 gap-6 lg:h-full lg:overflow-hidden relative bg-black/[0.01]">
-          {/* Horizontal divider line separating top and bottom rows */}
-          <div className="absolute top-[52%] left-6 right-6 h-[1px] bg-[var(--color-brand-marron-claro)]/20 pointer-events-none hidden lg:block" />
-
+        <div className="col-span-12 lg:col-span-6 flex flex-col justify-between p-4 md:p-6 pt-28 md:pt-32 gap-4 lg:h-full lg:overflow-hidden relative bg-black/[0.01]">
           {/* Top row: Wide cinematic landscape photo (Frame 1) */}
           <div className="w-full flex-grow flex flex-col justify-center min-h-0">
-            <div className="w-full max-w-2xl mx-auto flex flex-col gap-2">
+            <div className="w-full flex flex-col gap-2">
               <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
                 <span>[ FRAME // 01 ]</span>
                 <span>[ SHUTTER 1/125 ]</span>
@@ -294,7 +291,7 @@ export default function NeoTrattoriaExperience() {
           </div>
 
           {/* Bottom row: Diptych of two vertical photos (Frame 2 & 3) side-by-side */}
-          <div className="grid grid-cols-2 gap-6 md:gap-8 flex-grow min-h-0">
+          <div className="grid grid-cols-2 gap-4 md:gap-6 flex-grow min-h-0">
             {/* Left Column: Frame 2 (Vertical) */}
             <div className="flex flex-col justify-center min-h-0">
               <div className="w-full flex flex-col gap-2">
@@ -349,9 +346,9 @@ export default function NeoTrattoriaExperience() {
       </div>
 
       {/* BLOCK 2: PHYSICAL WEIGHT & FRAGMENTS */}
-      <div className="w-full grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative">
+      <div className="w-full grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative gap-4 md:gap-6 p-4 md:p-6">
         {/* Left Column: Full vertical photo */}
-        <div className="col-span-12 md:col-span-4 p-6 md:p-8 border-b md:border-b-0 md:border-r border-[var(--color-brand-marron-claro)]/30 flex flex-col justify-between gap-4">
+        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-between gap-4">
           <div className="w-full flex flex-col gap-3">
             <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
               <span>[ SCAN // 09 ]</span>
@@ -380,7 +377,7 @@ export default function NeoTrattoriaExperience() {
         </div>
 
         {/* Middle Column: Two photos, mixed landscape & portrait */}
-        <div className="col-span-12 md:col-span-4 p-6 md:p-8 border-b md:border-b-0 md:border-r border-[var(--color-brand-marron-claro)]/30 flex flex-col justify-between gap-8">
+        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-between gap-6">
           {/* Top Landscape Photo */}
           <div className="w-full flex flex-col gap-3">
             <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
@@ -429,7 +426,7 @@ export default function NeoTrattoriaExperience() {
         </div>
 
         {/* Right Column: Editorial Text & Supporting Image */}
-        <div className="col-span-12 md:col-span-4 p-6 md:p-8 flex flex-col justify-between min-h-[550px] bg-black/[0.01] relative">
+        <div className="col-span-12 md:col-span-4 flex flex-col justify-between min-h-[550px] bg-black/[0.01] relative p-2">
           <div className="text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75 flex justify-between items-center">
             <span>[ NARRATIVE SECTION // 03 ]</span>
             <span>[ SECTION B ]</span>
@@ -498,15 +495,10 @@ export default function NeoTrattoriaExperience() {
         </div>
 
         {/* Asymmetric Staggered Grid Row */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 border-t border-[var(--color-brand-marron-claro)]/25 pt-12 relative">
-          
-          {/* Thin Vertical Column Borders */}
-          <div className="absolute inset-y-0 left-1/4 w-[1px] bg-[var(--color-brand-marron-claro)]/15 pointer-events-none hidden lg:block" />
-          <div className="absolute inset-y-0 left-2/4 w-[1px] bg-[var(--color-brand-marron-claro)]/15 pointer-events-none hidden lg:block" />
-          <div className="absolute inset-y-0 left-3/4 w-[1px] bg-[var(--color-brand-marron-claro)]/15 pointer-events-none hidden lg:block" />
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-t border-[var(--color-brand-marron-claro)]/25 pt-12 relative">
 
           {/* Item 1: IMG_6806.JPG (No offset) */}
-          <div className="w-full flex flex-col gap-3 lg:pr-6 justify-start">
+          <div className="w-full flex flex-col gap-3 justify-start">
             <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
               <span>[ INDEX // 6806 ]</span>
               <span>[ RACING DETAIL ]</span>
@@ -528,7 +520,7 @@ export default function NeoTrattoriaExperience() {
           </div>
 
           {/* Item 2: IMG_6807.JPG (Shifted down) */}
-          <div className="w-full flex flex-col gap-3 lg:px-6 lg:translate-y-12 justify-start mt-6 lg:mt-0">
+          <div className="w-full flex flex-col gap-3 lg:translate-y-12 justify-start mt-6 lg:mt-0">
             <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
               <span>[ INDEX // 6807 ]</span>
               <span>[ LUXURY RETRO ]</span>
@@ -550,7 +542,7 @@ export default function NeoTrattoriaExperience() {
           </div>
 
           {/* Item 3: IMG_6809.JPG (Shifted up) */}
-          <div className="w-full flex flex-col gap-3 lg:px-6 lg:-translate-y-8 justify-start mt-6 lg:mt-0">
+          <div className="w-full flex flex-col gap-3 lg:-translate-y-8 justify-start mt-6 lg:mt-0">
             <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
               <span>[ INDEX // 6809 ]</span>
               <span>[ SILUETA FOCUS ]</span>
@@ -572,7 +564,7 @@ export default function NeoTrattoriaExperience() {
           </div>
 
           {/* Item 4: IMG_6811.JPG (Shifted slightly down) */}
-          <div className="w-full flex flex-col gap-3 lg:pl-6 lg:translate-y-4 justify-start mt-6 lg:mt-0">
+          <div className="w-full flex flex-col gap-3 lg:translate-y-4 justify-start mt-6 lg:mt-0">
             <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
               <span>[ INDEX // 6811 ]</span>
               <span>[ DETAIL SCENE ]</span>

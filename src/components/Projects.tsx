@@ -161,11 +161,21 @@ export default function Projects() {
   const featured = projectItems[0];
   const secondary = projectItems.slice(1);
 
-  // Auto-play Neo Trattoria video if hash is specified
+  // Auto-play / select project if hash is specified
   useEffect(() => {
     const handleHashCheck = () => {
-      if (window.location.hash === '#movimiento-neo-trattoria') {
-        setSelectedProject(featured);
+      const hash = window.location.hash;
+      if (hash.startsWith('#movimiento-')) {
+        const slug = hash.replace('#movimiento-', '');
+        const proj = projectItems.find(
+          (item) =>
+            item.title
+              .toLowerCase()
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .replace(/\s+/g, '-') === slug
+        );
+        setSelectedProject(proj || null);
       } else {
         setSelectedProject(null);
       }
@@ -173,7 +183,7 @@ export default function Projects() {
     handleHashCheck();
     window.addEventListener('hashchange', handleHashCheck);
     return () => window.removeEventListener('hashchange', handleHashCheck);
-  }, [featured]);
+  }, []);
   const isFeaturedHovered = hoveredId === 'featured';
   const isAnySecondaryHovered = secondary.some((item) => hoveredId === item.num);
 
@@ -287,7 +297,14 @@ export default function Projects() {
               isAnyHovered={hoveredId !== null}
               onHover={() => setHoveredId(item.num)}
               onLeave={() => setHoveredId(null)}
-              onClick={() => setSelectedProject(item)}
+              onClick={() => {
+                const slug = item.title
+                  .toLowerCase()
+                  .normalize("NFD")
+                  .replace(/[\u0300-\u036f]/g, "")
+                  .replace(/\s+/g, '-');
+                window.location.hash = `#movimiento-${slug}`;
+              }}
               isLast={i === secondary.length - 1}
             />
           ))}
@@ -301,7 +318,7 @@ export default function Projects() {
             project={selectedProject}
             onClose={() => {
               setSelectedProject(null);
-              if (window.location.hash === '#movimiento-neo-trattoria') {
+              if (window.location.hash.startsWith('#movimiento-')) {
                 window.location.hash = '#movimiento';
               }
             }}
