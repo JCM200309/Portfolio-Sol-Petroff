@@ -381,8 +381,6 @@ export default function PreAdolescentesExperience() {
 
       {/* ── HERO: MACROTREND ───────────────────────────────────────────────────── */}
       <motion.div
-        onViewportEnter={() => setActiveTrendId('aura')}
-        viewport={{ amount: 0.3 }}
         className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 lg:gap-16 items-center mb-40 relative z-10 min-h-[70vh]"
       >
         <div className="col-span-12 lg:col-span-6 flex flex-col justify-center select-none text-left">
@@ -428,8 +426,6 @@ export default function PreAdolescentesExperience() {
             <motion.section
               key={section.id}
               id={section.id}
-              onViewportEnter={() => setActiveTrendId(section.id)}
-              viewport={{ amount: 0.2 }}
               className="w-full border-t border-[var(--color-brand-marron-claro)]/15 pt-24"
             >
               <div className="max-w-7xl mx-auto px-6 md:px-12">
