@@ -175,56 +175,64 @@ export default function ElPlumeroExperience() {
       title: "Ella and Louis",
       artist: "Ella Fitzgerald & Louis Armstrong",
       desc: "La calidez del jazz vocal clásico. La combinación perfecta de texturas vocales que se sienten vivas en la aguja de vinilo.",
-      color: "from-amber-800/10 to-amber-950/20"
+      color: "from-amber-800/10 to-amber-950/20",
+      cover: "/narrativa/elPlumero/fotos discos/ellaAndLouis.png"
     },
     {
       id: 1,
       title: "Harlequin",
       artist: "Lady Gaga",
       desc: "Una producción pop contemporánea adaptada al formato de colección, demostrando la vigencia del vinilo en la música de hoy.",
-      color: "from-emerald-800/10 to-emerald-950/20"
+      color: "from-emerald-800/10 to-emerald-950/20",
+      cover: "/narrativa/elPlumero/fotos discos/harlequin.jpg"
     },
     {
       id: 2,
       title: "Welcome to Wherever You Are",
       artist: "INXS",
       desc: "Rock alternativo con arreglos expansivos. La mezcla analógica original del disco brilla en equipos de alta fidelidad.",
-      color: "from-blue-800/10 to-blue-950/20"
+      color: "from-blue-800/10 to-blue-950/20",
+      cover: "/narrativa/elPlumero/fotos discos/welcomeToWhereverYouAre.jpg"
     },
     {
       id: 3,
       title: "Clube de Esquina",
       artist: "Lô Borges y Milton Nascimento",
       desc: "Un clásico indiscutido de la música brasileña. Armonías ricas y folk psicodélico que transportan de inmediato al oyente.",
-      color: "from-yellow-800/10 to-yellow-950/20"
+      color: "from-yellow-800/10 to-yellow-950/20",
+      cover: "/narrativa/elPlumero/fotos discos/clubeDeEsquina.jpg"
     },
     {
       id: 4,
       title: "Lifted Trombone Shorty",
       artist: "Trombone Shorty",
       desc: "Funk y jazz de Nueva Orleans. Un sonido enérgico cargado de bronces que saturan de forma placentera los amplificadores valvulares.",
-      color: "from-red-800/10 to-red-950/20"
+      color: "from-red-800/10 to-red-950/20",
+      cover: "/narrativa/elPlumero/fotos discos/liftedTromboneShorty.png"
     },
     {
       id: 5,
       title: "Lionheart",
       artist: "Kate Bush",
       desc: "Pop artístico y teatral. La voz cristalina y mística de Kate Bush grabada con la calidez orgánica del vinilo clásico.",
-      color: "from-purple-800/10 to-purple-950/20"
+      color: "from-purple-800/10 to-purple-950/20",
+      cover: "/narrativa/elPlumero/fotos discos/lionHeart.png"
     },
     {
       id: 6,
       title: "C'mon You Know",
       artist: "Liam Gallagher",
       desc: "Actitud britpop directa. Guitarras distorsionadas y percusión sólida que golpea con fuerza física en el cartón y el surco.",
-      color: "from-slate-800/10 to-slate-950/20"
+      color: "from-slate-800/10 to-slate-950/20",
+      cover: "/narrativa/elPlumero/fotos discos/cmonYouKnow.png"
     },
     {
       id: 7,
       title: "Fever Dreams Pts. 1-4",
       artist: "Johnny Marr",
       desc: "Paisajes de guitarras en capas y delays rítmicos. La maestría del ex-guitarrista de The Smiths plasmada en una edición de lujo.",
-      color: "from-rose-800/10 to-rose-950/20"
+      color: "from-rose-800/10 to-rose-950/20",
+      cover: "/narrativa/elPlumero/fotos discos/feverDreams.png"
     }
   ];
 
@@ -563,18 +571,31 @@ export default function ElPlumeroExperience() {
                     </motion.div>
                     
                     {/* Album Jacket Sleeve */}
-                    <div className={`absolute inset-0 rounded-sm border border-[var(--color-brand-marron-claro)]/25 shadow-md flex flex-col justify-between p-5 bg-gradient-to-tr ${album.color} backdrop-blur-xs z-10 transition-transform duration-300 group-hover:-translate-y-1`}>
-                      <span className="text-[8px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/50 uppercase">
-                        № 0{album.id + 1} // CURADO
-                      </span>
+                    <div className="absolute inset-0 rounded-sm border border-[var(--color-brand-marron-claro)]/25 shadow-md overflow-hidden z-10 transition-transform duration-300 group-hover:-translate-y-1">
+                      {/* Album Cover Image */}
+                      <img 
+                        src={album.cover} 
+                        alt={album.title} 
+                        className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none group-hover:scale-105 transition-transform duration-500 ease-out" 
+                        draggable="false"
+                      />
+                      {/* Dark/Warm gradient overlay for text readability */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20 z-1" />
                       
-                      <div>
-                        <h4 className="text-base font-brand font-bold text-[var(--color-brand-bordo)] uppercase leading-tight tracking-wider mb-1">
-                          {album.title}
-                        </h4>
-                        <span className="text-[10px] font-mono text-[var(--color-brand-marron-oscuro)]/80 block">
-                          {album.artist}
+                      {/* Content Overlay */}
+                      <div className="absolute inset-0 flex flex-col justify-between p-5 z-2">
+                        <span className="text-[8px] font-mono tracking-widest text-white/70 uppercase">
+                          № 0{album.id + 1} // CURADO
                         </span>
+                        
+                        <div>
+                          <h4 className="text-base font-brand font-bold text-[var(--color-brand-crema)] uppercase leading-tight tracking-wider mb-1 drop-shadow-sm">
+                            {album.title}
+                          </h4>
+                          <span className="text-[10px] font-mono text-white/80 block">
+                            {album.artist}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
