@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { motion, useMotionValue, useSpring, useScroll } from 'framer-motion'
+import { motion, AnimatePresence, useTransform, useMotionValue, useSpring, useScroll } from 'framer-motion'
 import { ArrowUpRight, BookOpen, X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 // --- HELPER: 3D Tilt Container ---
@@ -258,7 +258,6 @@ interface SectionData {
 
 // ─── MAIN COMPONENT ──────────────────────────────────────────────────────────
 export default function PreAdolescentesExperience() {
-  const [activeTrendId, setActiveTrendId] = useState<'aura' | 'compas' | 'salus' | 'croma'>('aura');
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   const { scrollYProgress } = useScroll();
