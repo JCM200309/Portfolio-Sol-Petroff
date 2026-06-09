@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { BookOpen, Sparkles, Layers, Image as ImageIcon, Sparkle, Play, Pause, Volume2, VolumeX } from 'lucide-react';
 
 interface ObjetoAntiModaProps {
@@ -336,7 +336,7 @@ const WaveVisualizer = ({ active }: { active: boolean }) => {
   );
 };
 
-export default function ObjetoAntiModaAudiovisual({ onSelectPhoto }: ObjetoAntiModaProps) {
+export default function ObjetoAntiModaAudiovisual({ onSelectPhoto: _onSelectPhoto }: ObjetoAntiModaProps) {
   const [isPlayingAmbient, setIsPlayingAmbient] = useState(false);
   const [synthVolume, setSynthVolume] = useState(0.5);
   const [inlinePreviews, setInlinePreviews] = useState<Record<string, string | null>>({});

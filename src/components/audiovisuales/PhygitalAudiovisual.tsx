@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, Shield, Eye, Layers } from 'lucide-react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Terminal, Shield, Eye } from 'lucide-react';
 
 interface PhygitalAudiovisualProps {
   onSelectPhoto: (src: string) => void;
@@ -65,7 +65,7 @@ const phygitalCategories = [
   }
 ];
 
-export default function PhygitalAudiovisual({ onSelectPhoto }: PhygitalAudiovisualProps) {
+export default function PhygitalAudiovisual({ onSelectPhoto: _onSelectPhoto }: PhygitalAudiovisualProps) {
   const [inlinePreviews, setInlinePreviews] = useState<Record<string, string | null>>({});
   const [terminalLogs, setTerminalLogs] = useState<string[]>([
     'SYSTEM INITIALIZED',

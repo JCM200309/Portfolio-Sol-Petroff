@@ -28,7 +28,7 @@ interface ProjectVideoOverlayProps {
   onClose: () => void;
 }
 
-export default function ProjectVideoOverlay({ project, onClose }: ProjectVideoOverlayProps) {
+export default function ProjectVideoOverlay({ project, onClose: _onClose }: ProjectVideoOverlayProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const isNeoTrattoria = project?.title === 'Neo Trattoria';
   const isPhygital = project?.title === 'Phygital';
@@ -104,8 +104,8 @@ export default function ProjectVideoOverlay({ project, onClose }: ProjectVideoOv
             {/* Fullscreen Video Fold */}
             <div 
               onMouseMove={handleMouseMove}
-              onMouseEnter={() => setIsHoveringVideo(true)}
-              onMouseLeave={() => setIsHoveringVideo(false)}
+              onMouseEnter={() => setIsHoveredVideo(true)}
+              onMouseLeave={() => setIsHoveredVideo(false)}
               className="relative w-full h-[100dvh] bg-black flex items-center justify-center overflow-hidden cursor-none"
             >
               <video

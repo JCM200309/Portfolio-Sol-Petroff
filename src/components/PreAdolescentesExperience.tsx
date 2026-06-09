@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
-import { motion, AnimatePresence, useTransform, useMotionValue, useSpring, useScroll } from 'framer-motion'
-import { ArrowLeft, ArrowUpRight, BookOpen, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { motion, useMotionValue, useSpring, useScroll } from 'framer-motion'
+import { ArrowUpRight, BookOpen, X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 // --- HELPER: 3D Tilt Container ---
 interface TiltContainerProps {
@@ -38,10 +38,9 @@ interface ColorCardProps {
   hex: string;
   pantoneCode: string;
   description?: string;
-  trendType: 'compas' | 'salus' | 'croma';
 }
 
-function ColorCard({ name, hex, pantoneCode, description, trendType }: ColorCardProps) {
+function ColorCard({ name, hex, pantoneCode, description, trendType }: ColorCardProps & { trendType: 'compas' | 'salus' | 'croma' }) {
   const [hovered, setHovered] = useState(false);
 
   const cardCorner = {
@@ -347,12 +346,6 @@ export default function PreAdolescentesExperience() {
     },
   ];
 
-  const mainGradient = {
-    aura: "from-[#840624] via-[#925e3d] to-[#be9e89]",
-    compas: "from-[#e8c7cd] via-[#be9e89] to-[#d0e1f9]",
-    salus: "from-[#4c6b4c] via-[#be9e89] to-[#cbdccb]",
-    croma: "from-[#ff2a5f] via-[#be9e89] to-[#ffdf00]",
-  }[activeTrendId];
 
   return (
     <motion.div
