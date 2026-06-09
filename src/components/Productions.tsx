@@ -137,7 +137,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                 {/* DESKTOP EDITORIAL GRID (Asymmetric Luxury Layout) */}
                 <div className="hidden md:grid grid-cols-12 gap-8 items-stretch flex-1 min-h-0 w-full mb-2">
                   
-                  {/* Card 1: Neo Trattoria (Left, col-span-7) */}
+                  {/* Card 1: Neo Trattoria (Left, col-span-8) */}
                   <div 
                     onClick={() => window.location.hash = '#escena-neo-trattoria'}
                     onMouseEnter={() => setIsHovering(true)}
@@ -147,7 +147,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                       handleMouseMove(e);
                       if (!isHovering) setIsHovering(true);
                     }}
-                    className="col-span-7 bg-white/40 backdrop-blur-sm border border-[var(--color-brand-marron-claro)]/25 rounded-sm overflow-hidden flex flex-col h-full shadow-[0_20px_50px_rgba(146,94,61,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-brand-bordo)]/40 hover:shadow-[0_30px_60px_rgba(132,6,36,0.12)] cursor-none pointer-events-auto group"
+                    className="col-span-8 bg-white/40 backdrop-blur-sm border border-[var(--color-brand-marron-claro)]/25 rounded-sm overflow-hidden flex flex-col h-full shadow-[0_20px_50px_rgba(146,94,61,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-brand-bordo)]/40 hover:shadow-[0_30px_60px_rgba(132,6,36,0.12)] cursor-none pointer-events-auto group"
                   >
                     <div className="flex-1 w-full min-h-0 overflow-hidden relative">
                       <img 
@@ -157,7 +157,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                       />
                       <div className="absolute inset-0 bg-black/[0.05] group-hover:bg-transparent transition-colors duration-300" />
                     </div>
-                    <div className="h-[140px] p-6 flex flex-col justify-center bg-white/60 border-t border-[var(--color-brand-marron-claro)]/20 select-none shrink-0">
+                    <div className="h-[140px] p-6 flex flex-col justify-center bg-white/60 border-t border-[var(--color-brand-marron-claro)]/20 select-none shrink-0 text-left">
                       <div>
                         <h4 className="font-brand text-2xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-bordo)] leading-tight">
                           Neo Trattoria
@@ -169,10 +169,10 @@ export default function Productions({ initialProject = null }: { initialProject?
                     </div>
                   </div>
 
-                  {/* Column 2: Stacked Secondary Projects (Right, col-span-5) */}
-                  <div className="col-span-5 flex flex-col justify-between h-full gap-6">
+                  {/* Column 2: Stacked Secondary Projects (Right, col-span-4) */}
+                  <div className="col-span-4 flex flex-col justify-between h-full gap-6">
                     
-                    {/* Card 2: No Futuro (Top, h-[55%]) */}
+                    {/* Card 3: No Futuro (Top, h-[48%]) */}
                     <div 
                       onClick={() => window.location.hash = '#escena-no-futuro'}
                       onMouseEnter={() => setIsHovering(true)}
@@ -182,7 +182,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                         handleMouseMove(e);
                         if (!isHovering) setIsHovering(true);
                       }}
-                      className="h-[55%] flex bg-white/40 backdrop-blur-sm border border-[var(--color-brand-marron-claro)]/25 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(146,94,61,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-brand-bordo)]/40 hover:shadow-[0_30px_60px_rgba(132,6,36,0.12)] cursor-none pointer-events-auto group"
+                      className="h-[48%] flex bg-white/40 backdrop-blur-sm border border-[var(--color-brand-marron-claro)]/25 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(146,94,61,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-brand-bordo)]/40 hover:shadow-[0_30px_60px_rgba(132,6,36,0.12)] cursor-none pointer-events-auto group"
                     >
                       <div className="w-[40%] h-full overflow-hidden relative shrink-0">
                         <img 
@@ -192,7 +192,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                         />
                         <div className="absolute inset-0 bg-black/[0.05] group-hover:bg-transparent transition-colors duration-300" />
                       </div>
-                      <div className="flex-1 h-full p-5 flex flex-col justify-center bg-white/60 border-l border-[var(--color-brand-marron-claro)]/20 select-none">
+                      <div className="flex-1 h-full p-5 flex flex-col justify-center bg-white/60 border-l border-[var(--color-brand-marron-claro)]/20 select-none text-left">
                         <div>
                           <h4 className="font-brand text-lg lg:text-xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-bordo)]">
                             No Futuro
@@ -204,7 +204,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                       </div>
                     </div>
 
-                    {/* Card 3: Años 20 (Bottom, h-[40%]) */}
+                    {/* Card 4: Años 20 (Bottom, h-[48%]) */}
                     <div 
                       onClick={() => window.location.hash = '#escena-anos-20'}
                       onMouseEnter={() => setIsHovering(true)}
@@ -214,7 +214,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                         handleMouseMove(e);
                         if (!isHovering) setIsHovering(true);
                       }}
-                      className="h-[40%] flex bg-white/40 backdrop-blur-sm border border-[var(--color-brand-marron-claro)]/25 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(146,94,61,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-brand-bordo)]/40 hover:shadow-[0_30px_60px_rgba(132,6,36,0.12)] cursor-none pointer-events-auto group"
+                      className="h-[48%] flex bg-white/40 backdrop-blur-sm border border-[var(--color-brand-marron-claro)]/25 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(146,94,61,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-brand-bordo)]/40 hover:shadow-[0_30px_60px_rgba(132,6,36,0.12)] cursor-none pointer-events-auto group"
                     >
                       <div className="w-[40%] h-full overflow-hidden relative shrink-0">
                         <img 
@@ -224,7 +224,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                         />
                         <div className="absolute inset-0 bg-black/[0.05] group-hover:bg-transparent transition-colors duration-300" />
                       </div>
-                      <div className="flex-1 h-full p-4 flex flex-col justify-center bg-white/60 border-l border-[var(--color-brand-marron-claro)]/20 select-none">
+                      <div className="flex-1 h-full p-4 flex flex-col justify-center bg-white/60 border-l border-[var(--color-brand-marron-claro)]/20 select-none text-left">
                         <div>
                           <h4 className="font-brand text-lg lg:text-xl uppercase tracking-wider mb-1.5 text-[var(--color-brand-bordo)]">
                             Años 20
@@ -258,7 +258,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                           01 / Neo Trattoria
                         </div>
                       </div>
-                      <div className="px-1">
+                      <div className="px-1 text-left">
                         <h4 className="font-brand text-lg uppercase tracking-wider text-[var(--color-brand-bordo)] mb-2">
                           Neo Trattoria
                         </h4>
@@ -283,7 +283,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                           02 / No Futuro
                         </div>
                       </div>
-                      <div className="px-1">
+                      <div className="px-1 text-left">
                         <h4 className="font-brand text-lg uppercase tracking-wider text-[var(--color-brand-bordo)] mb-2">
                           No Futuro
                         </h4>
@@ -308,7 +308,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                           03 / Años 20
                         </div>
                       </div>
-                      <div className="px-1">
+                      <div className="px-1 text-left">
                         <h4 className="font-brand text-lg uppercase tracking-wider text-[var(--color-brand-bordo)] mb-2">
                           Años 20
                         </h4>

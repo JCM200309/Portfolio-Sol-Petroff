@@ -10,6 +10,7 @@ const Projects = lazy(() => import('./components/Projects'))
 const Whiteboard = lazy(() => import('./components/Whiteboard'))
 const FerranAdriaExperience = lazy(() => import('./components/FerranAdriaExperience'))
 const ElPlumeroExperience = lazy(() => import('./components/ElPlumeroExperience'))
+const PreAdolescentesExperience = lazy(() => import('./components/PreAdolescentesExperience'))
 
 function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash)
@@ -26,17 +27,17 @@ function App() {
     };
   }, []);
 
-  const isSubPage = currentHash.startsWith('#movimiento') || ['#narrativa', '#narrativa-ferran-adria', '#narrativa-el-plumero'].includes(currentHash) || currentHash.startsWith('#escena');
+  const isSubPage = currentHash.startsWith('#movimiento') || ['#narrativa', '#narrativa-ferran-adria', '#narrativa-el-plumero', '#narrativa-pre-adolescentes'].includes(currentHash) || currentHash.startsWith('#escena');
   const isLightNavbar = isSubPage && currentHash !== '#escena';
 
   return (
     <div className="w-full h-screen overflow-y-auto md:snap-y md:snap-mandatory text-[var(--color-brand-marron-oscuro)] font-sans bg-[var(--color-brand-crema)] selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] scroll-smooth">
       <SplashCursor 
         DENSITY_DISSIPATION={2.5}
-        VELOCITY_DISSIPATION={1.5}
+        VELOCITY_DISSIPATION={1.5} 
         PRESSURE={0.1}
         SPLAT_RADIUS={0.07}
-        SPLAT_FORCE={4500}
+        SPLAT_FORCE={3000}
         CURL={3.0}
         COLOR="#840624"
         RAINBOW_MODE={false}
@@ -60,6 +61,7 @@ function App() {
               {currentHash === '#narrativa' && <Whiteboard />}
               {currentHash === '#narrativa-ferran-adria' && <FerranAdriaExperience />}
               {currentHash === '#narrativa-el-plumero' && <ElPlumeroExperience />}
+              {currentHash === '#narrativa-pre-adolescentes' && <PreAdolescentesExperience />}
             </div>
           </div>
         ) : (

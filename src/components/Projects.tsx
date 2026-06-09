@@ -18,6 +18,7 @@ interface ProjectItem {
   longDescription: string;
   featured?: boolean;
   details: ProjectDetails;
+  objectPosition?: string;
 }
 
 const projectItems: ProjectItem[] = [
@@ -31,36 +32,40 @@ const projectItems: ProjectItem[] = [
     featured: true,
     longDescription: 'Este fashion film traduce la macro tendencia Neo Trattoria en una experiencia audiovisual que explora la dualidad de lo orgánico y lo estructural. A través de la luz, el ritmo y la composición se busca reflejar la tensión entre lo tradicional y lo contemporáneo, lo sobrio y lo vibrante. Se encuentran lo Racing y el lujo, y las formas fluidas, la repetición y la superposición construyen una atmosfera sensorial donde lo íntimo y lo expansivo conviven, evocando una nostalgia vibrante que habita entre pasado y presente.',
     details: { year: '2025', category: 'Spatial Design & Video Art', duration: '02:15' },
+    objectPosition: 'object-center',
   },
   {
     num: '02',
-    image: '/proyectosAudiovisuales/PHYGITALPortada.jpg',
+    image: '/proyectosAudiovisuales/PHYGITAL/PHYGITALPortada.jpg',
     video: 'https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807457/phygital_uteyjf.mp4',
     link: '#',
     title: 'Phygital',
     description: 'Intersección digital',
     longDescription: 'Este proyecto explora la intersección entre lo físico y lo digital, creando un encuentro tangible con la inteligencia artificial. Sin recurrir a recursos digitales en postproducción, la obra traduce la estética digital a elements físicos, generando experiencias que evocan interfaces, algoritmos y mundos virtuales a través de objetos, texturas y composiciones en el espacio real. La propuesta busca que lo tecnológico se sienta cercano y material, transformando conceptos abstractos en sensaciones físicas y visuales concretas.',
     details: { year: '2025', category: 'Interactive Performance', duration: '01:50' },
+    objectPosition: 'object-[center_18%]',
   },
   {
     num: '03',
-    image: '/proyectosAudiovisuales/objetoAntiModaPortada.jpg',
+    image: '/proyectosAudiovisuales/ObjetoAntiModa/objetoAntiModaPortada.jpg',
     video: 'https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807465/objetoAntiModa_snve1a.mp4',
     link: '#',
     title: 'Objeto Anti-Moda',
     description: 'Diseño y estructura',
     longDescription: 'En este proyecto se tomó como inspiración un "objeto anti moda" para construir una narrativa y un universo visual. El objeto es una manta de sirena y la inspiración el surrealismo, donde se exploran aspectos profundos e irracionales de la mente, el inconsciente y los sueños como vías para acceder a una realidad mas autentica. Se refleja el anhelo utópico y una identidad onírica.',
     details: { year: '2024', category: 'Fashion & Sculpture', duration: '01:10' },
+    objectPosition: 'object-center',
   },
   {
     num: '04',
-    image: '/proyectosAudiovisuales/espejismoDelLujoPortada.jpg',
+    image: '/proyectosAudiovisuales/EspejismoDelLujo/espejismoDelLujoPortada.jpg',
     video: 'https://res.cloudinary.com/djekqr2ww/video/upload/q_auto,f_auto/v1779807462/espejismoDelLujo_ntudmk.mp4',
     link: '#',
     title: 'Espejismo del Lujo',
     description: 'Performance conceptual',
     longDescription: 'Este fashion film reflexiona sobre la paradoja del lujo contemporáneo: cuando lo aspiracional se convierte en un exceso vacío. Cada escena, situada en espacios domésticos y pulcros, revela la tensión entre lo real y lo ilusorio, entre la abundancia y el vacío. Se propone una mirada crítica e irónica sobre el consumo y el deseo, exponiendo la fragilidad del valor que otorgamos a las apariencias.',
     details: { year: '2025', category: 'Concept & Performance', duration: '01:45' },
+    objectPosition: 'object-[center_30%]',
   },
 ];
 
@@ -100,7 +105,7 @@ function SecondaryProjectItem({
       <img
         src={item.image}
         alt={item.title}
-        className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out will-change-transform"
+        className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out will-change-transform ${item.objectPosition || 'object-center'}`}
         style={{ transform: isHovered ? 'scale(1.07)' : 'scale(1.02)' }}
       />
 
@@ -200,7 +205,7 @@ export default function Projects() {
           <img
             src={featured.image}
             alt={featured.title}
-            className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1100ms] ease-out will-change-transform"
+            className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[1100ms] ease-out will-change-transform ${featured.objectPosition || 'object-center'}`}
             style={{ transform: isFeaturedHovered ? 'scale(1.05)' : 'scale(1.01)' }}
           />
 

@@ -56,6 +56,7 @@ const whiteboardProjects: ProjectPostIt[] = [
     title: 'Pre adolescentes',
     image: '/narrativa/preAdolescentes/portada.jpg',
     pdf: '/narrativa/preAdolescentes/reporte.pdf',
+    link: '#narrativa-pre-adolescentes',
     left: '8%',
     top: '12%',
     rotate: -4,

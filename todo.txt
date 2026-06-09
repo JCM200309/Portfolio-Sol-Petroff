@@ -1,22 +1,15 @@
-1) Mejorar la calidad de Neo Trattoria y cortar la parte final
-2) Retocar navbar horizontal para que se parezca mas a 
-3) Ajustar el navbar global (lo sacamos o lo dejamos?). Tambien no me convence el navbar horizontal por ahi abria que sacarlo
-4) Producciones secundarias faltan texto en la pagina de preview y corregir titulos
+Preguntar:
 
+1) PHYGITAL con paleta distinta?
 
-Ideas: 
-1) Que el cursor sea una camara y al hacer click sea como que se saca una foto
-2) Incorporar texto componente reactbits Text Pressure, Scroll Float, Scroll reveal
-3) Para el caso de No futuro hacer una tematica mas cruda
+cambiar:
+1) Resolucion de video de PHYGITAL es muy mala
+2) Fotos de todas las producciones son muy malas porq son chicas y las tengo que estirar
 
-
-Cosas nuevas:
-
-
-4) Mejorar el display de los audiovisuales (hacer video como lo de papa)
-    hacer el de NeoTrattoria con el backstage 
-8) Sacar pdfs de narrativa
-14) Se ve lenta
-
-RAPIDO
-10) Cambiar las fotos por las correctas
+Todo:
+1) ObjetoAntiModa
+2) ultimo de narrativas
+3) Audios de los videos
+4) Centrar las preview de los proyectos audiovisuales
+5) Aprovechar mejor el espacio en producciones (Preguntar toti)
+6) ALgun
