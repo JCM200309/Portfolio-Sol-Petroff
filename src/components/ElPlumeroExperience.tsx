@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useTransform, useMotionValue, useSpring } from 'framer-motion'
-import { ArrowLeft, ArrowUpRight, Play, Square, Volume2, BookOpen } from 'lucide-react'
+import { ArrowUpRight, Play, Square, Volume2, BookOpen } from 'lucide-react'
 
 // --- HELPER COMPONENT: 3D Interactive Hover Tilt Container ---
 interface TiltContainerProps {
@@ -126,10 +126,6 @@ export default function ElPlumeroExperience() {
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [activeTrack, setActiveTrack] = useState<number>(0);
   const [activeAlbum, setActiveAlbum] = useState<number | null>(null);
-
-  const handleGoBack = () => {
-    window.location.hash = '#narrativa';
-  };
 
   const tracks = [
     {

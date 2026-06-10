@@ -367,7 +367,6 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
   const [activeAmbient, setActiveAmbient] = useState(false);
   const [ambientVolume, setAmbientVolume] = useState(0.5);
   const [selectedCan, setSelectedCan] = useState<'exito' | 'belleza' | 'estatus'>('exito');
-  const [inlinePreviews, setInlinePreviews] = useState<Record<string, string | null>>({});
 
   useEffect(() => {
     espejismoAudio.setVolume(ambientVolume);

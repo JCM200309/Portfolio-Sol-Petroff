@@ -169,7 +169,6 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
 }
 
 export default function PhygitalAudiovisual({ onSelectPhoto }: PhygitalAudiovisualProps) {
-  const [inlinePreviews, setInlinePreviews] = useState<Record<string, string | null>>({});
   const [terminalLogs, setTerminalLogs] = useState<string[]>([
     'SYSTEM INITIALIZED',
     'SCANNING ENVIRONMENT...',
