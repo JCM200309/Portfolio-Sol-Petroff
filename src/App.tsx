@@ -33,11 +33,11 @@ function App() {
   return (
     <div className="w-full h-screen overflow-y-auto md:snap-y md:snap-mandatory text-[var(--color-brand-marron-oscuro)] font-sans bg-[var(--color-brand-crema)] selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] scroll-smooth">
       <SplashCursor 
-        DENSITY_DISSIPATION={2.5}
-        VELOCITY_DISSIPATION={1.5} 
+        DENSITY_DISSIPATION={3.0}
+        VELOCITY_DISSIPATION={2.0} 
         PRESSURE={0.1}
-        SPLAT_RADIUS={0.07}
-        SPLAT_FORCE={3000}
+        SPLAT_RADIUS={0.13}
+        SPLAT_FORCE={4500}
         CURL={3.0}
         COLOR="#840624"
         RAINBOW_MODE={false}

@@ -226,7 +226,7 @@ const antiModaCategories = [
       'La manta de sirena como símbolo tangible de su obsesión'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/ObjetoAntiModa/sirenas.webp', caption: 'Sirenas - La dualidad del mar y la fantasía.' }
+      { src: '/proyectosAudiovisuales/ObjetoAntiModa/sirenas.webp', caption: 'Sirenas - Pintura clásica que retrata la dualidad del mar y la fantasía onírica.' }
     ]
   },
   {
@@ -242,7 +242,7 @@ const antiModaCategories = [
       'La moda como medio de escape e identidad híbrida'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Cercania al universo de la moda/moda.webp', caption: 'Cercanía al universo de la moda - Textura y presencia.' }
+      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Cercania al universo de la moda/moda.webp', caption: 'Modelos en pasarela con vestidos inspirados en la estética marina, texturas de red y siluetas sirena.' }
     ]
   },
   {
@@ -258,10 +258,10 @@ const antiModaCategories = [
       'Dirección de arte que convive entre la tierra y el océano'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Escenografia/escenografia1.webp', caption: 'Escenografía - Detalle del set y sombras.' },
-      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Escenografia/escenografia2.webp', caption: 'Escenografía - Composición espacial.' },
-      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Escenografia/escenografia3.webp', caption: 'Escenografía - Iluminación y reflejos.' },
-      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Escenografia/escenografia4.webp', caption: 'Escenografía - Texturas del set.' }
+      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Escenografia/escenografia1.webp', caption: "Hombre en una bañera con cola de sirena y marcas de conteo en los azulejos de la pared bajo una luz verdosa." },
+      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Escenografia/escenografia2.webp', caption: "Habitación con una cascada de luces y hojas de hiedra decorando el cabecero de la cama." },
+      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Escenografia/escenografia3.webp', caption: "Mano tocando una gran variedad de cristales, cuarzos y geodas de colores vibrantes e iridiscentes." },
+      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Escenografia/escenografia4.webp', caption: "Dormitorio iluminado por luces LED violetas debajo de la cama y alrededor de un collage de fotos en la pared." }
     ]
   },
   {
@@ -277,9 +277,9 @@ const antiModaCategories = [
       'Materiales brillantes que reflejan la luz como la superficie del mar'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Estilismo/estilismo1.webp', caption: 'Estilismo - Silueta y caída marina.' },
-      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Estilismo/estilismo2.png', caption: 'Estilismo - Texturas tejidas de escamas.' },
-      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Estilismo/estilismo3.webp', caption: 'Estilismo - Brillo y detalles metálicos.' }
+      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Estilismo/estilismo1.webp', caption: "Detalle de maquillaje artístico con escamas rosadas y brillos en la sien y clavícula de la modelo." },
+      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Estilismo/estilismo2.png', caption: "Retrato de la modelo con maquillaje artístico en tonos turquesa y delineado dramático de ojos." },
+      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Estilismo/estilismo3.webp', caption: "Cola de sirena artesanal confeccionada con texturas de escamas metálicas en verde y azul." }
     ]
   },
   {
@@ -295,8 +295,8 @@ const antiModaCategories = [
       'Labios de brillo perlado que remiten a las conchas marinas'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Maquillaje/maquillaje1.jpg', caption: 'Maquillaje - Delineado y efecto húmedo.' },
-      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Maquillaje/maquillaje2.webp', caption: 'Maquillaje - Brillos y acabado perlado.' }
+      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Maquillaje/maquillaje1.jpg', caption: "Modelo con cabello rojo y tocado dorado de sol, luciendo sombras de ojos en rosa y dorado con brillos." },
+      { src: '/proyectosAudiovisuales/ObjetoAntiModa/Maquillaje/maquillaje2.webp', caption: "Retrato de primer plano de la modelo con ojos abiertos y maquillaje con detalles de fantasía y escamas." }
     ]
   }
 ];
@@ -343,6 +343,7 @@ interface ImageCarouselProps {
 
 function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVertical, setIsVertical] = useState(false);
 
   useEffect(() => {
     setCurrentIndex(0);
@@ -360,9 +361,20 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const { naturalWidth, naturalHeight } = e.currentTarget;
+    setIsVertical(naturalWidth < naturalHeight);
+  };
+
   return (
     <div className="w-full flex flex-col gap-4">
-      <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] max-h-[50vh] overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none">
+      <div 
+        className="relative w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none transition-all duration-500 ease-in-out mx-auto"
+        style={{
+          aspectRatio: isVertical ? '3/4' : '16/10',
+          maxWidth: isVertical ? '450px' : '100%',
+        }}
+      >
         
         {/* Slides */}
         <AnimatePresence mode="wait">
@@ -378,6 +390,7 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
             <img
               src={images[currentIndex].src}
               alt={images[currentIndex].caption}
+              onLoad={handleImageLoad}
               className="w-full h-full object-contain p-2 select-none pointer-events-none"
               draggable="false"
               loading="lazy"

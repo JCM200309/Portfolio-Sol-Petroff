@@ -194,6 +194,7 @@ interface ImageCarouselProps {
 
 function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVertical, setIsVertical] = useState(false);
 
   // Reset index when images list changes (e.g. styling tab changes)
   useEffect(() => {
@@ -212,9 +213,20 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const { naturalWidth, naturalHeight } = e.currentTarget;
+    setIsVertical(naturalWidth < naturalHeight);
+  };
+
   return (
     <div className="w-full flex flex-col gap-4">
-      <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] max-h-[50vh] overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none">
+      <div 
+        className="relative w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none transition-all duration-500 ease-in-out mx-auto"
+        style={{
+          aspectRatio: isVertical ? '3/4' : '16/10',
+          maxWidth: isVertical ? '450px' : '100%',
+        }}
+      >
         
         {/* Slides */}
         <AnimatePresence mode="wait">
@@ -230,6 +242,7 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
             <img
               src={images[currentIndex].src}
               alt={images[currentIndex].caption}
+              onLoad={handleImageLoad}
               className="w-full h-full object-contain p-2 select-none pointer-events-none"
               draggable="false"
               loading="lazy"

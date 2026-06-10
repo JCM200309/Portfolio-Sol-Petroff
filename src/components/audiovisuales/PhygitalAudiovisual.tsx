@@ -20,10 +20,10 @@ const phygitalCategories = [
       'El límite insuperable: la experiencia emocional'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/Inspo Explorador e IA/inspoExplorador.webp', caption: 'Inspiración Explorador - Rastreo espacial.' },
-      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/Inspo Explorador e IA/inspoExplorador2.jpg', caption: 'Inspiración Explorador - Detalle de equipo.' },
-      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/Inspo Explorador e IA/inspoIA.png', caption: 'Estética de la IA - Morfología y datos.' },
-      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/Inspo Explorador e IA/inspoIA2.webp', caption: 'Estética de la IA - Patrones de código digital.' }
+      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/lenguajeIA/1.jpg', caption: "Perfil de la modelo con superposición de malla digital (wireframe) tridimensional." },
+      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/lenguajeIA/2.jpg', caption: "Macro de ojo con análisis de iris digital y mapeo de malla tridimensional." },
+      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/lenguajeIA/3.jpg', caption: "Estructuras de ADN de vidrio y flores silvestres creciendo sobre el rostro y cuello." },
+      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/lenguajeIA/4.jpg', caption: "Estructuras geométricas de vidrio dicroico envolviendo el rostro como visor holográfico." }
     ]
   },
   {
@@ -32,16 +32,16 @@ const phygitalCategories = [
     icon: Eye,
     badge: '02 / ESCENARIO',
     tag: 'El espejo natural',
-    summary: 'La locación representa el contraste máximo: un bosque denso y silvestre que sirve como lienzo para la irrupción tecnológica. Este entorno orgánico actúa como receptor de la presencia digital, acentuando el cortocircuito del personaje replicante en medio de la naturaleza.',
+    summary: 'La locación representa el contraste máximo: un bosque denso y silvestre que sirve como lienzo para la irrupción tecnológica. Este entorno orgánico actúa como receptor de la presencia digital, acentuando el cortorciduto del personaje replicante en medio de la naturaleza.',
     bullets: [
       'Bosque nativo como interfaz física del duelo',
       'Interacción orgánica entre hojas, ramas y lentes sensores',
       'Simbolismo del bosque como espacio de respuestas internas'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/Locacion/locacion1.webp', caption: 'Mapeo de locación - Sombras y follaje.' },
-      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/Locacion/locacion2.webp', caption: 'Encuadre natural - Entrada del explorador.' },
-      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/Locacion/locacion3.webp', caption: 'Detalle cromático - La vegetación de Zárate.' }
+      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/bosqueMisterioso/2.jpg', caption: "Vista desde una ruina de piedra hacia el bosque, con una huella de mano blanca en la columna y un búnker grafiteado al fondo." },
+      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/bosqueMisterioso/1.jpg', caption: "Estructura de hormigón abandonada con grafitis y vegetación densa en los alrededores." },
+      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/bosqueMisterioso/3.jpg', caption: "Una casa solitaria de dos pisos en un campo de pastizales bajo una densa niebla." }
     ]
   },
   {
@@ -57,10 +57,10 @@ const phygitalCategories = [
       'Texturas pesadas, capas asimétricas y funcionalidad urbana'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/Vestuario/vestuario1.webp', caption: 'Prueba de vestuario - Máscara y sensor.' },
-      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/Vestuario/vestuario2.webp', caption: 'Detalle de armadura y arnés explorador.' },
-      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/Vestuario/vestuario3.webp', caption: 'Prenda técnica impermeable.' },
-      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/Vestuario/vestuario4.webp', caption: 'Silueta completa y texturas urbanas.' }
+      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/estilismo/1.jpg', caption: "Modelo vestida de negro con visor futurista, rodeada de cables negros enredados ante un fondo plástico." },
+      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/estilismo/3.jpg', caption: "Cables negros enrollados y auriculares de diadema sobre el suelo de hormigón agrietado en el set." },
+      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/estilismo/2.jpg', caption: "Modelo vistiendo un vestido de textura de metal líquido o cromo con reflejos fluidos." },
+      { src: '/proyectosAudiovisuales/PHYGITAL/Backstage/estilismo/4.jpg', caption: "Modelo sentada en una silla cromada de diseño, con botas altas de tacón y paneles estriados transparentes de fondo." }
     ]
   }
 ];
@@ -72,6 +72,7 @@ interface ImageCarouselProps {
 
 function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVertical, setIsVertical] = useState(false);
 
   useEffect(() => {
     setCurrentIndex(0);
@@ -89,9 +90,20 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const { naturalWidth, naturalHeight } = e.currentTarget;
+    setIsVertical(naturalWidth < naturalHeight);
+  };
+
   return (
     <div className="w-full flex flex-col gap-4">
-      <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] max-h-[50vh] overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none">
+      <div 
+        className="relative w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none transition-all duration-500 ease-in-out mx-auto"
+        style={{
+          aspectRatio: isVertical ? '3/4' : '16/10',
+          maxWidth: isVertical ? '450px' : '100%',
+        }}
+      >
         
         {/* Slides */}
         <AnimatePresence mode="wait">
@@ -107,6 +119,7 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
             <img
               src={images[currentIndex].src}
               alt={images[currentIndex].caption}
+              onLoad={handleImageLoad}
               className="w-full h-full object-contain p-2 select-none pointer-events-none"
               draggable="false"
               loading="lazy"
@@ -302,90 +315,7 @@ export default function PhygitalAudiovisual({ onSelectPhoto }: PhygitalAudiovisu
         })}
       </div>
 
-      {/* RODAJE SNAPSHOTS */}
-      <div className="mt-24 select-none border-t border-[var(--color-brand-marron-claro)]/15 pt-20">
-        <div className="mb-10 text-center select-none">
-          <span className="text-[10px] md:text-[11px] font-mono tracking-[0.25em] text-[var(--color-brand-marron-oscuro)]/60 uppercase">
-            [ REGISTRO ANALÓGICO // RODAJE EN LOCACIÓN ]
-          </span>
-          <h4 className="font-brand text-2xl uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-1">
-            Capturas de Producción
-          </h4>
-          <p className="text-[10px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/50 uppercase mt-1">
-            [ HAZ CLIC PARA PREVISUALIZAR IMAGEN COMPLETA ]
-          </p>
-        </div>
-
-        {inlinePreviews['capturas'] ? (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="w-full flex flex-col gap-4 relative max-w-4xl mx-auto"
-          >
-            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] relative group">
-              <img 
-                src={inlinePreviews['capturas']!} 
-                alt="Preview" 
-                className="w-full h-auto max-h-[70vh] object-contain mx-auto block cursor-zoom-out"
-                onClick={() => setInlinePreviews(prev => ({ ...prev, capturas: null }))}
-              />
-            </div>
-            <div className="flex justify-between items-center px-1 font-mono">
-              <span className="text-[11px] font-sans text-[var(--color-brand-marron-oscuro)]/90 font-medium italic">
-                {[
-                  { src: "/proyectosAudiovisuales/PHYGITAL/Backstage/Locacion/locacion1.webp", caption: "Búsqueda de claros y sombras" },
-                  { src: "/proyectosAudiovisuales/PHYGITAL/Backstage/Vestuario/vestuario1.webp", caption: "Detalle de sensor óptico" },
-                  { src: "/proyectosAudiovisuales/PHYGITAL/Backstage/Inspo Explorador e IA/inspoExplorador2.jpg", caption: "Calibración de goggles" },
-                  { src: "/proyectosAudiovisuales/PHYGITAL/Backstage/Vestuario/vestuario4.webp", caption: "Silueta completa del explorador" },
-                  { src: "/proyectosAudiovisuales/PHYGITAL/Backstage/Locacion/locacion3.webp", caption: "Dureza del entorno natural" }
-                ].find(img => img.src === inlinePreviews['capturas'])?.caption || ''}
-              </span>
-              <button
-                onClick={() => setInlinePreviews(prev => ({ ...prev, capturas: null }))}
-                className="text-[10px] font-mono tracking-wider uppercase text-[var(--color-brand-bordo)] hover:underline cursor-pointer flex items-center gap-1.5"
-              >
-                <span>&larr;</span> VOLVER AL REGISTRO
-              </button>
-            </div>
-          </motion.div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 w-full mt-4">
-            {[
-              { src: "/proyectosAudiovisuales/PHYGITAL/Backstage/Locacion/locacion1.webp", caption: "Búsqueda de claros y sombras" },
-              { src: "/proyectosAudiovisuales/PHYGITAL/Backstage/Vestuario/vestuario1.webp", caption: "Detalle de sensor óptico" },
-              { src: "/proyectosAudiovisuales/PHYGITAL/Backstage/Inspo Explorador e IA/inspoExplorador2.jpg", caption: "Calibración de goggles" },
-              { src: "/proyectosAudiovisuales/PHYGITAL/Backstage/Vestuario/vestuario4.webp", caption: "Silueta completa del explorador" },
-              { src: "/proyectosAudiovisuales/PHYGITAL/Backstage/Locacion/locacion3.webp", caption: "Dureza del entorno natural" }
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -6, transition: { duration: 0.3 } }}
-                onClick={() => setInlinePreviews(prev => ({ ...prev, capturas: item.src }))}
-                className={`bg-white/40 backdrop-blur-xs p-4 rounded-xs border border-[var(--color-brand-marron-claro)]/25 shadow-xs cursor-pointer group flex flex-col gap-3 relative pointer-events-auto ${idx === 3 || idx === 4 ? 'sm:col-span-1 lg:col-span-1' : ''}`}
-              >
-                <div className="w-full aspect-[4/3] bg-black/5 overflow-hidden rounded-xs relative">
-                  <img 
-                    src={item.src} 
-                    alt={item.caption} 
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" 
-                    draggable="false"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors pointer-events-none" />
-                </div>
-                <div className="flex flex-col text-left font-mono">
-                  <span className="text-[8px] tracking-widest text-[var(--color-brand-bordo)] uppercase font-bold">
-                    DATA // SNAP №0{idx + 1}
-                  </span>
-                  <span className="text-[11px] font-sans italic text-[var(--color-brand-marron-oscuro)]/90 mt-1 font-light leading-snug">
-                    {item.caption}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </div>
+      
 
     </div>
   );

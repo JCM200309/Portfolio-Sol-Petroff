@@ -172,8 +172,8 @@ const espejismoCategories = [
       'Ironía crítica sobre el consumo y la imitación material'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Concepto/concepto1.webp', caption: 'Retrato de la modelo y contraste de texturas.' },
-      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Concepto/concepto2.jpg', caption: 'Estilo recargado bajo luz cinematográfica.' }
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Concepto/concepto1.webp', caption: 'Modelo posando en un patio soleado con ropa colgada, luciendo un vestido a cuadros y accesorios amarillos.' },
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Concepto/concepto2.jpg', caption: 'Modelo sentada sobre la mesada de una cocina retro con chaqueta de flecos rosa y vestido de lentejuelas.' }
     ]
   },
   {
@@ -189,9 +189,9 @@ const espejismoCategories = [
       'Jardín descuidado con malezas y macetas secas'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Locaciones/locaciones1.webp', caption: 'Mapeo de la cocina desgastada.' },
-      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Locaciones/locaciones2.webp', caption: 'Planificación de la escena del portón del barrio.' },
-      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Locaciones/locaciones3.jpg', caption: 'Luz natural sobre el jardín seco.' }
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Locaciones/locaciones1.webp', caption: 'Modelo vestida de blanco con abrigo de piel sintética en una cocina antigua y desgastada.' },
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Locaciones/locaciones2.webp', caption: 'Modelo posando en un patio exterior de barrio con luces guirnalda y mesa de plástico de fondo.' },
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Locaciones/locaciones3.jpg', caption: 'Patio rústico y soleado de paredes amarillas descascaradas con agaves en vasijas de cerámica.' }
     ]
   },
   {
@@ -207,10 +207,11 @@ const espejismoCategories = [
       'Joyas de fantasía brotando orgánicamente del suelo'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Partido Morfologico/partido1.png', caption: 'Esquema morfológico de las latas de conserva.' },
-      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Partido Morfologico/partido2.png', caption: 'Paleta cromática y diseño de etiquetas.' },
-      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Partido Morfologico/partido3.webp', caption: 'Contraste de ingredientes: huevo y purpurina.' },
-      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Partido Morfologico/partido4.webp', caption: 'Diseño de la caja contenedora de latas.' }
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Partido Morfologico/1.jpg', caption: "Detalle de rostro y manos de la modelo cubiertos de pegatinas infantiles y estrellas." },
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Partido Morfologico/2.jpg', caption: "Set de habitación surrealista distorsionada con paredes inclinadas y flores damero." },
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Partido Morfologico/3.jpg', caption: "Composición de collage pop con muñeco Kewpie, etiquetas de precios y pines de texto." },
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Partido Morfologico/4.jpg', caption: "Rollo de papel higiénico impreso con columnas de periódicos sobre pared de azulejos blancos." },
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Partido Morfologico/5.jpg', caption: "Primer plano de harina morada mezclada con purpurina dorada en la vajilla." }
     ]
   },
   {
@@ -226,9 +227,10 @@ const espejismoCategories = [
       'Cajas de ropa y valijas desbordantes de accesorios dorados'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Styling y utileria/barrio1 (1).webp', caption: 'Prueba de outfit y accesorios de la modelo.' },
-      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Styling y utileria/barrio1 (2).webp', caption: 'Modelo posando frente al espejo del portón.' },
-      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Styling y utileria/jardinRoto3.webp', caption: 'Collares brotando de la maceta del patio.' }
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Styling y utileria/1.jpg', caption: "Modelo sentada sobre cajonera en un ropero repleto de prendas, vistiendo medias celestes y tacones rojos." },
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Styling y utileria/2.jpg', caption: "Piernas con medias celestes y tacones rojos descansando sobre un puf capitoné de cuero rojo." },
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Styling y utileria/3.jpg', caption: "Rincón de cocina colorida con vajilla y tabla de picar rosa con forma de corazón." },
+      { src: '/proyectosAudiovisuales/EspejismoDelLujo/Styling y utileria/4.jpg', caption: "Selfie de la modelo con estilismo recargado en tonos amarillos, rosa y verde, sosteniendo un bolso de pelo burdeos." }
     ]
   }
 ];
@@ -265,6 +267,7 @@ interface ImageCarouselProps {
 
 function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVertical, setIsVertical] = useState(false);
 
   useEffect(() => {
     setCurrentIndex(0);
@@ -282,9 +285,20 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const { naturalWidth, naturalHeight } = e.currentTarget;
+    setIsVertical(naturalWidth < naturalHeight);
+  };
+
   return (
     <div className="w-full flex flex-col gap-4">
-      <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] max-h-[50vh] overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none">
+      <div 
+        className="relative w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none transition-all duration-500 ease-in-out mx-auto"
+        style={{
+          aspectRatio: isVertical ? '3/4' : '16/10',
+          maxWidth: isVertical ? '450px' : '100%',
+        }}
+      >
         
         {/* Slides */}
         <AnimatePresence mode="wait">
@@ -300,6 +314,7 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
             <img
               src={images[currentIndex].src}
               alt={images[currentIndex].caption}
+              onLoad={handleImageLoad}
               className="w-full h-full object-contain p-2 select-none pointer-events-none"
               draggable="false"
               loading="lazy"
@@ -650,92 +665,6 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
 
         </div>
       </motion.div>
-
-      {/* RODAJE / INSTANTÁNEAS DE RODAJE */}
-      <div className="mt-24 select-none border-t border-[var(--color-brand-marron-claro)]/20 pt-20">
-        <div className="mb-10 text-center select-none">
-          <span className="text-[10px] md:text-[11px] font-mono tracking-[0.25em] text-[var(--color-brand-marron-oscuro)]/60 uppercase">
-            [ REGISTRO ANALÓGICO // FOTOGRAFÍAS DE SET ]
-          </span>
-          <h4 className="font-brand text-2xl uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-1">
-            Instantáneas de Producción
-          </h4>
-          <p className="text-[10px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/50 uppercase mt-1">
-            [ HAZ CLIC PARA PREVISUALIZAR IMAGEN INLINE ]
-          </p>
-        </div>
-
-        {inlinePreviews['capturas'] ? (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="w-full flex flex-col gap-4 relative max-w-4xl mx-auto text-left"
-          >
-            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] relative group">
-              <img 
-                src={inlinePreviews['capturas']!} 
-                alt="Preview" 
-                className="w-full h-auto max-h-[70vh] object-contain mx-auto block cursor-zoom-out"
-                onClick={() => setInlinePreviews(prev => ({ ...prev, capturas: null }))}
-              />
-            </div>
-            <div className="flex justify-between items-center px-1">
-              <span className="text-[11px] font-sans text-[var(--color-brand-marron-oscuro)]/90 font-medium italic">
-                {[
-                  { src: "/proyectosAudiovisuales/EspejismoDelLujo/Cocina desgastada/cocinaDesgastada1.png", caption: "Preparando la receta del éxito" },
-                  { src: "/proyectosAudiovisuales/EspejismoDelLujo/Cocina desgastada/cocinaDesgastada2.webp", caption: "Brillo en la cocina agrietada" },
-                  { src: "/proyectosAudiovisuales/EspejismoDelLujo/Cocina desgastada/cocinaDesgastada3.webp", caption: "El horno y los ingredientes surrealistas" },
-                  { src: "/proyectosAudiovisuales/EspejismoDelLujo/Styling y utileria/jardinRoto.webp", caption: "Las joyas que brotan de la tierra" },
-                  { src: "/proyectosAudiovisuales/EspejismoDelLujo/Styling y utileria/jardinRoto2.jpg", caption: "Jardinería de estatus y fantasía" }
-                ].find(img => img.src === inlinePreviews['capturas'])?.caption || ''}
-              </span>
-              <button
-                onClick={() => setInlinePreviews(prev => ({ ...prev, capturas: null }))}
-                className="text-[10px] font-mono tracking-wider uppercase text-[var(--color-brand-bordo)] hover:underline cursor-pointer flex items-center gap-1.5"
-              >
-                <span>&larr;</span> Volver al registro
-              </button>
-            </div>
-          </motion.div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 w-full mt-4">
-            {[
-              { src: "/proyectosAudiovisuales/EspejismoDelLujo/Cocina desgastada/cocinaDesgastada1.png", caption: "Preparando la receta del éxito" },
-              { src: "/proyectosAudiovisuales/EspejismoDelLujo/Cocina desgastada/cocinaDesgastada2.webp", caption: "Brillo en la cocina agrietada" },
-              { src: "/proyectosAudiovisuales/EspejismoDelLujo/Cocina desgastada/cocinaDesgastada3.webp", caption: "El horno y los ingredientes surrealistas" },
-              { src: "/proyectosAudiovisuales/EspejismoDelLujo/Styling y utileria/jardinRoto.webp", caption: "Las joyas que brotan de la tierra" },
-              { src: "/proyectosAudiovisuales/EspejismoDelLujo/Styling y utileria/jardinRoto2.jpg", caption: "Jardinería de estatus y fantasía" }
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -6, transition: { duration: 0.3 } }}
-                onClick={() => setInlinePreviews(prev => ({ ...prev, capturas: item.src }))}
-                className={`bg-white/40 backdrop-blur-xs p-4 rounded-xs border border-[var(--color-brand-marron-claro)]/25 shadow-xs cursor-pointer group flex flex-col gap-3 relative pointer-events-auto ${idx === 3 || idx === 4 ? 'sm:col-span-1 lg:col-span-1' : ''}`}
-              >
-                <div className="w-full aspect-[4/3] bg-black/5 overflow-hidden rounded-xs relative">
-                  <img 
-                    src={item.src} 
-                    alt={item.caption} 
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" 
-                    draggable="false"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors pointer-events-none" />
-                </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-[8px] font-mono tracking-widest text-[var(--color-brand-bordo)] uppercase font-semibold">
-                    SNAP №0{idx + 1} // RODAJE
-                  </span>
-                  <span className="text-[11px] font-brand italic text-[var(--color-brand-marron-oscuro)]/90 mt-1 font-light leading-snug">
-                    {item.caption}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </div>
-
     </div>
   );
 }
