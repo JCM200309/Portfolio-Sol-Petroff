@@ -8,9 +8,9 @@ import ProjectsSelector from './components/ProjectsSelector'
 const Productions = lazy(() => import('./components/Productions'))
 const Projects = lazy(() => import('./components/Projects'))
 const Whiteboard = lazy(() => import('./components/Whiteboard'))
-const FerranAdriaExperience = lazy(() => import('./components/FerranAdriaExperience'))
-const ElPlumeroExperience = lazy(() => import('./components/ElPlumeroExperience'))
-const PreAdolescentesExperience = lazy(() => import('./components/PreAdolescentesExperience'))
+const FerranAdriaExperience = lazy(() => import('./components/narrativas/FerranAdriaExperience'))
+const ElPlumeroExperience = lazy(() => import('./components/narrativas/ElPlumeroExperience'))
+const PreAdolescentesExperience = lazy(() => import('./components/narrativas/PreAdolescentesExperience'))
 
 function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash)

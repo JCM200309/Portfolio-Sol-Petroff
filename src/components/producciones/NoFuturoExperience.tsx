@@ -235,7 +235,7 @@ export default function NoFuturoExperience() {
 
           <div className="max-w-xl pb-8">
             <p className="text-sm md:text-base lg:text-[16px] xl:text-[17px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/90 text-left">
-              “No Futuro” toma como punto de partida la subcultura punk y su rechazo hacia las estructuras sociales establecidas, entendiendo el cuerpo como un espacio de resistencia, descarga y protesta. La producción se construye desde una estética cruda e incómoda, donde las expresiones, las poses y la iluminación buscan transmitir tensión, individualismo y una actitud desafiante frente al entorno.
+              <strong> “No Futuro”</strong> toma como punto de partida la <strong>subcultura punk</strong> y su rechazo hacia las estructuras sociales establecidas, entendiendo el cuerpo como un <strong>espacio de resistencia, descarga y protesta</strong>. La producción se construye desde una estética cruda e incómoda, donde las expresiones, las poses y la iluminación buscan transmitir tensión, individualismo y una actitud desafiante frente al entorno.
             </p>
           </div>
         </div>
@@ -348,10 +348,10 @@ export default function NoFuturoExperience() {
 
             <div className="space-y-6 mb-8 flex flex-col items-center justify-center">
               <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
-                A través de una dirección visual agresiva y despojada, trabajamos la idea de una generación atravesada por el desencanto y la ausencia de proyección. No existe una visión idealizada del mañana: el presente aparece como único territorio posible.
+                A través de una dirección visual <strong>agresiva </strong> y <strong>despojada</strong>, trabajamos la idea de una generación atravesada por el desencanto y la ausencia de proyección. No existe una visión idealizada del mañana: el presente aparece como único territorio posible.
               </p>
               <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
-                La identidad se construye desde la autogestión, la rebeldía y la necesidad de diferenciarse del otro, incluso mediante el exceso, la provocación y la confrontación con lo preestablecido.
+                La identidad se construye desde la <strong>autogestión</strong>, la <strong>rebeldía</strong> y la necesidad de diferenciarse del otro, incluso mediante el exceso, la provocación y la confrontación con lo preestablecido.
               </p>
             </div>
 

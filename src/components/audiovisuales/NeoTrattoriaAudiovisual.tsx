@@ -8,28 +8,11 @@ interface NeoTrattoriaAudiovisualProps {
 
 // --- HELPER CLASS: Web Audio API Backstage Ambient Synth ---
 class BackstageAudioSynth {
-  private ctx: AudioContext | null = null;
-  private gainNode: GainNode | null = null;
   private audio: HTMLAudioElement | null = null;
-  private audioSource: MediaElementAudioSourceNode | null = null;
-
-  constructor() { }
-
-  init() {
-    if (this.ctx) return;
-    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-    if (AudioContextClass) {
-      this.ctx = new AudioContextClass();
-      this.gainNode = this.ctx.createGain();
-      this.gainNode.gain.setValueAtTime(0.1, this.ctx.currentTime);
-      this.gainNode.connect(this.ctx.destination);
-    }
-  }
+  private currentVolume = 0.5;
 
   setVolume(vol: number) {
-    if (this.gainNode && this.ctx) {
-      this.gainNode.gain.setValueAtTime(vol * 0.15, this.ctx.currentTime);
-    }
+    this.currentVolume = vol;
     if (this.audio) {
       this.audio.volume = vol;
     }
@@ -37,25 +20,13 @@ class BackstageAudioSynth {
 
   play() {
     this.stop();
-    this.init();
-
-    if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume();
-    }
 
     if (!this.audio) {
-      this.audio = new HTMLAudioElement();
+      this.audio = new Audio();
       this.audio.src = '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Sonido Musica y clima sonoro/Auxiliary Tha Masterfader - Disco Dictator [Luke Million Remix].mp3';
       this.audio.loop = true;
-      if (this.ctx && this.gainNode) {
-        try {
-          this.audioSource = this.ctx.createMediaElementSource(this.audio);
-          this.audioSource.connect(this.gainNode);
-        } catch (e) {
-          console.warn("Failed to create media source, connecting directly to speakers:", e);
-        }
-      }
     }
+    this.audio.volume = this.currentVolume;
 
     this.audio.play().catch(err => {
       console.warn("Audio play prevented:", err);
@@ -110,11 +81,14 @@ const backstageCategories = [
     icon: Layers,
     badge: '03 / DIRECCIÓN DE ARTE',
     tag: 'El ritual cotidiano',
-    summary: 'Los objetos cargan con una dimensión ornamental y metafórica del vínculo. La pasta evoca la reunión dominical y los lazos familiares; la vajilla y la mesa con mantel a cuadros apelan a una memoria colectiva compartida.',
+    summary: 'Los objetos cargan con una dimensión ornamental y metafórica del vínculo. La pasta evoca la reunión familiar y los lazos; la vajilla evoca a la memoria colectiva compartida.',
     bullets: [
-      'La pasta como metáfora del lazo familiar y ritual dominical',
+      'La pasta como metáfora del lazo familiar',
       'Objetos cotidianos con carga afectiva y ornamental',
-      'Morfología de curvas fluidas y repetición simétrica'
+      'Morfología de curvas fluidas y repetición simétrica',
+      'El recuerdo colectivo. El encuentro'
+
+
     ],
     images: [
       { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/morfologia/1.jpg', caption: 'Mesa puesta con mantel clásico a cuadros.' },
@@ -129,11 +103,15 @@ const backstageCategories = [
     title: 'Maquillaje y Peinados',
     icon: Sparkles,
     badge: '04 / ESTILISMO',
-    tag: 'Retratos y estilismo del rostro',
-    summary: 'La propuesta visual se completa con un estilismo de gran teatralidad italiana. En maquillaje predomina la piel glowy, ojos y cejas fuertemente definidos y labios delineados en tonos encendidos. En peinado se fusionan pañuelos de seda con recogidos y ondas retro elegantes.',
+    tag: 'MOODBOARD DE ESTILISMO',
+    summary: (
+      <>
+        La propuesta visual se completa con un estilismo que busca retratar la <strong>teatralidad italiana</strong>. En maquillaje predomina la piel glowy, ojos y cejas fuertemente definidos y labios delineados en tonos encendidos. En peinado se fusionan pañuelos de seda con recogidos y ondas retro elegantes.
+      </>
+    ),
     bullets: [
-      'Makeup: Rubor cálido, cejas y ojos marcados, piel glowy',
-      'Hair: Pañuelos de seda, peinados recogidos clásicos y ondas marcadas',
+      'Piel bronceada, iluminada, remitiendo al verano y al disfrute',
+      'Peinado: Pañuelos, cabello recogido clásico, simulando espontaneidad y frescura.',
       'Tensión estética entre el glamour clásico y la dureza urbana'
     ],
     images: [
@@ -225,7 +203,7 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
         className="relative w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none transition-all duration-500 ease-in-out mx-auto"
         style={{
           aspectRatio: isVertical ? '3/4' : '16/10',
-          maxWidth: isVertical ? '450px' : '100%',
+          maxWidth: isVertical ? '500px' : '100%',
         }}
       >
 
@@ -281,11 +259,8 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
 
       {/* Caption & Zoom indicator */}
       <div className="flex justify-between items-center px-1 font-mono text-[9px] text-[var(--color-brand-marron-oscuro)]/70 text-left">
-        <span className="font-sans text-[11px] font-medium italic text-[var(--color-brand-marron-oscuro)]/90 truncate max-w-[75%]">
+        <span className="font-sans text-[11px] font-medium italic text-[var(--color-brand-marron-oscuro)]/90 truncate max-w-full">
           {images[currentIndex].caption}
-        </span>
-        <span className="uppercase tracking-widest font-semibold shrink-0">
-          [ CLIC PARA AMPLIAR ]
         </span>
       </div>
     </div>
@@ -336,7 +311,7 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
       </div>
 
       {/* Vertical Stack of Editorial Sections */}
-      <div className="space-y-32">
+      <div className="space-y-28">
         {backstageCategories.map((cat, idx) => {
           const IconComp = cat.icon;
           const isEven = idx % 2 === 0;
@@ -521,17 +496,11 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
       </div>
 
       {/* INSTANTÁNEAS DE RODAJE */}
-      <div className="mt-24 select-none">
+      <div className="mt-20 select-none">
         <div className="mb-10 text-center select-none">
-          <span className="text-[10px] md:text-[11px] font-mono tracking-[0.25em] text-[var(--color-brand-marron-oscuro)]/60 uppercase">
-            [ SCAN // RODAJE // DETRÁS DE CÁMARA ]
-          </span>
-          <h4 className="font-brand text-2xl uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-1">
+          <h4 className="font-brand text-3xl uppercase tracking-wider text-[var(--color-brand-marron-oscuro)]">
             Instantáneas de Producción
           </h4>
-          <p className="text-[10px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/50 uppercase mt-1">
-            [ HAZ CLIC EN LAS FOTOS PARA AMPLIARLAS ]
-          </p>
         </div>
 
         {inlinePreviews['capturas'] ? (
@@ -592,9 +561,6 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
                   <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors pointer-events-none" />
                 </div>
                 <div className="flex flex-col text-left">
-                  <span className="text-[8px] font-mono tracking-widest text-[var(--color-brand-bordo)] uppercase font-semibold">
-                    SNAP №0{idx + 1} // RODAJE
-                  </span>
                   <span className="text-[11px] font-brand italic text-[var(--color-brand-marron-oscuro)]/90 mt-1 font-light leading-snug">
                     {item.caption}
                   </span>

@@ -6,19 +6,16 @@ interface ObjetoAntiModaProps {
   onSelectPhoto: (src: string) => void;
 }
 
-// --- HELPER CLASS: Web Audio API Siren's Song & Ambient Ocean Waves ---
+// --- HELPER CLASS: Web Audio API Siren's Song & Ambient Lullaby Track ---
 class SirenSongAudioSynth {
   private ctx: AudioContext | null = null;
   private masterGain: GainNode | null = null;
-  private noiseSource: AudioBufferSourceNode | null = null;
-  private noiseGain: GainNode | null = null;
   private filter: BiquadFilterNode | null = null;
-  private lfo: OscillatorNode | null = null;
-  private activeOscillators: OscillatorNode[] = [];
-  private activeGains: GainNode[] = [];
   private delayNode: DelayNode | null = null;
   private delayFeedback: GainNode | null = null;
   private isPlayingAmbient = false;
+  private audio: HTMLAudioElement | null = null;
+  private currentVolume = 0.5;
 
   init() {
     if (this.ctx) return;
@@ -26,7 +23,7 @@ class SirenSongAudioSynth {
     if (AudioContextClass) {
       this.ctx = new AudioContextClass();
       this.masterGain = this.ctx.createGain();
-      this.masterGain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+      this.masterGain.gain.setValueAtTime(this.currentVolume * 0.08, this.ctx.currentTime);
 
       // Lowpass filter for underwater sound
       this.filter = this.ctx.createBiquadFilter();
@@ -60,7 +57,7 @@ class SirenSongAudioSynth {
     }
 
     const now = this.ctx.currentTime;
-    
+
     // Vocal twin oscillators
     const osc1 = this.ctx.createOscillator();
     const osc2 = this.ctx.createOscillator();
@@ -93,119 +90,44 @@ class SirenSongAudioSynth {
 
     osc1.start(now);
     osc2.start(now);
-    
+
     osc1.stop(now + 3.0);
     osc2.stop(now + 3.0);
     vibrato.stop(now + 3.0);
   }
 
-  // Starts the sea waves ambient background generator
+  // Starts the background lullaby song directly (avoiding CORS silent routing blockages)
   startAmbient() {
-    this.init();
-    if (!this.ctx || this.isPlayingAmbient) return;
-    if (this.ctx.state === 'suspended') {
-      this.ctx.resume();
-    }
-
+    if (this.isPlayingAmbient) return;
     this.isPlayingAmbient = true;
-    const now = this.ctx.currentTime;
 
-    // 1. Noise wave generator
-    const bufferSize = this.ctx.sampleRate * 2.0;
-    const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-    const output = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      output[i] = Math.random() * 2.0 - 1.0;
+    if (!this.audio) {
+      this.audio = new Audio();
+      this.audio.src = '/proyectosAudiovisuales/ObjetoAntiModa/The Spirit Song -  A Nordic Lullaby.mp3';
+      this.audio.loop = true;
     }
+    this.audio.volume = this.currentVolume;
 
-    this.noiseSource = this.ctx.createBufferSource();
-    this.noiseSource.buffer = noiseBuffer;
-    this.noiseSource.loop = true;
-
-    this.noiseGain = this.ctx.createGain();
-    this.noiseGain.gain.setValueAtTime(0.009, now);
-
-    const waveFilter = this.ctx.createBiquadFilter();
-    waveFilter.type = 'lowpass';
-    waveFilter.frequency.setValueAtTime(320, now);
-
-    // LFO swell for ocean waves
-    this.lfo = this.ctx.createOscillator();
-    const lfoGain = this.ctx.createGain();
-    this.lfo.type = 'sine';
-    this.lfo.frequency.setValueAtTime(0.09, now); // slow breath
-    lfoGain.gain.setValueAtTime(140, now);
-
-    this.lfo.connect(lfoGain);
-    lfoGain.connect(waveFilter.frequency);
-
-    this.noiseSource.connect(waveFilter);
-    waveFilter.connect(this.noiseGain);
-    this.noiseGain.connect(this.masterGain!);
-
-    this.lfo.start(now);
-    this.noiseSource.start(now);
-
-    // 2. Add sub-aquatic sine drone chord (D minor 7th)
-    const chords = [73.42, 110.00, 130.81, 146.83]; // D2, A2, C3, D3
-    chords.forEach((freq, idx) => {
-      const osc = this.ctx!.createOscillator();
-      const oscGain = this.ctx!.createGain();
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, now);
-      
-      oscGain.gain.setValueAtTime(0, now);
-      oscGain.gain.linearRampToValueAtTime(0.035 - idx * 0.008, now + 2.5);
-
-      osc.connect(oscGain);
-      oscGain.connect(this.filter!);
-
-      osc.start(now);
-      this.activeOscillators.push(osc);
-      this.activeGains.push(oscGain);
+    this.audio.play().catch(err => {
+      console.warn("Audio play prevented:", err);
     });
   }
 
   stopAmbient() {
     if (!this.isPlayingAmbient) return;
-    const now = this.ctx ? this.ctx.currentTime : 0;
-
-    if (this.noiseSource) {
-      try {
-        this.noiseSource.stop(now + 1.2);
-      } catch (e) {}
-      this.noiseSource = null;
-    }
-    if (this.lfo) {
-      try {
-        this.lfo.stop(now + 1.2);
-      } catch (e) {}
-      this.lfo = null;
-    }
-
-    this.activeGains.forEach(gain => {
-      if (this.ctx) {
-        gain.gain.setValueAtTime(gain.gain.value, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 1.0);
-      }
-    });
-
-    this.activeOscillators.forEach(osc => {
-      try {
-        osc.stop(now + 1.2);
-      } catch (e) {}
-    });
-
-    this.activeOscillators = [];
-    this.activeGains = [];
     this.isPlayingAmbient = false;
+    if (this.audio) {
+      this.audio.pause();
+    }
   }
 
   setVolume(vol: number) {
-    this.init();
+    this.currentVolume = vol;
+    if (this.audio) {
+      this.audio.volume = vol;
+    }
     if (this.masterGain && this.ctx) {
-      this.masterGain.gain.setValueAtTime(vol * 0.12, this.ctx.currentTime);
+      this.masterGain.gain.setValueAtTime(vol * 0.08, this.ctx.currentTime);
     }
   }
 }
@@ -368,14 +290,14 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      <div 
+      <div
         className="relative w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none transition-all duration-500 ease-in-out mx-auto"
         style={{
           aspectRatio: isVertical ? '3/4' : '16/10',
-          maxWidth: isVertical ? '450px' : '100%',
+          maxWidth: isVertical ? '500px' : '100%',
         }}
       >
-        
+
         {/* Slides */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -428,11 +350,8 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
 
       {/* Caption & Zoom indicator */}
       <div className="flex justify-between items-center px-1 font-mono text-[9px] text-[var(--color-brand-marron-oscuro)]/70 text-left">
-        <span className="font-sans text-[11px] font-medium italic text-[var(--color-brand-marron-oscuro)]/90 truncate max-w-[75%]">
+        <span className="font-sans text-[11px] font-medium italic text-[var(--color-brand-marron-oscuro)]/90 truncate max-w-full">
           {images[currentIndex].caption}
-        </span>
-        <span className="uppercase tracking-widest font-semibold shrink-0">
-          [ CLIC PARA AMPLIAR ]
         </span>
       </div>
     </div>
@@ -471,7 +390,7 @@ export default function ObjetoAntiModaAudiovisual({ onSelectPhoto }: ObjetoAntiM
 
   return (
     <div className="w-full py-24 bg-black/[0.01] border-t border-[var(--color-brand-marron-claro)]/25 relative pointer-events-auto select-none">
-      
+
       {/* Intro Header */}
       <div className="mb-20 text-center md:text-left select-none">
         <span className="text-[10px] md:text-[11px] font-mono tracking-[0.35em] text-[var(--color-brand-bordo)] uppercase font-semibold">
@@ -482,11 +401,11 @@ export default function ObjetoAntiModaAudiovisual({ onSelectPhoto }: ObjetoAntiM
         </h3>
         <p className="text-sm font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80 max-w-2xl text-left">
           Objeto Anti-Moda deconstruye los límites entre la fantasía y la realidad terrenal a través de la dirección de arte y el surrealismo. Explora la bitácora para descubrir cómo se materializó el anhelo del océano.
-        </p> 
+        </p>
       </div>
 
       {/* Narrative Stack */}
-      <div className="space-y-32">
+      <div className="space-y-28">
         {antiModaCategories.map((cat, idx) => {
           const IconComp = cat.icon;
           const isEven = idx % 2 === 0;
@@ -501,9 +420,8 @@ export default function ObjetoAntiModaAudiovisual({ onSelectPhoto }: ObjetoAntiM
               className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start py-4"
             >
               {/* Narrative Column */}
-              <div className={`col-span-12 lg:col-span-4 flex flex-col justify-between ${
-                isEven ? 'lg:order-1' : 'lg:order-2'
-              }`}>
+              <div className={`col-span-12 lg:col-span-4 flex flex-col justify-between ${isEven ? 'lg:order-1' : 'lg:order-2'
+                }`}>
                 <div>
                   <div className="flex items-center gap-3 mb-2">
                     <span className="text-[32px] sm:text-[40px] font-brand font-light text-[var(--color-brand-bordo)]/30 leading-none">
@@ -514,18 +432,18 @@ export default function ObjetoAntiModaAudiovisual({ onSelectPhoto }: ObjetoAntiM
                       {cat.badge.split(' / ')[1]}
                     </span>
                   </div>
-                  
+
                   <h4 className="font-brand text-3xl sm:text-4xl uppercase tracking-wide text-[var(--color-brand-marron-oscuro)] mb-4 flex items-center gap-3 text-left">
                     {cat.title}
                     <IconComp size={22} className="text-[var(--color-brand-bordo)]" />
                   </h4>
-                  
+
                   <span className="text-[10px] font-sans tracking-widest uppercase font-bold text-[var(--color-brand-bordo)] block mb-3 text-left">
-                    [ {cat.tag} ]
+                    {cat.tag}
                   </span>
 
                   <div className="w-12 h-[1.5px] bg-[var(--color-brand-bordo)]/30 my-4" />
-                  
+
                   <p className="text-base md:text-lg leading-relaxed text-[var(--color-brand-marron-oscuro)]/90 mb-6 font-sans text-left">
                     {cat.summary}
                   </p>
@@ -540,16 +458,12 @@ export default function ObjetoAntiModaAudiovisual({ onSelectPhoto }: ObjetoAntiM
                   </ul>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-[var(--color-brand-marron-claro)]/15 flex justify-between items-center text-[10px] font-mono uppercase tracking-widest text-[var(--color-brand-marron-oscuro)]/50">
-                  <span>№03 // ANTI-MODA</span>
-                  <span>{`[ ${cat.images.length} ARCHIVOS ]`}</span>
-                </div>
+
               </div>
 
               {/* Media Display Column */}
-              <div className={`col-span-12 lg:col-span-8 min-h-[300px] flex flex-col justify-center w-full ${
-                isEven ? 'lg:order-2' : 'lg:order-1'
-              }`}>
+              <div className={`col-span-12 lg:col-span-8 min-h-[300px] flex flex-col justify-center w-full ${isEven ? 'lg:order-2' : 'lg:order-1'
+                }`}>
                 <ImageCarousel images={cat.images} onSelectPhoto={onSelectPhoto} />
               </div>
             </motion.div>
@@ -558,14 +472,14 @@ export default function ObjetoAntiModaAudiovisual({ onSelectPhoto }: ObjetoAntiM
       </div>
 
       {/* INTERACTIVE COLOR NOTE PLAYER & SOUND EFFECTS */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 55 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="mt-32 w-full border border-[var(--color-brand-marron-claro)]/25 rounded-sm p-6 md:p-10 bg-white/40 backdrop-blur-md shadow-lg"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
-          
+
           {/* Left Block: The Interactive Swatches */}
           <div className="lg:col-span-7 flex flex-col justify-between text-left">
             <div>
@@ -575,7 +489,7 @@ export default function ObjetoAntiModaAudiovisual({ onSelectPhoto }: ObjetoAntiM
               <h3 className="font-brand text-3xl uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-1 mb-6">
                 Frecuencias de Color
               </h3>
-              
+
               <p className="text-sm font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/90 mb-8">
                 Cada color en la paleta de la obra resuena con una vibración emocional. Pasa el cursor u oprime las tarjetas de color a continuación para desencadenar el canto de sirena correspondiente a su frecuencia sonora.
               </p>
@@ -590,10 +504,10 @@ export default function ObjetoAntiModaAudiovisual({ onSelectPhoto }: ObjetoAntiM
                     className="group cursor-pointer border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs overflow-hidden bg-black/[0.02] flex flex-col justify-between p-2 h-[120px] pointer-events-auto"
                   >
                     <div className="w-full h-[65px] bg-black/5 overflow-hidden rounded-xs relative">
-                      <img 
-                        src={color.file} 
-                        alt={`Color ${idx + 1}`} 
-                        className="w-full h-full object-cover select-none pointer-events-none" 
+                      <img
+                        src={color.file}
+                        alt={`Color ${idx + 1}`}
+                        className="w-full h-full object-cover select-none pointer-events-none"
                         draggable="false"
                       />
                     </div>
@@ -608,9 +522,9 @@ export default function ObjetoAntiModaAudiovisual({ onSelectPhoto }: ObjetoAntiM
                   </motion.div>
                 ))}
               </div>
-              
+
               <div className="text-center lg:text-left text-[9px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/40 uppercase">
-                [ HAZ HOVER O CLICK EN LOS COLORES PARA REVELAR LA NOTA ]
+                HAZ HOVER O CLICK EN LOS COLORES PARA REVELAR LA NOTA
               </div>
             </div>
           </div>
@@ -618,7 +532,7 @@ export default function ObjetoAntiModaAudiovisual({ onSelectPhoto }: ObjetoAntiM
           {/* Right Block: Ambient Controller Console */}
           <div className="lg:col-span-5 border border-[var(--color-brand-marron-claro)]/20 rounded-xs p-5 bg-white/50 backdrop-blur-md flex flex-col justify-between shadow-sm">
             <div className="flex flex-col items-center">
-              
+
               {/* Aquatic Shell Wave Visualizer */}
               <div className="relative w-36 h-36 flex items-center justify-center mb-6 bg-[var(--color-brand-crema)] border border-[var(--color-brand-marron-claro)]/20 rounded-full shadow-inner">
                 <div className="absolute inset-4 rounded-full border border-[var(--color-brand-marron-claro)]/10 flex items-center justify-center">
@@ -630,10 +544,10 @@ export default function ObjetoAntiModaAudiovisual({ onSelectPhoto }: ObjetoAntiM
               </div>
 
               <span className="text-[9px] font-mono tracking-widest text-[var(--color-brand-bordo)] font-bold mb-1 uppercase">
-                AMBIFÓNICO SUB-ACUÁTICO
+                The spirit song
               </span>
               <span className="text-[11px] font-sans text-gray-600 block text-center mb-4">
-                Generador de oleaje y resonancia abisal
+                Jonna Jington
               </span>
             </div>
 

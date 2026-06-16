@@ -97,14 +97,14 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      <div 
+      <div
         className="relative w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none transition-all duration-500 ease-in-out mx-auto"
         style={{
           aspectRatio: isVertical ? '3/4' : '16/10',
-          maxWidth: isVertical ? '450px' : '100%',
+          maxWidth: isVertical ? '500px' : '100%',
         }}
       >
-        
+
         {/* Slides */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -157,11 +157,8 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
 
       {/* Caption & Zoom indicator */}
       <div className="flex justify-between items-center px-1 font-mono text-[9px] text-[var(--color-brand-marron-oscuro)]/70 text-left">
-        <span className="font-sans text-[11px] font-medium italic text-[var(--color-brand-marron-oscuro)]/90 truncate max-w-[75%]">
+        <span className="font-sans text-[11px] font-medium italic text-[var(--color-brand-marron-oscuro)]/90 truncate max-w-full">
           {images[currentIndex].caption}
-        </span>
-        <span className="uppercase tracking-widest font-semibold shrink-0">
-          [ CLIC PARA AMPLIAR ]
         </span>
       </div>
     </div>
@@ -203,7 +200,7 @@ export default function PhygitalAudiovisual({ onSelectPhoto }: PhygitalAudiovisu
 
   return (
     <div className="w-full py-24 bg-black/[0.01] border-t border-[var(--color-brand-marron-claro)]/25 relative pointer-events-auto select-none font-sans text-[var(--color-brand-marron-oscuro)]">
-      
+
       {/* Editorial Header */}
       <div className="mb-20 grid grid-cols-1 md:grid-cols-12 gap-8 items-end border-b border-[var(--color-brand-marron-claro)]/10 pb-12">
         <div className="md:col-span-8 text-left">
@@ -218,31 +215,11 @@ export default function PhygitalAudiovisual({ onSelectPhoto }: PhygitalAudiovisu
           </p>
         </div>
 
-        {/* INTERACTIVE TELEMETRY SCREEN */}
-        <div className="md:col-span-4 w-full bg-white/40 border border-[var(--color-brand-marron-claro)]/25 rounded-xs p-4 font-mono text-[9px] text-[var(--color-brand-marron-oscuro)] shadow-sm flex flex-col justify-between min-h-[120px] text-left">
-          <div className="flex justify-between items-center border-b border-[var(--color-brand-marron-claro)]/20 pb-1.5 mb-2">
-            <span className="flex items-center gap-1.5 font-bold uppercase tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-bordo)] animate-pulse" />
-              DATALOGGER.SYS
-            </span>
-            <span className="text-[8px] opacity-70">COORD: 34-S / 59-W</span>
-          </div>
-          <div className="flex-1 space-y-1 opacity-90 overflow-hidden font-mono">
-            {terminalLogs.map((log, i) => (
-              <div key={i} className="truncate select-none">
-                <span className="text-[var(--color-brand-bordo)]/50 mr-1">&gt;</span> {log}
-              </div>
-            ))}
-          </div>
-          <div className="border-t border-[var(--color-brand-marron-claro)]/20 pt-1.5 mt-2 flex justify-between text-[8px] font-bold">
-            <span>TELEMETRY: ACTIVE</span>
-            <span className="animate-pulse">{hoveredData}</span>
-          </div>
-        </div>
+
       </div>
 
       {/* Vertical Stack of Editorial Sections */}
-      <div className="space-y-32">
+      <div className="space-y-28">
         {phygitalCategories.map((cat, idx) => {
           const IconComp = cat.icon;
           const isEven = idx % 2 === 0;
@@ -258,9 +235,8 @@ export default function PhygitalAudiovisual({ onSelectPhoto }: PhygitalAudiovisu
               className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start py-4"
             >
               {/* Left/Right Narrative Text */}
-              <div className={`col-span-12 lg:col-span-4 flex flex-col justify-between ${
-                isEven ? 'lg:order-1' : 'lg:order-2'
-              }`}>
+              <div className={`col-span-12 lg:col-span-4 flex flex-col justify-between ${isEven ? 'lg:order-1' : 'lg:order-2'
+                }`}>
                 <div>
                   <div className="flex items-center gap-3 mb-2">
                     <span className="text-[32px] sm:text-[40px] font-brand font-light text-[var(--color-brand-bordo)]/30 leading-none">
@@ -271,18 +247,18 @@ export default function PhygitalAudiovisual({ onSelectPhoto }: PhygitalAudiovisu
                       {cat.badge.split(' / ')[1]}
                     </span>
                   </div>
-                  
+
                   <h4 className="font-brand text-3xl sm:text-4xl uppercase tracking-wide text-[var(--color-brand-marron-oscuro)] mb-4 flex items-center gap-3 text-left">
                     {cat.title}
                     <IconComp size={22} className="text-[var(--color-brand-bordo)]" />
                   </h4>
-                  
+
                   <span className="text-[10px] font-sans tracking-widest uppercase font-bold text-[var(--color-brand-bordo)] block mb-3 text-left">
-                    [ {cat.tag} ]
+                    {cat.tag}
                   </span>
 
                   <div className="w-12 h-[1.5px] bg-[var(--color-brand-bordo)]/30 my-4" />
-                  
+
                   <p className="text-base md:text-lg leading-relaxed text-[var(--color-brand-marron-oscuro)]/90 mb-6 font-sans text-left">
                     {cat.summary}
                   </p>
@@ -297,16 +273,12 @@ export default function PhygitalAudiovisual({ onSelectPhoto }: PhygitalAudiovisu
                   </ul>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-[var(--color-brand-marron-claro)]/15 flex justify-between items-center text-[10px] font-mono uppercase tracking-widest text-[var(--color-brand-marron-oscuro)]/50">
-                  <span>№02 // PHYGITAL</span>
-                  <span>{`[ ${cat.images.length} ARCHIVOS ]`}</span>
-                </div>
+
               </div>
 
               {/* Alternate Column: Inline Interactive Images */}
-              <div className={`col-span-12 lg:col-span-8 min-h-[300px] flex flex-col justify-center w-full ${
-                isEven ? 'lg:order-2' : 'lg:order-1'
-              }`}>
+              <div className={`col-span-12 lg:col-span-8 min-h-[300px] flex flex-col justify-center w-full ${isEven ? 'lg:order-2' : 'lg:order-1'
+                }`}>
                 <ImageCarousel images={cat.images} onSelectPhoto={onSelectPhoto} />
               </div>
             </motion.div>
@@ -314,7 +286,7 @@ export default function PhygitalAudiovisual({ onSelectPhoto }: PhygitalAudiovisu
         })}
       </div>
 
-      
+
 
     </div>
   );

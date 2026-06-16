@@ -122,22 +122,14 @@ export default function FerranAdriaExperience() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
-      className="w-full min-h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] overflow-y-auto overflow-x-hidden selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] pb-32 pt-24 pointer-events-auto"
+      className="w-full min-h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] overflow-y-auto overflow-x-hidden selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] pb-16 pt-16 pointer-events-auto"
     >
       {/* Noise overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
 
-      {/* Floating back button */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12 flex justify-between items-center relative z-10 select-none">
-        
-        <span className="text-[10px] font-mono tracking-[0.3em] uppercase opacity-55">
-          VISTA PREVIA DEL REPORTE // 02
-        </span>
-      </div>
-
       {/* BLOCK 1: EDITORIAL HERO & THEME */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 lg:gap-16 items-center mb-32 relative z-10">
-        
+      <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 lg:gap-16 items-center mb-12 pt-6 md:pt-10 relative z-10">
+
         {/* Left Column: Title Block */}
         <div className="col-span-12 lg:col-span-6 flex flex-col justify-center">
           <span className="text-xs font-mono tracking-[0.35em] text-[var(--color-brand-bordo)] uppercase font-semibold mb-4">
@@ -166,37 +158,24 @@ export default function FerranAdriaExperience() {
                 className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-out select-none pointer-events-none"
               />
               <div className="absolute inset-0 bg-[var(--color-brand-bordo)]/5 mix-blend-overlay group-hover:opacity-0 transition-opacity duration-700" />
-              
-              {/* Focus crop markers */}
-              <span className="absolute top-4 left-4 text-xs font-light text-white/50 select-none pointer-events-none">+</span>
-              <span className="absolute top-4 right-4 text-xs font-light text-white/50 select-none pointer-events-none">+</span>
-              <span className="absolute bottom-4 left-4 text-xs font-light text-white/50 select-none pointer-events-none">+</span>
-              <span className="absolute bottom-4 right-4 text-xs font-light text-white/50 select-none pointer-events-none">+</span>
-            </div>
-            <div className="mt-4 flex justify-between items-center text-[10px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/60 uppercase px-1 select-none">
-              <span>ARCHIVO DE NARRATIVAS</span>
-              <span>№ 02 // F.ADRIÁ</span>
             </div>
           </TiltContainer>
         </div>
       </div>
 
       {/* BLOCK 2: INTERACTIVE CLOCK PLATE (EL PLATO DE LAS ESPECIAS) */}
-      <div className="w-full py-24 bg-white/30 border-y border-[var(--color-brand-marron-claro)]/20 relative z-10 overflow-hidden">
+      <div className="w-full py-12 bg-white/30 border-y border-[var(--color-brand-marron-claro)]/20 relative z-10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 lg:gap-16 items-center">
-          
+
           {/* Left Column: Saffron Clock Visualizer */}
           <div className="col-span-12 lg:col-span-6 flex flex-col items-center justify-center relative min-h-[420px]">
-            <span className="absolute -top-12 text-[10px] font-mono tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase select-none">
-              [ DIAL DE RELOJ INTERACTIVO ]
-            </span>
-            
+
             {/* The Plate Circle */}
             <div className="relative w-[min(85vw,340px)] h-[min(85vw,340px)] md:w-[380px] md:h-[380px] rounded-full border border-[var(--color-brand-marron-claro)]/30 flex items-center justify-center bg-white/40 shadow-[inset_0_4px_30px_rgba(146,94,61,0.03),_0_20px_50px_rgba(146,94,61,0.05)]">
-              
+
               {/* Outer clock numbers */}
               <div className="absolute inset-4 rounded-full border border-dashed border-[var(--color-brand-marron-claro)]/15 pointer-events-none" />
-              
+
               {/* Clock Nodes (Hours) */}
               {clockNodes.map((node) => {
                 const isSelected = activeHour === node.hour;
@@ -212,11 +191,10 @@ export default function FerranAdriaExperience() {
                     whileHover={{ scale: 1.15 }}
                     whileTap={{ scale: 0.95 }}
                     style={{ x, y }}
-                    className={`absolute w-10 h-10 rounded-full flex items-center justify-center text-xs font-mono border transition-all duration-300 cursor-pointer ${
-                      isSelected
-                        ? "bg-[var(--color-brand-bordo)] border-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] font-bold shadow-lg"
-                        : "bg-[var(--color-brand-crema)]/80 border-[var(--color-brand-marron-claro)]/30 text-[var(--color-brand-marron-oscuro)]/70 hover:border-[var(--color-brand-bordo)]/50"
-                    }`}
+                    className={`absolute w-10 h-10 rounded-full flex items-center justify-center text-xs font-mono border transition-all duration-300 cursor-pointer ${isSelected
+                      ? "bg-[var(--color-brand-bordo)] border-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] font-bold shadow-lg"
+                      : "bg-[var(--color-brand-crema)]/80 border-[var(--color-brand-marron-claro)]/30 text-[var(--color-brand-marron-oscuro)]/70 hover:border-[var(--color-brand-bordo)]/50"
+                      }`}
                   >
                     {node.hour === 12 || node.hour === 10 ? `${node.hour}` : `0${node.hour}`}
                   </motion.button>
@@ -252,7 +230,7 @@ export default function FerranAdriaExperience() {
             <span className="text-xs font-mono tracking-[0.25em] text-[var(--color-brand-marron-claro)] uppercase mb-3 block">
               Tiempo y Gastronomía
             </span>
-            
+
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeHour}
@@ -277,7 +255,7 @@ export default function FerranAdriaExperience() {
                 </div>
 
                 <div className="w-12 h-[1px] bg-[var(--color-brand-marron-claro)]/30 my-4" />
-                
+
                 <h4 className="text-sm font-mono tracking-wider font-semibold uppercase text-[var(--color-brand-marron-oscuro)]/70 mb-3">
                   {currentClockData.concept}
                 </h4>
@@ -292,9 +270,9 @@ export default function FerranAdriaExperience() {
       </div>
 
       {/* BLOCK 3: ¿INNOVADOR O REFORMULADOR? (THE QUOTE & LAB DESCRIPTION) */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-32 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 relative z-10">
         <div className="grid grid-cols-12 gap-8 lg:gap-16 items-center">
-          
+
           {/* Left Column: Big Typographic Quote */}
           <div className="col-span-12 lg:col-span-6 flex justify-center text-center lg:text-left">
             <div className="relative max-w-lg select-none">
@@ -334,9 +312,9 @@ export default function FerranAdriaExperience() {
       </div>
 
       {/* BLOCK 4: THE 7 ENUNCIADOS (INTERACTIVE GRID) */}
-      <div className="w-full py-24 bg-white/30 border-y border-[var(--color-brand-marron-claro)]/20 relative z-10">
+      <div className="w-full py-12 bg-white/30 border-y border-[var(--color-brand-marron-claro)]/20 relative z-10">
         <div className="max-w-7xl mx-auto px-6 md:px-12 select-none">
-          <div className="flex flex-col items-center text-center mb-16">
+          <div className="flex flex-col items-center text-center mb-8">
             <span className="text-xs font-mono tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase mb-2">
               Principios de la Deconstrucción
             </span>
@@ -357,84 +335,50 @@ export default function FerranAdriaExperience() {
                   key={item.id}
                   onMouseEnter={() => setActiveEnunciado(item.id)}
                   onMouseLeave={() => setActiveEnunciado(null)}
-                  className={`p-6 rounded-sm border transition-all duration-500 flex flex-col justify-between h-[180px] shadow-sm relative overflow-hidden cursor-default ${
-                    isActive
-                      ? "bg-[var(--color-brand-bordo)] border-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] -translate-y-1 shadow-md"
-                      : "bg-white/50 border-[var(--color-brand-marron-claro)]/20 text-[var(--color-brand-marron-oscuro)] hover:border-[var(--color-brand-bordo)]/30 hover:shadow-md"
-                  }`}
+                  className={`p-6 rounded-sm border transition-all duration-500 flex flex-col justify-between h-[180px] shadow-sm relative overflow-hidden cursor-default ${isActive
+                    ? "bg-[var(--color-brand-bordo)] border-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] -translate-y-1 shadow-md"
+                    : "bg-white/50 border-[var(--color-brand-marron-claro)]/20 text-[var(--color-brand-marron-oscuro)] hover:border-[var(--color-brand-bordo)]/30 hover:shadow-md"
+                    }`}
                 >
                   <div>
-                    <span className={`text-[10px] font-mono tracking-widest font-semibold block mb-3 uppercase ${
-                      isActive ? "text-[var(--color-brand-crema)]/60" : "text-[var(--color-brand-marron-claro)]"
-                    }`}>
-                      № 0{item.id}
-                    </span>
-                    <h4 className="text-lg font-brand uppercase tracking-wide leading-tight mb-2">
+                    <h4 className="text-lg font-brand uppercase tracking-wide leading-tight mb-2 pt-4">
                       {item.name}
                     </h4>
                   </div>
-                  
-                  <p className={`text-xs leading-relaxed transition-opacity duration-300 ${
-                    isActive ? "text-[var(--color-brand-crema)]/90 opacity-100" : "text-[var(--color-brand-marron-oscuro)]/60 opacity-0 group-hover:opacity-100"
-                  }`}>
+
+                  <p className={`text-xs leading-relaxed transition-opacity duration-300 ${isActive ? "text-[var(--color-brand-crema)]/90 opacity-100" : "text-[var(--color-brand-marron-oscuro)]/60 opacity-0 group-hover:opacity-100"
+                    }`}>
                     {item.desc}
                   </p>
-
-                  {/* Aesthetic corner bracket indicator */}
-                  <span className={`absolute bottom-3 right-3 text-[10px] font-light transition-opacity duration-300 ${
-                    isActive ? "opacity-30" : "opacity-0"
-                  }`}>
-                    +
-                  </span>
                 </div>
               );
             })}
 
-            {/* Final interactive generic card referencing the clock */}
-            <div
-              onClick={() => setActiveHour(2)}
-              className="p-6 rounded-sm border border-dashed border-[var(--color-brand-marron-claro)]/30 bg-transparent text-[var(--color-brand-marron-oscuro)] flex flex-col justify-between h-[180px] hover:border-[var(--color-brand-bordo)]/50 transition-colors duration-300 cursor-pointer group"
-            >
-              <div>
-                <span className="text-[10px] font-mono tracking-widest text-[var(--color-brand-marron-claro)] block mb-3 uppercase">
-                  CONCEPTO RECEPTOR
-                </span>
-                <h4 className="text-lg font-brand uppercase tracking-wide leading-tight group-hover:text-[var(--color-brand-bordo)] transition-colors">
-                  El Tiempo
-                </h4>
-              </div>
-              <p className="text-xs leading-relaxed text-[var(--color-brand-marron-oscuro)]/60">
-                La variable transversal que rige la transformación material y ordena la velocidad de degustación.
-              </p>
-              <div className="flex items-center gap-1.5 text-[10px] font-mono text-[var(--color-brand-bordo)] font-semibold">
-                <span>Ver plato del tiempo</span>
-                <ArrowUpRight size={12} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
 
       {/* BLOCK 5: MUTA LABORATORY (EXPERIMENTAL TUBE FLOW VISUAL) */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-32 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 relative z-10">
         <div className="flex flex-col lg:flex-row gap-16 items-stretch select-none">
-          
+
           {/* MUTA 00:00:01 Card */}
           <div className="flex-1 p-8 rounded-sm bg-white/40 border border-[var(--color-brand-marron-claro)]/25 flex flex-col justify-between shadow-sm relative overflow-hidden">
             <div>
               <div className="flex justify-between items-center mb-6">
                 <span className="text-[10px] font-mono tracking-[0.25em] text-[var(--color-brand-marron-claro)] font-bold uppercase">
-                  MUTA [00:00:01]
+                  MUTA 01
                 </span>
                 <span className="px-2 py-0.5 text-[8px] font-mono tracking-widest text-amber-900 bg-amber-500/10 rounded-sm">
                   ALQUIMIA LIQUIDA
                 </span>
               </div>
-              
+
               <h3 className="text-2xl font-brand uppercase text-[var(--color-brand-marron-oscuro)] mb-4">
                 La Botella Experimental
               </h3>
-              
+
               <p className="text-sm leading-relaxed text-[var(--color-brand-marron-oscuro)]/80 text-left mb-8">
                 Muta [00:00:01] es una botella experimental reformuladora que fusiona gastronomía, alquimia y ciencia. Compuesta por cápsulas transparentes interconectadas por finos tubos, permite presenciar en un recorrido ascendente el destilado temporal y la mutación cromática de las sustancias. El recipiente se convierte en una narrativa del tiempo.
               </p>
@@ -447,7 +391,7 @@ export default function FerranAdriaExperience() {
                 <circle cx="100" cy="50" r="16" fill="none" stroke="#925e3d" strokeWidth="1.5" strokeDasharray="3 3" />
                 <circle cx="200" cy="50" r="16" fill="none" stroke="#925e3d" strokeWidth="1.5" strokeDasharray="3 3" />
                 <circle cx="300" cy="50" r="16" fill="none" stroke="#925e3d" strokeWidth="1.5" strokeDasharray="3 3" />
-                
+
                 {/* Connector tubes */}
                 <path d="M 116 50 L 184 50" fill="none" stroke="#be9e89" strokeWidth="1.5" />
                 <path d="M 216 50 L 284 50" fill="none" stroke="#be9e89" strokeWidth="1.5" />
@@ -469,7 +413,7 @@ export default function FerranAdriaExperience() {
                     ease: "easeInOut"
                   }}
                 />
-                
+
                 <motion.circle
                   cx="0"
                   cy="50"
@@ -499,17 +443,17 @@ export default function FerranAdriaExperience() {
             <div>
               <div className="flex justify-between items-center mb-6">
                 <span className="text-[10px] font-mono tracking-[0.25em] text-[var(--color-brand-marron-claro)] font-bold uppercase">
-                  MUTA [00:00:02]
+                  MUTA 02
                 </span>
                 <span className="px-2 py-0.5 text-[8px] font-mono tracking-widest text-red-900 bg-red-500/10 rounded-sm">
                   REFORMULACIÓN SOLIDA
                 </span>
               </div>
-              
+
               <h3 className="text-2xl font-brand uppercase text-[var(--color-brand-marron-oscuro)] mb-4">
                 Las Golosinas Comestibles
               </h3>
-              
+
               <p className="text-sm leading-relaxed text-[var(--color-brand-marron-oscuro)]/80 text-left mb-8">
                 Golosinas que no se compran confeccionadas, sino que se presencian nacer. En una cápsula generadora, una red de tubos traslúcidos permite al comensal observar cómo los ingredientes viajan y reaccionan progresivamente. El contenido muta en textura, sabor y temperatura a través de la espera.
               </p>
@@ -553,13 +497,13 @@ export default function FerranAdriaExperience() {
       </div>
 
       {/* BLOCK 6: CONCLUDING QUOTE & CTA READ FULL REPORT */}
-      <div className="max-w-4xl mx-auto px-6 py-20 text-center relative z-10 flex flex-col items-center gap-12">
+      <div className="max-w-4xl mx-auto px-6 py-8 text-center relative z-10 flex flex-col items-center gap-12">
         <div className="w-16 h-[1px] bg-[var(--color-brand-marron-claro)]/40" />
-        
+
         <blockquote className="text-2xl sm:text-4xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed select-none">
           “Hay cosas que no se pueden hacer deprisa. El sabor necesita pausa.”
         </blockquote>
-        
+
         <cite className="text-xs font-mono tracking-[0.25em] uppercase text-[var(--color-brand-bordo)] block not-italic -mt-4 font-bold select-none">
           — FERRÁN ADRIÁ
         </cite>
@@ -571,7 +515,7 @@ export default function FerranAdriaExperience() {
           rel="noopener noreferrer"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
-          className="mt-8 px-10 py-5 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] text-xs font-mono tracking-[0.3em] uppercase rounded-sm shadow-[0_15px_40px_rgba(132,6,36,0.25)] hover:shadow-[0_20px_50px_rgba(132,6,36,0.35)] transition-all duration-300 flex items-center gap-4 cursor-pointer border border-white/10"
+          className="mt-4 px-10 py-5 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] text-xs font-mono tracking-[0.3em] uppercase rounded-sm shadow-[0_15px_40px_rgba(132,6,36,0.25)] hover:shadow-[0_20px_50px_rgba(132,6,36,0.35)] transition-all duration-300 flex items-center gap-4 cursor-pointer border border-white/10"
         >
           <BookOpen size={16} />
           <span>Leer reporte completo</span>

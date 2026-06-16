@@ -257,20 +257,13 @@ export default function ElPlumeroExperience() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
-      className="w-full min-h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] overflow-y-auto overflow-x-hidden selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] pb-32 pt-24 pointer-events-auto"
+      className="w-full min-h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] overflow-y-auto overflow-x-hidden selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] pb-16 pt-16 pointer-events-auto"
     >
       {/* Noise overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
 
-      {/* Navigation and sub-badge */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12 flex justify-between items-center relative z-10 select-none">
-        <span className="text-[10px] font-mono tracking-[0.3em] uppercase opacity-55">
-          VISTA PREVIA DEL REPORTE // 03
-        </span>
-      </div>
-
       {/* BLOCK 1: EDITORIAL HERO */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 lg:gap-16 items-center mb-32 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 lg:gap-16 items-center mb-16 relative z-10">
         
         {/* Left Column: Title */}
         <div className="col-span-12 lg:col-span-6 flex flex-col justify-center select-none">
@@ -301,34 +294,19 @@ export default function ElPlumeroExperience() {
               />
               <div className="absolute inset-0 bg-neutral-900/5 mix-blend-overlay group-hover:opacity-0 transition-opacity duration-700" />
               
-              {/* Overlay record sleeve ring aesthetic */}
               <div className="absolute inset-4 rounded-full border border-white/5 pointer-events-none" />
               <div className="absolute inset-[30%] rounded-full border border-white/5 pointer-events-none" />
-              
-              {/* Focus crop marks */}
-              <span className="absolute top-4 left-4 text-xs font-light text-white/45 select-none pointer-events-none">+</span>
-              <span className="absolute top-4 right-4 text-xs font-light text-white/45 select-none pointer-events-none">+</span>
-              <span className="absolute bottom-4 left-4 text-xs font-light text-white/45 select-none pointer-events-none">+</span>
-              <span className="absolute bottom-4 right-4 text-xs font-light text-white/45 select-none pointer-events-none">+</span>
-            </div>
-            <div className="mt-4 flex justify-between items-center text-[10px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/60 uppercase px-1 select-none">
-              <span>ARCHIVO DE DISCOMANÍA</span>
-              <span>№ 43 // EL PLUMERO</span>
             </div>
           </TiltContainer>
         </div>
       </div>
 
       {/* BLOCK 2: INTERACTIVE TURNTABLE VISUALIZER */}
-      <div className="w-full py-24 bg-white/30 border-y border-[var(--color-brand-marron-claro)]/20 relative z-10 overflow-hidden">
+      <div className="w-full py-16 bg-white/30 border-y border-[var(--color-brand-marron-claro)]/20 relative z-10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 lg:gap-16 items-center">
           
           {/* Left Column: Turntable Deck */}
           <div className="col-span-12 lg:col-span-6 flex flex-col items-center justify-center min-h-[460px]">
-            <span className="text-[10px] font-mono tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase mb-6 select-none flex items-center gap-2">
-              <Volume2 size={12} className="animate-pulse" />
-              [ BANDEJA DE TOCADISCOS INTERACTIVA ]
-            </span>
             
             {/* The Turntable Player Base Box */}
             <div className="relative w-[min(85vw,340px)] h-[min(85vw,340px)] md:w-[380px] md:h-[380px] bg-white/50 border border-[var(--color-brand-marron-claro)]/25 rounded-md shadow-2xl p-6 flex items-center justify-center">
@@ -454,7 +432,7 @@ export default function ElPlumeroExperience() {
       </div>
 
       {/* BLOCK 3: DISQUERÍA NARRATIVE & COLLECTING */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-32 relative z-10 select-none">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 relative z-10 select-none">
         <div className="grid grid-cols-12 gap-8 lg:gap-16 items-center">
           
           {/* Left Column: Quotes and Rituality */}
@@ -482,14 +460,15 @@ export default function ElPlumeroExperience() {
           {/* Right Column: Custom vinyl disc graphic display */}
           <div className="col-span-12 lg:col-span-6 flex justify-center">
             <div className="relative w-full max-w-[360px] aspect-square flex items-center justify-center">
-              {/* Sleeve jacket frame background */}
+              {/* Sleeve jacket frame background with the requested cover image */}
               <div className="absolute inset-0 bg-neutral-800 rounded-sm shadow-xl border border-neutral-700 overflow-hidden">
-                {/* Abstract texture representation representing record crates */}
-                <div className="absolute inset-0 opacity-20 bg-gradient-to-tr from-black via-transparent to-neutral-900" />
-                <div className="absolute bottom-6 left-6 text-left">
-                  <span className="text-[8px] font-mono tracking-[0.2em] text-white/50 block">CURADURÍA DE MUSICOMIO</span>
-                  <span className="text-lg font-brand font-bold text-white uppercase tracking-wider">EL PLUMERO</span>
-                </div>
+                <img
+                  src="/narrativa/el fetiche de la disqueria.png"
+                  alt="El fetiche de la disquería"
+                  className="w-full h-full object-cover select-none pointer-events-none"
+                  draggable="false"
+                />
+                <div className="absolute inset-0 bg-black/10" />
               </div>
 
               {/* Record disc sliding out of sleeve */}
@@ -515,10 +494,10 @@ export default function ElPlumeroExperience() {
       </div>
 
       {/* BLOCK 4: CURADURÍA DE VINILOS (INTERACTIVE VINYL ALBUM FLIPS) */}
-      <div className="w-full py-24 bg-white/30 border-y border-[var(--color-brand-marron-claro)]/20 relative z-10 select-none">
+      <div className="w-full py-16 bg-white/30 border-y border-[var(--color-brand-marron-claro)]/20 relative z-10 select-none">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           
-          <div className="flex flex-col items-center text-center mb-16">
+          <div className="flex flex-col items-center text-center mb-8">
             <span className="text-xs font-mono tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase mb-2">
               Selección de Musicomio
             </span>
@@ -572,10 +551,7 @@ export default function ElPlumeroExperience() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20 z-1" />
                       
                       {/* Content Overlay */}
-                      <div className="absolute inset-0 flex flex-col justify-between p-5 z-2">
-                        <span className="text-[8px] font-mono tracking-widest text-white/70 uppercase">
-                          № 0{album.id + 1} // CURADO
-                        </span>
+                      <div className="absolute inset-0 flex flex-col justify-end p-5 z-2">
                         
                         <div>
                           <h4 className="text-base font-brand font-bold text-[var(--color-brand-crema)] uppercase leading-tight tracking-wider mb-1 drop-shadow-sm">
@@ -612,7 +588,7 @@ export default function ElPlumeroExperience() {
       </div>
 
       {/* BLOCK 5: OUTRO QUOTE & BUTTON CTA */}
-      <div className="max-w-4xl mx-auto px-6 py-24 text-center relative z-10 flex flex-col items-center gap-12 select-none">
+      <div className="max-w-4xl mx-auto px-6 py-12 text-center relative z-10 flex flex-col items-center gap-12 select-none">
         <div className="w-16 h-[1px] bg-[var(--color-brand-marron-claro)]/40" />
         
         <blockquote className="text-2xl sm:text-4xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed">
@@ -630,7 +606,7 @@ export default function ElPlumeroExperience() {
           rel="noopener noreferrer"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
-          className="mt-8 px-10 py-5 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] text-xs font-mono tracking-[0.3em] uppercase rounded-sm shadow-[0_15px_40px_rgba(132,6,36,0.25)] hover:shadow-[0_20px_50px_rgba(132,6,36,0.35)] transition-all duration-300 flex items-center gap-4 cursor-pointer border border-white/10"
+          className="mt-4 px-10 py-5 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] text-xs font-mono tracking-[0.3em] uppercase rounded-sm shadow-[0_15px_40px_rgba(132,6,36,0.25)] hover:shadow-[0_20px_50px_rgba(132,6,36,0.35)] transition-all duration-300 flex items-center gap-4 cursor-pointer border border-white/10"
         >
           <BookOpen size={16} />
           <span>Leer reporte completo</span>

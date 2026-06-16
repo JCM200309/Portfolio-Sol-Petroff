@@ -126,7 +126,7 @@ function PaletteRow({ title, trendType, colors }: PaletteRowProps) {
         ))}
       </div>
       <p className="text-[8px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/40 mt-4 text-center uppercase">
-        [ Pasa el cursor sobre los colores para revelar el código ]
+        Pasa el cursor sobre los colores para revelar el código
       </p>
     </div>
   );
@@ -227,11 +227,10 @@ function PhotoCarousel({ images, title, trendType, onImageClick }: PhotoCarousel
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`transition-all duration-300 rounded-full cursor-pointer ${
-              i === current
-                ? 'bg-[var(--color-brand-bordo)] w-4 h-1.5'
-                : 'bg-[var(--color-brand-marron-claro)]/40 w-1.5 h-1.5 hover:bg-[var(--color-brand-marron-claro)]'
-            }`}
+            className={`transition-all duration-300 rounded-full cursor-pointer ${i === current
+              ? 'bg-[var(--color-brand-bordo)] w-4 h-1.5'
+              : 'bg-[var(--color-brand-marron-claro)]/40 w-1.5 h-1.5 hover:bg-[var(--color-brand-marron-claro)]'
+              }`}
             aria-label={`Ir a imagen ${i + 1}`}
           />
         ))}
@@ -284,10 +283,8 @@ export default function PreAdolescentesExperience() {
         { name: "Blanco Nube", hex: "#faf8f5", pantoneCode: "P 0000", description: "Base limpia" },
       ],
       gallery: [
-        "/narrativa/preAdolescentes/Compas Estetico/compas1.jpg",
         "/narrativa/preAdolescentes/Compas Estetico/compas2.webp",
         "/narrativa/preAdolescentes/Compas Estetico/compas3.jpg",
-        "/narrativa/preAdolescentes/Compas Estetico/compas4.jpg",
         "/narrativa/preAdolescentes/Compas Estetico/compas5.webp",
       ],
     },
@@ -352,7 +349,7 @@ export default function PreAdolescentesExperience() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
-      className="w-full min-h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] overflow-y-auto overflow-x-clip selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] pb-32 pointer-events-auto"
+      className="w-full min-h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] overflow-y-auto overflow-x-clip selection:bg-[var(--color-brand-bordo)] selection:text-[var(--color-brand-crema)] pb-16 pointer-events-auto"
     >
       {/* Scroll Progress Bar */}
       <motion.div
@@ -374,14 +371,9 @@ export default function PreAdolescentesExperience() {
         />
       </div>
 
-      {/* Navigation Header */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-24 mb-12 flex justify-between items-center relative z-10 select-none">
-        <span className="text-[10px] font-mono tracking-[0.3em] uppercase opacity-55">REPORTE INTERACTIVO // № 01</span>
-      </div>
-
       {/* ── HERO: MACROTREND ───────────────────────────────────────────────────── */}
       <motion.div
-        className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 lg:gap-16 items-center mb-40 relative z-10 min-h-[70vh]"
+        className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 lg:gap-16 items-center mb-12 relative z-10 min-h-[70vh] pt-16 md:pt-20"
       >
         <div className="col-span-12 lg:col-span-6 flex flex-col justify-center select-none text-left">
           <span className="text-xs font-mono tracking-[0.35em] text-[var(--color-brand-bordo)] uppercase font-semibold mb-4">
@@ -409,16 +401,12 @@ export default function PreAdolescentesExperience() {
               />
               <div className="absolute inset-0 bg-[var(--color-brand-bordo)]/5 mix-blend-overlay group-hover:opacity-0 transition-opacity duration-700" />
             </div>
-            <div className="mt-4 flex justify-between items-center text-[10px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/60 uppercase px-1 select-none">
-              <span>ARCHIVO GENERAL</span>
-              <span>№ 01 // AURA DINÁMICA</span>
-            </div>
           </TiltContainer>
         </div>
       </motion.div>
 
       {/* ── MICROTREND SECTIONS ────────────────────────────────────────────────── */}
-      <div className="w-full relative z-10 space-y-40">
+      <div className="w-full relative z-10 space-y-12">
         {sections.map((section, sIdx) => {
           const isAlternate = sIdx % 2 !== 0;
 
@@ -426,34 +414,29 @@ export default function PreAdolescentesExperience() {
             <motion.section
               key={section.id}
               id={section.id}
-              className="w-full border-t border-[var(--color-brand-marron-claro)]/15 pt-24"
+              className="w-full border-t border-[var(--color-brand-marron-claro)]/15 pt-8"
             >
               <div className="max-w-7xl mx-auto px-6 md:px-12">
 
                 {/* Section Header (full width) */}
-                <div className="mb-16 text-left">
-                  <div className="flex items-baseline gap-6 flex-wrap">
-                    <span className="text-[10px] font-mono tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase">
-                      0{sIdx + 1} // {section.subtitle}
-                    </span>
-                    <span className={`px-2 py-0.5 text-[9px] font-mono tracking-widest font-bold border rounded-sm ${section.badgeStyle}`}>
-                      {section.badge}
-                    </span>
-                  </div>
-                  <h2 className="text-5xl md:text-6xl font-brand uppercase text-[var(--color-brand-marron-oscuro)] tracking-tight leading-none mt-3">
+                <div className="mb-4 text-left">
+                  <span className={`px-2 py-0.5 text-[9px] font-mono tracking-widest font-bold border rounded-sm ${section.badgeStyle}`}>
+                    {section.badge.replace("MICROTENDENCIA // ", "")}
+                  </span>
+                  <h2 className="text-4xl md:text-5xl font-brand uppercase text-[var(--color-brand-marron-oscuro)] tracking-tight leading-none mt-3">
                     {section.title}
                   </h2>
                 </div>
 
                 {/* Content Row — alternating text / carousel */}
-                <div className={`grid grid-cols-12 gap-8 lg:gap-16 items-start mb-20`}>
+                <div className={`grid grid-cols-12 gap-8 lg:gap-16 items-start mb-6`}>
 
                   {/* Text Block */}
                   <div className={`col-span-12 lg:col-span-5 text-left ${isAlternate ? 'lg:order-2' : 'lg:order-1'}`}>
-                    <p className="text-sm md:text-base leading-relaxed text-[var(--color-brand-marron-oscuro)]/90 mb-8">
+                    <p className="text-sm md:text-base leading-relaxed text-[var(--color-brand-marron-oscuro)]/90 mb-4">
                       {section.description}
                     </p>
-                    <div className="space-y-3 border-l-2 border-[var(--color-brand-bordo)]/35 pl-4 py-2 mb-6 bg-white/20 rounded-r-xs">
+                    <div className="space-y-3 border-l-2 border-[var(--color-brand-bordo)]/35 pl-4 py-2 mb-4 bg-white/20 rounded-r-xs">
                       <div className="text-[9px] font-mono text-[var(--color-brand-marron-oscuro)]/50 uppercase tracking-widest">Partido Conceptual</div>
                       <div className="text-xs"><strong>Tema:</strong> {section.theme}</div>
                       <div className="text-xs"><strong>Premisa:</strong> {section.premise}</div>
@@ -497,7 +480,7 @@ export default function PreAdolescentesExperience() {
       </div>
 
       {/* ── CLOSING CTA ────────────────────────────────────────────────────────── */}
-      <div className="max-w-4xl mx-auto px-6 pt-40 pb-20 text-center relative z-10 flex flex-col items-center gap-10 select-none">
+      <div className="max-w-4xl mx-auto px-6 pt-12 pb-6 text-center relative z-10 flex flex-col items-center gap-6 select-none">
         <div className="w-16 h-[1px] bg-[var(--color-brand-marron-claro)]/40" />
         <blockquote className="text-2xl sm:text-4xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed max-w-2xl">
           "La estética y el bienestar ya no son elementos aislados; son el lenguaje con el que la juventud dibuja su autenticidad."
@@ -512,13 +495,6 @@ export default function PreAdolescentesExperience() {
             className="px-8 py-5 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] text-xs font-mono tracking-[0.3em] uppercase rounded-sm shadow-[0_15px_40px_rgba(132,6,36,0.25)] hover:shadow-[0_20px_50px_rgba(132,6,36,0.35)] transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer border border-white/10"
           >
             <BookOpen size={16} /><span>Ver Reporte Completo</span><ArrowUpRight size={16} />
-          </motion.a>
-          <motion.a
-            href="/narrativa/preAdolescentes/resumen.pdf" target="_blank" rel="noopener noreferrer"
-            whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-            className="px-8 py-5 bg-white/60 backdrop-blur-sm text-[var(--color-brand-marron-oscuro)] text-xs font-mono tracking-[0.3em] uppercase rounded-sm border border-[var(--color-brand-marron-claro)]/30 hover:bg-white/80 transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer"
-          >
-            <BookOpen size={16} /><span>Ver Resumen Ejecutivo</span><ArrowUpRight size={16} />
           </motion.a>
         </div>
       </div>

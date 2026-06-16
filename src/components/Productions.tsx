@@ -2,10 +2,10 @@ import { useState, useRef, lazy, Suspense, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 
-const MemoriaVividoExperience = lazy(() => import('./MemoriaVividoExperience'))
-const NoFuturoExperience = lazy(() => import('./NoFuturoExperience'))
-const NeoTrattoriaExperience = lazy(() => import('./NeoTrattoriaExperience'))
-const Anos20Experience = lazy(() => import('./Anos20Experience'))
+const MemoriaVividoExperience = lazy(() => import('./producciones/MemoriaVividoExperience'))
+const NoFuturoExperience = lazy(() => import('./producciones/NoFuturoExperience'))
+const NeoTrattoriaExperience = lazy(() => import('./producciones/NeoTrattoriaExperience'))
+const Anos20Experience = lazy(() => import('./producciones/Anos20Experience'))
 
 
 

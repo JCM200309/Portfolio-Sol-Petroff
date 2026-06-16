@@ -6,14 +6,15 @@ interface EspejismoDeLujoProps {
   onSelectPhoto: (src: string) => void;
 }
 
-// --- HELPER CLASS: Web Audio API Golden Glissando & Ambient Synth ---
+// --- HELPER CLASS: Web Audio API Golden Glissando & MP3 Player ---
 class EspejismoAudioSynth {
   private ctx: AudioContext | null = null;
   private masterGain: GainNode | null = null;
-  private lfo: OscillatorNode | null = null;
   private filter: BiquadFilterNode | null = null;
-  private oscillators: OscillatorNode[] = [];
   private isPlaying = false;
+  private activeTrack: 'exito' | 'belleza' | 'estatus' | null = null;
+  private audio: HTMLAudioElement | null = null;
+  private currentVolume = 0.5;
 
   init() {
     if (this.ctx) return;
@@ -21,7 +22,7 @@ class EspejismoAudioSynth {
     if (AudioContextClass) {
       this.ctx = new AudioContextClass();
       this.masterGain = this.ctx.createGain();
-      this.masterGain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+      this.masterGain.gain.setValueAtTime(this.currentVolume * 0.08, this.ctx.currentTime);
 
       this.filter = this.ctx.createBiquadFilter();
       this.filter.type = 'lowpass';
@@ -41,16 +42,16 @@ class EspejismoAudioSynth {
     }
 
     const now = this.ctx.currentTime;
-    
+
     // Golden harp/sparkle: Arpeggio of notes sliding up
     const frequencies = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
-    
+
     frequencies.forEach((freq, idx) => {
       const triggerTime = now + idx * 0.08;
-      
+
       const osc = this.ctx!.createOscillator();
       const oscGain = this.ctx!.createGain();
-      
+
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(freq, triggerTime);
       osc.frequency.exponentialRampToValueAtTime(freq * 1.5, triggerTime + 0.35);
@@ -61,82 +62,58 @@ class EspejismoAudioSynth {
 
       osc.connect(oscGain);
       oscGain.connect(this.filter!);
-      
+
       osc.start(triggerTime);
       osc.stop(triggerTime + 0.45);
     });
   }
 
-  startAmbientPad() {
-    this.init();
-    if (!this.ctx || this.isPlaying) return;
-    if (this.ctx.state === 'suspended') {
-      this.ctx.resume();
+  startAmbientPad(track: 'exito' | 'belleza' | 'estatus') {
+    if (this.isPlaying && this.activeTrack !== track) {
+      this.stopAmbientPad();
     }
 
     this.isPlaying = true;
-    const now = this.ctx.currentTime;
+    this.activeTrack = track;
 
-    // Create a luxurious warm chord (C major 9th / golden feel)
-    const notes = [130.81, 196.00, 261.63, 329.63, 440.00]; // C2, G3, C4, E4, A4
-    this.oscillators = notes.map((freq, i) => {
-      const osc = this.ctx!.createOscillator();
-      const gain = this.ctx!.createGain();
+    if (!this.audio) {
+      this.audio = new Audio();
+      this.audio.loop = true;
+    }
 
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, now);
-      
-      // Gentle pitch drift
-      osc.frequency.linearRampToValueAtTime(freq + (Math.random() - 0.5) * 2, now + 1);
+    const srcMap = {
+      exito: "/proyectosAudiovisuales/EspejismoDelLujo/You're The One That I Want (From Grease).mp3",
+      belleza: "/proyectosAudiovisuales/EspejismoDelLujo/Vogue.mp3",
+      estatus: "/proyectosAudiovisuales/EspejismoDelLujo/Murder On The Dancefloor.mp3"
+    };
 
-      gain.gain.setValueAtTime(0, now);
-      gain.gain.linearRampToValueAtTime(0.04 - i * 0.005, now + 1.5);
+    const targetSrc = srcMap[track];
+    if (this.audio.src !== window.location.origin + targetSrc && !this.audio.src.endsWith(targetSrc)) {
+      this.audio.src = targetSrc;
+    }
 
-      osc.connect(gain);
-      gain.connect(this.filter!);
-      osc.start(now);
+    this.audio.volume = this.currentVolume;
 
-      return osc;
+    this.audio.play().catch(err => {
+      console.warn("Audio play prevented:", err);
     });
-
-    // LFO to sweep the lowpass filter frequency (breathing effect)
-    this.lfo = this.ctx.createOscillator();
-    const lfoGain = this.ctx.createGain();
-    
-    this.lfo.type = 'sine';
-    this.lfo.frequency.setValueAtTime(0.18, now); // Very slow breathing
-    lfoGain.gain.setValueAtTime(400, now); // Sweep filter up/down by 400Hz
-
-    this.lfo.connect(lfoGain);
-    lfoGain.connect(this.filter!.frequency);
-    this.lfo.start(now);
   }
 
   stopAmbientPad() {
-    if (!this.isPlaying) return;
-    const now = this.ctx ? this.ctx.currentTime : 0;
-
-    this.oscillators.forEach(osc => {
-      try {
-        osc.stop(now + 0.5);
-      } catch (e) {}
-    });
-    this.oscillators = [];
-
-    if (this.lfo) {
-      try {
-        this.lfo.stop(now + 0.5);
-      } catch (e) {}
-      this.lfo = null;
-    }
-
     this.isPlaying = false;
+    this.activeTrack = null;
+    if (this.audio) {
+      this.audio.pause();
+    }
   }
 
   setVolume(vol: number) {
-    this.init();
+    this.currentVolume = vol;
+    if (this.audio) {
+      this.audio.volume = vol;
+    }
     if (this.masterGain && this.ctx) {
-      this.masterGain.gain.setValueAtTime(vol * 0.12, this.ctx.currentTime);
+      this.masterGain.gain.setValueAtTime(vol * 0.08, this.ctx.currentTime);
     }
   }
 }
@@ -292,14 +269,14 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      <div 
+      <div
         className="relative w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none transition-all duration-500 ease-in-out mx-auto"
         style={{
           aspectRatio: isVertical ? '3/4' : '16/10',
-          maxWidth: isVertical ? '450px' : '100%',
+          maxWidth: isVertical ? '500px' : '100%',
         }}
       >
-        
+
         {/* Slides */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -352,11 +329,8 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
 
       {/* Caption & Zoom indicator */}
       <div className="flex justify-between items-center px-1 font-mono text-[9px] text-[var(--color-brand-marron-oscuro)]/70 text-left">
-        <span className="font-sans text-[11px] font-medium italic text-[var(--color-brand-marron-oscuro)]/90 truncate max-w-[75%]">
+        <span className="font-sans text-[11px] font-medium italic text-[var(--color-brand-marron-oscuro)]/90 truncate max-w-full">
           {images[currentIndex].caption}
-        </span>
-        <span className="uppercase tracking-widest font-semibold shrink-0">
-          [ CLIC PARA AMPLIAR ]
         </span>
       </div>
     </div>
@@ -383,7 +357,7 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
       espejismoAudio.stopAmbientPad();
       setActiveAmbient(false);
     } else {
-      espejismoAudio.startAmbientPad();
+      espejismoAudio.startAmbientPad(selectedCan);
       setActiveAmbient(true);
     }
   };
@@ -391,11 +365,14 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
   const selectCanAndSparkle = (can: 'exito' | 'belleza' | 'estatus') => {
     setSelectedCan(can);
     espejismoAudio.playSparkle();
+    if (activeAmbient) {
+      espejismoAudio.startAmbientPad(can);
+    }
   };
 
   return (
     <div className="w-full py-24 bg-black/[0.01] border-t border-[var(--color-brand-marron-claro)]/25 relative pointer-events-auto select-none font-sans text-[var(--color-brand-marron-oscuro)]">
-      
+
       {/* Narrative Intro Header */}
       <div className="mb-20 text-center md:text-left select-none">
         <span className="text-[10px] md:text-[11px] font-mono tracking-[0.35em] text-[var(--color-brand-bordo)] uppercase font-semibold">
@@ -406,11 +383,11 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
         </h3>
         <p className="text-sm font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80 max-w-2xl text-left">
           Tres latas de conserva doradas irrumpen en la monotonía y la carencia de entornos cotidianos. Éxito, Belleza y Estatus se convierten en objetos mágicos y absurdos que deconstruyen la búsqueda del estatus aspiracional.
-        </p> 
+        </p>
       </div>
 
       {/* Narrative category stack */}
-      <div className="space-y-32">
+      <div className="space-y-28">
         {espejismoCategories.map((cat, idx) => {
           const IconComp = cat.icon;
           const isEven = idx % 2 === 0;
@@ -425,9 +402,8 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
               className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start py-4"
             >
               {/* Left Column Narrative text */}
-              <div className={`col-span-12 lg:col-span-4 flex flex-col justify-between ${
-                isEven ? 'lg:order-1' : 'lg:order-2'
-              }`}>
+              <div className={`col-span-12 lg:col-span-4 flex flex-col justify-between ${isEven ? 'lg:order-1' : 'lg:order-2'
+                }`}>
                 <div>
                   <div className="flex items-center gap-3 mb-2">
                     <span className="text-[32px] sm:text-[40px] font-brand font-light text-[var(--color-brand-bordo)]/30 leading-none">
@@ -438,18 +414,18 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
                       {cat.badge.split(' / ')[1]}
                     </span>
                   </div>
-                  
+
                   <h4 className="font-brand text-3xl sm:text-4xl uppercase tracking-wide text-[var(--color-brand-marron-oscuro)] mb-4 flex items-center gap-3 text-left">
                     {cat.title}
                     <IconComp size={22} className="text-[var(--color-brand-bordo)]" />
                   </h4>
-                  
+
                   <span className="text-[10px] font-sans tracking-widest uppercase font-bold text-[var(--color-brand-bordo)] block mb-3 text-left">
-                    [ {cat.tag} ]
+                    {cat.tag}
                   </span>
 
                   <div className="w-12 h-[1.5px] bg-[var(--color-brand-bordo)]/30 my-4" />
-                  
+
                   <p className="text-base md:text-lg leading-relaxed text-[var(--color-brand-marron-oscuro)]/90 mb-6 font-sans text-left">
                     {cat.summary}
                   </p>
@@ -464,16 +440,12 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
                   </ul>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-[var(--color-brand-marron-claro)]/15 flex justify-between items-center text-[10px] font-mono uppercase tracking-widest text-[var(--color-brand-marron-oscuro)]/50">
-                  <span>№03 // ESPEJISMO</span>
-                  <span>{`[ ${cat.images.length} REGISTROS ]`}</span>
-                </div>
+
               </div>
 
               {/* Alternate Column: Image layouts */}
-              <div className={`col-span-12 lg:col-span-8 min-h-[300px] flex flex-col justify-center w-full ${
-                isEven ? 'lg:order-2' : 'lg:order-1'
-              }`}>
+              <div className={`col-span-12 lg:col-span-8 min-h-[300px] flex flex-col justify-center w-full ${isEven ? 'lg:order-2' : 'lg:order-1'
+                }`}>
                 <ImageCarousel images={cat.images} onSelectPhoto={onSelectPhoto} />
               </div>
             </motion.div>
@@ -482,14 +454,14 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
       </div>
 
       {/* INTERACTIVE COMPONENT: LAS TRES LATAS DE CONSERVA */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 55 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="mt-32 w-full border border-[var(--color-brand-marron-claro)]/25 rounded-sm p-6 md:p-10 bg-white/40 backdrop-blur-md shadow-lg"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
-          
+
           {/* Left Block: Can Selector & Guion display */}
           <div className="lg:col-span-7 flex flex-col justify-between text-left">
             <div>
@@ -499,22 +471,21 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
               <h3 className="font-brand text-3xl uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-1 mb-6">
                 El Ritual de las Latas
               </h3>
-              
+
               {/* Can tabs buttons */}
               <div className="flex gap-2.5 mb-8 border-b border-[var(--color-brand-marron-claro)]/20 pb-4">
                 {[
-                  { id: 'exito', label: 'Lata ÉXITO', location: 'Cocina' },
-                  { id: 'belleza', label: 'Lata BELLEZA', location: 'Barrio' },
-                  { id: 'estatus', label: 'Lata ESTATUS', location: 'Patio' }
+                  { id: 'exito', label: 'You´re the one that i want', location: 'Cocina' },
+                  { id: 'belleza', label: 'Vogue', location: 'Barrio' },
+                  { id: 'estatus', label: 'Murder on the dancefloor', location: 'Patio' }
                 ].map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => selectCanAndSparkle(tab.id as any)}
-                    className={`px-4 py-2 text-[10px] font-sans tracking-widest uppercase rounded-xs transition-all cursor-pointer flex flex-col items-start gap-0.5 ${
-                      selectedCan === tab.id 
-                        ? 'bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] shadow-md hover:brightness-110' 
-                        : 'bg-white/50 text-[var(--color-brand-marron-oscuro)] hover:bg-white/80'
-                    }`}
+                    className={`px-4 py-2 text-[10px] font-sans tracking-widest uppercase rounded-xs transition-all cursor-pointer flex flex-col items-start gap-0.5 ${selectedCan === tab.id
+                      ? 'bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] shadow-md hover:brightness-110'
+                      : 'bg-white/50 text-[var(--color-brand-marron-oscuro)] hover:bg-white/80'
+                      }`}
                   >
                     <span className="font-bold flex items-center gap-1">
                       {tab.id === 'exito' && <Sparkle size={10} className="animate-pulse" />}
@@ -547,9 +518,8 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
                       </p>
                       <div className="bg-white/35 border border-[var(--color-brand-marron-claro)]/20 rounded-xs p-3 text-[10px] font-mono space-y-1">
                         <span className="text-[var(--color-brand-bordo)] font-bold block">[ CLIMA SONORO ]</span>
-                        <span className="block">Inicio: "Multi-family Garage Sale" - Yacht</span>
-                        <span className="block">Desarrollo: "You are the one that I want" - Grease</span>
-                        <span className="block font-bold">Desenlace: Fuerte transición a música tensa de cortocircuito emocional al degustar.</span>
+                        <span className="block font-bold">You're The One That I Want (From Grease)</span>
+                        <span className="block text-gray-500">Desenlace: Fuerte transición a música tensa de cortocircuito emocional al degustar.</span>
                       </div>
                     </>
                   )}
@@ -563,9 +533,8 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
                       </p>
                       <div className="bg-white/35 border border-[var(--color-brand-marron-claro)]/20 rounded-xs p-3 text-[10px] font-mono space-y-1">
                         <span className="text-[var(--color-brand-bordo)] font-bold block">[ CLIMA SONORO ]</span>
-                        <span className="block">Inicio: Sonido ambiental de desgano y tensión.</span>
-                        <span className="block">Al abrir lata: "Multi-family Garage Sale" - Yacht</span>
-                        <span className="block font-bold">Strut/Caminata: "Vogue" - Madonna (Seguridad total ante la crítica).</span>
+                        <span className="block font-bold">Vogue - Madonna</span>
+                        <span className="block text-gray-500">Strut/Caminata: Seguridad total ante la crítica.</span>
                       </div>
                     </>
                   )}
@@ -579,9 +548,8 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
                       </p>
                       <div className="bg-white/35 border border-[var(--color-brand-marron-claro)]/20 rounded-xs p-3 text-[10px] font-mono space-y-1">
                         <span className="text-[var(--color-brand-bordo)] font-bold block">[ CLIMA SONORO ]</span>
-                        <span className="block">Inicio: "Murder on the dancefloor" - Sophie Ellis-Bextor</span>
-                        <span className="block">Al regar: Nota de tensión suspensiva &rarr; Retorno a ritmo bailable.</span>
-                        <span className="block font-bold">Techo: Silencio brusco y zumbido denso de incomodidad y confusión final.</span>
+                        <span className="block font-bold">Murder On The Dancefloor - Sophie Ellis-Bextor</span>
+                        <span className="block text-gray-500">Techo: Silencio brusco y zumbido de incomodidad y confusión final.</span>
                       </div>
                     </>
                   )}
@@ -593,45 +561,61 @@ export default function EspejismoDeLujoAudiovisual({ onSelectPhoto }: EspejismoD
           {/* Right Block: Soundtrack Player (Luxury Golden Console) */}
           <div className="lg:col-span-5 border border-[var(--color-brand-marron-claro)]/20 rounded-xs p-5 bg-white/50 backdrop-blur-md flex flex-col justify-between shadow-sm">
             <div className="flex flex-col items-center">
-              
-              {/* Can Graphic box & Preview */}
-              <div className="relative w-36 h-36 flex items-center justify-center mb-6 cursor-pointer" onClick={() => onSelectPhoto(listOfCansInfo[selectedCan].src)}>
+
+              {/* Rotating Golden Vinyl Platter */}
+              <div className="relative w-40 h-40 flex items-center justify-center mb-6 select-none cursor-pointer" onClick={() => onSelectPhoto(listOfCansInfo[selectedCan].src)}>
                 <motion.div
                   key={selectedCan}
                   initial={{ scale: 0.9, rotate: -5 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-                  className="w-24 h-32 bg-gradient-to-b from-amber-100 via-amber-200 to-amber-400 rounded-lg shadow-lg border-2 border-amber-300 relative flex flex-col justify-between p-2 select-none"
+                  className="w-full h-full relative"
                 >
-                  <div className="border border-amber-100/40 rounded-xs flex-1 flex flex-col justify-between p-1 font-mono text-[7px] text-amber-950/80 uppercase font-bold text-center leading-none">
-                    <span>LATA MÁGICA</span>
-                    
-                    <div className="my-auto py-2 flex flex-col items-center gap-1">
-                      <Sparkle size={12} className="text-amber-800 animate-pulse" />
-                      <span className="text-[9px] tracking-widest text-amber-900 border-y border-amber-800/20 py-1 block w-full truncate">
-                        {selectedCan === 'exito' ? 'ÉXITO' : selectedCan === 'belleza' ? 'BELLEZA' : 'ESTATUS'}
-                      </span>
+                  <motion.div
+                    animate={activeAmbient ? { rotate: 360 } : {}}
+                    transition={{ repeat: Infinity, duration: 8, ease: 'linear' }}
+                    className="w-full h-full rounded-full shadow-2xl border-4 border-amber-600/30 flex items-center justify-center"
+                    style={{
+                      background: 'radial-gradient(circle, #fde047 0%, #d97706 60%, #78350f 100%)'
+                    }}
+                  >
+                    {/* Grooves on vinyl */}
+                    <div className="absolute inset-2 rounded-full border border-black/10" />
+                    <div className="absolute inset-4 rounded-full border border-black/10" />
+                    <div className="absolute inset-6 rounded-full border border-black/10" />
+                    <div className="absolute inset-8 rounded-full border border-black/10" />
+                    <div className="absolute inset-10 rounded-full border border-black/10" />
+                    <div className="absolute inset-12 rounded-full border border-black/15" />
+
+                    {/* Center label displaying active can preview */}
+                    <div className="w-[68px] h-[68px] rounded-full overflow-hidden border-2 border-amber-950/40 relative bg-amber-100 shadow-inner">
+                      <img
+                        src={listOfCansInfo[selectedCan].src}
+                        alt={selectedCan}
+                        className="w-full h-full object-cover select-none pointer-events-none"
+                        draggable="false"
+                      />
+                      <div className="absolute inset-0 bg-black/15" />
+                      {/* Spindle hole */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-[var(--color-brand-crema)] rounded-full border border-amber-950/40" />
                     </div>
-
-                    <span>№03 // CONSERVA</span>
-                  </div>
-
-                  {/* Shiny sweep effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+                  </motion.div>
                 </motion.div>
               </div>
 
               <span className="text-[9px] font-mono tracking-widest text-[var(--color-brand-bordo)] font-bold mb-1 uppercase">
-                EMISIÓN DE AMBIENTE LUX
+                CLIMA SONORO & MÚSICA
               </span>
-              <span className="text-[11px] font-sans text-gray-600 block text-center mb-4">
-                Sintetizador analógico de acordes dorados
+              <span className="text-[11px] font-sans text-gray-600 block text-center mb-4 min-h-[32px] px-4 leading-normal flex items-center justify-center">
+                {selectedCan === 'exito' && "You're The One That I Want (From Grease)"}
+                {selectedCan === 'belleza' && "Vogue - Madonna"}
+                {selectedCan === 'estatus' && "Murder On The Dancefloor - Sophie Ellis-Bextor"}
               </span>
             </div>
 
             <div className="w-full flex flex-col gap-4 border-t border-[var(--color-brand-marron-claro)]/15 pt-4">
               <div className="flex justify-between items-center w-full">
-                <span className="text-[10px] font-mono tracking-wider font-bold">ESTADO SINTETIZADOR:</span>
+                <span className="text-[10px] font-mono tracking-wider font-bold">RESONANCIA:</span>
                 <EqualizerBar active={activeAmbient} />
               </div>
 

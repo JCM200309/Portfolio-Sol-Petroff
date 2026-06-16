@@ -241,7 +241,7 @@ export default function MemoriaVividoExperience() {
 
           <div className="max-w-xl pb-8">
             <p className="text-sm md:text-base lg:text-[16px] xl:text-[17px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/90 text-left">
-              Editorial basada en un reporte de tendencias que desarrolla el concepto de “memoria vivido”, representando un universo estético desde la nostalgia y el recuerdo como un peso. Se plasma la naturaleza expansiva y a veces caótica de la memoria, y cómo se convive con ese peso, desde las poses elegidas, las luces y la escenografía.
+              Editorial basada en un reporte de tendencias que desarrolla el concepto de “memoria vívido”, representando un universo estético desde la <strong>nostalgia</strong> y el <strong>recuerdo</strong> como un peso. Se plasma la <strong>naturaleza expansiva y a veces caótica de la memoria</strong>, y cómo se convive con ese peso, desde las poses elegidas, las luces y la escenografía.
             </p>
           </div>
         </div>
@@ -356,10 +356,11 @@ export default function MemoriaVividoExperience() {
 
             <div className="space-y-6 mb-8 flex flex-col items-center justify-center">
               <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
-                La elección de representar el universo estético desde la nostalgia y el recuerdo responde a la intención de evocar emociones profundas y personales. La nostalgia se presenta como una carga emocional que cada persona lleva consigo.
+                La elección de representar el universo estético desde la nostalgia y el recuerdo responde a la intención de <strong>evocar emociones profundas y personales</strong>. La nostalgia se presenta como una carga emocional que cada persona lleva consigo. La producción consta de dos escenarios, interior y exterior, reflejando la cotidianidad del <strong>dolor del recordar</strong>.
+
               </p>
               <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
-                Este peso emocional se refleja físicamente, manifestándose en la postura del cuerpo humano, que tiende a encorvarse bajo la carga de estos recuerdos, adoptando una tipología "deprimida" y orgánica en el espacio.
+                Este peso emocional se refleja manifestándose en la postura del cuerpo humano, que tiende a encorvarse bajo la carga de estos recuerdos, adoptando una tipología “deprimida” y orgánica en el espacio. Todo se extiende, cae, es expansivo como la fluidez de los recuerdos.
               </p>
             </div>
 

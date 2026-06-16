@@ -17,7 +17,6 @@ interface ProjectItem {
   description: string;
   longDescription: string | React.ReactNode;
   featured?: boolean;
-  details: ProjectDetails;
   objectPosition?: string;
 }
 
@@ -35,7 +34,6 @@ const projectItems: ProjectItem[] = [
         Este fashion film traduce la macro tendencia Neo Trattoria en una experiencia audiovisual que explora la dualidad de lo <strong>orgánico</strong> y lo <strong>estructural</strong>. A través de la luz, el ritmo y la composición se busca reflejar la <strong>tensión entre lo tradicional</strong> y lo <strong>contemporáneo</strong>, lo <strong>sobrio</strong> y lo <strong>vibrante</strong>. Se encuentran lo Racing y el lujo, y las formas fluidas, la repetición y la superposición construyen una atmosfera sensorial donde lo <strong>íntimo</strong> y lo <strong>expansivo conviven</strong>, evocando una nostalgia vibrante que habita entre pasado y presente.
       </>
     ),
-    details: { year: '2025', category: 'Spatial Design & Video Art', duration: '02:15' },
     objectPosition: 'object-center',
   },
   {
@@ -45,8 +43,11 @@ const projectItems: ProjectItem[] = [
     link: '#',
     title: 'Phygital',
     description: 'Intersección digital',
-    longDescription: 'Este proyecto explora la intersección entre lo físico y lo digital, creando un encuentro tangible con la inteligencia artificial. Sin recurrir a recursos digitales en postproducción, la obra traduce la estética digital a elements físicos, generando experiencias que evocan interfaces, algoritmos y mundos virtuales a través de objetos, texturas y composiciones en el espacio real. La propuesta busca que lo tecnológico se sienta cercano y material, transformando conceptos abstractos en sensaciones físicas y visuales concretas.',
-    details: { year: '2025', category: 'Interactive Performance', duration: '01:50' },
+    longDescription: (
+      <>
+        Este proyecto explora la intersección entre <strong>lo físico y lo digital</strong>, creando un encuentro tangible con la inteligencia artificial. Sin recurrir a recursos digitales en postproducción, la obra traduce la estética digital a elementos físicos, generando experiencias que evocan <strong>interfaces, algoritmos y mundos virtuales</strong> a través de objetos, texturas y composiciones en el espacio real. La propuesta busca que lo tecnológico se sienta cercano y material, transformando conceptos abstractos en sensaciones físicas y visuales concretas.
+      </>
+    ),
     objectPosition: 'object-[center_18%]',
   },
   {
@@ -56,8 +57,11 @@ const projectItems: ProjectItem[] = [
     link: '#',
     title: 'Objeto Anti-Moda',
     description: 'Diseño y estructura',
-    longDescription: 'En este proyecto se tomó como inspiración un "objeto anti moda" para construir una narrativa y un universo visual. El objeto es una manta de sirena y la inspiración el surrealismo, donde se exploran aspectos profundos e irracionales de la mente, el inconsciente y los sueños como vías para acceder a una realidad mas autentica. Se refleja el anhelo utópico y una identidad onírica.',
-    details: { year: '2024', category: 'Fashion & Sculpture', duration: '01:10' },
+    longDescription: (
+      <>
+        En este proyecto se tomó como inspiración un “objeto anti moda” para construir una narrativa y un universo visual. El objeto es una <strong>manta de sirena</strong> y la inspiración el <strong>surrealismo</strong>, donde se exploran aspectos profundos e irracionales de la mente, el inconsciente y los sueños como vías para acceder a una <strong>realidad mas autentica</strong>. Se refleja en <strong>anhelo utópico</strong> y una <strong>identidad onírica</strong>.
+      </>
+    ),
     objectPosition: 'object-center',
   },
   {
@@ -67,8 +71,11 @@ const projectItems: ProjectItem[] = [
     link: '#',
     title: 'Espejismo del Lujo',
     description: 'Performance conceptual',
-    longDescription: 'Este fashion film reflexiona sobre la paradoja del lujo contemporáneo: cuando lo aspiracional se convierte en un exceso vacío. Cada escena, situada en espacios domésticos y pulcros, revela la tensión entre lo real y lo ilusorio, entre la abundancia y el vacío. Se propone una mirada crítica e irónica sobre el consumo y el deseo, exponiendo la fragilidad del valor que otorgamos a las apariencias.',
-    details: { year: '2025', category: 'Concept & Performance', duration: '01:45' },
+    longDescription: (
+      <>
+        Este fashion film reflexiona sobre la <strong>paradoja del lujo contemporáneo:</strong> cuando lo aspiracional se convierte en un <strong>exceso vacío</strong>. Cada escena, situada en espacios domésticos y pulcros, revela la tensión entre <strong>lo real y lo ilusorio</strong>, entre la abundancia y el vacío. Se propone una mirada <strong>critica e irónica</strong> sobre el consumo y el deseo, exponiendo la fragilidad del <strong>valor que otorgamos a las apariencias.</strong>
+      </>
+    ),
     objectPosition: 'object-[center_30%]',
   },
 ];
@@ -246,26 +253,12 @@ export default function Projects() {
 
           {/* Bottom content */}
           <div className="absolute bottom-0 left-0 right-0 p-7 md:p-10 lg:p-14">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-[9px] uppercase tracking-[0.28em] text-white/50 font-sans">
-                {featured.details.year}
-              </span>
-              <div className="w-8 h-px bg-white/22" />
-              <span className="text-[9px] uppercase tracking-[0.14em] text-white/38 font-sans">
-                {featured.details.category}
-              </span>
-            </div>
-
             <h2
               className="font-brand text-white leading-[0.88] tracking-tight mb-3"
               style={{ fontSize: 'clamp(2.5rem, 7vw, 6.5rem)' }}
             >
               {featured.title}
             </h2>
-
-            <p className="text-white/55 text-sm font-sans tracking-wide max-w-sm">
-              {featured.description}
-            </p>
           </div>
 
           {/* Play button — appears on hover */}

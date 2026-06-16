@@ -87,12 +87,12 @@ export function TiltImage({
   );
 }
 
-const anos20Images = [
-  "/producciones/años20/fotoPortada.webp",
-  "/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp",
-  "/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp",
-  "/producciones/años20/image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp",
-  "/producciones/años20/image-ab55dd13-2ec1-435c-b54b-c6ed1f6ab46e.webp"
+const neoTrattoriaImages = [
+  "/producciones/neoTrattoria/IMG_1355.jpg",
+  "/producciones/neoTrattoria/IMG_6816.JPG",
+  "/producciones/neoTrattoria/IMG_6817.JPG",
+  "/producciones/neoTrattoria/IMG_6818.JPG",
+  "/producciones/neoTrattoria/image-f56d6f9a-82f6-42b8-808e-5a0f755f5a10.webp"
 ];
 
 // --- HELPER FUNCTION: Web Audio API Shutter Sound Synthesizer ---
@@ -137,14 +137,19 @@ const playShutterSound = () => {
   }
 };
 
-// --- MAIN PORTAL: Años 20 Experience Page ---
-export default function Anos20Experience() {
+
+
+// --- MAIN PORTAL: Neo Trattoria Experience Page ---
+export default function NeoTrattoriaExperience() {
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const [isHoveringImage, setIsHoveringImage] = useState(false);
   const [capturedPhotos, setCapturedPhotos] = useState<string[]>([]);
   const [showFlash, setShowFlash] = useState(false);
   const [carreteOpen, setCarreteOpen] = useState(false);
   const [cursorMode, setCursorMode] = useState<'idle' | 'focus' | 'shutter'>('idle');
+
+  const neoTrattoriaImagesLen = 17;
+
 
   const pageRef = useRef<HTMLDivElement>(null);
 
@@ -171,7 +176,7 @@ export default function Anos20Experience() {
   }, [isHoveringImage]);
 
   // Main interactive capture callback
-  const capturePhoto = (src: string) => {
+  const capturePhoto = (src: string, openLightbox = true) => {
     playShutterSound();
 
     setCursorMode('shutter');
@@ -187,7 +192,9 @@ export default function Anos20Experience() {
       return [...prev, src];
     });
 
-    setSelectedPhoto(src);
+    if (openLightbox) {
+      setSelectedPhoto(src);
+    }
   };
 
   // Close lightbox with ESC key
@@ -206,7 +213,7 @@ export default function Anos20Experience() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
-      className="w-full h-full min-h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] overflow-y-auto overflow-x-hidden select-none pointer-events-auto pb-32 anos20-scroll-container md:cursor-none"
+      className="w-full h-full min-h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] overflow-y-auto overflow-x-hidden select-none pointer-events-auto pb-32 neotrattoria-scroll-container md:cursor-none"
     >
       {/* Noise texture overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
@@ -214,69 +221,79 @@ export default function Anos20Experience() {
       {/* BLOCK 1: EDITORIAL HERO & CONCEPT */}
       <div className="w-full lg:h-screen grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative overflow-hidden">
         {/* Left Column: Maroon Story Block */}
-        <div className="col-span-12 lg:col-span-5 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] pt-28 md:pt-36 pb-28 md:pb-36 px-8 md:px-16 flex flex-col justify-center relative min-h-[600px] lg:min-h-0 lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--color-brand-marron-oscuro)]/25">
-
+        <div className="col-span-12 lg:col-span-6 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] pt-28 md:pt-36 pb-28 md:pb-36 px-8 md:px-16 flex flex-col justify-center relative min-h-[600px] lg:min-h-0 lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--color-brand-marron-oscuro)]/25">
+          {/* Decorative Corner plus markers */}
+          <span className="absolute top-4 left-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
+          <span className="absolute top-4 right-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
+          <span className="absolute bottom-4 left-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
+          <span className="absolute bottom-4 right-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
 
           <div className="pt-16 pb-12">
-            <h1 className="text-6xl sm:text-8xl lg:text-[7vw] xl:text-[7.5vw] font-brand uppercase tracking-wider text-[var(--color-brand-crema)] mt-2 leading-[1.05] select-none">
-              Años 20
+            <h1 className="text-6xl sm:text-8xl lg:text-[7vw] xl:text-[7.5vw] font-brand uppercase tracking-wider text-[var(--color-brand-crema)] mt-2 leading-[0.85] select-none">
+              Neo Trattoria
             </h1>
             <div className="w-20 h-[1px] bg-[var(--color-brand-crema)]/35 my-8" />
           </div>
 
           <div className="max-w-xl pb-8">
             <p className="text-sm md:text-base lg:text-[16px] xl:text-[17px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/90 text-left">
-              Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la <strong>elegancia</strong>, la <strong>transformación</strong> y la <strong>modernidad emergente</strong>. La producción toma como punto de partida algunos de los códigos visuales mas representativos de la época para reinterpretarlos desde una mirada contemporánea, construyendo un universo donde <strong>lo clásico y lo actual</strong> conviven constantemente.
+              Neo Trattoria nace del encuentro entre lo <strong>orgánico</strong> y lo <strong>estructural</strong>, construyendo una estética donde el exceso y la armonía conviven constantemente. La producción toma elementos clásicos y contemporáneos para crear un universo visual cargado de contraste, textura y sensibilidad. A través de la luz, la composición y la puesta en escena, se busca transmitir una <strong>nostalgia reinterpretada</strong> desde una mirada actual.
             </p>
           </div>
         </div>
 
         {/* Right Column: Editorial Photo Composition */}
-        <div className="col-span-12 lg:col-span-7 grid grid-cols-12 relative bg-black/[0.01] lg:h-full gap-4 p-4 md:p-6">
-          {/* Left sub-column: Large portrait photo */}
-          <div className="col-span-12 md:col-span-6 flex flex-col justify-center border-b md:border-b-0 lg:h-full lg:overflow-hidden">
+        <div className="col-span-12 lg:col-span-6 flex flex-col justify-center p-4 md:p-6 pt-4 lg:pt-28 gap-6 lg:h-full lg:overflow-hidden relative bg-black/[0.01]">
+          {/* Top row: Wide cinematic landscape photo (Frame 1) */}
+          <div className="w-full flex-grow flex flex-col justify-center min-h-0">
             <div className="w-full">
               <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
                 <TiltImage
-                  src="/producciones/años20/fotoPortada.webp"
-                  alt="Años 20 - Retrato Portada"
-                  onClick={() => capturePhoto('/producciones/años20/fotoPortada.webp')}
+                  src="/producciones/neoTrattoria/primerFoto.JPG"
+                  alt="Neo Trattoria - Retrato Principal"
+                  onClick={() => capturePhoto('/producciones/neoTrattoria/primerFoto.JPG')}
                   onHoverStart={() => setIsHoveringImage(true)}
                   onHoverEnd={() => setIsHoveringImage(false)}
-                  className="aspect-[2/3] max-h-[72vh] lg:h-[72vh] w-full flex items-center justify-center"
-                  imgClassName="w-full h-full object-cover block"
+                  className="aspect-[16/10] max-h-[48vh] lg:h-[48vh] w-full flex items-center justify-center"
+                  imgClassName="w-full h-full object-cover object-top block"
                 />
               </div>
             </div>
           </div>
 
-          {/* Right sub-column: Two side-by-side portrait photos */}
-          <div className="col-span-12 md:col-span-6 flex flex-col justify-center lg:h-full lg:overflow-hidden">
-            <div className="grid grid-cols-2 gap-4 w-full">
-              {/* Left Column: Frame 2 (Vertical) */}
-              <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
-                <TiltImage
-                  src="/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp"
-                  alt="Años 20 - Brillo y Textura"
-                  onClick={() => capturePhoto('/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp')}
-                  onHoverStart={() => setIsHoveringImage(true)}
-                  onHoverEnd={() => setIsHoveringImage(false)}
-                  className="aspect-[2/3] max-h-[72vh] lg:h-[72vh] w-full flex items-center justify-center"
-                  imgClassName="w-full h-full object-cover block"
-                />
+          {/* Bottom row: Diptych of two vertical photos (Frame 2 & 3) side-by-side */}
+          <div className="grid grid-cols-2 gap-4 md:gap-6 flex-grow min-h-0">
+            {/* Left Column: Frame 2 (Vertical) */}
+            <div className="flex flex-col justify-center min-h-0">
+              <div className="w-full">
+                <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
+                  <TiltImage
+                    src="/producciones/neoTrattoria/IMG_6798.JPG"
+                    alt="Neo Trattoria - Automóvil Clásico"
+                    onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6798.JPG')}
+                    onHoverStart={() => setIsHoveringImage(true)}
+                    onHoverEnd={() => setIsHoveringImage(false)}
+                    className="aspect-[2/3] max-h-[34vh] lg:h-[34vh] w-full flex items-center justify-center"
+                    imgClassName="w-full h-full object-cover block "
+                  />
+                </div>
               </div>
+            </div>
 
-              {/* Right Column: Frame 3 (Vertical) */}
-              <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
-                <TiltImage
-                  src="/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp"
-                  alt="Años 20 - Retrato Equilibrio"
-                  onClick={() => capturePhoto('/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp')}
-                  onHoverStart={() => setIsHoveringImage(true)}
-                  onHoverEnd={() => setIsHoveringImage(false)}
-                  className="aspect-[2/3] max-h-[72vh] lg:h-[72vh] w-full flex items-center justify-center"
-                  imgClassName="w-full h-full object-cover block"
-                />
+            {/* Right Column: Frame 3 (Vertical) */}
+            <div className="flex flex-col justify-center min-h-0">
+              <div className="w-full">
+                <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
+                  <TiltImage
+                    src="/producciones/neoTrattoria/IMG_6800.JPG"
+                    alt="Neo Trattoria - Bodegón"
+                    onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6800.JPG')}
+                    onHoverStart={() => setIsHoveringImage(true)}
+                    onHoverEnd={() => setIsHoveringImage(false)}
+                    className="aspect-[2/3] max-h-[34vh] lg:h-[34vh] w-full flex items-center justify-center"
+                    imgClassName="w-full h-full object-cover block"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -289,9 +306,9 @@ export default function Anos20Experience() {
         <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-center">
           <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
             <TiltImage
-              src="/producciones/años20/image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp"
-              alt="Años 20 - Silueta Expresiva"
-              onClick={() => capturePhoto('/producciones/años20/image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp')}
+              src="/producciones/neoTrattoria/IMG_6802.JPG"
+              alt="Neo Trattoria - Fragmento Lineal"
+              onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6802.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               className="w-full h-auto object-contain block"
@@ -305,9 +322,9 @@ export default function Anos20Experience() {
           <div className="w-full">
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
               <TiltImage
-                src="/producciones/años20/image-ab55dd13-2ec1-435c-b54b-c6ed1f6ab46e.webp"
-                alt="Años 20 - Movimiento y Dramatismo"
-                onClick={() => capturePhoto('/producciones/años20/image-ab55dd13-2ec1-435c-b54b-c6ed1f6ab46e.webp')}
+                src="/producciones/neoTrattoria/image-6c536fd8-f84b-4020-b323-5951d0483c10.webp"
+                alt="Neo Trattoria - Composición Espacial"
+                onClick={() => capturePhoto('/producciones/neoTrattoria/image-6c536fd8-f84b-4020-b323-5951d0483c10.webp')}
                 onHoverStart={() => setIsHoveringImage(true)}
                 onHoverEnd={() => setIsHoveringImage(false)}
                 className="w-full h-auto object-contain block"
@@ -319,9 +336,9 @@ export default function Anos20Experience() {
           <div className="w-full">
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
               <TiltImage
-                src="/producciones/años20/fotoPortada.webp"
-                alt="Años 20 - Eco Visual"
-                onClick={() => capturePhoto('/producciones/años20/fotoPortada.webp')}
+                src="/producciones/neoTrattoria/IMG_6815.JPG"
+                alt="Neo Trattoria - Eco del Pasado"
+                onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6815.JPG')}
                 onHoverStart={() => setIsHoveringImage(true)}
                 onHoverEnd={() => setIsHoveringImage(false)}
                 className="w-full h-auto object-contain block"
@@ -332,27 +349,27 @@ export default function Anos20Experience() {
 
         {/* Right Column: Editorial Text & Supporting Image */}
         <div className="col-span-12 md:col-span-4 flex flex-col justify-center min-h-[550px] bg-black/[0.01] relative p-2 gap-6">
-          <div className="py-4">
+          <div className="py-8">
             <h2 className="text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mb-6 font-bold leading-none text-center">
-              Estilismo
+              Convergencia
             </h2>
 
             <div className="space-y-6 mb-8 flex flex-col items-center justify-center">
               <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
-                A través del estilismo, el maquillaje y la puesta en escena, se busca recuperar la sofisticación característica de la década, trabajando con <strong>siluetas refinadas</strong>, detalles ornamentales, accesorios protagonistas y una estética atravesada por el <strong>dramatismo visual</strong>.
+                La propuesta mezcla referencias del <strong>mundo Racing</strong>, el <strong>lujo vintage</strong> y cierta <strong>teatralidad italiana</strong>, combinando materiales rígidos con telas suaves, transparencias, cuero, metal y objetos cotidianos transformados en elementos visuales.
               </p>
               <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
-                El maquillaje toma un rol central: líneas geométricas, miradas intensas y expresiones teatrales construyen personajes que transmiten fuerza, sensualidad y presencia.
+                Las curvas, las repeticiones y las superposiciones aparecen tanto en la dirección de arte como en los cuerpos y las poses, generando imágenes donde lo cómodo y lo espontáneo se encuentran.
               </p>
             </div>
 
-            {/* Supporting Image (image-4d1736d6-2031-4813-930b-f0376060cbb9.webp) */}
+            {/* Supporting Image (IMG_6805.JPG) */}
             <div className="w-full">
               <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
                 <TiltImage
-                  src="/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp"
-                  alt="Años 20 - Maquillaje y Detalle"
-                  onClick={() => capturePhoto('/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp')}
+                  src="/producciones/neoTrattoria/IMG_6805.JPG"
+                  alt="Neo Trattoria - Poses y Geometría"
+                  onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6805.JPG')}
                   onHoverStart={() => setIsHoveringImage(true)}
                   onHoverEnd={() => setIsHoveringImage(false)}
                   className="w-full h-auto object-contain block"
@@ -363,31 +380,146 @@ export default function Anos20Experience() {
         </div>
       </div>
 
+      {/* BLOCK 3: FEATURED PHOTO SLIDER ROW */}
+      <div className="w-full py-24 px-6 md:px-12 bg-black/[0.01] border-b border-[var(--color-brand-marron-oscuro)]/25 relative overflow-visible">
+        {/* Decorative corner marks */}
+        <span className="absolute top-6 left-6 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
+        <span className="absolute top-6 right-6 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
 
+        <div className="max-w-[85rem] mx-auto flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-16 select-none">
+          <div>
+            <h3 className="font-brand text-4xl sm:text-5xl uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-1.5 leading-none">
+              Featured Photos
+            </h3>
+          </div>
+          <div className="max-w-xs md:text-right border-l md:border-l-0 md:border-r border-[var(--color-brand-marron-claro)]/25 pl-4 md:pl-0 md:pr-4 py-1">
+            <p className="text-[12px] md:text-[13px] font-sans tracking-widest leading-relaxed text-[var(--color-brand-marron-oscuro)]/75 uppercase italic">
+              "THE CONVERGENCE OF TRADITIONAL GLAMOUR AND MODERN RACING SENSIBILITY."
+            </p>
+          </div>
+        </div>
+
+        {/* Asymmetric Staggered Grid Row */}
+        <div className="max-w-[85rem] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-t border-[var(--color-brand-marron-claro)]/25 pt-12 relative">
+
+          {/* Item 1: IMG_6806.JPG (No offset) */}
+          <div className="w-full flex flex-col gap-3 justify-start">
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
+              <TiltImage
+                src="/producciones/neoTrattoria/IMG_6806.JPG"
+                alt="Neo Trattoria - Reminiscencia 6806"
+                onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6806.JPG')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto object-contain block"
+              />
+            </div>
+          </div>
+
+          {/* Item 2: IMG_6807.JPG (Shifted down) */}
+          <div className="w-full flex flex-col gap-3 lg:translate-y-12 justify-start mt-6 lg:mt-0">
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
+              <TiltImage
+                src="/producciones/neoTrattoria/IMG_6807.JPG"
+                alt="Neo Trattoria - Reminiscencia 6807"
+                onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6807.JPG')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto object-contain block"
+              />
+            </div>
+          </div>
+
+          {/* Item 3: IMG_6809.JPG (Shifted up) */}
+          <div className="w-full flex flex-col gap-3 lg:-translate-y-8 justify-start mt-6 lg:mt-0">
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
+              <TiltImage
+                src="/producciones/neoTrattoria/IMG_6809.JPG"
+                alt="Neo Trattoria - Reminiscencia 6809"
+                onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6809.JPG')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto object-contain block"
+              />
+            </div>
+          </div>
+
+          {/* Item 4: IMG_6811.JPG (Shifted slightly down) */}
+          <div className="w-full flex flex-col gap-3 lg:translate-y-4 justify-start mt-6 lg:mt-0">
+            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
+              <TiltImage
+                src="/producciones/neoTrattoria/IMG_6811.JPG"
+                alt="Neo Trattoria - Reminiscencia 6811"
+                onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6811.JPG')}
+                onHoverStart={() => setIsHoveringImage(true)}
+                onHoverEnd={() => setIsHoveringImage(false)}
+                className="w-full h-auto object-contain block"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* BLOCK 4: CONCLUDING TYPOGRAPHIC QUOTE & FOCAL COVER */}
       <div className="w-full py-28 bg-[var(--color-brand-crema)] border-b border-[var(--color-brand-marron-oscuro)]/25 relative">
         <div className="max-w-5xl mx-auto px-6 flex flex-col items-center gap-12">
-          {/* Focal landscape photo (image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp) in natural ratio */}
+          {/* Focal landscape photo (fotoPortada.JPG) in natural ratio */}
           <div className="w-full max-w-4xl overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-md rounded-xs group bg-black/[0.02] p-2 relative">
-
+            {/* Camera Crop / Focus Corners inside frame */}
+            <span className="absolute top-4 left-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
+            <span className="absolute top-4 right-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
+            <span className="absolute bottom-4 left-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
+            <span className="absolute bottom-4 right-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
 
             <TiltImage
-              src="/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp"
-              alt="Años 20 Conclusión"
-              onClick={() => capturePhoto('/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp')}
+              src="/producciones/neoTrattoria/fotoPortada.JPG"
+              alt="Neo Trattoria Conclusión"
+              onClick={() => capturePhoto('/producciones/neoTrattoria/fotoPortada.JPG')}
               onHoverStart={() => setIsHoveringImage(true)}
               onHoverEnd={() => setIsHoveringImage(false)}
               className="w-full h-auto object-contain block"
             />
           </div>
 
-          <div className="max-w-3xl text-center flex flex-col items-center">
+          <div className="max-w-5xl text-center flex flex-col items-center">
             <div className="w-16 h-[1px] bg-[var(--color-brand-marron-claro)]/40 mb-8" />
             <blockquote className="text-2xl sm:text-3xl lg:text-[2.2rem] font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light tracking-wide">
-              Más que recrear la época de manera literal, la editorial busca reinterpretar su esencia visual y emocional. La producción toma elementos característicos de los años 20 para transformarlos en una propuesta contemporánea donde la elegancia, el dramatismo y la modernidad conviven, construyendo imágenes que oscilan entre lo clásico y lo actual sin perder la identidad propia de la propuesta.
+              Neo Trattoria no busca recrear el pasado de forma literal, sino tomar su imaginario para transformarlo en algo actual, vibrante y sensorial. La producción habita ese espacio intermedio donde lo tradicional y lo contemporáneo se mezclan, generando una atmósfera que se siente nostálgica, pero al mismo tiempo viva y expansiva.
             </blockquote>
           </div>
+        </div>
+      </div>
+
+      {/* GALLERY SECTION */}
+      <div className="max-w-[85rem] mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
+        <div className="mb-12 select-none">
+          <h3 className="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2">
+            Registro Editorial
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          {neoTrattoriaImages.map((imgSrc, index) => (
+            <motion.div
+              key={imgSrc}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm bg-black/[0.01] hover:shadow-md transition-shadow group cursor-none relative"
+              onClick={() => capturePhoto(imgSrc)}
+              onMouseEnter={() => setIsHoveringImage(true)}
+              onMouseLeave={() => setIsHoveringImage(false)}
+            >
+              <img
+                src={imgSrc}
+                alt={`Neo Trattoria Gallery ${index}`}
+                className="w-full h-auto object-cover aspect-[4/5] md:aspect-[3/4] transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
+            </motion.div>
+          ))}
         </div>
       </div>
 
@@ -481,7 +613,7 @@ export default function Anos20Experience() {
         >
           <div className={`w-2.5 h-2.5 rounded-full ${capturedPhotos.length > 0 ? 'bg-green-500 animate-pulse' : 'bg-red-500 animate-pulse'}`} />
           <span className="text-[10px] tracking-[0.2em] uppercase font-semibold">
-            CARRETE: {capturedPhotos.length} / {anos20Images.length}
+            CARRETE: {capturedPhotos.length} / {neoTrattoriaImagesLen}
           </span>
         </motion.div>
 

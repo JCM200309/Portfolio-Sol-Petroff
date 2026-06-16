@@ -237,7 +237,7 @@ export default function NeoTrattoriaExperience() {
 
           <div className="max-w-xl pb-8">
             <p className="text-sm md:text-base lg:text-[16px] xl:text-[17px] font-sans tracking-wide leading-relaxed text-[var(--color-brand-crema)]/90 text-left">
-              Neo Trattoria nace del encuentro entre lo orgánico y lo estructural, construyendo una estética donde el exceso y la armonía conviven constantemente. La producción toma elementos clásicos y contemporáneos para crear un universo visual cargado de contraste, textura y sensibilidad. A través de la luz, la composición y la puesta en escena, se busca transmitir una nostalgia reinterpretada desde una mirada actual.
+              Neo Trattoria nace del encuentro entre lo <strong>orgánico</strong> y lo <strong>estructural</strong>, construyendo una estética donde el exceso y la armonía conviven constantemente. La producción toma elementos clásicos y contemporáneos para crear un universo visual cargado de contraste, textura y sensibilidad. A través de la luz, la composición y la puesta en escena, se busca transmitir una <strong>nostalgia reinterpretada</strong> desde una mirada actual.
             </p>
           </div>
         </div>
@@ -351,7 +351,7 @@ export default function NeoTrattoriaExperience() {
         <div className="col-span-12 md:col-span-4 flex flex-col justify-center min-h-[550px] bg-black/[0.01] relative p-2 gap-6">
           <div className="py-8">
             <h2 className="text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mb-6 font-bold leading-none text-center">
-              Materialidad
+              Convergencia
             </h2>
 
             <div className="space-y-6 mb-8 flex flex-col items-center justify-center">
