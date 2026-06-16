@@ -15,7 +15,7 @@ export default function Productions({ initialProject = null }: { initialProject?
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null)
-  
+
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Sync active project with prop changes
@@ -95,9 +95,9 @@ export default function Productions({ initialProject = null }: { initialProject?
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-                  className="text-6xl sm:text-8xl md:text-9xl font-brand tracking-[0.02em] leading-[0.9] text-[var(--color-brand-crema)] font-light uppercase"
+                  className="text-6xl sm:text-8xl md:text-9xl font-brand tracking-[0.02em] leading-[1.05] text-[var(--color-brand-crema)] font-light uppercase"
                 >
-                  Memoria<br />Vivido
+                  Memoria<br />Vívido
                 </motion.h1>
 
                 {/* Separator Divider Line */}
@@ -121,12 +121,12 @@ export default function Productions({ initialProject = null }: { initialProject?
             </div>
 
             {/* Slide 2: Grid of other productions */}
-            <div className="snap-start w-full h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] flex flex-col pt-24 pb-6 md:pt-28 md:pb-10 px-4 md:px-12 overflow-hidden">
+            <div className="snap-start w-full min-h-screen md:h-screen relative bg-[var(--color-brand-crema)] text-[var(--color-brand-marron-oscuro)] flex flex-col pt-24 pb-6 md:pt-28 md:pb-10 px-4 md:px-12 overflow-y-auto md:overflow-hidden">
               {/* Noise texture overlay */}
               <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
 
               <div className="max-w-7xl mx-auto w-full h-full flex flex-col justify-between z-10 min-h-0">
-                
+
                 {/* Minimalist Section Header */}
                 <div className="mb-4 flex items-center justify-between select-none shrink-0">
                   <h3 className="font-brand text-2xl md:text-3xl uppercase tracking-wider text-[var(--color-brand-bordo)]">
@@ -136,9 +136,9 @@ export default function Productions({ initialProject = null }: { initialProject?
 
                 {/* DESKTOP EDITORIAL GRID (Asymmetric Luxury Layout) */}
                 <div className="hidden md:grid grid-cols-12 gap-8 items-stretch flex-1 min-h-0 w-full mb-2">
-                  
+
                   {/* Card 1: Neo Trattoria (Left, col-span-8) */}
-                  <div 
+                  <div
                     onClick={() => window.location.hash = '#escena-neo-trattoria'}
                     onMouseEnter={() => setIsHovering(true)}
                     onMouseLeave={() => setIsHovering(false)}
@@ -150,9 +150,9 @@ export default function Productions({ initialProject = null }: { initialProject?
                     className="col-span-8 bg-white/40 backdrop-blur-sm border border-[var(--color-brand-marron-claro)]/25 rounded-sm overflow-hidden flex flex-col h-full shadow-[0_20px_50px_rgba(146,94,61,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-brand-bordo)]/40 hover:shadow-[0_30px_60px_rgba(132,6,36,0.12)] cursor-none pointer-events-auto group"
                   >
                     <div className="flex-1 w-full min-h-0 overflow-hidden relative">
-                      <img 
-                        src="/producciones/neoTrattoria/fotoPortada.JPG" 
-                        alt="Neo Trattoria Cover" 
+                      <img
+                        src="/producciones/neoTrattoria/fotoPortada.JPG"
+                        alt="Neo Trattoria Cover"
                         className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
                       />
                       <div className="absolute inset-0 bg-black/[0.05] group-hover:bg-transparent transition-colors duration-300" />
@@ -171,9 +171,9 @@ export default function Productions({ initialProject = null }: { initialProject?
 
                   {/* Column 2: Stacked Secondary Projects (Right, col-span-4) */}
                   <div className="col-span-4 flex flex-col justify-between h-full gap-6">
-                    
+
                     {/* Card 3: No Futuro (Top, h-[48%]) */}
-                    <div 
+                    <div
                       onClick={() => window.location.hash = '#escena-no-futuro'}
                       onMouseEnter={() => setIsHovering(true)}
                       onMouseLeave={() => setIsHovering(false)}
@@ -185,9 +185,9 @@ export default function Productions({ initialProject = null }: { initialProject?
                       className="h-[48%] flex bg-white/40 backdrop-blur-sm border border-[var(--color-brand-marron-claro)]/25 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(146,94,61,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-brand-bordo)]/40 hover:shadow-[0_30px_60px_rgba(132,6,36,0.12)] cursor-none pointer-events-auto group"
                     >
                       <div className="w-[40%] h-full overflow-hidden relative shrink-0">
-                        <img 
-                          src="/producciones/noFuturo/fotoPortada.JPG" 
-                          alt="No Futuro Cover" 
+                        <img
+                          src="/producciones/noFuturo/fotoPortada.JPG"
+                          alt="No Futuro Cover"
                           className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
                         />
                         <div className="absolute inset-0 bg-black/[0.05] group-hover:bg-transparent transition-colors duration-300" />
@@ -205,7 +205,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                     </div>
 
                     {/* Card 4: Años 20 (Bottom, h-[48%]) */}
-                    <div 
+                    <div
                       onClick={() => window.location.hash = '#escena-anos-20'}
                       onMouseEnter={() => setIsHovering(true)}
                       onMouseLeave={() => setIsHovering(false)}
@@ -217,9 +217,9 @@ export default function Productions({ initialProject = null }: { initialProject?
                       className="h-[48%] flex bg-white/40 backdrop-blur-sm border border-[var(--color-brand-marron-claro)]/25 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(146,94,61,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[var(--color-brand-bordo)]/40 hover:shadow-[0_30px_60px_rgba(132,6,36,0.12)] cursor-none pointer-events-auto group"
                     >
                       <div className="w-[40%] h-full overflow-hidden relative shrink-0">
-                        <img 
-                          src="/producciones/años20/fotoPortada.webp" 
-                          alt="Años 20 Cover" 
+                        <img
+                          src="/producciones/años20/fotoPortada.webp"
+                          alt="Años 20 Cover"
                           className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] opacity-85 group-hover:opacity-100"
                         />
                         <div className="absolute inset-0 bg-black/[0.05] group-hover:bg-transparent transition-colors duration-300" />
@@ -244,14 +244,14 @@ export default function Productions({ initialProject = null }: { initialProject?
                   {/* Project Cards List */}
                   <div className="space-y-10">
                     {/* Neo Trattoria */}
-                    <div 
+                    <div
                       onClick={() => window.location.hash = '#escena-neo-trattoria'}
                       className="group space-y-4 cursor-pointer pointer-events-auto w-full"
                     >
                       <div className="aspect-[16/10] w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 relative">
-                        <img 
-                          src="/producciones/neoTrattoria/fotoPortada.JPG" 
-                          alt="Neo Trattoria Cover" 
+                        <img
+                          src="/producciones/neoTrattoria/fotoPortada.JPG"
+                          alt="Neo Trattoria Cover"
                           className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-102"
                         />
                         <div className="absolute top-3 left-4 text-[9px] tracking-[0.2em] font-sans text-white bg-black/40 px-2.5 py-1 uppercase rounded-xs">
@@ -269,14 +269,14 @@ export default function Productions({ initialProject = null }: { initialProject?
                     </div>
 
                     {/* No Futuro */}
-                    <div 
+                    <div
                       onClick={() => window.location.hash = '#escena-no-futuro'}
                       className="group space-y-4 cursor-pointer pointer-events-auto w-[90%] mx-auto"
                     >
                       <div className="aspect-[4/3] w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 relative">
-                        <img 
-                          src="/producciones/noFuturo/fotoPortada.JPG" 
-                          alt="No Futuro Cover" 
+                        <img
+                          src="/producciones/noFuturo/fotoPortada.JPG"
+                          alt="No Futuro Cover"
                           className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-102"
                         />
                         <div className="absolute top-3 left-4 text-[9px] tracking-[0.2em] font-sans text-white bg-black/40 px-2.5 py-1 uppercase rounded-xs">
@@ -294,14 +294,14 @@ export default function Productions({ initialProject = null }: { initialProject?
                     </div>
 
                     {/* Años 20 */}
-                    <div 
+                    <div
                       onClick={() => window.location.hash = '#escena-anos-20'}
                       className="group space-y-4 cursor-pointer pointer-events-auto w-[80%] mx-auto"
                     >
                       <div className="aspect-[1/1] w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 relative">
-                        <img 
-                          src="/producciones/años20/fotoPortada.webp" 
-                          alt="Años 20 Cover" 
+                        <img
+                          src="/producciones/años20/fotoPortada.webp"
+                          alt="Años 20 Cover"
                           className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-102"
                         />
                         <div className="absolute top-3 left-4 text-[9px] tracking-[0.2em] font-sans text-white bg-black/40 px-2.5 py-1 uppercase rounded-xs">
@@ -321,7 +321,7 @@ export default function Productions({ initialProject = null }: { initialProject?
                 </div>
               </div>
             </div>
- 
+
             {/* Floating Custom Follow Cursor ("VER CASO" - aligned instantly to relative mouse position) */}
             {isHovering && (
               <motion.div

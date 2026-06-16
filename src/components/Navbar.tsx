@@ -20,7 +20,7 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
   const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const isLightNavbar = (isLight && !(currentHash.startsWith('#movimiento-') && !scrolled)) || scrolled;
-  const showBordoLogo = isLightNavbar && (!currentHash.startsWith('#escena-') || (isMobile && scrolled));
+  const showBordoLogo = isLightNavbar && (!currentHash.startsWith('#escena-') || scrolled);
   const isLightHamburger = isLightNavbar && !(currentHash.startsWith('#escena-') && !scrolled);
 
   // Determine dynamic target for back button logic on the logo
@@ -77,7 +77,7 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
         { label: 'Producciones', link: '#escena' }
       ]
     },
-    { label: 'Conocéme', link: '#conoceme' }
+    { label: 'Conóceme', link: '#conoceme' }
   ];
 
   // Animation variants for desktop links collapsing/expanding
@@ -133,15 +133,13 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
   return (
     <>
       <header
-        className={`w-full fixed top-0 left-0 z-50 flex items-center justify-between px-6 md:px-16 transition-all duration-500 ease-in-out select-none ${
-          currentHash.startsWith('#movimiento-') && !scrolled
-            ? '-translate-y-full opacity-0 pointer-events-none'
-            : 'translate-y-0 opacity-100'
-        } ${
-          scrolled 
-            ? 'py-4 bg-[var(--color-brand-crema)]/80 backdrop-blur-md border-b border-[var(--color-brand-marron-claro)]/10 shadow-xs' 
+        className={`w-full fixed top-0 left-0 z-50 flex items-center justify-between px-6 md:px-16 transition-all duration-500 ease-in-out select-none ${currentHash.startsWith('#movimiento-') && !scrolled
+          ? '-translate-y-full opacity-0 pointer-events-none'
+          : 'translate-y-0 opacity-100'
+          } ${scrolled
+            ? 'py-4 bg-[var(--color-brand-crema)]/80 backdrop-blur-md border-b border-[var(--color-brand-marron-claro)]/10 shadow-xs'
             : 'py-7 bg-transparent border-b border-transparent'
-        }`}
+          }`}
       >
         {/* Brand Logo (Left Margin) */}
         <a
@@ -155,7 +153,7 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
             alt="Logo"
             className="block w-auto object-contain transition-all duration-500"
             style={{
-              height: scrolled 
+              height: scrolled
                 ? (isMobile ? '36px' : '44px') // Scrolled sizes
                 : (isMobile ? '44px' : '58px') // Transparent/Hero sizes (heavy/larger presence)
             }}
@@ -186,20 +184,18 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
                     onMouseLeave={() => setDropdownOpen(false)}
                   >
                     <button
-                      className={`group text-[11px] font-sans tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer flex items-center gap-1 py-1.5 px-3 rounded-full active:scale-95 ${
-                        isLightNavbar
-                          ? 'text-[var(--color-brand-bordo)]/85 hover:text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
-                          : 'text-[var(--color-brand-crema)]/85 hover:text-white hover:bg-white/5'
-                      }`}
+                      className={`group text-[11px] font-sans tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer flex items-center gap-1 py-1.5 px-3 rounded-full active:scale-95 ${isLightNavbar
+                        ? 'text-[var(--color-brand-bordo)]/85 hover:text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
+                        : 'text-[var(--color-brand-crema)]/85 hover:text-white hover:bg-white/5'
+                        }`}
                       aria-expanded={dropdownOpen}
                       aria-haspopup="true"
                     >
                       {item.label}
                       <ChevronDown
                         size={12}
-                        className={`transition-transform duration-300 ${
-                          isLightNavbar ? 'text-[var(--color-brand-bordo)]' : 'text-current'
-                        } ${dropdownOpen ? 'rotate-180' : ''}`}
+                        className={`transition-transform duration-300 ${isLightNavbar ? 'text-[var(--color-brand-bordo)]' : 'text-current'
+                          } ${dropdownOpen ? 'rotate-180' : ''}`}
                       />
                     </button>
 
@@ -210,13 +206,12 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 8, scale: 0.96 }}
                           transition={{ duration: 0.2, ease: 'easeOut' }}
-                          className={`absolute top-full right-0 mt-2 w-48 rounded-sm shadow-xl border overflow-hidden ${
-                            scrolled
-                              ? 'bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] border-white/10'
-                              : isLightNavbar
+                          className={`absolute top-full right-0 mt-2 w-48 rounded-sm shadow-xl border overflow-hidden ${scrolled
+                            ? 'bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] border-white/10'
+                            : isLightNavbar
                               ? 'bg-white/95 text-[var(--color-brand-marron-oscuro)] border-[var(--color-brand-marron-claro)]/25 shadow-[0_10px_30px_rgba(146,94,61,0.15)]'
                               : 'bg-black/90 backdrop-blur-md text-[var(--color-brand-crema)] border-white/10'
-                          }`}
+                            }`}
                         >
                           <div className="py-2" role="menu" aria-orientation="vertical">
                             {item.subItems?.map((sub, sIdx) => (
@@ -224,11 +219,10 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
                                 key={sub.label + sIdx}
                                 href={sub.link}
                                 onClick={() => setDropdownOpen(false)}
-                                className={`block px-5 py-2.5 text-[10px] font-sans tracking-[0.15em] uppercase transition-all duration-200 cursor-pointer ${
-                                  isLightNavbar && !scrolled
-                                    ? 'text-[var(--color-brand-marron-oscuro)] hover:bg-[var(--color-brand-bordo)]/5 hover:text-[var(--color-brand-bordo)]'
-                                    : 'text-[var(--color-brand-crema)]/80 hover:bg-white/10 hover:text-white'
-                                }`}
+                                className={`block px-5 py-2.5 text-[10px] font-sans tracking-[0.15em] uppercase transition-all duration-200 cursor-pointer ${isLightNavbar && !scrolled
+                                  ? 'text-[var(--color-brand-marron-oscuro)] hover:bg-[var(--color-brand-bordo)]/5 hover:text-[var(--color-brand-bordo)]'
+                                  : 'text-[var(--color-brand-crema)]/80 hover:bg-white/10 hover:text-white'
+                                  }`}
                                 role="menuitem"
                               >
                                 {sub.label}
@@ -246,16 +240,14 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
                 <a
                   key={item.label + idx}
                   href={item.link}
-                  className={`group text-[11px] font-sans tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer relative py-2 px-3 rounded-full active:scale-95 ${
-                    isLightNavbar
-                      ? 'text-[var(--color-brand-bordo)]/85 hover:text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
-                      : 'text-[var(--color-brand-crema)]/85 hover:text-white hover:bg-white/5'
-                  }`}
+                  className={`group text-[11px] font-sans tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer relative py-2 px-3 rounded-full active:scale-95 ${isLightNavbar
+                    ? 'text-[var(--color-brand-bordo)]/85 hover:text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
+                    : 'text-[var(--color-brand-crema)]/85 hover:text-white hover:bg-white/5'
+                    }`}
                 >
                   {item.label}
-                  <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full opacity-0 scale-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 ${
-                    isLightNavbar ? 'bg-[var(--color-brand-bordo)]' : 'bg-[var(--color-brand-crema)]'
-                  }`} />
+                  <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full opacity-0 scale-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 ${isLightNavbar ? 'bg-[var(--color-brand-bordo)]' : 'bg-[var(--color-brand-crema)]'
+                    }`} />
                 </a>
               );
             })}
@@ -268,11 +260,10 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
               initial="visible"
               animate="visible"
               onClick={() => setMobileOpen(true)}
-              className={`flex items-center justify-center p-2.5 rounded-full transition-colors cursor-pointer overflow-hidden whitespace-nowrap ${
-                isLightHamburger
-                  ? 'text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
-                  : 'text-[var(--color-brand-crema)] hover:bg-white/5'
-              }`}
+              className={`flex items-center justify-center p-2.5 rounded-full transition-colors cursor-pointer overflow-hidden whitespace-nowrap ${isLightHamburger
+                ? 'text-[var(--color-brand-bordo)] hover:bg-[var(--color-brand-bordo)]/5'
+                : 'text-[var(--color-brand-crema)] hover:bg-white/5'
+                }`}
               aria-label="Abrir menú de navegación"
             >
               <Menu size={24} />
@@ -345,9 +336,8 @@ export default function Navbar({ isLight = false, currentHash = '' }: { isLight?
                             <span>{item.label}</span>
                             <ChevronDown
                               size={20}
-                              className={`transition-transform duration-300 text-[var(--color-brand-marron-claro)] ${
-                                mobileProjectsOpen ? 'rotate-180' : ''
-                              }`}
+                              className={`transition-transform duration-300 text-[var(--color-brand-marron-claro)] ${mobileProjectsOpen ? 'rotate-180' : ''
+                                }`}
                             />
                           </button>
 

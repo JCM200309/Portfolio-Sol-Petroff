@@ -75,6 +75,9 @@ export default function SplashCursor({
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
+    if (isMobile) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 

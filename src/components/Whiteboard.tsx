@@ -143,7 +143,7 @@ export default function Whiteboard() {
     <section 
       id="narrativa" 
       ref={boardRef}
-      className="relative w-full h-full overflow-hidden bg-[var(--color-brand-crema)] flex flex-col justify-between"
+      className="relative w-full min-h-screen md:h-full md:overflow-hidden bg-[var(--color-brand-crema)] flex flex-col justify-between"
       aria-label="Pizarra interactiva de proyectos"
     >
 
@@ -188,7 +188,7 @@ export default function Whiteboard() {
       </div>
 
       {/* Sandbox Workspace Container */}
-      <div className="relative z-10 w-full flex-grow flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 max-w-7xl mx-auto px-6 pb-24 pt-4 md:-translate-y-8">
+      <div className="relative z-10 w-full flex-grow flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 max-w-7xl mx-auto px-6 pb-24 pt-4 md:-translate-y-8 overflow-y-auto md:overflow-visible">
         {whiteboardProjects.map((project) => (
           <motion.div
             key={project.id}

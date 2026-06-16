@@ -264,7 +264,7 @@ export default function NeoTrattoriaExperience() {
         </div>
 
         {/* Right Column: Editorial Photo Composition */}
-        <div className="col-span-12 lg:col-span-6 flex flex-col justify-between p-4 md:p-6 pt-28 md:pt-32 gap-4 lg:h-full lg:overflow-hidden relative bg-black/[0.01]">
+        <div className="col-span-12 lg:col-span-6 flex flex-col justify-between p-4 md:p-6 pt-4 lg:pt-32 gap-4 lg:h-full lg:overflow-hidden relative bg-black/[0.01]">
           {/* Top row: Wide cinematic landscape photo (Frame 1) */}
           <div className="w-full flex-grow flex flex-col justify-center min-h-0">
             <div className="w-full flex flex-col gap-2">

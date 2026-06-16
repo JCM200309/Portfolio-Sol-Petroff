@@ -331,16 +331,16 @@ export default function ElPlumeroExperience() {
             </span>
             
             {/* The Turntable Player Base Box */}
-            <div className="relative w-[340px] h-[340px] md:w-[380px] md:h-[380px] bg-white/50 border border-[var(--color-brand-marron-claro)]/25 rounded-md shadow-2xl p-6 flex items-center justify-center">
+            <div className="relative w-[min(85vw,340px)] h-[min(85vw,340px)] md:w-[380px] md:h-[380px] bg-white/50 border border-[var(--color-brand-marron-claro)]/25 rounded-md shadow-2xl p-6 flex items-center justify-center">
               
               {/* Metallic Platter Ring */}
-              <div className="relative w-[280px] h-[280px] md:w-[310px] md:h-[310px] rounded-full border-2 border-neutral-300 bg-neutral-100 flex items-center justify-center shadow-inner">
+              <div className="relative w-[min(70vw,280px)] h-[min(70vw,280px)] md:w-[310px] md:h-[310px] rounded-full border-2 border-neutral-300 bg-neutral-100 flex items-center justify-center shadow-inner">
                 
                 {/* Vinyl Disc Body */}
                 <motion.div
                   animate={{ rotate: isPlaying ? 360 : 0 }}
                   transition={{ ease: "linear", duration: 3.5, repeat: Infinity }}
-                  className="relative w-[260px] h-[260px] md:w-[290px] md:h-[290px] rounded-full bg-neutral-900 flex items-center justify-center shadow-lg border border-neutral-950"
+                  className="relative w-[min(65vw,260px)] h-[min(65vw,260px)] md:w-[290px] md:h-[290px] rounded-full bg-neutral-900 flex items-center justify-center shadow-lg border border-neutral-950"
                   style={{
                     backgroundImage: "repeating-radial-gradient(circle, #262626, #171717 2px, #262626 4px)"
                   }}

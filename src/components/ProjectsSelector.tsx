@@ -44,7 +44,7 @@ function CategoryCard({
     if (!video) return;
 
     if (isMobileDevice) {
-      video.play().catch(() => {});
+      video.play().catch(() => { });
       return;
     }
 
@@ -68,13 +68,11 @@ function CategoryCard({
       variants={cardVariants}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`relative w-full aspect-[16/10] bg-transparent border rounded-sm overflow-hidden cursor-pointer shadow-[0_12px_40px_rgba(0,0,0,0.01)] transition-all duration-500 ease-out flex flex-col justify-between p-6 md:p-8 pointer-events-auto ${
-        isHovered
-          ? 'border-[var(--color-brand-bordo)] shadow-[0_20px_50px_rgba(132,6,36,0.12)] scale-[1.03]'
-          : 'border-[var(--color-brand-marron-oscuro)]/30'
-      } ${
-        isMovimiento ? 'md:col-span-2 md:aspect-[24/10] md:max-w-2xl justify-self-center' : ''
-      }`}
+      className={`relative w-full aspect-[16/10] bg-transparent border rounded-sm overflow-hidden cursor-pointer shadow-[0_12px_40px_rgba(0,0,0,0.01)] transition-all duration-500 ease-out flex flex-col justify-between p-6 md:p-8 pointer-events-auto ${isHovered
+        ? 'border-[var(--color-brand-bordo)] shadow-[0_20px_50px_rgba(132,6,36,0.12)] scale-[1.03]'
+        : 'border-[var(--color-brand-marron-oscuro)]/30'
+        } ${isMovimiento ? 'md:col-span-2 md:aspect-[24/10] md:max-w-2xl justify-self-center' : ''
+        }`}
       style={{
         opacity: isAnyHovered && !isHovered ? 0.45 : 1
       }}
@@ -90,40 +88,36 @@ function CategoryCard({
             muted
             loop
             playsInline
-            className={`w-full h-full object-cover transition-all duration-700 scale-105 ${
-              isHovered 
-                ? 'opacity-85 scale-100' 
-                : isMobileDevice
+            className={`w-full h-full object-cover transition-all duration-700 scale-105 ${isHovered
+              ? 'opacity-85 scale-100'
+              : isMobileDevice
                 ? 'opacity-25 scale-105'
                 : 'opacity-10 scale-105'
-            } ${cat.filterClass || ''}`}
+              } ${cat.filterClass || ''}`}
           />
         ) : (
           <img
             src={cat.videoSrc}
-            className={`w-full h-full object-cover transition-all duration-700 scale-105 ${
-              isHovered 
-                ? 'opacity-85 scale-100' 
-                : isMobileDevice
+            className={`w-full h-full object-cover transition-all duration-700 scale-105 ${isHovered
+              ? 'opacity-85 scale-100'
+              : isMobileDevice
                 ? 'opacity-25 scale-105'
                 : 'opacity-10 scale-105'
-            } ${cat.filterClass || ''}`}
+              } ${cat.filterClass || ''}`}
             alt=""
           />
         )}
         {/* Subtle dark overlay on hover to ensure text legibility */}
         <div
-          className={`absolute inset-0 bg-black/20 transition-opacity duration-500 ${
-            isHovered ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`absolute inset-0 bg-black/20 transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'
+            }`}
         />
       </div>
 
       {/* Card Top Section: Category Number */}
       <span
-        className={`text-xs font-sans tracking-[0.25em] font-medium transition-colors duration-500 z-10 ${
-          isHovered ? 'text-[var(--color-brand-crema)]' : 'text-[var(--color-brand-marron-claro)]'
-        }`}
+        className={`text-xs font-sans tracking-[0.25em] font-medium transition-colors duration-500 z-10 ${isHovered ? 'text-[var(--color-brand-crema)]' : 'text-[var(--color-brand-marron-claro)]'
+          }`}
       >
         {cat.num}
       </span>
@@ -131,11 +125,10 @@ function CategoryCard({
       {/* Card Bottom Section: Title & Subtitle */}
       <div className="z-10 select-none flex flex-col justify-end">
         <h3
-          className={`font-brand leading-none tracking-tight uppercase transition-all duration-500 ${
-            isHovered 
-              ? 'text-[var(--color-brand-crema)] text-3xl md:text-5xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]' 
-              : 'text-[var(--color-brand-marron-oscuro)] text-2xl md:text-4xl'
-          }`}
+          className={`font-brand leading-none tracking-tight uppercase transition-all duration-500 ${isHovered
+            ? 'text-[var(--color-brand-crema)] text-3xl md:text-5xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]'
+            : 'text-[var(--color-brand-marron-oscuro)] text-2xl md:text-4xl'
+            }`}
         >
           {cat.title}
         </h3>
@@ -147,9 +140,8 @@ function CategoryCard({
           transition={{ duration: 0.35, ease: 'easeOut' }}
           className="overflow-hidden"
         >
-          <p className={`text-xs md:text-sm font-sans tracking-wide font-light leading-relaxed max-w-md ${
-            isHovered ? 'text-[var(--color-brand-crema)] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]' : 'text-[var(--color-brand-marron-oscuro)]/80'
-          }`}>
+          <p className={`text-xs md:text-sm font-sans tracking-wide font-light leading-relaxed max-w-md ${isHovered ? 'text-[var(--color-brand-crema)] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]' : 'text-[var(--color-brand-marron-oscuro)]/80'
+            }`}>
             {cat.subtitle}
           </p>
         </motion.div>
@@ -172,7 +164,7 @@ export default function ProjectsSelector() {
       title: 'Producciones',
       subtitle: 'Fotografía de moda, estilismo y dirección de arte en set.',
       videoSrc: 'portadas/producciones.png',
-      
+
       link: '#escena',
       bgHex: 'rgba(132, 6, 36, 0.06)' // Soft bordo tint
     },
@@ -184,7 +176,7 @@ export default function ProjectsSelector() {
       videoSrc: 'portadas/narrativas.png',
       link: '#narrativa',
       bgHex: 'rgba(146, 94, 61, 0.12)', // Soft marron-oscuro tint
-      
+
     },
     {
       id: 'movimiento',
@@ -228,21 +220,13 @@ export default function ProjectsSelector() {
     <section
       id="proyectos"
       ref={containerRef}
-      className="relative w-full min-h-screen md:h-full pt-28 pb-12 md:pt-32 md:pb-16 px-6 md:px-16 flex flex-col justify-center items-center overflow-hidden transition-colors duration-[800ms] ease-out"
+      className="relative w-full min-h-screen md:h-full pt-20 pb-8 md:pt-24 md:pb-8 lg:pt-32 lg:pb-16 px-6 md:px-16 flex flex-col justify-center items-center overflow-y-auto transition-colors duration-[800ms] ease-out"
       style={{ backgroundColor: currentBgColor }}
     >
-      {/* Noise background overlay */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.04] mix-blend-overlay z-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-
-      {/* Top Section Header */}
-      <span className="absolute top-28 left-6 md:left-12 text-[9px] tracking-[0.32em] uppercase text-[var(--color-brand-marron-claro)] font-sans pointer-events-none select-none">
-        Categorías
-      </span>
-
       {/* Main Container */}
       <div className="w-full max-w-5xl flex-grow flex flex-col justify-center z-10">
         {/* Section Header Text */}
-        <div className="w-full text-center md:text-left mb-8 md:mb-12 select-none">
+        <div className="w-full text-center md:text-left mb-6 md:mb-8 lg:mb-12 select-none">
           <h2 className="text-4xl md:text-6xl font-brand text-[var(--color-brand-marron-oscuro)] tracking-tight uppercase leading-none">
             Proyectos
           </h2>
@@ -257,7 +241,7 @@ export default function ProjectsSelector() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 w-full"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-10 w-full"
         >
           {categories.map((cat) => {
             const isHovered = hoveredId === cat.id;

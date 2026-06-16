@@ -18,7 +18,7 @@ interface ProjectItem {
   title: string;
   description: string;
   num?: string;
-  longDescription?: string;
+  longDescription?: string | React.ReactNode;
   details?: ProjectDetails;
   objectPosition?: string;
 }
@@ -93,20 +93,20 @@ export default function ProjectVideoOverlay({ project, onClose: _onClose }: Proj
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.4, ease: 'easeInOut' }}
-        onScroll={handleScroll}
-        className={`fixed inset-0 z-45 backdrop-blur-xl select-none pointer-events-auto bg-[var(--color-brand-crema)] text-black ${
-          isCustomBackstage ? 'overflow-y-auto block' : 'flex items-center justify-center'
-        }`}
+        className="fixed inset-0 z-45 backdrop-blur-xl select-none pointer-events-auto bg-[var(--color-brand-crema)] text-black overflow-hidden flex items-center justify-center"
       > 
         {isCustomBackstage ? (
           /* Fullscreen Video + Backstage Layout */
-          <div className="w-full min-h-screen flex flex-col">
+          <div 
+            onScroll={handleScroll}
+            className="w-full h-full overflow-y-auto flex flex-col"
+          >
             {/* Fullscreen Video Fold */}
             <div 
               onMouseMove={handleMouseMove}
               onMouseEnter={() => setIsHoveredVideo(true)}
               onMouseLeave={() => setIsHoveredVideo(false)}
-              className="relative w-full h-[100dvh] bg-black flex items-center justify-center overflow-hidden cursor-none"
+              className="relative w-full h-[100dvh] bg-black flex items-center justify-center overflow-hidden cursor-none flex-shrink-0"
             >
               <video
                 ref={videoRef}
@@ -243,7 +243,7 @@ export default function ProjectVideoOverlay({ project, onClose: _onClose }: Proj
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 cursor-zoom-out pointer-events-auto"
+              className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 cursor-zoom-out pointer-events-auto"
               onClick={() => setSelectedPhoto(null)}
             >
               {/* Close Button */}

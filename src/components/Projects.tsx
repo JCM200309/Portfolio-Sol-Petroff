@@ -15,7 +15,7 @@ interface ProjectItem {
   link: string;
   title: string;
   description: string;
-  longDescription: string;
+  longDescription: string | React.ReactNode;
   featured?: boolean;
   details: ProjectDetails;
   objectPosition?: string;
@@ -30,7 +30,11 @@ const projectItems: ProjectItem[] = [
     title: 'Neo Trattoria',
     description: 'Estudio de espacio',
     featured: true,
-    longDescription: 'Este fashion film traduce la macro tendencia Neo Trattoria en una experiencia audiovisual que explora la dualidad de lo orgánico y lo estructural. A través de la luz, el ritmo y la composición se busca reflejar la tensión entre lo tradicional y lo contemporáneo, lo sobrio y lo vibrante. Se encuentran lo Racing y el lujo, y las formas fluidas, la repetición y la superposición construyen una atmosfera sensorial donde lo íntimo y lo expansivo conviven, evocando una nostalgia vibrante que habita entre pasado y presente.',
+    longDescription: (
+      <>
+        Este fashion film traduce la macro tendencia Neo Trattoria en una experiencia audiovisual que explora la dualidad de lo <strong>orgánico</strong> y lo <strong>estructural</strong>. A través de la luz, el ritmo y la composición se busca reflejar la <strong>tensión entre lo tradicional</strong> y lo <strong>contemporáneo</strong>, lo <strong>sobrio</strong> y lo <strong>vibrante</strong>. Se encuentran lo Racing y el lujo, y las formas fluidas, la repetición y la superposición construyen una atmosfera sensorial donde lo <strong>íntimo</strong> y lo <strong>expansivo conviven</strong>, evocando una nostalgia vibrante que habita entre pasado y presente.
+      </>
+    ),
     details: { year: '2025', category: 'Spatial Design & Video Art', duration: '02:15' },
     objectPosition: 'object-center',
   },
@@ -92,7 +96,7 @@ function SecondaryProjectItem({
 }: SecondaryItemProps) {
   return (
     <div
-      className={`flex-1 relative cursor-pointer overflow-hidden${!isLast ? ' border-b border-r md:border-r-0 md:border-b border-[#be9e89]/25' : ''}`}
+      className={`flex-1 relative cursor-pointer overflow-hidden${!isLast ? ' border-b border-r-0 md:border-b border-[#be9e89]/25' : ''}`}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       onClick={onClick}
@@ -116,8 +120,8 @@ function SecondaryProjectItem({
           backgroundColor: isHovered
             ? 'rgba(0,0,0,0.32)'
             : isAnyHovered
-            ? 'rgba(0,0,0,0.68)'
-            : 'rgba(0,0,0,0.52)',
+              ? 'rgba(0,0,0,0.68)'
+              : 'rgba(0,0,0,0.52)',
         }}
       />
 
@@ -287,7 +291,7 @@ export default function Projects() {
 
         {/* ── Secondary projects — right 38% ── */}
         <div
-          className="flex-[38] h-[42%] md:h-full flex flex-row md:flex-col border-t md:border-t-0 md:border-l border-[#be9e89]/22"
+          className="flex-[38] min-h-[42%] md:h-full flex flex-col md:flex-col overflow-y-auto md:overflow-visible border-t md:border-t-0 md:border-l border-[#be9e89]/22"
         >
           {secondary.map((item, i) => (
             <SecondaryProjectItem

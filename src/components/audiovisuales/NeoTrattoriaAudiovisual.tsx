@@ -13,7 +13,7 @@ class BackstageAudioSynth {
   private audio: HTMLAudioElement | null = null;
   private audioSource: MediaElementAudioSourceNode | null = null;
 
-  constructor() {}
+  constructor() { }
 
   init() {
     if (this.ctx) return;
@@ -38,7 +38,7 @@ class BackstageAudioSynth {
   play() {
     this.stop();
     this.init();
-    
+
     if (this.ctx && this.ctx.state === 'suspended') {
       this.ctx.resume();
     }
@@ -56,7 +56,7 @@ class BackstageAudioSynth {
         }
       }
     }
-    
+
     this.audio.play().catch(err => {
       console.warn("Audio play prevented:", err);
     });
@@ -77,7 +77,7 @@ const backstageCategories = [
     title: 'Desglose Conceptual',
     icon: BookOpen,
     badge: '01 / CONCEPTO',
-    tag: 'Hibridación y memoria',
+    tag: 'MOODBOARD VISUAL DE LA TENDENCIA',
     summary: 'Releemos la tradición de la italianidad para habitarla desde lo sensible, lo plural y lo presente. En el contexto argentino contemporáneo, la memoria de los inmigrantes se resignifica no como copia, sino como un eco afectivo en tensión.',
     bullets: [
       'Eco de la italianidad tradicional en Argentina',
@@ -102,7 +102,6 @@ const backstageCategories = [
     ],
     images: [
       { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Locacion/locacion.png', caption: 'Reconocimiento de luces y ángulos en terminal.' },
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Locacion/locacion2.webp', caption: 'Configuración espacial de la locación.' }
     ]
   },
   {
@@ -118,9 +117,11 @@ const backstageCategories = [
       'Morfología de curvas fluidas y repetición simétrica'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Elementos/mesaMantel.png', caption: 'Mesa puesta con mantel clásico a cuadros.' },
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Elementos/pasta.webp', caption: 'Pasta fresca como elemento central del ritual.' },
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Elementos/vajilla.png', caption: 'Detalle de vajilla retro ornamentada.' }
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/morfologia/1.jpg', caption: 'Mesa puesta con mantel clásico a cuadros.' },
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/morfologia/2.jpg', caption: 'Pasta fresca como elemento central del ritual.' },
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/morfologia/3.jpg', caption: 'Detalle de vajilla retro ornamentada.' },
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/morfologia/4.jpg', caption: 'Detalle de vajilla retro ornamentada.' },
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/morfologia/5.jpg', caption: 'Detalle de vajilla retro ornamentada.' }
     ]
   },
   {
@@ -136,12 +137,12 @@ const backstageCategories = [
       'Tensión estética entre el glamour clásico y la dureza urbana'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Maquillaje/maquillaje1.jpg', caption: 'Pruebas de makeup.' },
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Maquillaje/maquillaje2.webp', caption: 'Labios delineados en contraste.' },
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Maquillaje/maquillaje3.jpg', caption: 'Sesión de retoques en set.' },
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Peinados/ondas.webp', caption: 'Detalle de peinado con ondas pulidas.' },
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Peinados/pañuelo.jpg', caption: 'Pañuelo de seda retro.' },
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Peinados/recogidos.jpg', caption: 'Recogido clásico para el shoot.' }
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/maquillaje/maquillaje1.jpg', caption: 'Pruebas de makeup.' },
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/maquillaje/maquillaje2.jpg', caption: 'Labios delineados en contraste.' },
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/maquillaje/maquillaje3.jpg', caption: 'Sesión de retoques en set.' },
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/peinados/peinados1.jpg', caption: 'Detalle de peinado con ondas pulidas.' },
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/peinados/peinados2.jpg', caption: 'Pañuelo de seda retro.' },
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/peinados/peinados3.jpg', caption: 'Recogido clásico para el shoot.' }
     ]
   },
   {
@@ -220,14 +221,14 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      <div 
+      <div
         className="relative w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] group select-none transition-all duration-500 ease-in-out mx-auto"
         style={{
           aspectRatio: isVertical ? '3/4' : '16/10',
           maxWidth: isVertical ? '450px' : '100%',
         }}
       >
-        
+
         {/* Slides */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -321,7 +322,7 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
 
   return (
     <div className="w-full py-24 bg-black/[0.01] border-t border-[var(--color-brand-marron-claro)]/25 relative pointer-events-auto select-none">
-      
+
       <div className="mb-20 text-center md:text-left select-none">
         <span className="text-[10px] md:text-[11px] font-mono tracking-[0.35em] text-[var(--color-brand-bordo)] uppercase font-semibold">
           PROCESO CREATIVO Y REGISTRO DE RODAJE
@@ -330,8 +331,8 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
           Diario de Producción
         </h3>
         <p className="text-sm font-sans tracking-wide leading-relaxed text-[var(--color-brand-marron-oscuro)]/80 max-w-2xl text-left">
-          Cada toma de Neo Trattoria es el resultado de un meticuloso proceso de diseño, dirección de arte e investigación cultural. Recorre la bitácora vertical para adentrarte en el universo estético del proyecto.
-        </p> 
+          Cada toma de Neo Trattoria es el resultado de un estudio y creación de una <strong>macrotendencia</strong> basada en una investigación cultural y señales de cambio. Recorre la bitácora vertical para adentrarte en el universo estético del proyecto.
+        </p>
       </div>
 
       {/* Vertical Stack of Editorial Sections */}
@@ -350,9 +351,8 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
               className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start py-4"
             >
               {/* Left/Right Narrative Text */}
-              <div className={`col-span-12 lg:col-span-4 flex flex-col justify-between ${
-                isEven ? 'lg:order-1' : 'lg:order-2'
-              }`}>
+              <div className={`col-span-12 lg:col-span-4 flex flex-col justify-between ${isEven ? 'lg:order-1' : 'lg:order-2'
+                }`}>
                 <div>
                   <div className="flex items-center gap-3 mb-2">
                     <span className="text-[32px] sm:text-[40px] font-brand font-light text-[var(--color-brand-bordo)]/30 leading-none">
@@ -363,18 +363,18 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
                       {cat.badge.split(' / ')[1]}
                     </span>
                   </div>
-                  
+
                   <h4 className="font-brand text-3xl sm:text-4xl uppercase tracking-wide text-[var(--color-brand-marron-oscuro)] mb-4 flex items-center gap-3 text-left">
                     {cat.title}
                     <IconComp size={22} className="text-[var(--color-brand-bordo)]" />
                   </h4>
-                  
+
                   <span className="text-[10px] font-sans tracking-widest uppercase font-bold text-[var(--color-brand-bordo)] block mb-3 text-left">
                     {cat.tag}
                   </span>
 
                   <div className="w-12 h-[1.5px] bg-[var(--color-brand-bordo)]/30 my-4" />
-                  
+
                   <p className="text-base md:text-lg leading-relaxed text-[var(--color-brand-marron-oscuro)]/90 mb-6 font-sans text-left">
                     {cat.summary}
                   </p>
@@ -388,18 +388,12 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
                     ))}
                   </ul>
                 </div>
-
-                <div className="mt-8 pt-4 border-t border-[var(--color-brand-marron-claro)]/15 flex justify-between items-center text-[10px] font-mono uppercase tracking-widest text-[var(--color-brand-marron-oscuro)]/50">
-                  <span>№112 // BACKSTAGE</span>
-                  <span>{cat.id === 'sonido' ? 'AUDIO INTERACTIVO' : `[ ${cat.images.length} ${cat.images.length === 1 ? 'FOTOGRAFÍA' : 'FOTOGRAFÍAS'} ]`}</span>
-                </div>
               </div>
 
               {/* Alternate Column: Interactive Content or Images */}
-              <div className={`col-span-12 lg:col-span-8 min-h-[300px] flex flex-col justify-center w-full ${
-                isEven ? 'lg:order-2' : 'lg:order-1'
-              }`}>
-                
+              <div className={`col-span-12 lg:col-span-8 min-h-[300px] flex flex-col justify-center w-full ${isEven ? 'lg:order-2' : 'lg:order-1'
+                }`}>
+
                 {/* SECTION 1: DESGLOSE CONCEPTUAL */}
                 {cat.id === 'desglose' && (
                   <ImageCarousel images={cat.images} onSelectPhoto={onSelectPhoto} />
@@ -421,29 +415,27 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
                     <div className="flex gap-2 justify-center border-b border-[var(--color-brand-marron-claro)]/25 pb-4">
                       <button
                         onClick={() => setSelectedStylingTab('makeup')}
-                        className={`px-4 py-2 text-[9px] font-sans tracking-widest uppercase rounded-xs transition-colors cursor-pointer ${
-                          selectedStylingTab === 'makeup' 
-                            ? 'bg-[var(--color-brand-bordo)] text-white font-bold' 
-                            : 'bg-white/30 text-[var(--color-brand-marron-oscuro)] hover:bg-white/50'
-                        }`}
+                        className={`px-4 py-2 text-[9px] font-sans tracking-widest uppercase rounded-xs transition-colors cursor-pointer ${selectedStylingTab === 'makeup'
+                          ? 'bg-[var(--color-brand-bordo)] text-white font-bold'
+                          : 'bg-white/30 text-[var(--color-brand-marron-oscuro)] hover:bg-white/50'
+                          }`}
                       >
                         Maquillaje
                       </button>
                       <button
                         onClick={() => setSelectedStylingTab('hair')}
-                        className={`px-4 py-2 text-[9px] font-sans tracking-widest uppercase rounded-xs transition-colors cursor-pointer ${
-                          selectedStylingTab === 'hair' 
-                            ? 'bg-[var(--color-brand-bordo)] text-white font-bold' 
-                            : 'bg-white/30 text-[var(--color-brand-marron-oscuro)] hover:bg-white/50'
-                        }`}
+                        className={`px-4 py-2 text-[9px] font-sans tracking-widest uppercase rounded-xs transition-colors cursor-pointer ${selectedStylingTab === 'hair'
+                          ? 'bg-[var(--color-brand-bordo)] text-white font-bold'
+                          : 'bg-white/30 text-[var(--color-brand-marron-oscuro)] hover:bg-white/50'
+                          }`}
                       >
                         Peinados
                       </button>
                     </div>
 
-                    <ImageCarousel 
-                      images={cat.images.filter(img => selectedStylingTab === 'makeup' ? img.src.includes('Maquillaje') : img.src.includes('Peinados'))} 
-                      onSelectPhoto={onSelectPhoto} 
+                    <ImageCarousel
+                      images={cat.images.filter(img => selectedStylingTab === 'makeup' ? img.src.includes('maquillaje') : img.src.includes('peinado'))}
+                      onSelectPhoto={onSelectPhoto}
                     />
                   </div>
                 )}
@@ -452,28 +444,27 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
                 {cat.id === 'sonido' && (
                   <div className="w-full flex flex-col gap-4">
                     <div className="border border-[var(--color-brand-marron-claro)]/25 bg-white/40 backdrop-blur-md rounded-xs p-5 flex flex-col gap-4 shadow-sm select-none items-center">
-                      
+
                       {/* VINYL ROTATOR PLATTER */}
                       <div className="relative w-[180px] h-[180px] flex items-center justify-center mb-2">
-                        <motion.div 
+                        <motion.div
                           animate={isPlayingSynth ? { rotate: 360 } : {}}
                           transition={{ repeat: Infinity, duration: 8, ease: 'linear' }}
-                          className={`absolute inset-0 rounded-full bg-black shadow-xl border-4 border-gray-900 flex items-center justify-center ${
-                            isPlayingSynth ? 'scale-100 shadow-2xl' : 'scale-95'
-                          } transition-transform duration-500`}
+                          className={`absolute inset-0 rounded-full bg-black shadow-xl border-4 border-gray-900 flex items-center justify-center ${isPlayingSynth ? 'scale-100 shadow-2xl' : 'scale-95'
+                            } transition-transform duration-500`}
                         >
                           {/* Grooves on vinyl */}
                           <div className="absolute inset-2 rounded-full border border-white/5" />
                           <div className="absolute inset-4 rounded-full border border-white/5" />
                           <div className="absolute inset-6 rounded-full border border-white/5" />
                           <div className="absolute inset-8 rounded-full border border-white/5" />
-                          
+
                           {/* Center label displaying disco.webp */}
                           <div className="w-[80px] h-[80px] rounded-full overflow-hidden border-2 border-black relative bg-gray-200">
-                            <img 
-                              src="/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Sonido Musica y clima sonoro/disco.webp" 
-                              alt="Disco Dictator [Luke Million Remix]" 
-                              className="w-full h-full object-cover select-none pointer-events-none" 
+                            <img
+                              src="/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Sonido Musica y clima sonoro/disco.webp"
+                              alt="Disco Dictator [Luke Million Remix]"
+                              className="w-full h-full object-cover select-none pointer-events-none"
                               draggable="false"
                             />
                             <div className="absolute inset-0 bg-black/10" />
@@ -492,7 +483,7 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
                             Luke Million Remix
                           </span>
                         </div>
-                        
+
                         <EqualizerBar active={isPlayingSynth} />
                       </div>
 
@@ -544,15 +535,15 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
         </div>
 
         {inlinePreviews['capturas'] ? (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             className="w-full flex flex-col gap-4 relative max-w-4xl mx-auto"
           >
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-md rounded-xs bg-black/[0.02] relative group">
-              <img 
-                src={inlinePreviews['capturas']!} 
-                alt="Preview" 
+              <img
+                src={inlinePreviews['capturas']!}
+                alt="Preview"
                 className="w-full h-auto max-h-[70vh] object-contain mx-auto block cursor-zoom-out"
                 onClick={() => setInlinePreviews(prev => ({ ...prev, capturas: null }))}
               />
@@ -591,10 +582,10 @@ export default function NeoTrattoriaAudiovisual({ onSelectPhoto }: NeoTrattoriaA
                 className={`bg-white/40 backdrop-blur-xs p-4 rounded-xs border border-[var(--color-brand-marron-claro)]/25 shadow-xs cursor-pointer group flex flex-col gap-3 relative pointer-events-auto ${idx === 4 ? 'sm:col-span-2' : ''}`}
               >
                 <div className={`w-full aspect-[4/3] ${idx === 4 ? 'sm:aspect-[2.1/1]' : ''} bg-black/5 overflow-hidden rounded-xs relative`}>
-                  <img 
-                    src={item.src} 
-                    alt={item.caption} 
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" 
+                  <img
+                    src={item.src}
+                    alt={item.caption}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                     draggable="false"
                     loading="lazy"
                   />

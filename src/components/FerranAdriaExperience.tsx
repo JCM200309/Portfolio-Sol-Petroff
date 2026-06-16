@@ -192,7 +192,7 @@ export default function FerranAdriaExperience() {
             </span>
             
             {/* The Plate Circle */}
-            <div className="relative w-[340px] h-[340px] md:w-[380px] md:h-[380px] rounded-full border border-[var(--color-brand-marron-claro)]/30 flex items-center justify-center bg-white/40 shadow-[inset_0_4px_30px_rgba(146,94,61,0.03),_0_20px_50px_rgba(146,94,61,0.05)]">
+            <div className="relative w-[min(85vw,340px)] h-[min(85vw,340px)] md:w-[380px] md:h-[380px] rounded-full border border-[var(--color-brand-marron-claro)]/30 flex items-center justify-center bg-white/40 shadow-[inset_0_4px_30px_rgba(146,94,61,0.03),_0_20px_50px_rgba(146,94,61,0.05)]">
               
               {/* Outer clock numbers */}
               <div className="absolute inset-4 rounded-full border border-dashed border-[var(--color-brand-marron-claro)]/15 pointer-events-none" />
@@ -202,9 +202,8 @@ export default function FerranAdriaExperience() {
                 const isSelected = activeHour === node.hour;
                 // Calculate position around the circle
                 const rad = (node.angle - 90) * (Math.PI / 180);
-                const radius = 135; // px
-                const x = radius * Math.cos(rad);
-                const y = radius * Math.sin(rad);
+                const x = `calc(${Math.cos(rad)} * min(33.7vw, 135px))`;
+                const y = `calc(${Math.sin(rad)} * min(33.7vw, 135px))`;
 
                 return (
                   <motion.button
@@ -228,7 +227,7 @@ export default function FerranAdriaExperience() {
               <motion.div
                 className="absolute w-1.5 bg-gradient-to-t from-[var(--color-brand-bordo)] via-[var(--color-brand-bordo)] to-amber-500 rounded-full origin-bottom pointer-events-none"
                 style={{
-                  height: "100px",
+                  height: "min(25vw, 100px)",
                   bottom: "50%",
                   left: "calc(50% - 3px)",
                 }}
@@ -242,7 +241,7 @@ export default function FerranAdriaExperience() {
               <div className="w-4 h-4 rounded-full bg-[var(--color-brand-marron-oscuro)] border-2 border-[var(--color-brand-crema)] shadow-md z-10" />
 
               {/* Inner subtle text label */}
-              <div className="absolute text-[8px] tracking-[0.2em] font-mono text-[var(--color-brand-marron-claro)]/40 uppercase mt-28 select-none">
+              <div className="absolute text-[8px] tracking-[0.2em] font-mono text-[var(--color-brand-marron-claro)]/40 uppercase mt-[min(25vw,112px)] select-none">
                 EL TIEMPO ORDENA
               </div>
             </div>

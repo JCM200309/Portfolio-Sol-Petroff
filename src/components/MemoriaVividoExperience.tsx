@@ -17,27 +17,27 @@ interface TiltImageProps {
   fetchpriority?: "high" | "low" | "auto";
 }
 
-export function TiltImage({ 
-  src, 
-  alt, 
-  className = "", 
+export function TiltImage({
+  src,
+  alt,
+  className = "",
   imgClassName = "w-full h-auto",
-  onClick, 
-  onHoverStart, 
-  onHoverEnd, 
+  onClick,
+  onHoverStart,
+  onHoverEnd,
   parallaxY,
   loading = "lazy",
   fetchpriority = "auto"
 }: TiltImageProps) {
   const ref = useRef<HTMLDivElement>(null);
-  
+
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
-  
+
   const springConfig = { damping: 25, stiffness: 180, mass: 0.6 };
   const rotateX = useSpring(useTransform(y, [0, 1], [7, -7]), springConfig);
   const rotateY = useSpring(useTransform(x, [0, 1], [-7, 7]), springConfig);
-  
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
@@ -60,9 +60,9 @@ export function TiltImage({
       onMouseLeave={handleMouseLeave}
       onMouseEnter={onHoverStart}
       onClick={onClick}
-      style={{ 
+      style={{
         perspective: 1000,
-        y: parallaxY || 0 
+        y: parallaxY || 0
       }}
       className={`relative overflow-hidden ${onClick ? 'cursor-none' : ''} ${className}`}
     >
@@ -102,13 +102,6 @@ const memoriaVividoImages = [
   "/producciones/memoriaVivido/9.JPG",
   "/producciones/memoriaVivido/10.JPG",
   "/producciones/memoriaVivido/11.JPG",
-  "/producciones/memoriaVivido/12.jpg",
-  "/producciones/memoriaVivido/13.jpg",
-  "/producciones/memoriaVivido/14.JPG",
-  "/producciones/memoriaVivido/15.JPG",
-  "/producciones/memoriaVivido/16.jpg",
-  "/producciones/memoriaVivido/17.jpg",
-  "/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg"
 ];
 
 // --- HELPER FUNCTION: Web Audio API Shutter Sound Synthesizer ---
@@ -117,7 +110,7 @@ const playShutterSound = () => {
     const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContext) return;
     const ctx = new AudioContext();
-    
+
     const playClick = (time: number, volume: number, highpassFreq: number, decay: number) => {
       const bufferSize = ctx.sampleRate * decay;
       const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
@@ -125,26 +118,26 @@ const playShutterSound = () => {
       for (let i = 0; i < bufferSize; i++) {
         data[i] = Math.random() * 2 - 1;
       }
-      
+
       const noise = ctx.createBufferSource();
       noise.buffer = buffer;
-      
+
       const filter = ctx.createBiquadFilter();
       filter.type = 'highpass';
       filter.frequency.setValueAtTime(highpassFreq, time);
-      
+
       const gain = ctx.createGain();
       gain.gain.setValueAtTime(volume, time);
       gain.gain.exponentialRampToValueAtTime(0.01, time + decay - 0.01);
-      
+
       noise.connect(filter);
       filter.connect(gain);
       gain.connect(ctx.destination);
-      
+
       noise.start(time);
       noise.stop(time + decay);
     };
-    
+
     const now = ctx.currentTime;
     playClick(now, 0.25, 1200, 0.06);     // Shutter curtains open
     playClick(now + 0.06, 0.2, 800, 0.08); // Shutter curtains close
@@ -161,7 +154,7 @@ export default function MemoriaVividoExperience() {
   const [showFlash, setShowFlash] = useState(false);
   const [carreteOpen, setCarreteOpen] = useState(false);
   const [cursorMode, setCursorMode] = useState<'idle' | 'focus' | 'shutter'>('idle');
-  
+
   const pageRef = useRef<HTMLDivElement>(null);
 
   // Smooth custom cursor tracking using fixed viewport space
@@ -189,7 +182,7 @@ export default function MemoriaVividoExperience() {
   // Main interactive capture callback
   const capturePhoto = (src: string) => {
     playShutterSound();
-    
+
     setCursorMode('shutter');
     setTimeout(() => {
       setCursorMode(isHoveringImage ? 'focus' : 'idle');
@@ -228,7 +221,8 @@ export default function MemoriaVividoExperience() {
     >
       {/* Noise texture overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
-      {/* BLOCK 1: EDITORIAL HERO & CONCEPT */}
+
+      {/* BLOCK 1: EDITORIAL HERO & CONCEPT */}
       <div className="w-full lg:h-screen grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative overflow-hidden">
         {/* Left Column: Maroon Story Block */}
         <div className="col-span-12 lg:col-span-6 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] pt-28 md:pt-36 pb-8 md:pb-16 px-8 md:px-16 flex flex-col justify-between relative min-h-[600px] lg:min-h-0 lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--color-brand-marron-oscuro)]/25">
@@ -242,9 +236,9 @@ export default function MemoriaVividoExperience() {
             <span>01 / EDITORIAL CONCEPT</span>
             <span>[ ESTUDIO DE LA MEMORIA ]</span>
           </div>
-          
+
           <div className="my-auto pt-16 pb-12">
-            <h1 className="text-6xl sm:text-8xl lg:text-[7vw] xl:text-[7.5vw] font-brand uppercase tracking-wider text-[var(--color-brand-crema)] mt-2 leading-[0.85] select-none">
+            <h1 className="text-6xl sm:text-8xl lg:text-[7vw] xl:text-[7.5vw] font-brand uppercase tracking-wider text-[var(--color-brand-crema)] mt-2 leading-[1.05] select-none">
               Memoria Vívido
             </h1>
             <div className="w-20 h-[1px] bg-[var(--color-brand-crema)]/35 my-8" />
@@ -255,7 +249,7 @@ export default function MemoriaVividoExperience() {
               Editorial basada en un reporte de tendencias que desarrolla el concepto de “memoria vivido”, representando un universo estético desde la nostalgia y el recuerdo como un peso. Se plasma la naturaleza expansiva y a veces caótica de la memoria, y cómo se convive con ese peso, desde las poses elegidas, las luces y la escenografía.
             </p>
           </div>
-          
+
           <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75">
             <span>[ SENSORY RECORD ]</span>
             <span>[ DEPTH // 01 ]</span>
@@ -318,10 +312,7 @@ export default function MemoriaVividoExperience() {
 
             {/* Bottom Photo */}
             <div className="w-full flex flex-col gap-3">
-              <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-                <span>[ FRAME // 03 ]</span>
-                <span>[ SHUTTER 1/125 ]</span>
-              </div>
+
               <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
                 <TiltImage
                   src="/producciones/memoriaVivido/3.jpg"
@@ -346,22 +337,17 @@ export default function MemoriaVividoExperience() {
       {/* BLOCK 2: PHYSICAL WEIGHT & FRAGMENTS */}
       <div className="w-full grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative gap-4 md:gap-6 p-4 md:p-6">
         {/* Left Column: Full vertical photo (col-span-12 md:col-span-4) */}
-        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-between gap-4">
+        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-between min-h-[550px] p-2">
+          <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
+            <span>[ SCAN // 09 ]</span>
+            <span>[ F/2.8 ]</span>
+          </div>
+          <div className="my-auto py-12 px-4 flex flex-col items-center justify-center">
+            <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
+              Este peso emocional se refleja físicamente, manifestándose en la postura del cuerpo humano, que tiende a encorvarse bajo la carga de estos recuerdos, adoptando una tipología "deprimida" y orgánica en el espacio.
+            </p>
+          </div>
           <div className="w-full flex flex-col gap-3">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ SCAN // 09 ]</span>
-              <span>[ F/2.8 ]</span>
-            </div>
-            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
-              <TiltImage
-                src="/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg"
-                alt="Memoria Vívido - Fragmento Lineal A"
-                onClick={() => capturePhoto('/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg')}
-                onHoverStart={() => setIsHoveringImage(true)}
-                onHoverEnd={() => setIsHoveringImage(false)}
-                className="w-full h-auto object-contain block"
-              />
-            </div>
             <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
             <div className="flex justify-between items-center px-1">
               <span className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase">
@@ -430,17 +416,14 @@ export default function MemoriaVividoExperience() {
             <span>[ SECTION B ]</span>
           </div>
 
-          <div className="my-auto py-8">
-            <h2 className="text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mb-6 font-bold leading-none">
+          <div className="mt-12 mb-auto py-4">
+            <h2 className="text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mb-6 font-bold leading-none text-center">
               Individual
             </h2>
-            
-            <div className="space-y-6 mb-8">
-              <p className="text-sm md:text-base leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-left">
+
+            <div className="space-y-6 mb-8 flex flex-col items-center justify-center">
+              <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
                 La elección de representar el universo estético desde la nostalgia y el recuerdo responde a la intención de evocar emociones profundas y personales. La nostalgia se presenta como una carga emocional que cada persona lleva consigo.
-              </p>
-              <p className="text-sm md:text-base leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-left">
-                Este peso emocional se refleja físicamente, manifestándose en la postura del cuerpo humano, que tiende a encorvarse bajo la carga de estos recuerdos, adoptando una tipología "deprimida" y orgánica en el espacio.
               </p>
             </div>
 
@@ -594,7 +577,7 @@ export default function MemoriaVividoExperience() {
             <span className="absolute top-4 right-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
             <span className="absolute bottom-4 left-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
             <span className="absolute bottom-4 right-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
-            
+
             <TiltImage
               src="/producciones/memoriaVivido/portada.JPG"
               alt="Memoria Vívido Conclusión"
@@ -614,39 +597,7 @@ export default function MemoriaVividoExperience() {
         </div>
       </div>
 
-      {/* GALLERY SECTION */}
-      <div className="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
-        <div className="mb-12 select-none">
 
-          <h3 className="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2">
-            Registro Editorial
-          </h3>
-        </div>
-
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 [column-fill:_balance]">
-          {memoriaVividoImages.map((imgSrc, index) => (
-            <motion.div
-              key={imgSrc}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: (index % 5) * 0.05 }}
-              className="break-inside-avoid overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm bg-black/[0.01] hover:shadow-md transition-shadow group cursor-none relative"
-              onClick={() => capturePhoto(imgSrc)}
-              onMouseEnter={() => setIsHoveringImage(true)}
-              onMouseLeave={() => setIsHoveringImage(false)}
-            >
-              <img
-                src={imgSrc}
-                alt={`Memoria Vívido Gallery ${index}`}
-                className="w-full h-auto object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
-            </motion.div>
-          ))}
-        </div>
-      </div>
 
       {/* Viewfinder Custom Cursor (Vibe: DSLR Camera Focusing Reticle - Minimalist) */}
       <motion.div
@@ -658,7 +609,7 @@ export default function MemoriaVividoExperience() {
           y: springY,
         }}
       >
-        <motion.div 
+        <motion.div
           className="relative flex flex-col items-center justify-center -translate-x-1/2 -translate-y-1/2"
           animate={{
             scale: cursorMode === 'shutter' ? 0.8 : 1,
@@ -666,7 +617,7 @@ export default function MemoriaVividoExperience() {
           transition={{ type: 'spring', stiffness: 450, damping: 28 }}
         >
           {/* Viewfinder Brackets */}
-          <motion.div 
+          <motion.div
             className="absolute border-white"
             animate={{
               width: cursorMode === 'focus' ? 52 : 36,
@@ -686,7 +637,7 @@ export default function MemoriaVividoExperience() {
           </motion.div>
 
           {/* Inner Ring (Lens guideline) */}
-          <motion.div 
+          <motion.div
             className="absolute border border-white/30 rounded-full"
             animate={{
               width: cursorMode === 'focus' ? 24 : 12,
@@ -702,7 +653,7 @@ export default function MemoriaVividoExperience() {
           {/* Action indicator - clean, no boxes, spaced out */}
           <AnimatePresence>
             {cursorMode === 'focus' && (
-              <motion.span 
+              <motion.span
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 5 }}
@@ -732,7 +683,7 @@ export default function MemoriaVividoExperience() {
       {/* Camera Roll (Album Roll) */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 font-sans">
         {/* Captured Badge / Status Indicator */}
-        <motion.div 
+        <motion.div
           onClick={() => setCarreteOpen(!carreteOpen)}
           className="bg-black/90 text-[var(--color-brand-crema)] rounded-full px-5 py-3 shadow-[0_10px_35px_rgba(0,0,0,0.5)] cursor-pointer select-none flex items-center gap-3 backdrop-blur-md pointer-events-auto hover:bg-black/95 transition-all active:scale-95 border border-[var(--color-brand-marron-claro)]/25"
         >
@@ -741,7 +692,7 @@ export default function MemoriaVividoExperience() {
             CARRETE: {capturedPhotos.length} / {memoriaVividoImages.length}
           </span>
         </motion.div>
-        
+
         {/* Expanded Camera Roll Thumbnails */}
         <AnimatePresence>
           {carreteOpen && (
@@ -756,7 +707,7 @@ export default function MemoriaVividoExperience() {
                   Fotos Reveladas
                 </span>
                 {capturedPhotos.length > 0 && (
-                  <button 
+                  <button
                     onClick={(e) => {
                       e.stopPropagation();
                       setCapturedPhotos([]);
@@ -767,7 +718,7 @@ export default function MemoriaVividoExperience() {
                   </button>
                 )}
               </div>
-              
+
               {capturedPhotos.length === 0 ? (
                 <div className="py-8 text-center text-[10px] tracking-widest text-white/30 uppercase leading-relaxed">
                   No has sacado fotos aún.<br />Haz clic sobre las fotos para capturarlas.

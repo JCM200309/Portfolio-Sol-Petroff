@@ -39,7 +39,7 @@ export default function About() {
   return (
     <section 
       id="conoceme" 
-      className="min-h-screen md:h-full w-full pt-32 pb-20 px-6 md:px-16 flex flex-col justify-center items-center bg-[var(--color-brand-crema)] md:overflow-y-auto"
+      className="min-h-screen md:h-full w-full pt-20 pb-12 md:pt-24 md:pb-16 lg:pt-32 lg:pb-20 px-6 md:px-16 flex flex-col justify-center items-center bg-[var(--color-brand-crema)] md:overflow-y-auto"
     >
       <div className="w-full max-w-6xl z-10">
         <motion.div 
@@ -47,10 +47,10 @@ export default function About() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center"
+          className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 lg:gap-20 items-center"
         >
           {/* LEFT COLUMN: Text Content & Contact Channels (spans 6 cols on desktop) */}
-          <div className="lg:col-span-6 flex flex-col justify-center select-none text-left">
+          <div className="md:col-span-6 flex flex-col justify-center select-none text-left">
             <motion.h2 
               variants={itemVariants}
               className="text-4xl md:text-6xl font-brand text-[var(--color-brand-bordo)] uppercase tracking-tight leading-none mb-8"
@@ -147,7 +147,7 @@ export default function About() {
           </div>
 
           {/* RIGHT COLUMN: Single Profile Photo (spans 6 cols on desktop) */}
-          <div className="lg:col-span-6 flex items-center justify-center">
+          <div className="md:col-span-6 flex items-center justify-center">
             <motion.div
               variants={collageItemVariants}
               className="w-full overflow-hidden rounded-sm border border-[var(--color-brand-bordo)]/20 shadow-[0_20px_50px_rgba(132,6,36,0.1)] group"
