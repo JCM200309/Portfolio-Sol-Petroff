@@ -16,27 +16,27 @@ interface TiltImageProps {
   fetchpriority?: "high" | "low" | "auto";
 }
 
-export function TiltImage({ 
-  src, 
-  alt, 
-  className = "", 
+export function TiltImage({
+  src,
+  alt,
+  className = "",
   imgClassName = "w-full h-auto",
-  onClick, 
-  onHoverStart, 
-  onHoverEnd, 
+  onClick,
+  onHoverStart,
+  onHoverEnd,
   parallaxY,
   loading = "lazy",
   fetchpriority = "auto"
 }: TiltImageProps) {
   const ref = useRef<HTMLDivElement>(null);
-  
+
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
-  
+
   const springConfig = { damping: 25, stiffness: 180, mass: 0.6 };
   const rotateX = useSpring(useTransform(y, [0, 1], [7, -7]), springConfig);
   const rotateY = useSpring(useTransform(x, [0, 1], [-7, 7]), springConfig);
-  
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
@@ -59,9 +59,9 @@ export function TiltImage({
       onMouseLeave={handleMouseLeave}
       onMouseEnter={onHoverStart}
       onClick={onClick}
-      style={{ 
+      style={{
         perspective: 1000,
-        y: parallaxY || 0 
+        y: parallaxY || 0
       }}
       className={`relative overflow-hidden ${onClick ? 'cursor-none' : ''} ${className}`}
     >
@@ -88,22 +88,10 @@ export function TiltImage({
 }
 
 const neoTrattoriaImages = [
-  "/producciones/neoTrattoria/primerFoto.JPG",
-  "/producciones/neoTrattoria/fotoPortada.JPG",
   "/producciones/neoTrattoria/IMG_1355.jpg",
-  "/producciones/neoTrattoria/IMG_6798.JPG",
-  "/producciones/neoTrattoria/IMG_6800.JPG",
-  "/producciones/neoTrattoria/IMG_6802.JPG",
-  "/producciones/neoTrattoria/IMG_6805.JPG",
-  "/producciones/neoTrattoria/IMG_6806.JPG",
-  "/producciones/neoTrattoria/IMG_6807.JPG",
-  "/producciones/neoTrattoria/IMG_6809.JPG",
-  "/producciones/neoTrattoria/IMG_6811.JPG",
-  "/producciones/neoTrattoria/IMG_6815.JPG",
   "/producciones/neoTrattoria/IMG_6816.JPG",
   "/producciones/neoTrattoria/IMG_6817.JPG",
   "/producciones/neoTrattoria/IMG_6818.JPG",
-  "/producciones/neoTrattoria/image-6c536fd8-f84b-4020-b323-5951d0483c10.webp",
   "/producciones/neoTrattoria/image-f56d6f9a-82f6-42b8-808e-5a0f755f5a10.webp"
 ];
 
@@ -113,7 +101,7 @@ const playShutterSound = () => {
     const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContext) return;
     const ctx = new AudioContext();
-    
+
     const playClick = (time: number, volume: number, highpassFreq: number, decay: number) => {
       const bufferSize = ctx.sampleRate * decay;
       const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
@@ -121,26 +109,26 @@ const playShutterSound = () => {
       for (let i = 0; i < bufferSize; i++) {
         data[i] = Math.random() * 2 - 1;
       }
-      
+
       const noise = ctx.createBufferSource();
       noise.buffer = buffer;
-      
+
       const filter = ctx.createBiquadFilter();
       filter.type = 'highpass';
       filter.frequency.setValueAtTime(highpassFreq, time);
-      
+
       const gain = ctx.createGain();
       gain.gain.setValueAtTime(volume, time);
       gain.gain.exponentialRampToValueAtTime(0.01, time + decay - 0.01);
-      
+
       noise.connect(filter);
       filter.connect(gain);
       gain.connect(ctx.destination);
-      
+
       noise.start(time);
       noise.stop(time + decay);
     };
-    
+
     const now = ctx.currentTime;
     playClick(now, 0.25, 1200, 0.06);     // Shutter curtains open
     playClick(now + 0.06, 0.2, 800, 0.08); // Shutter curtains close
@@ -159,9 +147,10 @@ export default function NeoTrattoriaExperience() {
   const [showFlash, setShowFlash] = useState(false);
   const [carreteOpen, setCarreteOpen] = useState(false);
   const [cursorMode, setCursorMode] = useState<'idle' | 'focus' | 'shutter'>('idle');
-  
 
-  
+  const neoTrattoriaImagesLen = 17;
+
+
   const pageRef = useRef<HTMLDivElement>(null);
 
   // Smooth custom cursor tracking using fixed viewport space
@@ -189,7 +178,7 @@ export default function NeoTrattoriaExperience() {
   // Main interactive capture callback
   const capturePhoto = (src: string, openLightbox = true) => {
     playShutterSound();
-    
+
     setCursorMode('shutter');
     setTimeout(() => {
       setCursorMode(isHoveringImage ? 'focus' : 'idle');
@@ -228,23 +217,18 @@ export default function NeoTrattoriaExperience() {
     >
       {/* Noise texture overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
-      
+
       {/* BLOCK 1: EDITORIAL HERO & CONCEPT */}
       <div className="w-full lg:h-screen grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative overflow-hidden">
         {/* Left Column: Maroon Story Block */}
-        <div className="col-span-12 lg:col-span-6 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] pt-28 md:pt-36 pb-8 md:pb-16 px-8 md:px-16 flex flex-col justify-between relative min-h-[600px] lg:min-h-0 lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--color-brand-marron-oscuro)]/25">
+        <div className="col-span-12 lg:col-span-6 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] pt-28 md:pt-36 pb-28 md:pb-36 px-8 md:px-16 flex flex-col justify-center relative min-h-[600px] lg:min-h-0 lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--color-brand-marron-oscuro)]/25">
           {/* Decorative Corner plus markers */}
           <span className="absolute top-4 left-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
           <span className="absolute top-4 right-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
           <span className="absolute bottom-4 left-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
           <span className="absolute bottom-4 right-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
 
-          <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75">
-            <span>03 / EDITORIAL CONCEPT</span>
-            <span>[ TENDENCIAS & NOSTALGIA ]</span>
-          </div>
-          
-          <div className="my-auto pt-16 pb-12">
+          <div className="pt-16 pb-12">
             <h1 className="text-6xl sm:text-8xl lg:text-[7vw] xl:text-[7.5vw] font-brand uppercase tracking-wider text-[var(--color-brand-crema)] mt-2 leading-[0.85] select-none">
               Neo Trattoria
             </h1>
@@ -256,22 +240,13 @@ export default function NeoTrattoriaExperience() {
               Neo Trattoria nace del encuentro entre lo orgánico y lo estructural, construyendo una estética donde el exceso y la armonía conviven constantemente. La producción toma elementos clásicos y contemporáneos para crear un universo visual cargado de contraste, textura y sensibilidad. A través de la luz, la composición y la puesta en escena, se busca transmitir una nostalgia reinterpretada desde una mirada actual.
             </p>
           </div>
-          
-          <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75">
-            <span>[ SENSORY RECORD ]</span>
-            <span>[ DEPTH // 03 ]</span>
-          </div>
         </div>
 
         {/* Right Column: Editorial Photo Composition */}
-        <div className="col-span-12 lg:col-span-6 flex flex-col justify-between p-4 md:p-6 pt-4 lg:pt-32 gap-4 lg:h-full lg:overflow-hidden relative bg-black/[0.01]">
+        <div className="col-span-12 lg:col-span-6 flex flex-col justify-center p-4 md:p-6 pt-4 lg:pt-28 gap-6 lg:h-full lg:overflow-hidden relative bg-black/[0.01]">
           {/* Top row: Wide cinematic landscape photo (Frame 1) */}
           <div className="w-full flex-grow flex flex-col justify-center min-h-0">
-            <div className="w-full flex flex-col gap-2">
-              <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-                <span>[ FRAME // 01 ]</span>
-                <span>[ SHUTTER 1/125 ]</span>
-              </div>
+            <div className="w-full">
               <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
                 <TiltImage
                   src="/producciones/neoTrattoria/primerFoto.JPG"
@@ -279,13 +254,9 @@ export default function NeoTrattoriaExperience() {
                   onClick={() => capturePhoto('/producciones/neoTrattoria/primerFoto.JPG')}
                   onHoverStart={() => setIsHoveringImage(true)}
                   onHoverEnd={() => setIsHoveringImage(false)}
-                  className="aspect-[16/10] max-h-[32vh] lg:h-[32vh] w-full flex items-center justify-center"
-                  imgClassName="w-full h-full object-cover block"
+                  className="aspect-[16/10] max-h-[48vh] lg:h-[48vh] w-full flex items-center justify-center"
+                  imgClassName="w-full h-full object-cover object-top block"
                 />
-              </div>
-              <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between items-center px-1">
-                <span>№112 // PHOTO 01</span>
-                <span>[ FOCUS // AF-LOK ]</span>
               </div>
             </div>
           </div>
@@ -294,11 +265,7 @@ export default function NeoTrattoriaExperience() {
           <div className="grid grid-cols-2 gap-4 md:gap-6 flex-grow min-h-0">
             {/* Left Column: Frame 2 (Vertical) */}
             <div className="flex flex-col justify-center min-h-0">
-              <div className="w-full flex flex-col gap-2">
-                <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-                  <span>[ FRAME // 02 ]</span>
-                  <span>[ MOTORSPORT ]</span>
-                </div>
+              <div className="w-full">
                 <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
                   <TiltImage
                     src="/producciones/neoTrattoria/IMG_6798.JPG"
@@ -307,23 +274,15 @@ export default function NeoTrattoriaExperience() {
                     onHoverStart={() => setIsHoveringImage(true)}
                     onHoverEnd={() => setIsHoveringImage(false)}
                     className="aspect-[2/3] max-h-[34vh] lg:h-[34vh] w-full flex items-center justify-center"
-                    imgClassName="w-full h-full object-cover block"
+                    imgClassName="w-full h-full object-cover block "
                   />
-                </div>
-                <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-                  <span>№112 // index.01</span>
-                  <span>[ RACING ]</span>
                 </div>
               </div>
             </div>
 
             {/* Right Column: Frame 3 (Vertical) */}
             <div className="flex flex-col justify-center min-h-0">
-              <div className="w-full flex flex-col gap-2">
-                <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-                  <span>[ FRAME // 03 ]</span>
-                  <span>[ STILL LIFE ]</span>
-                </div>
+              <div className="w-full">
                 <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
                   <TiltImage
                     src="/producciones/neoTrattoria/IMG_6800.JPG"
@@ -335,10 +294,6 @@ export default function NeoTrattoriaExperience() {
                     imgClassName="w-full h-full object-cover block"
                   />
                 </div>
-                <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-                  <span>[ FOCUS // LOAD.03 ]</span>
-                  <span>[ CAPTURE ]</span>
-                </div>
               </div>
             </div>
           </div>
@@ -348,42 +303,23 @@ export default function NeoTrattoriaExperience() {
       {/* BLOCK 2: PHYSICAL WEIGHT & FRAGMENTS */}
       <div className="w-full grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative gap-4 md:gap-6 p-4 md:p-6">
         {/* Left Column: Full vertical photo */}
-        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-between gap-4">
-          <div className="w-full flex flex-col gap-3">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ SCAN // 09 ]</span>
-              <span>[ F/2.8 ]</span>
-            </div>
-            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
-              <TiltImage
-                src="/producciones/neoTrattoria/IMG_6802.JPG"
-                alt="Neo Trattoria - Fragmento Lineal"
-                onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6802.JPG')}
-                onHoverStart={() => setIsHoveringImage(true)}
-                onHoverEnd={() => setIsHoveringImage(false)}
-                className="w-full h-auto object-contain block"
-              />
-            </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-            <div className="flex justify-between items-center px-1">
-              <span className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase">
-                №112 season // fragment
-              </span>
-              <span className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/60 uppercase">
-                [ PORTRAIT ]
-              </span>
-            </div>
+        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-center">
+          <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
+            <TiltImage
+              src="/producciones/neoTrattoria/IMG_6802.JPG"
+              alt="Neo Trattoria - Fragmento Lineal"
+              onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6802.JPG')}
+              onHoverStart={() => setIsHoveringImage(true)}
+              onHoverEnd={() => setIsHoveringImage(false)}
+              className="w-full h-auto object-contain block"
+            />
           </div>
         </div>
 
         {/* Middle Column: Two photos, mixed landscape & portrait */}
-        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-between gap-6">
+        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-center gap-6">
           {/* Top Landscape Photo */}
-          <div className="w-full flex flex-col gap-3">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ HORIZONTAL SCAN ]</span>
-              <span>[ REF // 05 ]</span>
-            </div>
+          <div className="w-full">
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
               <TiltImage
                 src="/producciones/neoTrattoria/image-6c536fd8-f84b-4020-b323-5951d0483c10.webp"
@@ -394,49 +330,30 @@ export default function NeoTrattoriaExperience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-              <span>[ NO. 05 // MULTIPLE ]</span>
-              <span>[ LANDSCAPE ]</span>
-            </div>
           </div>
 
           {/* Bottom Portrait Photo */}
-          <div className="w-full flex flex-col gap-3">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ VERTICAL SCAN ]</span>
-              <span>[ REF // 06 ]</span>
-            </div>
+          <div className="w-full">
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
               <TiltImage
-                src="/producciones/neoTrattoria/image-f56d6f9a-82f6-42b8-808e-5a0f755f5a10.webp"
+                src="/producciones/neoTrattoria/IMG_6815.JPG"
                 alt="Neo Trattoria - Eco del Pasado"
-                onClick={() => capturePhoto('/producciones/neoTrattoria/image-f56d6f9a-82f6-42b8-808e-5a0f755f5a10.webp')}
+                onClick={() => capturePhoto('/producciones/neoTrattoria/IMG_6815.JPG')}
                 onHoverStart={() => setIsHoveringImage(true)}
                 onHoverEnd={() => setIsHoveringImage(false)}
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-              <span>[ NO. 06 // SILENCE ]</span>
-              <span>[ PORTRAIT ]</span>
-            </div>
           </div>
         </div>
 
         {/* Right Column: Editorial Text & Supporting Image */}
-        <div className="col-span-12 md:col-span-4 flex flex-col justify-between min-h-[550px] bg-black/[0.01] relative p-2">
-          <div className="text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75 flex justify-between items-center">
-            <span>[ NARRATIVE SECTION // 03 ]</span>
-            <span>[ SECTION B ]</span>
-          </div>
-
-          <div className="my-auto py-8">
+        <div className="col-span-12 md:col-span-4 flex flex-col justify-center min-h-[550px] bg-black/[0.01] relative p-2 gap-6">
+          <div className="py-8">
             <h2 className="text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mb-6 font-bold leading-none">
               Materialidad
             </h2>
-            
+
             <div className="space-y-6 mb-8">
               <p className="text-sm md:text-base leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-left">
                 La propuesta mezcla referencias del mundo racing, el lujo vintage y cierta teatralidad italiana, combinando materiales rígidos con telas suaves, transparencias, cuero, metal y objetos cotidianos transformados en elementos visuales.
@@ -447,7 +364,7 @@ export default function NeoTrattoriaExperience() {
             </div>
 
             {/* Supporting Image (IMG_6805.JPG) */}
-            <div className="w-full flex flex-col gap-3">
+            <div className="w-full">
               <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
                 <TiltImage
                   src="/producciones/neoTrattoria/IMG_6805.JPG"
@@ -458,16 +375,7 @@ export default function NeoTrattoriaExperience() {
                   className="w-full h-auto object-contain block"
                 />
               </div>
-              <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/60 uppercase flex justify-between px-1">
-                <span>[ SUPPORTING PHOTO // IMG_6805 ]</span>
-                <span>[ DUALITY VIEW ]</span>
-              </div>
             </div>
-          </div>
-
-          <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75 border-t border-[var(--color-brand-marron-claro)]/15 pt-4">
-            <span>[ MOVEMENT ]</span>
-            <span>[ COMPOSITION ]</span>
           </div>
         </div>
       </div>
@@ -478,11 +386,8 @@ export default function NeoTrattoriaExperience() {
         <span className="absolute top-6 left-6 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
         <span className="absolute top-6 right-6 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
 
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-16 select-none">
+        <div className="max-w-[85rem] mx-auto flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-16 select-none">
           <div>
-            <span className="text-[10px] md:text-[11px] font-mono tracking-[0.35em] text-[var(--color-brand-marron-oscuro)]/70 uppercase font-semibold">
-              EXPOSICIÓN DESTACADA
-            </span>
             <h3 className="font-brand text-4xl sm:text-5xl uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-1.5 leading-none">
               Featured Photos
             </h3>
@@ -495,14 +400,10 @@ export default function NeoTrattoriaExperience() {
         </div>
 
         {/* Asymmetric Staggered Grid Row */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-t border-[var(--color-brand-marron-claro)]/25 pt-12 relative">
+        <div className="max-w-[85rem] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-t border-[var(--color-brand-marron-claro)]/25 pt-12 relative">
 
           {/* Item 1: IMG_6806.JPG (No offset) */}
           <div className="w-full flex flex-col gap-3 justify-start">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ INDEX // 6806 ]</span>
-              <span>[ RACING DETAIL ]</span>
-            </div>
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
               <TiltImage
                 src="/producciones/neoTrattoria/IMG_6806.JPG"
@@ -513,18 +414,10 @@ export default function NeoTrattoriaExperience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
-              №112 season // No. 6806
-            </div>
           </div>
 
           {/* Item 2: IMG_6807.JPG (Shifted down) */}
           <div className="w-full flex flex-col gap-3 lg:translate-y-12 justify-start mt-6 lg:mt-0">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ INDEX // 6807 ]</span>
-              <span>[ LUXURY RETRO ]</span>
-            </div>
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
               <TiltImage
                 src="/producciones/neoTrattoria/IMG_6807.JPG"
@@ -535,18 +428,10 @@ export default function NeoTrattoriaExperience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
-              №112 season // No. 6807
-            </div>
           </div>
 
           {/* Item 3: IMG_6809.JPG (Shifted up) */}
           <div className="w-full flex flex-col gap-3 lg:-translate-y-8 justify-start mt-6 lg:mt-0">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ INDEX // 6809 ]</span>
-              <span>[ SILUETA FOCUS ]</span>
-            </div>
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
               <TiltImage
                 src="/producciones/neoTrattoria/IMG_6809.JPG"
@@ -557,18 +442,10 @@ export default function NeoTrattoriaExperience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
-              №112 season // No. 6809
-            </div>
           </div>
 
           {/* Item 4: IMG_6811.JPG (Shifted slightly down) */}
           <div className="w-full flex flex-col gap-3 lg:translate-y-4 justify-start mt-6 lg:mt-0">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ INDEX // 6811 ]</span>
-              <span>[ DETAIL SCENE ]</span>
-            </div>
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
               <TiltImage
                 src="/producciones/neoTrattoria/IMG_6811.JPG"
@@ -579,25 +456,21 @@ export default function NeoTrattoriaExperience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
-              №112 season // No. 6811
-            </div>
           </div>
         </div>
       </div>
 
       {/* BLOCK 4: CONCLUDING TYPOGRAPHIC QUOTE & FOCAL COVER */}
       <div className="w-full py-28 bg-[var(--color-brand-crema)] border-b border-[var(--color-brand-marron-oscuro)]/25 relative">
-        <div className="max-w-4xl mx-auto px-6 flex flex-col items-center gap-12">
+        <div className="max-w-5xl mx-auto px-6 flex flex-col items-center gap-12">
           {/* Focal landscape photo (fotoPortada.JPG) in natural ratio */}
-          <div className="w-full max-w-3xl overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-md rounded-xs group bg-black/[0.02] p-2 relative">
+          <div className="w-full max-w-4xl overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-md rounded-xs group bg-black/[0.02] p-2 relative">
             {/* Camera Crop / Focus Corners inside frame */}
             <span className="absolute top-4 left-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
             <span className="absolute top-4 right-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
             <span className="absolute bottom-4 left-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
             <span className="absolute bottom-4 right-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
-            
+
             <TiltImage
               src="/producciones/neoTrattoria/fotoPortada.JPG"
               alt="Neo Trattoria Conclusión"
@@ -618,7 +491,7 @@ export default function NeoTrattoriaExperience() {
       </div>
 
       {/* GALLERY SECTION */}
-      <div className="max-w-7xl mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
+      <div className="max-w-[85rem] mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
         <div className="mb-12 select-none">
           <h3 className="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2">
             Registro Editorial
@@ -660,7 +533,7 @@ export default function NeoTrattoriaExperience() {
           y: springY,
         }}
       >
-        <motion.div 
+        <motion.div
           className="relative flex flex-col items-center justify-center -translate-x-1/2 -translate-y-1/2"
           animate={{
             scale: cursorMode === 'shutter' ? 0.8 : 1,
@@ -668,7 +541,7 @@ export default function NeoTrattoriaExperience() {
           transition={{ type: 'spring', stiffness: 450, damping: 28 }}
         >
           {/* Viewfinder Brackets */}
-          <motion.div 
+          <motion.div
             className="absolute border-white"
             animate={{
               width: cursorMode === 'focus' ? 52 : 36,
@@ -688,7 +561,7 @@ export default function NeoTrattoriaExperience() {
           </motion.div>
 
           {/* Inner Ring (Lens guideline) */}
-          <motion.div 
+          <motion.div
             className="absolute border border-white/30 rounded-full"
             animate={{
               width: cursorMode === 'focus' ? 24 : 12,
@@ -704,7 +577,7 @@ export default function NeoTrattoriaExperience() {
           {/* Action indicator - clean, no boxes, spaced out */}
           <AnimatePresence>
             {cursorMode === 'focus' && (
-              <motion.span 
+              <motion.span
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 5 }}
@@ -734,16 +607,16 @@ export default function NeoTrattoriaExperience() {
       {/* Camera Roll (Album Roll) */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 font-sans">
         {/* Captured Badge / Status Indicator */}
-        <motion.div 
+        <motion.div
           onClick={() => setCarreteOpen(!carreteOpen)}
           className="bg-black/90 text-[var(--color-brand-crema)] rounded-full px-5 py-3 shadow-[0_10px_35px_rgba(0,0,0,0.5)] cursor-pointer select-none flex items-center gap-3 backdrop-blur-md pointer-events-auto hover:bg-black/95 transition-all active:scale-95 border border-[var(--color-brand-marron-claro)]/25"
         >
           <div className={`w-2.5 h-2.5 rounded-full ${capturedPhotos.length > 0 ? 'bg-green-500 animate-pulse' : 'bg-red-500 animate-pulse'}`} />
           <span className="text-[10px] tracking-[0.2em] uppercase font-semibold">
-            CARRETE: {capturedPhotos.length} / {neoTrattoriaImages.length}
+            CARRETE: {capturedPhotos.length} / {neoTrattoriaImagesLen}
           </span>
         </motion.div>
-        
+
         {/* Expanded Camera Roll Thumbnails */}
         <AnimatePresence>
           {carreteOpen && (
@@ -758,7 +631,7 @@ export default function NeoTrattoriaExperience() {
                   Fotos Reveladas
                 </span>
                 {capturedPhotos.length > 0 && (
-                  <button 
+                  <button
                     onClick={(e) => {
                       e.stopPropagation();
                       setCapturedPhotos([]);
@@ -769,7 +642,7 @@ export default function NeoTrattoriaExperience() {
                   </button>
                 )}
               </div>
-              
+
               {capturedPhotos.length === 0 ? (
                 <div className="py-8 text-center text-[10px] tracking-widest text-white/30 uppercase leading-relaxed">
                   No has sacado fotos aún.<br />Haz clic sobre las fotos para capturarlas.

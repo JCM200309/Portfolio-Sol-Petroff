@@ -101,7 +101,7 @@ const memoriaVividoImages = [
   "/producciones/memoriaVivido/8.JPG",
   "/producciones/memoriaVivido/9.JPG",
   "/producciones/memoriaVivido/10.JPG",
-  "/producciones/memoriaVivido/11.JPG",
+  "/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg",
 ];
 
 // --- HELPER FUNCTION: Web Audio API Shutter Sound Synthesizer ---
@@ -225,19 +225,14 @@ export default function MemoriaVividoExperience() {
       {/* BLOCK 1: EDITORIAL HERO & CONCEPT */}
       <div className="w-full lg:h-screen grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative overflow-hidden">
         {/* Left Column: Maroon Story Block */}
-        <div className="col-span-12 lg:col-span-6 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] pt-28 md:pt-36 pb-8 md:pb-16 px-8 md:px-16 flex flex-col justify-between relative min-h-[600px] lg:min-h-0 lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--color-brand-marron-oscuro)]/25">
+        <div className="col-span-12 lg:col-span-5 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] pt-28 md:pt-36 pb-28 md:pb-36 px-8 md:px-16 flex flex-col justify-center relative min-h-[600px] lg:min-h-0 lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--color-brand-marron-oscuro)]/25">
           {/* Decorative Corner plus markers */}
           <span className="absolute top-4 left-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
           <span className="absolute top-4 right-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
           <span className="absolute bottom-4 left-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
           <span className="absolute bottom-4 right-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
 
-          <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75">
-            <span>01 / EDITORIAL CONCEPT</span>
-            <span>[ ESTUDIO DE LA MEMORIA ]</span>
-          </div>
-
-          <div className="my-auto pt-16 pb-12">
+          <div className="pt-16 pb-12">
             <h1 className="text-6xl sm:text-8xl lg:text-[7vw] xl:text-[7.5vw] font-brand uppercase tracking-wider text-[var(--color-brand-crema)] mt-2 leading-[1.05] select-none">
               Memoria Vívido
             </h1>
@@ -249,22 +244,13 @@ export default function MemoriaVividoExperience() {
               Editorial basada en un reporte de tendencias que desarrolla el concepto de “memoria vivido”, representando un universo estético desde la nostalgia y el recuerdo como un peso. Se plasma la naturaleza expansiva y a veces caótica de la memoria, y cómo se convive con ese peso, desde las poses elegidas, las luces y la escenografía.
             </p>
           </div>
-
-          <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75">
-            <span>[ SENSORY RECORD ]</span>
-            <span>[ DEPTH // 01 ]</span>
-          </div>
         </div>
 
         {/* Right Column: Editorial Photo Composition */}
-        <div className="col-span-12 lg:col-span-6 grid grid-cols-12 relative bg-black/[0.01] lg:h-full gap-4 p-4 md:p-6">
+        <div className="col-span-12 lg:col-span-7 grid grid-cols-12 relative bg-black/[0.01] lg:h-full gap-4 p-4 md:p-6">
           {/* Left sub-column: Large portrait photo */}
           <div className="col-span-12 md:col-span-6 flex flex-col justify-center border-b md:border-b-0 lg:h-full lg:overflow-hidden">
-            <div className="w-full flex flex-col gap-4">
-              <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-                <span>[ FRAME // 01 ]</span>
-                <span>[ ISO 400 ]</span>
-              </div>
+            <div className="w-full">
               <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
                 <TiltImage
                   src="/producciones/memoriaVivido/foto principal.jpg"
@@ -272,14 +258,9 @@ export default function MemoriaVividoExperience() {
                   onClick={() => capturePhoto('/producciones/memoriaVivido/foto principal.jpg')}
                   onHoverStart={() => setIsHoveringImage(true)}
                   onHoverEnd={() => setIsHoveringImage(false)}
-                  className="aspect-[2/3] max-h-[55vh] md:h-[55vh] w-full flex items-center justify-center"
+                  className="aspect-[2/3] max-h-[72vh] lg:h-[72vh] w-full flex items-center justify-center"
                   imgClassName="w-full h-full object-cover block"
                 />
-              </div>
-              <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-              <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between items-center px-1">
-                <span>№112 // PHOTO 01</span>
-                <span>[ FOCUS // AF-LOK ]</span>
               </div>
             </div>
           </div>
@@ -287,11 +268,7 @@ export default function MemoriaVividoExperience() {
           {/* Right sub-column: Two stacked portrait photos */}
           <div className="col-span-12 md:col-span-6 flex flex-col justify-center gap-6 lg:h-full lg:overflow-hidden">
             {/* Top Photo */}
-            <div className="w-full flex flex-col gap-3">
-              <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-                <span>[ FRAME // 02 ]</span>
-                <span>[ 35MM ]</span>
-              </div>
+            <div className="w-full">
               <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
                 <TiltImage
                   src="/producciones/memoriaVivido/primerFoto.jpg"
@@ -299,20 +276,14 @@ export default function MemoriaVividoExperience() {
                   onClick={() => capturePhoto('/producciones/memoriaVivido/primerFoto.jpg')}
                   onHoverStart={() => setIsHoveringImage(true)}
                   onHoverEnd={() => setIsHoveringImage(false)}
-                  className="aspect-[16/10] max-h-[24vh] md:h-[24vh] w-full flex items-center justify-center"
+                  className="aspect-[16/10] max-h-[33vh] lg:h-[33vh] w-full flex items-center justify-center"
                   imgClassName="w-full h-full object-cover block"
                 />
-              </div>
-              <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-              <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-                <span>№112 season // index.01</span>
-                <span>[ OPEN ]</span>
               </div>
             </div>
 
             {/* Bottom Photo */}
-            <div className="w-full flex flex-col gap-3">
-
+            <div className="w-full">
               <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
                 <TiltImage
                   src="/producciones/memoriaVivido/3.jpg"
@@ -320,14 +291,9 @@ export default function MemoriaVividoExperience() {
                   onClick={() => capturePhoto('/producciones/memoriaVivido/3.jpg')}
                   onHoverStart={() => setIsHoveringImage(true)}
                   onHoverEnd={() => setIsHoveringImage(false)}
-                  className="aspect-[16/10] max-h-[24vh] md:h-[24vh] w-full flex items-center justify-center"
+                  className="aspect-[16/10] max-h-[33vh] lg:h-[33vh] w-full flex items-center justify-center"
                   imgClassName="w-full h-full object-cover block"
                 />
-              </div>
-              <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-              <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-                <span>[ FOCUS // LOAD.03 ]</span>
-                <span>[ CAPTURE ]</span>
               </div>
             </div>
           </div>
@@ -337,37 +303,23 @@ export default function MemoriaVividoExperience() {
       {/* BLOCK 2: PHYSICAL WEIGHT & FRAGMENTS */}
       <div className="w-full grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative gap-4 md:gap-6 p-4 md:p-6">
         {/* Left Column: Full vertical photo (col-span-12 md:col-span-4) */}
-        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-between min-h-[550px] p-2">
-          <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-            <span>[ SCAN // 09 ]</span>
-            <span>[ F/2.8 ]</span>
-          </div>
-          <div className="mt-auto mb-16 py-12 px-4 flex flex-col items-center justify-center">
-            <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
-              Este peso emocional se refleja físicamente, manifestándose en la postura del cuerpo humano, que tiende a encorvarse bajo la carga de estos recuerdos, adoptando una tipología "deprimida" y orgánica en el espacio.
-            </p>
-          </div>
-          <div className="w-full flex flex-col gap-3">
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-            <div className="flex justify-between items-center px-1">
-              <span className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase">
-                №112 season // fragment
-              </span>
-              <span className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/60 uppercase">
-                [ PORTRAIT ]
-              </span>
-            </div>
+        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-center">
+          <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
+            <TiltImage
+              src="/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg"
+              alt="Memoria Vívido - Fragmento Lineal A"
+              onClick={() => capturePhoto('/producciones/memoriaVivido/4BB58F99-F85C-42E3-ABAF-BFDC83DACAA5_L0_001-4_7_2024, 4_46_12 p.m..jpg')}
+              onHoverStart={() => setIsHoveringImage(true)}
+              onHoverEnd={() => setIsHoveringImage(false)}
+              className="w-full h-auto object-contain block"
+            />
           </div>
         </div>
 
         {/* Middle Column: Two photos, mixed landscape & portrait (col-span-12 md:col-span-4) */}
-        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-between gap-6">
+        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-center gap-6">
           {/* Top Landscape Photo */}
-          <div className="w-full flex flex-col gap-3">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ HORIZONTAL SCAN ]</span>
-              <span>[ REF // 05 ]</span>
-            </div>
+          <div className="w-full">
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
               <TiltImage
                 src="/producciones/memoriaVivido/5.JPG"
@@ -378,19 +330,10 @@ export default function MemoriaVividoExperience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-              <span>[ NO. 05 // MULTIPLE ]</span>
-              <span>[ LANDSCAPE ]</span>
-            </div>
           </div>
 
           {/* Bottom Portrait Photo */}
-          <div className="w-full flex flex-col gap-3">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ VERTICAL SCAN ]</span>
-              <span>[ REF // 06 ]</span>
-            </div>
+          <div className="w-full">
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
               <TiltImage
                 src="/producciones/memoriaVivido/6.jpg"
@@ -401,22 +344,12 @@ export default function MemoriaVividoExperience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-              <span>[ NO. 06 // SILENCE ]</span>
-              <span>[ PORTRAIT ]</span>
-            </div>
           </div>
         </div>
 
         {/* Right Column: Editorial Text & Supporting Image (col-span-12 md:col-span-4) */}
-        <div className="col-span-12 md:col-span-4 flex flex-col justify-between min-h-[550px] bg-black/[0.01] relative p-2">
-          <div className="text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75 flex justify-between items-center">
-            <span>[ NARRATIVE SECTION // 02 ]</span>
-            <span>[ SECTION B ]</span>
-          </div>
-
-          <div className="mt-12 mb-auto py-4">
+        <div className="col-span-12 md:col-span-4 flex flex-col justify-center min-h-[550px] bg-black/[0.01] relative p-2 gap-6">
+          <div className="py-4">
             <h2 className="text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mb-6 font-bold leading-none text-center">
               Individual
             </h2>
@@ -425,10 +358,13 @@ export default function MemoriaVividoExperience() {
               <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
                 La elección de representar el universo estético desde la nostalgia y el recuerdo responde a la intención de evocar emociones profundas y personales. La nostalgia se presenta como una carga emocional que cada persona lleva consigo.
               </p>
+              <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
+                Este peso emocional se refleja físicamente, manifestándose en la postura del cuerpo humano, que tiende a encorvarse bajo la carga de estos recuerdos, adoptando una tipología "deprimida" y orgánica en el espacio.
+              </p>
             </div>
 
             {/* Supporting Image (4.JPG) */}
-            <div className="w-full flex flex-col gap-3">
+            <div className="w-full">
               <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
                 <TiltImage
                   src="/producciones/memoriaVivido/4.JPG"
@@ -439,16 +375,7 @@ export default function MemoriaVividoExperience() {
                   className="w-full h-auto object-contain block"
                 />
               </div>
-              <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/60 uppercase flex justify-between px-1">
-                <span>[ SUPPORTING PHOTO // 04.JPG ]</span>
-                <span>[ DEPRESSED TYPOLOGY ]</span>
-              </div>
             </div>
-          </div>
-
-          <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75 border-t border-[var(--color-brand-marron-claro)]/15 pt-4">
-            <span>[ MOVEMENT ]</span>
-            <span>[ COMPOSITION ]</span>
           </div>
         </div>
       </div>
@@ -459,11 +386,8 @@ export default function MemoriaVividoExperience() {
         <span className="absolute top-6 left-6 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
         <span className="absolute top-6 right-6 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
 
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-16 select-none">
+        <div className="max-w-[85rem] mx-auto flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-16 select-none">
           <div>
-            <span className="text-[10px] md:text-[11px] font-mono tracking-[0.35em] text-[var(--color-brand-marron-oscuro)]/70 uppercase font-semibold">
-              EXPOSICIÓN DESTACADA
-            </span>
             <h3 className="font-brand text-4xl sm:text-5xl uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-1.5 leading-none">
               Featured Photos
             </h3>
@@ -476,13 +400,9 @@ export default function MemoriaVividoExperience() {
         </div>
 
         {/* Asymmetric Staggered Grid Row */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-t border-[var(--color-brand-marron-claro)]/25 pt-12 relative">
+        <div className="max-w-[85rem] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-t border-[var(--color-brand-marron-claro)]/25 pt-12 relative">
           {/* Item 1: 7.JPG (No offset) */}
           <div className="w-full flex flex-col gap-3 justify-start">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ INDEX // 07 ]</span>
-              <span>[ 35MM RETRO ]</span>
-            </div>
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
               <TiltImage
                 src="/producciones/memoriaVivido/7.JPG"
@@ -493,18 +413,10 @@ export default function MemoriaVividoExperience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
-              №112 season // No. 07
-            </div>
           </div>
 
           {/* Item 2: 8.JPG (Shifted down) */}
           <div className="w-full flex flex-col gap-3 lg:translate-y-12 justify-start mt-6 lg:mt-0">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ INDEX // 08 ]</span>
-              <span>[ TALL PHOTO ]</span>
-            </div>
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
               <TiltImage
                 src="/producciones/memoriaVivido/8.JPG"
@@ -515,18 +427,10 @@ export default function MemoriaVividoExperience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
-              №112 season // No. 08
-            </div>
           </div>
 
           {/* Item 3: 9.JPG (Shifted up) */}
           <div className="w-full flex flex-col gap-3 lg:-translate-y-8 justify-start mt-6 lg:mt-0">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ INDEX // 09 ]</span>
-              <span>[ FOCUS LOK ]</span>
-            </div>
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
               <TiltImage
                 src="/producciones/memoriaVivido/9.JPG"
@@ -537,18 +441,10 @@ export default function MemoriaVividoExperience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
-              №112 season // No. 09
-            </div>
           </div>
 
           {/* Item 4: 10.JPG (Shifted slightly down) */}
           <div className="w-full flex flex-col gap-3 lg:translate-y-4 justify-start mt-6 lg:mt-0">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ INDEX // 10 ]</span>
-              <span>[ DETAIL VIEW ]</span>
-            </div>
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
               <TiltImage
                 src="/producciones/memoriaVivido/10.JPG"
@@ -559,19 +455,15 @@ export default function MemoriaVividoExperience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
-              №112 season // No. 10
-            </div>
           </div>
         </div>
       </div>
 
       {/* BLOCK 4: CONCLUDING TYPOGRAPHIC QUOTE & FOCAL COVER */}
       <div className="w-full py-28 bg-[var(--color-brand-crema)] border-b border-[var(--color-brand-marron-oscuro)]/25 relative">
-        <div className="max-w-4xl mx-auto px-6 flex flex-col items-center gap-12">
+        <div className="max-w-5xl mx-auto px-6 flex flex-col items-center gap-12">
           {/* Focal landscape photo (portada.JPG) in natural ratio */}
-          <div className="w-full max-w-3xl overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-md rounded-xs group bg-black/[0.02] p-2 relative">
+          <div className="w-full max-w-4xl overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-md rounded-xs group bg-black/[0.02] p-2 relative">
             {/* Camera Crop / Focus Corners inside frame */}
             <span className="absolute top-4 left-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
             <span className="absolute top-4 right-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
