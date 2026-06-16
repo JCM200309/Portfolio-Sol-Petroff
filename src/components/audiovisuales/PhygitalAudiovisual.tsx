@@ -166,38 +166,6 @@ function ImageCarousel({ images, onSelectPhoto }: ImageCarouselProps) {
 }
 
 export default function PhygitalAudiovisual({ onSelectPhoto }: PhygitalAudiovisualProps) {
-  const [terminalLogs, setTerminalLogs] = useState<string[]>([
-    'SYSTEM INITIALIZED',
-    'SCANNING ENVIRONMENT...',
-    'READY TO DETECT DIGITAL SIGNALS'
-  ]);
-  const [hoveredData, setHoveredData] = useState<string>('SYS: STANDBY');
-
-  const updateTelemetry = (section: string) => {
-    let logMsg = '';
-    let dataMsg = '';
-    switch (section) {
-      case 'concepto-ia':
-        logMsg = 'AI_COGNITIVE_CHECK: DETECTING REPLICANT LOGIC... STATUS: CRITICAL ERROR IN EMOTIONAL BUFFER';
-        dataMsg = 'AI_STABILITY: 34.2% [REPLICATION FAILED]';
-        break;
-      case 'locacion':
-        logMsg = 'GEO_SCAN: LOC ZÁRATE FOREST // LAT 34.1202 S // LON 59.0125 W // BIOME: ORGANIC';
-        dataMsg = 'SIGNAL_DECAY: 12% [ORGANIC INTERFERENCE]';
-        break;
-      case 'vestuario':
-        logMsg = 'HARDWARE_DETECT: OPTICAL SENSORS INITIATED // PATTERN RECOGNITION: DISTOPIAN CLOTHING';
-        dataMsg = 'GLASSES_TRACKING: active [120fps]';
-        break;
-      default:
-        logMsg = 'SCANNER_IDLE: STANDBY';
-        dataMsg = 'SYS: STANDBY';
-    }
-
-    setTerminalLogs(prev => [...prev.slice(-3), logMsg]);
-    setHoveredData(dataMsg);
-  };
-
   return (
     <div className="w-full py-24 bg-black/[0.01] border-t border-[var(--color-brand-marron-claro)]/25 relative pointer-events-auto select-none font-sans text-[var(--color-brand-marron-oscuro)]">
 
@@ -231,7 +199,6 @@ export default function PhygitalAudiovisual({ onSelectPhoto }: PhygitalAudiovisu
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-120px" }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              onViewportEnter={() => updateTelemetry(cat.id)}
               className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start py-4"
             >
               {/* Left/Right Narrative Text */}

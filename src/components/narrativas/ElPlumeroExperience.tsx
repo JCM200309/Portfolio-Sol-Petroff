@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useTransform, useMotionValue, useSpring } from 'framer-motion'
-import { ArrowUpRight, Play, Square, Volume2, BookOpen } from 'lucide-react'
+import { ArrowUpRight, Play, Square, BookOpen } from 'lucide-react'
 
 // --- HELPER COMPONENT: 3D Interactive Hover Tilt Container ---
 interface TiltContainerProps {

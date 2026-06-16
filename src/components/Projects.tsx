@@ -2,12 +2,6 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import ProjectVideoOverlay from './ProjectVideoOverlay';
 
-interface ProjectDetails {
-  year: string;
-  category: string;
-  duration: string;
-}
-
 interface ProjectItem {
   num: string;
   image: string;
