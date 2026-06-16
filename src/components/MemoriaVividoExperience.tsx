@@ -342,7 +342,7 @@ export default function MemoriaVividoExperience() {
             <span>[ SCAN // 09 ]</span>
             <span>[ F/2.8 ]</span>
           </div>
-          <div className="my-auto py-12 px-4 flex flex-col items-center justify-center">
+          <div className="mt-auto mb-16 py-12 px-4 flex flex-col items-center justify-center">
             <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
               Este peso emocional se refleja físicamente, manifestándose en la postura del cuerpo humano, que tiende a encorvarse bajo la carga de estos recuerdos, adoptando una tipología "deprimida" y orgánica en el espacio.
             </p>
