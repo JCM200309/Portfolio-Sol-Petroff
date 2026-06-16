@@ -16,27 +16,27 @@ interface TiltImageProps {
   fetchpriority?: "high" | "low" | "auto";
 }
 
-export function TiltImage({ 
-  src, 
-  alt, 
-  className = "", 
+export function TiltImage({
+  src,
+  alt,
+  className = "",
   imgClassName = "w-full h-auto",
-  onClick, 
-  onHoverStart, 
-  onHoverEnd, 
+  onClick,
+  onHoverStart,
+  onHoverEnd,
   parallaxY,
   loading = "lazy",
   fetchpriority = "auto"
 }: TiltImageProps) {
   const ref = useRef<HTMLDivElement>(null);
-  
+
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
-  
+
   const springConfig = { damping: 25, stiffness: 180, mass: 0.6 };
   const rotateX = useSpring(useTransform(y, [0, 1], [7, -7]), springConfig);
   const rotateY = useSpring(useTransform(x, [0, 1], [-7, 7]), springConfig);
-  
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
@@ -59,9 +59,9 @@ export function TiltImage({
       onMouseLeave={handleMouseLeave}
       onMouseEnter={onHoverStart}
       onClick={onClick}
-      style={{ 
+      style={{
         perspective: 1000,
-        y: parallaxY || 0 
+        y: parallaxY || 0
       }}
       className={`relative overflow-hidden ${onClick ? 'cursor-none' : ''} ${className}`}
     >
@@ -101,7 +101,7 @@ const playShutterSound = () => {
     const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContext) return;
     const ctx = new AudioContext();
-    
+
     const playClick = (time: number, volume: number, highpassFreq: number, decay: number) => {
       const bufferSize = ctx.sampleRate * decay;
       const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
@@ -109,26 +109,26 @@ const playShutterSound = () => {
       for (let i = 0; i < bufferSize; i++) {
         data[i] = Math.random() * 2 - 1;
       }
-      
+
       const noise = ctx.createBufferSource();
       noise.buffer = buffer;
-      
+
       const filter = ctx.createBiquadFilter();
       filter.type = 'highpass';
       filter.frequency.setValueAtTime(highpassFreq, time);
-      
+
       const gain = ctx.createGain();
       gain.gain.setValueAtTime(volume, time);
       gain.gain.exponentialRampToValueAtTime(0.01, time + decay - 0.01);
-      
+
       noise.connect(filter);
       filter.connect(gain);
       gain.connect(ctx.destination);
-      
+
       noise.start(time);
       noise.stop(time + decay);
     };
-    
+
     const now = ctx.currentTime;
     playClick(now, 0.25, 1200, 0.06);     // Shutter curtains open
     playClick(now + 0.06, 0.2, 800, 0.08); // Shutter curtains close
@@ -145,7 +145,7 @@ export default function Anos20Experience() {
   const [showFlash, setShowFlash] = useState(false);
   const [carreteOpen, setCarreteOpen] = useState(false);
   const [cursorMode, setCursorMode] = useState<'idle' | 'focus' | 'shutter'>('idle');
-  
+
   const pageRef = useRef<HTMLDivElement>(null);
 
   // Smooth custom cursor tracking using fixed viewport space
@@ -173,7 +173,7 @@ export default function Anos20Experience() {
   // Main interactive capture callback
   const capturePhoto = (src: string) => {
     playShutterSound();
-    
+
     setCursorMode('shutter');
     setTimeout(() => {
       setCursorMode(isHoveringImage ? 'focus' : 'idle');
@@ -210,24 +210,15 @@ export default function Anos20Experience() {
     >
       {/* Noise texture overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
-      
+
       {/* BLOCK 1: EDITORIAL HERO & CONCEPT */}
       <div className="w-full lg:h-screen grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative overflow-hidden">
         {/* Left Column: Maroon Story Block */}
-        <div className="col-span-12 lg:col-span-6 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] pt-28 md:pt-36 pb-8 md:pb-16 px-8 md:px-16 flex flex-col justify-between relative min-h-[600px] lg:min-h-0 lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--color-brand-marron-oscuro)]/25">
-          {/* Decorative Corner plus markers */}
-          <span className="absolute top-4 left-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
-          <span className="absolute top-4 right-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
-          <span className="absolute bottom-4 left-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
-          <span className="absolute bottom-4 right-4 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
+        <div className="col-span-12 lg:col-span-5 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] pt-28 md:pt-36 pb-28 md:pb-36 px-8 md:px-16 flex flex-col justify-center relative min-h-[600px] lg:min-h-0 lg:h-full border-b lg:border-b-0 lg:border-r border-[var(--color-brand-marron-oscuro)]/25">
 
-          <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75">
-            <span>04 / EDITORIAL CONCEPT</span>
-            <span>[ AÑOS 20 ]</span>
-          </div>
-          
-          <div className="my-auto pt-16 pb-12">
-            <h1 className="text-6xl sm:text-8xl lg:text-[7vw] xl:text-[7.5vw] font-brand uppercase tracking-wider text-[var(--color-brand-crema)] mt-2 leading-[0.85] select-none">
+
+          <div className="pt-16 pb-12">
+            <h1 className="text-6xl sm:text-8xl lg:text-[7vw] xl:text-[7.5vw] font-brand uppercase tracking-wider text-[var(--color-brand-crema)] mt-2 leading-[1.05] select-none">
               Años 20
             </h1>
             <div className="w-20 h-[1px] bg-[var(--color-brand-crema)]/35 my-8" />
@@ -238,22 +229,13 @@ export default function Anos20Experience() {
               Una editorial inspirada en la estética de los años 20 que retoma el espíritu de una década marcada por la elegancia, la transformación y la modernidad emergente. La producción toma como punto de partida algunos de los códigos visuales más representativos de la época para reinterpretarlos desde una mirada contemporánea, construyendo un universo donde lo clásico y lo actual conviven constantemente.
             </p>
           </div>
-          
-          <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75">
-            <span>[ SENSORY RECORD ]</span>
-            <span>[ DEPTH // 04 ]</span>
-          </div>
         </div>
 
         {/* Right Column: Editorial Photo Composition */}
-        <div className="col-span-12 lg:col-span-6 grid grid-cols-12 relative bg-black/[0.01] lg:h-full gap-4 p-4 md:p-6">
-          {/* Left sub-column: Large portrait photo (Frame 1) */}
+        <div className="col-span-12 lg:col-span-7 grid grid-cols-12 relative bg-black/[0.01] lg:h-full gap-4 p-4 md:p-6">
+          {/* Left sub-column: Large portrait photo */}
           <div className="col-span-12 md:col-span-6 flex flex-col justify-center border-b md:border-b-0 lg:h-full lg:overflow-hidden">
-            <div className="w-full flex flex-col gap-4">
-              <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-                <span>[ FRAME // 01 ]</span>
-                <span>[ GLAMOUR ]</span>
-              </div>
+            <div className="w-full">
               <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
                 <TiltImage
                   src="/producciones/años20/fotoPortada.webp"
@@ -261,71 +243,40 @@ export default function Anos20Experience() {
                   onClick={() => capturePhoto('/producciones/años20/fotoPortada.webp')}
                   onHoverStart={() => setIsHoveringImage(true)}
                   onHoverEnd={() => setIsHoveringImage(false)}
-                  className="aspect-[2/3] max-h-[55vh] md:h-[55vh] w-full flex items-center justify-center"
+                  className="aspect-[2/3] max-h-[72vh] lg:h-[72vh] w-full flex items-center justify-center"
                   imgClassName="w-full h-full object-cover block"
                 />
-              </div>
-              <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-              <div className="w-full text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between items-center px-1">
-                <span>№112 // PHOTO 01</span>
-                <span>[ FOCUS // AF-LOK ]</span>
               </div>
             </div>
           </div>
 
-          {/* Right sub-column: Two side-by-side portrait photos (Frame 2 & 3) */}
-          <div className="col-span-12 md:col-span-6 flex flex-col justify-center lg:h-full lg:overflow-hidden p-2">
+          {/* Right sub-column: Two side-by-side portrait photos */}
+          <div className="col-span-12 md:col-span-6 flex flex-col justify-center lg:h-full lg:overflow-hidden">
             <div className="grid grid-cols-2 gap-4 w-full">
               {/* Left Column: Frame 2 (Vertical) */}
-              <div className="flex flex-col justify-center min-h-0">
-                <div className="w-full flex flex-col gap-3">
-                  <div className="w-full text-[9px] md:text-[10px] font-mono tracking-[0.15em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-                    <span>[ FRAME // 02 ]</span>
-                    <span>[ GLITTER ]</span>
-                  </div>
-                  <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
-                    <TiltImage
-                      src="/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp"
-                      alt="Años 20 - Brillo y Textura"
-                      onClick={() => capturePhoto('/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp')}
-                      onHoverStart={() => setIsHoveringImage(true)}
-                      onHoverEnd={() => setIsHoveringImage(false)}
-                      className="aspect-[2/3] max-h-[42vh] md:h-[42vh] w-full flex items-center justify-center"
-                      imgClassName="w-full h-full object-cover block"
-                    />
-                  </div>
-                  <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-                  <div className="w-full text-[9px] md:text-[10px] font-mono tracking-[0.15em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-                    <span>№112 // index.01</span>
-                    <span>[ SHINE ]</span>
-                  </div>
-                </div>
+              <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
+                <TiltImage
+                  src="/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp"
+                  alt="Años 20 - Brillo y Textura"
+                  onClick={() => capturePhoto('/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp')}
+                  onHoverStart={() => setIsHoveringImage(true)}
+                  onHoverEnd={() => setIsHoveringImage(false)}
+                  className="aspect-[2/3] max-h-[72vh] lg:h-[72vh] w-full flex items-center justify-center"
+                  imgClassName="w-full h-full object-cover block"
+                />
               </div>
 
               {/* Right Column: Frame 3 (Vertical) */}
-              <div className="flex flex-col justify-center min-h-0">
-                <div className="w-full flex flex-col gap-3">
-                  <div className="w-full text-[9px] md:text-[10px] font-mono tracking-[0.15em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-                    <span>[ FRAME // 03 ]</span>
-                    <span>[ SILHOUETTE ]</span>
-                  </div>
-                  <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
-                    <TiltImage
-                      src="/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp"
-                      alt="Años 20 - Retrato Equilibrio"
-                      onClick={() => capturePhoto('/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp')}
-                      onHoverStart={() => setIsHoveringImage(true)}
-                      onHoverEnd={() => setIsHoveringImage(false)}
-                      className="aspect-[2/3] max-h-[42vh] md:h-[42vh] w-full flex items-center justify-center"
-                      imgClassName="w-full h-full object-cover block"
-                    />
-                  </div>
-                  <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-                  <div className="w-full text-[9px] md:text-[10px] font-mono tracking-[0.15em] text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-                    <span>[ FOCUS // LOAD.03 ]</span>
-                    <span>[ CAPTURE ]</span>
-                  </div>
-                </div>
+              <div className="overflow-hidden border border-[var(--color-brand-marron-claro)]/25 shadow-xs rounded-xs group bg-black/[0.02]">
+                <TiltImage
+                  src="/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp"
+                  alt="Años 20 - Retrato Equilibrio"
+                  onClick={() => capturePhoto('/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp')}
+                  onHoverStart={() => setIsHoveringImage(true)}
+                  onHoverEnd={() => setIsHoveringImage(false)}
+                  className="aspect-[2/3] max-h-[72vh] lg:h-[72vh] w-full flex items-center justify-center"
+                  imgClassName="w-full h-full object-cover block"
+                />
               </div>
             </div>
           </div>
@@ -335,42 +286,23 @@ export default function Anos20Experience() {
       {/* BLOCK 2: PHYSICAL WEIGHT & FRAGMENTS */}
       <div className="w-full grid grid-cols-12 border-b border-[var(--color-brand-marron-oscuro)]/25 bg-[var(--color-brand-crema)] relative gap-4 md:gap-6 p-4 md:p-6">
         {/* Left Column: Full vertical photo */}
-        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-between gap-4">
-          <div className="w-full flex flex-col gap-3">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ SCAN // 04 ]</span>
-              <span>[ F/2.8 ]</span>
-            </div>
-            <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
-              <TiltImage
-                src="/producciones/años20/image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp"
-                alt="Años 20 - Silueta Expresiva"
-                onClick={() => capturePhoto('/producciones/años20/image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp')}
-                onHoverStart={() => setIsHoveringImage(true)}
-                onHoverEnd={() => setIsHoveringImage(false)}
-                className="w-full h-auto object-contain block"
-              />
-            </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-            <div className="flex justify-between items-center px-1">
-              <span className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase">
-                №112 season // fragment
-              </span>
-              <span className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/60 uppercase">
-                [ PORTRAIT ]
-              </span>
-            </div>
+        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-center">
+          <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
+            <TiltImage
+              src="/producciones/años20/image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp"
+              alt="Años 20 - Silueta Expresiva"
+              onClick={() => capturePhoto('/producciones/años20/image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp')}
+              onHoverStart={() => setIsHoveringImage(true)}
+              onHoverEnd={() => setIsHoveringImage(false)}
+              className="w-full h-auto object-contain block"
+            />
           </div>
         </div>
 
         {/* Middle Column: Two photos, mixed landscape & portrait */}
-        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-between gap-6">
+        <div className="col-span-12 md:col-span-4 border-b md:border-b-0 flex flex-col justify-center gap-6">
           {/* Top Landscape Photo */}
-          <div className="w-full flex flex-col gap-3">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ HORIZONTAL SCAN ]</span>
-              <span>[ REF // 05 ]</span>
-            </div>
+          <div className="w-full">
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
               <TiltImage
                 src="/producciones/años20/image-ab55dd13-2ec1-435c-b54b-c6ed1f6ab46e.webp"
@@ -381,19 +313,10 @@ export default function Anos20Experience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-              <span>[ NO. 05 // DRAMA ]</span>
-              <span>[ LANDSCAPE ]</span>
-            </div>
           </div>
 
           {/* Bottom Portrait Photo */}
-          <div className="w-full flex flex-col gap-3">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ VERTICAL SCAN ]</span>
-              <span>[ REF // 01 ]</span>
-            </div>
+          <div className="w-full">
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
               <TiltImage
                 src="/producciones/años20/fotoPortada.webp"
@@ -404,37 +327,27 @@ export default function Anos20Experience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/20 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase flex justify-between px-1">
-              <span>[ NO. 01 // VINTAGE ]</span>
-              <span>[ PORTRAIT ]</span>
-            </div>
           </div>
         </div>
 
         {/* Right Column: Editorial Text & Supporting Image */}
-        <div className="col-span-12 md:col-span-4 flex flex-col justify-between min-h-[550px] bg-black/[0.01] relative p-2">
-          <div className="text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75 flex justify-between items-center">
-            <span>[ NARRATIVE SECTION // 04 ]</span>
-            <span>[ SECTION B ]</span>
-          </div>
-
-          <div className="my-auto py-8">
-            <h2 className="text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mb-6 font-bold leading-none">
+        <div className="col-span-12 md:col-span-4 flex flex-col justify-center min-h-[550px] bg-black/[0.01] relative p-2 gap-6">
+          <div className="py-4">
+            <h2 className="text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mb-6 font-bold leading-none text-center">
               Estilismo
             </h2>
-            
-            <div className="space-y-6 mb-8">
-              <p className="text-sm md:text-base leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-left">
+
+            <div className="space-y-6 mb-8 flex flex-col items-center justify-center">
+              <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
                 A través del estilismo, el maquillaje y la puesta en escena, se busca recuperar la sofisticación característica de la década, trabajando con siluetas refinadas, detalles ornamentales, accesorios protagonistas y una estética atravesada por el dramatismo visual.
               </p>
-              <p className="text-sm md:text-base leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-left">
+              <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
                 El maquillaje toma un rol central: líneas geométricas, miradas intensas y expresiones teatrales construyen personajes que transmiten fuerza, sensualidad y presencia.
               </p>
             </div>
 
             {/* Supporting Image (image-4d1736d6-2031-4813-930b-f0376060cbb9.webp) */}
-            <div className="w-full flex flex-col gap-3">
+            <div className="w-full">
               <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02]">
                 <TiltImage
                   src="/producciones/años20/image-4d1736d6-2031-4813-930b-f0376060cbb9.webp"
@@ -445,31 +358,16 @@ export default function Anos20Experience() {
                   className="w-full h-auto object-contain block"
                 />
               </div>
-              <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)]/60 uppercase flex justify-between px-1">
-                <span>[ SUPPORTING PHOTO // IMAGE.02 ]</span>
-                <span>[ GEOMETRIC STYLE ]</span>
-              </div>
             </div>
-          </div>
-
-          <div className="flex justify-between items-center text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase opacity-75 border-t border-[var(--color-brand-marron-claro)]/15 pt-4">
-            <span>[ DRAMA ]</span>
-            <span>[ COMPOSITION ]</span>
           </div>
         </div>
       </div>
 
       {/* BLOCK 3: FEATURED PHOTO SLIDER ROW */}
       <div className="w-full py-24 px-6 md:px-12 bg-black/[0.01] border-b border-[var(--color-brand-marron-oscuro)]/25 relative overflow-visible">
-        {/* Decorative corner marks */}
-        <span className="absolute top-6 left-6 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
-        <span className="absolute top-6 right-6 text-xs font-light opacity-30 select-none pointer-events-none">+</span>
 
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-16 select-none">
+        <div className="max-w-[85rem] mx-auto flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-16 select-none">
           <div>
-            <span className="text-[10px] md:text-[11px] font-mono tracking-[0.35em] text-[var(--color-brand-marron-oscuro)]/70 uppercase font-semibold">
-              EXPOSICIÓN DESTACADA
-            </span>
             <h3 className="font-brand text-4xl sm:text-5xl uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-1.5 leading-none">
               Featured Photos
             </h3>
@@ -482,13 +380,9 @@ export default function Anos20Experience() {
         </div>
 
         {/* Asymmetric Staggered Grid Row */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-t border-[var(--color-brand-marron-claro)]/25 pt-12 relative">
+        <div className="max-w-[85rem] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-t border-[var(--color-brand-marron-claro)]/25 pt-12 relative">
           {/* Item 1: image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp (No offset) */}
           <div className="w-full flex flex-col gap-3 justify-start">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ INDEX // 58472 ]</span>
-              <span>[ CONTRASTE ]</span>
-            </div>
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
               <TiltImage
                 src="/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp"
@@ -499,18 +393,10 @@ export default function Anos20Experience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
-              №112 season // No. 58472
-            </div>
           </div>
 
           {/* Item 2: image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp (Shifted down) */}
           <div className="w-full flex flex-col gap-3 lg:translate-y-12 justify-start mt-6 lg:mt-0">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ INDEX // 98d2f ]</span>
-              <span>[ SILUETA ]</span>
-            </div>
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
               <TiltImage
                 src="/producciones/años20/image-98d2f1ab-b1d4-48aa-8234-2bccb0e2928d.webp"
@@ -521,18 +407,10 @@ export default function Anos20Experience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
-              №112 season // No. 98d2f
-            </div>
           </div>
 
           {/* Item 3: image-ab55dd13-2ec1-435c-b54b-c6ed1f6ab46e.webp (Shifted up) */}
           <div className="w-full flex flex-col gap-3 lg:-translate-y-8 justify-start mt-6 lg:mt-0">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ INDEX // ab55d ]</span>
-              <span>[ TEATRALIDAD ]</span>
-            </div>
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
               <TiltImage
                 src="/producciones/años20/image-ab55dd13-2ec1-435c-b54b-c6ed1f6ab46e.webp"
@@ -543,18 +421,10 @@ export default function Anos20Experience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
-              №112 season // No. ab55d
-            </div>
           </div>
 
           {/* Item 4: fotoPortada.webp (Shifted slightly down) */}
           <div className="w-full flex flex-col gap-3 lg:translate-y-4 justify-start mt-6 lg:mt-0">
-            <div className="text-[10px] md:text-[11px] font-mono tracking-[0.2em] text-[var(--color-brand-marron-oscuro)]/70 uppercase flex justify-between items-center px-1">
-              <span>[ INDEX // PORTADA ]</span>
-              <span>[ VINTAGE GLAM ]</span>
-            </div>
             <div className="w-full overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-xs rounded-xs group bg-black/[0.02] transition-transform duration-500 hover:-translate-y-1">
               <TiltImage
                 src="/producciones/años20/fotoPortada.webp"
@@ -565,25 +435,17 @@ export default function Anos20Experience() {
                 className="w-full h-auto object-contain block"
               />
             </div>
-            <div className="w-full h-[1px] bg-[var(--color-brand-marron-claro)]/25 my-1" />
-            <div className="text-[10px] md:text-[11px] font-mono tracking-widest text-[var(--color-brand-marron-oscuro)] uppercase pl-1">
-              №112 season // No. Portada
-            </div>
           </div>
         </div>
       </div>
 
       {/* BLOCK 4: CONCLUDING TYPOGRAPHIC QUOTE & FOCAL COVER */}
       <div className="w-full py-28 bg-[var(--color-brand-crema)] border-b border-[var(--color-brand-marron-oscuro)]/25 relative">
-        <div className="max-w-4xl mx-auto px-6 flex flex-col items-center gap-12">
+        <div className="max-w-5xl mx-auto px-6 flex flex-col items-center gap-12">
           {/* Focal landscape photo (image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp) in natural ratio */}
-          <div className="w-full max-w-3xl overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-md rounded-xs group bg-black/[0.02] p-2 relative">
-            {/* Camera Crop / Focus Corners inside frame */}
-            <span className="absolute top-4 left-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
-            <span className="absolute top-4 right-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
-            <span className="absolute bottom-4 left-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
-            <span className="absolute bottom-4 right-4 text-xs font-light text-[var(--color-brand-marron-oscuro)] opacity-40 select-none pointer-events-none">+</span>
-            
+          <div className="w-full max-w-4xl overflow-hidden border border-[var(--color-brand-marron-claro)]/20 shadow-md rounded-xs group bg-black/[0.02] p-2 relative">
+
+
             <TiltImage
               src="/producciones/años20/image-58472fae-a344-43b9-b0d2-00cf3b4593ba.webp"
               alt="Años 20 Conclusión"
@@ -603,39 +465,6 @@ export default function Anos20Experience() {
         </div>
       </div>
 
-      {/* GALLERY SECTION */}
-      <div className="max-w-6xl mx-auto px-6 py-20 border-t border-[var(--color-brand-marron-claro)]/10">
-        <div className="mb-12 select-none">
-          <h3 className="text-3xl md:text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mt-2">
-            Registro Editorial
-          </h3>
-        </div>
-
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 [column-fill:_balance]">
-          {anos20Images.map((imgSrc, index) => (
-            <motion.div
-              key={imgSrc}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: (index % 5) * 0.05 }}
-              className="break-inside-avoid overflow-hidden rounded-sm border border-[var(--color-brand-marron-claro)]/15 shadow-sm bg-black/[0.01] hover:shadow-md transition-shadow group cursor-none relative"
-              onClick={() => capturePhoto(imgSrc)}
-              onMouseEnter={() => setIsHoveringImage(true)}
-              onMouseLeave={() => setIsHoveringImage(false)}
-            >
-              <img
-                src={imgSrc}
-                alt={`Años 20 Gallery ${index}`}
-                className="w-full h-auto object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-black/[0.02] group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
       {/* Viewfinder Custom Cursor (Vibe: DSLR Camera Focusing Reticle - Minimalist) */}
       <motion.div
         className="hidden md:block fixed pointer-events-none z-50 mix-blend-difference"
@@ -646,7 +475,7 @@ export default function Anos20Experience() {
           y: springY,
         }}
       >
-        <motion.div 
+        <motion.div
           className="relative flex flex-col items-center justify-center -translate-x-1/2 -translate-y-1/2"
           animate={{
             scale: cursorMode === 'shutter' ? 0.8 : 1,
@@ -654,7 +483,7 @@ export default function Anos20Experience() {
           transition={{ type: 'spring', stiffness: 450, damping: 28 }}
         >
           {/* Viewfinder Brackets */}
-          <motion.div 
+          <motion.div
             className="absolute border-white"
             animate={{
               width: cursorMode === 'focus' ? 52 : 36,
@@ -674,7 +503,7 @@ export default function Anos20Experience() {
           </motion.div>
 
           {/* Inner Ring (Lens guideline) */}
-          <motion.div 
+          <motion.div
             className="absolute border border-white/30 rounded-full"
             animate={{
               width: cursorMode === 'focus' ? 24 : 12,
@@ -690,7 +519,7 @@ export default function Anos20Experience() {
           {/* Action indicator - clean, no boxes, spaced out */}
           <AnimatePresence>
             {cursorMode === 'focus' && (
-              <motion.span 
+              <motion.span
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 5 }}
@@ -720,7 +549,7 @@ export default function Anos20Experience() {
       {/* Camera Roll (Album Roll) */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 font-sans">
         {/* Captured Badge / Status Indicator */}
-        <motion.div 
+        <motion.div
           onClick={() => setCarreteOpen(!carreteOpen)}
           className="bg-black/90 text-[var(--color-brand-crema)] rounded-full px-5 py-3 shadow-[0_10px_35px_rgba(0,0,0,0.5)] cursor-pointer select-none flex items-center gap-3 backdrop-blur-md pointer-events-auto hover:bg-black/95 transition-all active:scale-95 border border-[var(--color-brand-marron-claro)]/25"
         >
@@ -729,7 +558,7 @@ export default function Anos20Experience() {
             CARRETE: {capturedPhotos.length} / {anos20Images.length}
           </span>
         </motion.div>
-        
+
         {/* Expanded Camera Roll Thumbnails */}
         <AnimatePresence>
           {carreteOpen && (
@@ -744,7 +573,7 @@ export default function Anos20Experience() {
                   Fotos Reveladas
                 </span>
                 {capturedPhotos.length > 0 && (
-                  <button 
+                  <button
                     onClick={(e) => {
                       e.stopPropagation();
                       setCapturedPhotos([]);
@@ -755,7 +584,7 @@ export default function Anos20Experience() {
                   </button>
                 )}
               </div>
-              
+
               {capturedPhotos.length === 0 ? (
                 <div className="py-8 text-center text-[10px] tracking-widest text-white/30 uppercase leading-relaxed">
                   No has sacado fotos aún.<br />Haz clic sobre las fotos para capturarlas.

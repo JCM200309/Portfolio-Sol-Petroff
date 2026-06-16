@@ -350,15 +350,15 @@ export default function NeoTrattoriaExperience() {
         {/* Right Column: Editorial Text & Supporting Image */}
         <div className="col-span-12 md:col-span-4 flex flex-col justify-center min-h-[550px] bg-black/[0.01] relative p-2 gap-6">
           <div className="py-8">
-            <h2 className="text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mb-6 font-bold leading-none">
+            <h2 className="text-5xl font-brand uppercase tracking-wider text-[var(--color-brand-marron-oscuro)] mb-6 font-bold leading-none text-center">
               Materialidad
             </h2>
 
-            <div className="space-y-6 mb-8">
-              <p className="text-sm md:text-base leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-left">
+            <div className="space-y-6 mb-8 flex flex-col items-center justify-center">
+              <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
                 La propuesta mezcla referencias del mundo racing, el lujo vintage y cierta teatralidad italiana, combinando materiales rígidos con telas suaves, transparencias, cuero, metal y objetos cotidianos transformados en elementos visuales.
               </p>
-              <p className="text-sm md:text-base leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-left">
+              <p className="text-base md:text-lg lg:text-xl leading-relaxed text-[var(--color-brand-marron-oscuro)]/85 text-center font-light max-w-xs md:max-w-none">
                 Las curvas, las repeticiones y las superposiciones aparecen tanto en la dirección de arte como en los cuerpos y las poses, generando imágenes donde lo sofisticado y lo espontáneo se encuentran.
               </p>
             </div>
@@ -481,7 +481,7 @@ export default function NeoTrattoriaExperience() {
             />
           </div>
 
-          <div className="max-w-3xl text-center flex flex-col items-center">
+          <div className="max-w-5xl text-center flex flex-col items-center">
             <div className="w-16 h-[1px] bg-[var(--color-brand-marron-claro)]/40 mb-8" />
             <blockquote className="text-2xl sm:text-3xl lg:text-[2.2rem] font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed text-center justify-center font-light tracking-wide">
               Neo Trattoria no busca recrear el pasado de forma literal, sino tomar su imaginario para transformarlo en algo actual, vibrante y sensorial. La producción habita ese espacio intermedio donde lo tradicional y lo contemporáneo se mezclan, generando una atmósfera que se siente nostálgica, pero al mismo tiempo viva y expansiva.
