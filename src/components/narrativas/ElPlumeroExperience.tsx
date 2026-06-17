@@ -58,7 +58,7 @@ const playVinylCrackle = () => {
     const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContext) return;
     const ctx = new AudioContext();
-    
+
     // Crackle noise generator
     const bufferSize = ctx.sampleRate * 0.45;
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
@@ -71,23 +71,23 @@ const playVinylCrackle = () => {
         data[i] = (Math.random() * 2 - 1) * 0.012; // warm surface hiss
       }
     }
-    
+
     const noise = ctx.createBufferSource();
     noise.buffer = buffer;
-    
+
     const filter = ctx.createBiquadFilter();
     filter.type = 'bandpass';
     filter.frequency.value = 1100;
     filter.Q.value = 1.2;
-    
+
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0.15, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.42);
-    
+
     noise.connect(filter);
     filter.connect(gain);
     gain.connect(ctx.destination);
-    
+
     noise.start();
   } catch (e) {
     console.warn("AudioContext failed to load: ", e);
@@ -100,21 +100,21 @@ const playNeedleTone = (frequency = 330) => {
     if (!AudioContext) return;
     const ctx = new AudioContext();
     const now = ctx.currentTime;
-    
+
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-    
+
     // Warm triangular waveform for analog vibe
     osc.type = 'triangle';
     osc.frequency.setValueAtTime(frequency, now);
     osc.frequency.exponentialRampToValueAtTime(frequency - 35, now + 0.12);
-    
+
     gain.gain.setValueAtTime(0.12, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
-    
+
     osc.connect(gain);
     gain.connect(ctx.destination);
-    
+
     osc.start(now);
     osc.stop(now + 0.55);
   } catch (e) {
@@ -264,7 +264,7 @@ export default function ElPlumeroExperience() {
 
       {/* BLOCK 1: EDITORIAL HERO */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 lg:gap-16 items-center mb-16 relative z-10">
-        
+
         {/* Left Column: Title */}
         <div className="col-span-12 lg:col-span-6 flex flex-col justify-center select-none">
           <span className="text-xs font-mono tracking-[0.35em] text-[var(--color-brand-bordo)] uppercase font-semibold mb-4">
@@ -293,7 +293,7 @@ export default function ElPlumeroExperience() {
                 className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-out select-none pointer-events-none"
               />
               <div className="absolute inset-0 bg-neutral-900/5 mix-blend-overlay group-hover:opacity-0 transition-opacity duration-700" />
-              
+
               <div className="absolute inset-4 rounded-full border border-white/5 pointer-events-none" />
               <div className="absolute inset-[30%] rounded-full border border-white/5 pointer-events-none" />
             </div>
@@ -304,16 +304,16 @@ export default function ElPlumeroExperience() {
       {/* BLOCK 2: INTERACTIVE TURNTABLE VISUALIZER */}
       <div className="w-full py-16 bg-white/30 border-y border-[var(--color-brand-marron-claro)]/20 relative z-10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 lg:gap-16 items-center">
-          
+
           {/* Left Column: Turntable Deck */}
           <div className="col-span-12 lg:col-span-6 flex flex-col items-center justify-center min-h-[460px]">
-            
+
             {/* The Turntable Player Base Box */}
             <div className="relative w-[min(85vw,340px)] h-[min(85vw,340px)] md:w-[380px] md:h-[380px] bg-white/50 border border-[var(--color-brand-marron-claro)]/25 rounded-md shadow-2xl p-6 flex items-center justify-center">
-              
+
               {/* Metallic Platter Ring */}
               <div className="relative w-[min(70vw,280px)] h-[min(70vw,280px)] md:w-[310px] md:h-[310px] rounded-full border-2 border-neutral-300 bg-neutral-100 flex items-center justify-center shadow-inner">
-                
+
                 {/* Vinyl Disc Body */}
                 <motion.div
                   animate={{ rotate: isPlaying ? 360 : 0 }}
@@ -334,7 +334,7 @@ export default function ElPlumeroExperience() {
                     <span className="text-[5px] font-mono text-[var(--color-brand-marron-oscuro)]/50 mt-1">
                       PISTA 0{activeTrack + 1}
                     </span>
-                    
+
                     {/* Spindle hole */}
                     <div className="w-3.5 h-3.5 rounded-full bg-neutral-400 border border-neutral-600 absolute shadow-inner" />
                   </div>
@@ -345,7 +345,7 @@ export default function ElPlumeroExperience() {
               <div className="absolute top-6 right-6 flex flex-col items-center select-none pointer-events-auto z-20">
                 <div className="w-12 h-12 rounded-full bg-neutral-300 border-2 border-neutral-400 shadow-md flex items-center justify-center relative">
                   <div className="w-6 h-6 rounded-full bg-neutral-600 border border-neutral-700" />
-                  
+
                   {/* Rotating Tonearm Stick */}
                   <motion.div
                     className="absolute w-2 bg-gradient-to-b from-neutral-400 via-neutral-300 to-neutral-500 rounded-full origin-top pointer-events-none"
@@ -387,18 +387,17 @@ export default function ElPlumeroExperience() {
             <span className="text-xs font-mono tracking-[0.25em] text-[var(--color-brand-marron-claro)] uppercase mb-3 block select-none">
               Sintonía y Registro
             </span>
-            
+
             {/* Horizontal Grooves Track Selector Links */}
             <div className="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-none select-none">
               {tracks.map((track) => (
                 <button
                   key={track.id}
                   onClick={() => selectTrack(track.id)}
-                  className={`px-4 py-2 border rounded-sm text-xs font-mono tracking-wider whitespace-nowrap cursor-pointer transition-all duration-300 ${
-                    activeTrack === track.id
+                  className={`px-4 py-2 border rounded-sm text-xs font-mono tracking-wider whitespace-nowrap cursor-pointer transition-all duration-300 ${activeTrack === track.id
                       ? "bg-[var(--color-brand-bordo)] border-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] font-bold"
                       : "bg-white/40 border-[var(--color-brand-marron-claro)]/20 text-[var(--color-brand-marron-oscuro)] hover:border-[var(--color-brand-bordo)]/40"
-                  }`}
+                    }`}
                 >
                   PISTA 0{track.id + 1}
                 </button>
@@ -434,7 +433,7 @@ export default function ElPlumeroExperience() {
       {/* BLOCK 3: DISQUERÍA NARRATIVE & COLLECTING */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 relative z-10 select-none">
         <div className="grid grid-cols-12 gap-8 lg:gap-16 items-center">
-          
+
           {/* Left Column: Quotes and Rituality */}
           <div className="col-span-12 lg:col-span-6 flex flex-col justify-center">
             <span className="text-xs font-mono tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase mb-3 block">
@@ -443,7 +442,7 @@ export default function ElPlumeroExperience() {
             <h3 className="text-3xl font-brand uppercase text-[var(--color-brand-marron-oscuro)] mb-6">
               El fetiche de la disquería
             </h3>
-            
+
             <div className="space-y-6 text-sm md:text-base leading-relaxed text-[var(--color-brand-marron-oscuro)]/80 text-left">
               <p>
                 La disquería se define como un espacio donde conviven historias y ausencias. Fribank reflexiona sobre la desaparición o fallecimiento de clientes habituales que encargaban discos, dotando al lugar de un halo de nostalgia silenciosa.
@@ -496,7 +495,7 @@ export default function ElPlumeroExperience() {
       {/* BLOCK 4: CURADURÍA DE VINILOS (INTERACTIVE VINYL ALBUM FLIPS) */}
       <div className="w-full py-16 bg-white/30 border-y border-[var(--color-brand-marron-claro)]/20 relative z-10 select-none">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          
+
           <div className="flex flex-col items-center text-center mb-8">
             <span className="text-xs font-mono tracking-[0.3em] text-[var(--color-brand-marron-claro)] uppercase mb-2">
               Selección de Musicomio
@@ -522,7 +521,7 @@ export default function ElPlumeroExperience() {
                 >
                   {/* Virtual sleeve container */}
                   <div className="relative w-full aspect-square mb-4 flex items-center justify-center">
-                    
+
                     {/* Record sliding out (Visible when clicked) */}
                     <motion.div
                       animate={{ y: isSelected ? -24 : 0, scale: isSelected ? 0.98 : 0.95 }}
@@ -537,22 +536,22 @@ export default function ElPlumeroExperience() {
                         <div className="w-1.5 h-1.5 rounded-full bg-neutral-400" />
                       </div>
                     </motion.div>
-                    
+
                     {/* Album Jacket Sleeve */}
                     <div className="absolute inset-0 rounded-sm border border-[var(--color-brand-marron-claro)]/25 shadow-md overflow-hidden z-10 transition-transform duration-300 group-hover:-translate-y-1">
                       {/* Album Cover Image */}
-                      <img 
-                        src={album.cover} 
-                        alt={album.title} 
-                        className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none group-hover:scale-105 transition-transform duration-500 ease-out" 
+                      <img
+                        src={album.cover}
+                        alt={album.title}
+                        className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none group-hover:scale-105 transition-transform duration-500 ease-out"
                         draggable="false"
                       />
                       {/* Dark/Warm gradient overlay for text readability */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20 z-1" />
-                      
+
                       {/* Content Overlay */}
                       <div className="absolute inset-0 flex flex-col justify-end p-5 z-2">
-                        
+
                         <div>
                           <h4 className="text-base font-brand font-bold text-[var(--color-brand-crema)] uppercase leading-tight tracking-wider mb-1 drop-shadow-sm">
                             {album.title}
@@ -590,18 +589,18 @@ export default function ElPlumeroExperience() {
       {/* BLOCK 5: OUTRO QUOTE & BUTTON CTA */}
       <div className="max-w-4xl mx-auto px-6 py-12 text-center relative z-10 flex flex-col items-center gap-12 select-none">
         <div className="w-16 h-[1px] bg-[var(--color-brand-marron-claro)]/40" />
-        
+
         <blockquote className="text-2xl sm:text-4xl font-brand italic text-[var(--color-brand-marron-oscuro)] leading-relaxed">
           “La música no es solo sonido, es un puente material hacia la memoria de quienes fuimos.”
         </blockquote>
-        
+
         <cite className="text-xs font-mono tracking-[0.25em] uppercase text-[var(--color-brand-bordo)] block not-italic -mt-4 font-bold">
           — CURADURÍA MUSICOMIO
         </cite>
 
         {/* Read Full Report Button */}
         <motion.a
-          href="/narrativa/elPlumero/reporte.pdf"
+          href="https://www.behance.net/gallery/251238929/EL-PLUMERO"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.03 }}

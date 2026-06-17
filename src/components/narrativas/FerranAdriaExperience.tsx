@@ -510,7 +510,7 @@ export default function FerranAdriaExperience() {
 
         {/* Read Full Report CTA Button */}
         <motion.a
-          href="/narrativa/ferranAdria/reporte.pdf"
+          href="https://www.behance.net/gallery/251238121/REPORTE-DE-TENDENCIAS-FERRAN-ADRIA"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.03 }}

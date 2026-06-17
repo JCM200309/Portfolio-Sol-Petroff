@@ -115,9 +115,9 @@ const backstageCategories = [
       'Tensión estética entre el glamour clásico y la dureza urbana'
     ],
     images: [
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/maquillaje/maquillaje1.jpg', caption: 'Pruebas de makeup.' },
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/maquillaje/maquillaje2.jpg', caption: 'Labios delineados en contraste.' },
-      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/maquillaje/maquillaje3.jpg', caption: 'Sesión de retoques en set.' },
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Maquillaje/maquillaje1.jpg', caption: 'Pruebas de makeup.' },
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Maquillaje/maquillaje2.jpg', caption: 'Labios delineados en contraste.' },
+      { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/Maquillaje/maquillaje3.jpg', caption: 'Sesión de retoques en set.' },
       { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/peinados/peinados1.jpg', caption: 'Detalle de peinado con ondas pulidas.' },
       { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/peinados/peinados2.jpg', caption: 'Pañuelo de seda retro.' },
       { src: '/proyectosAudiovisuales/neoTrattoria/BACKSTAGE/peinados/peinados3.jpg', caption: 'Recogido clásico para el shoot.' }

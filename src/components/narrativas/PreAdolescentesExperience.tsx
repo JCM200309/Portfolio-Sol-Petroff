@@ -488,15 +488,17 @@ export default function PreAdolescentesExperience() {
         <cite className="text-xs font-mono tracking-[0.25em] uppercase text-[var(--color-brand-bordo)] block not-italic -mt-2 font-bold">
           — ARCHIVOS DE TENDENCIAS PREADOLESCENTES
         </cite>
+
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
           <motion.a
-            href="/narrativa/preAdolescentes/reporte.pdf" target="_blank" rel="noopener noreferrer"
+            href="https://www.behance.net/gallery/251239571/PRE-ADOLESCENTES-REPORTE-DE-TENDENCIAS" target="_blank" rel="noopener noreferrer"
             whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
             className="px-8 py-5 bg-[var(--color-brand-bordo)] text-[var(--color-brand-crema)] text-xs font-mono tracking-[0.3em] uppercase rounded-sm shadow-[0_15px_40px_rgba(132,6,36,0.25)] hover:shadow-[0_20px_50px_rgba(132,6,36,0.35)] transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer border border-white/10"
           >
             <BookOpen size={16} /><span>Ver Reporte Completo</span><ArrowUpRight size={16} />
           </motion.a>
         </div>
+
       </div>
 
       {/* ── LIGHTBOX ──────────────────────────────────────────────────────────── */}
