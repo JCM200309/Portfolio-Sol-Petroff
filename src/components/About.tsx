@@ -94,7 +94,7 @@ export default function About() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Instagram card */}
                 <a
-                  href="https://instagram.com/solpetroff.ph"
+                  href="https://www.instagram.com/femmora.st/?hl=es-la"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex flex-col justify-between p-4 border border-[var(--color-brand-marron-claro)]/20 hover:border-[var(--color-brand-bordo)]/50 hover:bg-[var(--color-brand-bordo)]/[0.02] rounded-sm transition-all duration-300 pointer-events-auto"
